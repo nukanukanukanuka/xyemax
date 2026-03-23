@@ -1,0 +1,65 @@
+2026-03-23 18:47:50 [INFO] __main__ — Сессия загружена из session.json  (viewerId=240002558)
+2026-03-23 18:47:51 [INFO] __main__ — Авторизован [client], chatId=0
+2026-03-23 18:47:51 [INFO] __main__ — Собеседник: Роберт  (userId=240876353)
+2026-03-23 18:47:51 [INFO] __main__ — chatId = 240002558 XOR 240876353 = 1400511
+2026-03-23 18:47:51 [INFO] __main__ — Отправили '.' → Роберт
+2026-03-23 18:47:51 [INFO] __main__ — Получили '.' от Роберт — запускаем прокси!
+2026-03-23 18:47:52 [INFO] __main__ — SOCKS5 прокси запущен  127.0.0.1:1080  server=Роберт  chat_id=1400511
+2026-03-23 18:47:52 [INFO] __main__ — Авторизован [client], chatId=1400511
+2026-03-23 18:47:59 [INFO] __main__ — SOCKS5 → 188.40.167.82:443
+2026-03-23 18:47:59 [ERROR] __main__ — [transport] upload failed 406: <!doctype html><html lang="en"><head><title>HTTP Status 406 – Not Acceptable</title><style type="text/css">body {font-family:Tahoma,Arial,sans-serif;} h1, h2, h3, b {color:white;background-color:#525D76;} h1 {font-size:22px;} h2 {font-size:16px;} h3 {font-size:14px;} p {font-size:12px;} a {color:black;} .line {height:1px;background-color:#525D76;border:none;}</style></head><body><h1>HTTP Status 406 – Not Acceptable</h1></body></html>
+2026-03-23 18:48:14 [INFO] __main__ — tunnel 188.40.167.82:443 [4a68c44a]  TIMEOUT
+2026-03-23 18:48:22 [DEBUG] __main__ — [transport:client] keepalive sent
+2026-03-23 18:48:22 [ERROR] __main__ — WS разрыв: no close frame received or sent. Reconnect in 5s...
+2026-03-23 18:48:28 [INFO] __main__ — Авторизован [client], chatId=1400511
+2026-03-23 18:48:58 [DEBUG] __main__ — [transport:client] keepalive sent
+2026-03-23 18:48:58 [ERROR] __main__ — WS разрыв: no close frame received or sent. Reconnect in 5s...
+2026-03-23 18:49:04 [INFO] __main__ — Авторизован [client], chatId=1400511
+2026-03-23 18:49:18 [INFO] __main__ — Сессия загружена из session.json  (viewerId=240002558)
+2026-03-23 18:49:19 [INFO] __main__ — Авторизован [client], chatId=0
+2026-03-23 18:49:19 [INFO] __main__ — Собеседник: Роберт  (userId=240876353)
+2026-03-23 18:49:19 [INFO] __main__ — chatId = 240002558 XOR 240876353 = 1400511
+2026-03-23 18:49:20 [INFO] __main__ — Отправили '.' → Роберт
+2026-03-23 18:49:20 [INFO] __main__ — Получили '.' от Роберт — запускаем прокси!
+2026-03-23 18:49:20 [INFO] __main__ — SOCKS5 прокси запущен  127.0.0.1:1080  server=Роберт  chat_id=1400511
+2026-03-23 18:49:21 [INFO] __main__ — Авторизован [client], chatId=1400511
+2026-03-23 18:49:23 [INFO] __main__ — SOCKS5 → 188.40.167.82:443
+2026-03-23 18:49:23 [DEBUG] __main__ — [transport] upload ok  fileId=2980281800  size=84
+2026-03-23 18:49:39 [INFO] __main__ — tunnel 188.40.167.82:443 [f39a3f20]  TIMEOUT
+2026-03-23 18:49:50 [DEBUG] __main__ — [transport:client] keepalive sent
+2026-03-23 18:49:51 [ERROR] __main__ — WS разрыв: no close frame received or sent. Reconnect in 5s...
+2026-03-23 18:49:56 [INFO] __main__ — Авторизован [client], chatId=1400511
+2026-03-23 18:50:26 [DEBUG] __main__ — [transport:client] keepalive sent
+2026-03-23 18:50:26 [ERROR] __main__ — WS разрыв: no close frame received or sent. Reconnect in 5s...
+2026-03-23 18:50:32 [INFO] __main__ — Авторизован [client], chatId=1400511
+2026-03-23 18:51:02 [DEBUG] __main__ — [transport:client] keepalive sent
+2026-03-23 18:51:02 [ERROR] __main__ — WS разрыв: no close frame received or sent. Reconnect in 5s...
+2026-03-23 18:51:08 [INFO] __main__ — Авторизован [client], chatId=1400511
+2026-03-23 18:51:37 [DEBUG] __main__ — [transport:client] keepalive sent
+2026-03-23 18:51:38 [ERROR] __main__ — WS разрыв: no close frame received or sent. Reconnect in 5s...
+2026-03-23 18:51:43 [INFO] __main__ — Авторизован [client], chatId=1400511
+2026-03-23 18:52:13 [DEBUG] __main__ — [transport:client] keepalive sent
+2026-03-23 18:52:13 [ERROR] __main__ — WS разрыв: no close frame received or sent. Reconnect in 5s...
+2026-03-23 18:52:19 [INFO] __main__ — Авторизован [client], chatId=1400511
+2026-03-23 18:52:49 [DEBUG] __main__ — [transport:client] keepalive sent
+2026-03-23 18:52:49 [ERROR] __main__ — WS разрыв: no close frame received or sent. Reconnect in 5s...
+2026-03-23 18:52:55 [INFO] __main__ — Авторизован [client], chatId=1400511
+2026-03-23 18:53:24 [DEBUG] __main__ — [transport:client] keepalive sent
+2026-03-23 18:53:25 [ERROR] __main__ — WS разрыв: no close frame received or sent. Reconnect in 5s...
+2026-03-23 18:53:30 [INFO] __main__ — Авторизован [client], chatId=1400511
+2026-03-23 18:54:00 [DEBUG] __main__ — [transport:client] keepalive sent
+2026-03-23 18:54:00 [ERROR] __main__ — WS разрыв: no close frame received or sent. Reconnect in 5s...
+2026-03-23 18:54:06 [INFO] __main__ — Авторизован [client], chatId=1400511
+2026-03-23 18:54:36 [DEBUG] __main__ — [transport:client] keepalive sent
+2026-03-23 18:54:36 [ERROR] __main__ — WS разрыв: no close frame received or sent. Reconnect in 5s...
+2026-03-23 18:54:42 [INFO] __main__ — Авторизован [client], chatId=1400511
+2026-03-23 18:55:11 [DEBUG] __main__ — [transport:client] keepalive sent
+2026-03-23 18:55:41 [DEBUG] __main__ — [transport:client] keepalive sent
+2026-03-23 18:55:42 [ERROR] __main__ — WS разрыв: no close frame received or sent. Reconnect in 5s...
+2026-03-23 18:55:48 [INFO] __main__ — Авторизован [client], chatId=1400511
+2026-03-23 18:56:17 [DEBUG] __main__ — [transport:client] keepalive sent
+2026-03-23 18:56:17 [ERROR] __main__ — WS разрыв: no close frame received or sent. Reconnect in 5s...
+2026-03-23 18:56:23 [INFO] __main__ — Авторизован [client], chatId=1400511
+2026-03-23 18:56:53 [DEBUG] __main__ — [transport:client] keepalive sent
+2026-03-23 18:56:53 [ERROR] __main__ — WS разрыв: no close frame received or sent. Reconnect in 5s...
+2026-03-23 18:56:59 [INFO] __main__ — Авторизован [client], chatId=1400511

@@ -171,9 +171,12 @@ class MaxTransport:
             # 2. Уведомление о загрузке файла (opcode 65)
             await self._send_raw(65, {"chatId": self.chat_id, "type": "FILE"})
 
-            # 3. Загрузить файл — raw binary POST
-            headers = {"Content-Type": "application/octet-stream"}
-            async with http.post(up_url, data=file_body, headers=headers) as resp:
+            # 3. Загрузить файл — multipart/form-data
+            form = aiohttp.FormData()
+            form.add_field("file", file_body,
+                           filename="data.bin",
+                           content_type="application/octet-stream")
+            async with http.post(up_url, data=form) as resp:
                 if resp.status != 200:
                     body = await resp.text()
                     log.error(f"[transport] upload failed {resp.status}: {body}"); return

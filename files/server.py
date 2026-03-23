@@ -322,13 +322,12 @@ class MaxTransport:
             raise
 
     async def _keepalive(self):
-        """Отправляем no-op фрейм каждые 30с чтобы не получить таймаут от MAX."""
+        """Отправляем опрос подписки каждые 25с чтобы не получить таймаут от MAX."""
         while True:
-            await asyncio.sleep(30)
+            await asyncio.sleep(25)
             try:
-                # opcode 0 cmd 0 — пустой пакет, сервер его игнорирует
-                frame = {"ver": 11, "cmd": 2, "seq": self._next_seq(), "opcode": 0, "payload": {}}
-                await self.ws.send(json.dumps(frame, separators=(",", ":")))
+                # opcode 48 — переподписка на чат, MAX точно понимает и не рвёт соединение
+                await self._send_raw(48, {"chatIds": [self.chat_id]})
                 log.debug(f"[transport:{self.role}] keepalive sent")
             except Exception as e:
                 log.debug(f"[transport:{self.role}] keepalive error: {e}")
