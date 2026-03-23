@@ -232,6 +232,10 @@ class MaxTransport:
                 f = self._once.pop("op19");  f.done() or f.set_result(pl); continue
             if cmd == 1 and op == 87  and "op87"  in self._once:
                 f = self._once.pop("op87");  f.done() or f.set_result(pl); continue
+            if cmd == 1 and op == 88:
+                key = next((k for k in list(self._once) if k.startswith("op88_")), None)
+                if key:
+                    f = self._once.pop(key); f.done() or f.set_result(pl); continue
             if cmd == 0 and op == 136 and "op136" in self._once:
                 f = self._once.pop("op136"); f.done() or f.set_result(pl); continue
             if cmd == 0 and op in (292, 48, 180, 177, 65, 130):
@@ -253,21 +257,40 @@ class MaxTransport:
 
                 # Файловое вложение — скачиваем и парсим фрейм
                 attach = attaches[0]
+                log.debug(f"[transport] attach full={attach}")
                 if attach.get("_type") != "FILE":
                     continue
-                token = attach.get("token")
-                if not token:
-                    log.warning("[transport] нет token в attach"); continue
-                asyncio.create_task(self._recv_file(token, sender))
+                file_id = attach.get("fileId") or attach.get("id")
+                msg_id  = msg.get("msgId") or msg.get("id") or ""
+                if not file_id:
+                    log.warning(f"[transport] нет fileId в attach: {attach}"); continue
+                asyncio.create_task(self._recv_file(int(file_id), str(msg_id), chat_id, sender))
 
-    async def _recv_file(self, token: str, sender):
-        """Скачать файл по token и распарсить фрейм туннеля."""
-        url = f"{_FILE_DOWNLOAD_URL}?token={token}"
+    async def _resolve_download_url(self, file_id: int, msg_id: str, chat_id: int) -> str | None:
+        """Получить прямой URL для скачивания файла через opcode 88."""
+        key = f"op88_{file_id}"
+        fut = asyncio.get_event_loop().create_future()
+        self._once[key] = fut
+        await self._send_raw(88, {"fileId": file_id, "chatId": chat_id, "messageId": msg_id})
+        try:
+            pl = await asyncio.wait_for(fut, timeout=10.0)
+            url = pl.get("url")
+            log.debug(f"[transport] op88 fileId={file_id} url={url}")
+            return url
+        except asyncio.TimeoutError:
+            log.error(f"[transport] op88 timeout fileId={file_id}")
+            return None
+
+    async def _recv_file(self, file_id: int, msg_id: str, chat_id: int, sender):
+        """Получить URL через opcode 88, скачать файл и распарсить фрейм туннеля."""
+        url = await self._resolve_download_url(file_id, msg_id, chat_id)
+        if not url:
+            return
         try:
             async with aiohttp.ClientSession() as http:
                 async with http.get(url, timeout=aiohttp.ClientTimeout(total=15)) as resp:
                     if resp.status != 200:
-                        log.error(f"[transport] download failed {resp.status} token={token}"); return
+                        log.error(f"[transport] download failed {resp.status} fileId={file_id}"); return
                     file_body = await resp.read()
         except Exception as e:
             log.error(f"[transport] download error: {e}"); return
