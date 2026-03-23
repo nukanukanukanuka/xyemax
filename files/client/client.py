@@ -123,6 +123,7 @@ class MaxTransport:
         self._once: dict[str, asyncio.Future] = {}
         self.on_frame   = None
         self.on_message = None
+        self._op88_lock = asyncio.Lock()   # сериализует запросы op88 — MAX не эхоит fileId
         # Батчинг: накапливаем фреймы и отправляем одним файлом строго по очереди
         self._send_buffer: list[bytes] = []
         self._flush_task: asyncio.Task | None = None
@@ -315,19 +316,21 @@ class MaxTransport:
                 asyncio.create_task(self._recv_file(int(file_id), str(msg_id), chat_id, sender))
 
     async def _resolve_download_url(self, file_id: int, msg_id: str, chat_id: int) -> str | None:
-        """Получить прямой URL для скачивания файла через opcode 88."""
-        key = f"op88_{file_id}"
-        fut = asyncio.get_event_loop().create_future()
-        self._once[key] = fut
-        await self._send_raw(88, {"fileId": file_id, "chatId": chat_id, "messageId": msg_id})
-        try:
-            pl = await asyncio.wait_for(fut, timeout=10.0)
-            url = pl.get("url")
-            log.debug(f"[transport] op88 fileId={file_id} url={url}")
-            return url
-        except asyncio.TimeoutError:
-            log.error(f"[transport] op88 timeout fileId={file_id}")
-            return None
+        """Получить прямой URL для скачивания файла через opcode 88 (строго по одному)."""
+        async with self._op88_lock:
+            key = f"op88_{file_id}"
+            fut = asyncio.get_event_loop().create_future()
+            self._once[key] = fut
+            await self._send_raw(88, {"fileId": file_id, "chatId": chat_id, "messageId": msg_id})
+            try:
+                pl = await asyncio.wait_for(fut, timeout=10.0)
+                url = pl.get("url")
+                log.debug(f"[transport] op88 fileId={file_id} url={url}")
+                return url
+            except asyncio.TimeoutError:
+                self._once.pop(key, None)
+                log.error(f"[transport] op88 timeout fileId={file_id}")
+                return None
 
     async def _recv_file(self, file_id: int, msg_id: str, chat_id: int, sender):
         """Получить URL через opcode 88, скачать файл и распарсить фреймы туннеля."""
