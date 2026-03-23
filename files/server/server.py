@@ -135,14 +135,14 @@ class MaxTransport:
         self._once: dict[str, asyncio.Future] = {}
         self.on_frame   = None
         self.on_message = None
-        self._op88_lock = asyncio.Lock()   # сериализует запросы op88 — MAX не эхоит fileId
         # Батчинг: накапливаем фреймы и отправляем одним файлом строго по очереди
         self._send_buffer: list[bytes] = []
         self._flush_task: asyncio.Task | None = None
         self._send_queue: asyncio.Queue = asyncio.Queue()   # сериализует _send_file
         self._send_worker_task: asyncio.Task | None = None
-        self._BATCH_DELAY = 0.015  # секунд ждём перед отправкой
+        self._BATCH_DELAY = 0.005  # секунд ждём перед отправкой (5ms вместо 15ms)
         self._BATCH_MAX   = 32     # не более N фреймов в одном файле
+        self._UPLOAD_CONCURRENCY = 3  # параллельных загрузок файлов
         self._http: aiohttp.ClientSession | None = None  # persistent HTTP session
 
     def _next_seq(self):
@@ -178,7 +178,9 @@ class MaxTransport:
                 self._flush_task.cancel()
             await self._flush_buffer()
         elif self._flush_task is None or self._flush_task.done():
-            self._flush_task = asyncio.create_task(self._flush_after(self._BATCH_DELAY))
+            # Если очередь пустая — отправляем без задержки
+            delay = 0 if self._send_queue.empty() else self._BATCH_DELAY
+            self._flush_task = asyncio.create_task(self._flush_after(delay))
 
     async def _flush_after(self, delay: float):
         """Ждём delay секунд, затем отправляем накопленное."""
@@ -201,15 +203,26 @@ class MaxTransport:
         await self._send_queue.put(file_body)
 
     async def _send_worker(self):
-        """Отправляет батчи строго по одному — гарантирует порядок доставки."""
+        """Отправляет батчи параллельно (до _UPLOAD_CONCURRENCY) — увеличивает пропускную способность."""
+        sem = asyncio.Semaphore(self._UPLOAD_CONCURRENCY)
+
+        async def _send_one(body: bytes):
+            async with sem:
+                try:
+                    await self._send_file(body)
+                except Exception as e:
+                    log.error(f"[transport] send_worker error: {e}", exc_info=True)
+
+        tasks: list[asyncio.Task] = []
         while True:
             file_body = await self._send_queue.get()
             if file_body is None:  # сигнал остановки
+                if tasks:
+                    await asyncio.gather(*tasks, return_exceptions=True)
                 break
-            try:
-                await self._send_file(file_body)
-            except Exception as e:
-                log.error(f"[transport] send_worker error: {e}")
+            # Чистим завершённые задачи
+            tasks = [t for t in tasks if not t.done()]
+            tasks.append(asyncio.create_task(_send_one(file_body)))
 
     async def _send_file(self, file_body: bytes):
         """Загрузить файл через MAX File API и отправить сообщением с вложением."""
@@ -334,21 +347,20 @@ class MaxTransport:
                 asyncio.create_task(self._recv_file(int(file_id), str(msg_id), chat_id, sender))
 
     async def _resolve_download_url(self, file_id: int, msg_id: str, chat_id: int) -> str | None:
-        """Получить прямой URL для скачивания файла через opcode 88 (строго по одному)."""
-        async with self._op88_lock:
-            key = f"op88_{file_id}"
-            fut = asyncio.get_event_loop().create_future()
-            self._once[key] = fut
-            await self._send_raw(88, {"fileId": file_id, "chatId": chat_id, "messageId": msg_id})
-            try:
-                pl = await asyncio.wait_for(fut, timeout=10.0)
-                url = pl.get("url")
-                log.debug(f"[transport] op88 fileId={file_id} url={url}")
-                return url
-            except asyncio.TimeoutError:
-                self._once.pop(key, None)
-                log.error(f"[transport] op88 timeout fileId={file_id}")
-                return None
+        """Получить прямой URL для скачивания файла через opcode 88 (параллельно по fileId)."""
+        key = f"op88_{file_id}"
+        fut = asyncio.get_event_loop().create_future()
+        self._once[key] = fut
+        await self._send_raw(88, {"fileId": file_id, "chatId": chat_id, "messageId": msg_id})
+        try:
+            pl = await asyncio.wait_for(fut, timeout=10.0)
+            url = pl.get("url")
+            log.debug(f"[transport] op88 fileId={file_id} url={url}")
+            return url
+        except asyncio.TimeoutError:
+            self._once.pop(key, None)
+            log.error(f"[transport] op88 timeout fileId={file_id}")
+            return None
 
     async def _recv_file(self, file_id: int, msg_id: str, chat_id: int, sender):
         """Получить URL через opcode 88, скачать файл и распарсить фреймы туннеля."""
@@ -613,17 +625,17 @@ class ProxyServer:
         try:
             while True:
                 try:
-                    chunk = await asyncio.wait_for(reader.read(8192), timeout=60)
+                    chunk = await asyncio.wait_for(reader.read(65536), timeout=60)
                 except asyncio.TimeoutError:
                     log.debug(f"[{cid}] pipe timeout (60s idle)"); break
                 if not chunk:
                     log.debug(f"[{cid}] remote EOF"); break
                 buf = bytearray(chunk)
-                for _ in range(8):
-                    if len(buf) >= 8192: break
+                for _ in range(16):
+                    if len(buf) >= 65536: break
                     try:
                         more = await asyncio.wait_for(
-                            reader.read(min(4096, 8192 - len(buf))), timeout=0.02)
+                            reader.read(min(16384, 65536 - len(buf))), timeout=0.005)
                         if not more: break
                         buf.extend(more)
                     except asyncio.TimeoutError: break
