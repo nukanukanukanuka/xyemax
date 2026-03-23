@@ -348,11 +348,11 @@ class MaxTransport:
         if not url:
             return
         try:
-            async with aiohttp.ClientSession() as http:
-                async with http.get(url, timeout=aiohttp.ClientTimeout(total=15)) as resp:
-                    if resp.status != 200:
-                        log.error(f"[transport] download failed {resp.status} fileId={file_id}"); return
-                    file_body = await resp.read()
+            http = self._http
+            async with http.get(url, timeout=aiohttp.ClientTimeout(total=15)) as resp:
+                if resp.status != 200:
+                    log.error(f"[transport] download failed {resp.status} fileId={file_id}"); return
+                file_body = await resp.read()
         except Exception as e:
             log.error(f"[transport] download error: {e}"); return
 
