@@ -371,8 +371,12 @@ class MaxTransport:
             finally:
                 keepalive_task.cancel()
                 await self._send_queue.put(None)  # останавливаем воркер
-                await send_worker_task
-                await self._http.close()
+                try:
+                    await send_worker_task
+                except Exception:
+                    pass
+                if self._http and not self._http.closed:
+                    await asyncio.shield(self._http.close())
                 self._http = None
 
     async def _keepalive(self):

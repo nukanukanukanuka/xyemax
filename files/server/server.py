@@ -271,6 +271,8 @@ class MaxTransport:
         })
         await self._wait_once("op19")
         await self._send_raw(48, {"chatIds": [self.chat_id]})
+        # Явная подписка на чат — гарантирует получение op128 с файлами
+        await self._send_raw(75, {"chatId": self.chat_id, "subscribe": True})
         log.info(f"Авторизован [server], chatId={self.chat_id}")
 
     async def _recv_loop(self):
@@ -384,8 +386,12 @@ class MaxTransport:
                 finally:
                     keepalive_task.cancel()
                     await self._send_queue.put(None)  # останавливаем воркер
-                    await send_worker_task
-                    await self._http.close()
+                    try:
+                        await send_worker_task
+                    except Exception:
+                        pass
+                    if self._http and not self._http.closed:
+                        await asyncio.shield(self._http.close())
                     self._http = None
         except Exception as e:
             log.error(f"[transport:{self.role}] connect завершился: {type(e).__name__}: {e!r}", exc_info=True)
