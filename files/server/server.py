@@ -240,8 +240,14 @@ class MaxTransport:
                 log.error(f"[transport] upload failed {resp.status}: {body}"); return
             log.debug(f"[transport] upload ok  fileId={file_id}  size={len(file_body)}")
 
-        # 4. op136 не ждём — отправляем сообщение сразу после upload
-        # MAX принимает fileId как только файл залит, подтверждение не нужно
+        # 4. Ждём op136 — MAX должен подтвердить что файл принят в систему
+        # прежде чем fileId можно использовать в сообщении
+        fut136 = asyncio.get_event_loop().create_future()
+        self._once["op136"] = fut136
+        try:
+            await asyncio.wait_for(fut136, timeout=5.0)
+        except asyncio.TimeoutError:
+            log.warning("[transport] op136 timeout — всё равно отправляем")
 
         # 5. Отправить сообщение с вложением
         await self._send_raw(64, {
