@@ -1,17 +1,25 @@
 #!/usr/bin/env python3
 """
-server.py — запускается на VPS. Самодостаточный файл.
+get_session.py — клиентская сторона. Самодостаточный файл.
 
-Каждые POLL_INTERVAL секунд опрашивает:
-    GET https://telegram.mooner.pro/api/max/status
-    → {"links": ["https://max.ru/u/TOKEN1", ...]}
+Запуск:
+    python3 get_session.py https://max.ru/u/TOKEN
 
-Новая ссылка  → резолвим chatId, шлём '.', поднимаем прокси
-Ссылка ушла  → останавливаем прокси, удаляем из sessions.json
+Сценарий:
+    1. Если session.json не найден — открываем браузер, ждём QR, сохраняем сессию
+    2. Резолвим ссылку → получаем имя и userId собеседника
+    3. Вычисляем chatId = viewerId XOR userId
+    4. Отправляем '.' собеседнику
+    5. Ждём '.' в ответ
+    6. Запускаем SOCKS5 прокси на localhost:1080
 
 Логи:
-  - подробный DEBUG → proxy_server.log (ротация 10 МБ × 5)
+  - подробный DEBUG → proxy_client.log (ротация 10 МБ × 5)
   - краткий INFO    → консоль (только значимые события)
+
+Зависимости:
+    pip install websockets playwright
+    playwright install chromium
 """
 
 import asyncio
@@ -21,6 +29,7 @@ import logging
 import logging.handlers
 import sys
 import time
+import uuid
 import zlib
 from pathlib import Path
 
@@ -30,49 +39,28 @@ import websockets
 # ══════════════════════════════════════════════════════════════════════════════
 # ФАЙЛОВЫЙ ТРАНСПОРТ — константы
 # ══════════════════════════════════════════════════════════════════════════════
-# Формат файла: [4 байта BE: длина JSON-заголовка][JSON заголовок][бинарные данные]
-# Заголовок содержит все поля фрейма кроме "d" (тело идёт как бинарь после)
-# Для управляющих фреймов (connect/ok/err/close/closed) тело пустое.
 _FILE_DOWNLOAD_URL = "https://fu.oneme.ru/api/download.do"
 
 # ══════════════════════════════════════════════════════════════════════════════
-# КОНФИГ — читается из config.py (рядом с server.py)
+# НАСТРОЙКИ
 # ══════════════════════════════════════════════════════════════════════════════
 
-def _load_config():
-    cfg_path = Path(__file__).parent / "server.conf"
-    if not cfg_path.exists():
-        raise FileNotFoundError(f"server.conf не найден: {cfg_path}")
-    cfg = {}
-    for line in cfg_path.read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if not line or line.startswith("#"): continue
-        key, _, val = line.partition("=")
-        cfg[key.strip()] = val.strip()
-    return cfg
-
-_cfg = _load_config()
-
-TOKEN     = _cfg["TOKEN"]
-VIEWER_ID = int(_cfg["VIEWER_ID"])
-DEVICE_ID = _cfg["DEVICE_ID"]
-
-STATUS_URL    = "https://telegram.mooner.pro/api/max/status"
-SESSIONS_FILE = Path("sessions.json")
-POLL_INTERVAL = 30
+SESSION_FILE = Path("session.json")
+SOCKS5_HOST  = "127.0.0.1"
+SOCKS5_PORT  = 1080
 
 _LOGS_DIR = Path("logs")
 _LOGS_DIR.mkdir(exist_ok=True)
-LOG_FILE  = _LOGS_DIR / f"server_{time.strftime('%Y-%m-%d_%H-%M-%S')}.log"
+LOG_FILE  = _LOGS_DIR / f"client_{time.strftime('%Y-%m-%d_%H-%M-%S')}.log"
 
 # ══════════════════════════════════════════════════════════════════════════════
 # ЛОГИРОВАНИЕ
 # ══════════════════════════════════════════════════════════════════════════════
 
 class _SpeedFilter(logging.Filter):
-    """Пропускает в консоль только строки со статистикой соединений (pipe done)."""
+    """Пропускает в консоль только строки со статистикой соединений (DONE)."""
     def filter(self, record):
-        return "pipe done" in record.getMessage()
+        return record.getMessage().startswith("DONE ")
 
 
 def _setup_logging():
@@ -88,14 +76,14 @@ def _setup_logging():
     ))
     root.addHandler(fh)
 
-    # Консоль — только строки статистики туннеля (клиент + скорость)
+    # Консоль — только строки статистики туннеля (сервер + скорость)
     ch = logging.StreamHandler(sys.stdout)
     ch.setLevel(logging.INFO)
     ch.setFormatter(logging.Formatter("%(asctime)s  %(message)s", datefmt="%H:%M:%S"))
     ch.addFilter(_SpeedFilter())
     root.addHandler(ch)
 
-    for noisy in ("websockets", "asyncio", "aiohttp"):
+    for noisy in ("websockets", "asyncio"):
         logging.getLogger(noisy).setLevel(logging.WARNING)
 
 
@@ -135,9 +123,11 @@ class MaxTransport:
         self._once: dict[str, asyncio.Future] = {}
         self.on_frame   = None
         self.on_message = None
-        # Батчинг: накапливаем фреймы и отправляем одним файлом
+        # Батчинг: накапливаем фреймы и отправляем одним файлом строго по очереди
         self._send_buffer: list[bytes] = []
         self._flush_task: asyncio.Task | None = None
+        self._send_queue: asyncio.Queue = asyncio.Queue()   # сериализует _send_file
+        self._send_worker_task: asyncio.Task | None = None
         self._BATCH_DELAY = 0.04   # секунд ждём перед отправкой
         self._BATCH_MAX   = 16     # не более N фреймов в одном файле
 
@@ -182,7 +172,7 @@ class MaxTransport:
         await self._flush_buffer()
 
     async def _flush_buffer(self):
-        """Упаковать все накопленные фреймы в один файл и отправить."""
+        """Упаковать все накопленные фреймы в один файл и поставить в очередь отправки."""
         if not self._send_buffer:
             return
         frames = self._send_buffer[:]
@@ -194,7 +184,18 @@ class MaxTransport:
             parts.append(len(f).to_bytes(4, "big") + f)
         file_body = b"".join(parts)
         log.debug(f"[transport] batch flush  frames={n}  total={len(file_body)}B")
-        await self._send_file(file_body)
+        await self._send_queue.put(file_body)
+
+    async def _send_worker(self):
+        """Отправляет батчи строго по одному — гарантирует порядок доставки."""
+        while True:
+            file_body = await self._send_queue.get()
+            if file_body is None:  # сигнал остановки
+                break
+            try:
+                await self._send_file(file_body)
+            except Exception as e:
+                log.error(f"[transport] send_worker error: {e}")
 
     async def _send_file(self, file_body: bytes):
         """Загрузить файл через MAX File API и отправить сообщением с вложением."""
@@ -214,7 +215,7 @@ class MaxTransport:
             # 2. Уведомление о загрузке файла (opcode 65)
             await self._send_raw(65, {"chatId": self.chat_id, "type": "FILE"})
 
-            # 3. Загрузить файл — multipart/form-data (как клиент)
+            # 3. Загрузить файл — multipart/form-data
             form = aiohttp.FormData()
             form.add_field("file", file_body,
                            filename="data.bin",
@@ -247,7 +248,7 @@ class MaxTransport:
         await self._send_raw(6, {
             "userAgent": {
                 "deviceType": "WEB", "locale": "ru", "deviceLocale": "ru",
-                "osVersion": "Linux", "deviceName": "Chrome",
+                "osVersion": "Windows", "deviceName": "Chrome",
                 "headerUserAgent": _WS_HEADERS["User-Agent"],
                 "appVersion": "26.3.7", "screen": "1920x1080 1.0x",
                 "timezone": "Europe/Moscow",
@@ -261,7 +262,7 @@ class MaxTransport:
         })
         await self._wait_once("op19")
         await self._send_raw(48, {"chatIds": [self.chat_id]})
-        log.info(f"Авторизован [server], chatId={self.chat_id}")
+        log.info(f"Авторизован [client], chatId={self.chat_id}")
 
     async def _recv_loop(self):
         async for raw in self.ws:
@@ -276,8 +277,6 @@ class MaxTransport:
             if cmd == 1 and op == 87  and "op87"  in self._once:
                 f = self._once.pop("op87");  f.done() or f.set_result(pl); continue
             if cmd == 1 and op == 88:
-                # ключ хранится как op88_{fileId}; fileId берём из запроса через seq —
-                # но проще: ищем совпадающий ключ, т.к. запросы обычно не параллельны
                 key = next((k for k in list(self._once) if k.startswith("op88_")), None)
                 if key:
                     f = self._once.pop(key); f.done() or f.set_result(pl); continue
@@ -352,30 +351,29 @@ class MaxTransport:
                 asyncio.create_task(self.on_frame(obj))
 
     async def connect(self):
-        try:
-            async with websockets.connect(
-                _WS_URL, additional_headers=_WS_HEADERS,
-                ping_interval=None,   # отключаем встроенные пинги — MAX не отвечает на WS ping
-                close_timeout=5,
-            ) as ws:
-                self.ws = ws
-                recv_task = asyncio.create_task(self._recv_loop())
-                keepalive_task = asyncio.create_task(self._keepalive())
-                await self._handshake()
-                try:
-                    await recv_task
-                finally:
-                    keepalive_task.cancel()
-        except Exception as e:
-            log.error(f"[transport:{self.role}] connect завершился: {type(e).__name__}: {e!r}", exc_info=True)
-            raise
+        async with websockets.connect(
+            _WS_URL, additional_headers=_WS_HEADERS,
+            ping_interval=None,   # отключаем встроенные пинги — MAX не отвечает на WS ping
+            close_timeout=5,
+        ) as ws:
+            self.ws = ws
+            self._send_queue     = asyncio.Queue()
+            recv_task            = asyncio.create_task(self._recv_loop())
+            keepalive_task       = asyncio.create_task(self._keepalive())
+            send_worker_task     = asyncio.create_task(self._send_worker())
+            await self._handshake()
+            try:
+                await recv_task
+            finally:
+                keepalive_task.cancel()
+                await self._send_queue.put(None)  # останавливаем воркер
+                await send_worker_task
 
     async def _keepalive(self):
-        """Отправляем опрос подписки каждые 25с чтобы не получить таймаут от MAX."""
+        """Отправляем переподписку на чат каждые 25с — MAX точно понимает и не рвёт соединение."""
         while True:
             await asyncio.sleep(25)
             try:
-                # opcode 48 — переподписка на чат, MAX точно понимает и не рвёт соединение
                 await self._send_raw(48, {"chatIds": [self.chat_id]})
                 log.debug(f"[transport:{self.role}] keepalive sent")
             except Exception as e:
@@ -438,326 +436,398 @@ def _fmt_speed(total_bytes: float, elapsed: float) -> str:
     return f"{bps/1024:.1f} КБ/с"
 
 
-def _extract_link_token(url: str) -> str:
+def _extract_link_token(raw: str) -> str:
     for prefix in ("https://max.ru/", "http://max.ru/", "/"):
-        if url.startswith(prefix): url = url[len(prefix):]
-    return url
+        if raw.startswith(prefix): raw = raw[len(prefix):]
+    return raw
 
 # ══════════════════════════════════════════════════════════════════════════════
-# SESSIONS
+# ШАГ 1: ПОЛУЧИТЬ СЕССИЮ ЧЕРЕЗ БРАУЗЕР
 # ══════════════════════════════════════════════════════════════════════════════
 
-def _load_sessions() -> dict:
-    if SESSIONS_FILE.exists():
-        try: return json.loads(SESSIONS_FILE.read_text())
-        except Exception: pass
-    return {}
+def acquire_session() -> dict:
+    if SESSION_FILE.exists():
+        session = json.loads(SESSION_FILE.read_text())
+        if session.get("token") and session.get("viewerId") and session.get("deviceId"):
+            log.info(f"Сессия загружена из {SESSION_FILE}  (viewerId={session['viewerId']})")
+            return session
 
+    log.info("session.json не найден — запускаем браузер для авторизации")
 
-def _save_sessions(sessions: dict):
-    SESSIONS_FILE.write_text(json.dumps(sessions, indent=2, ensure_ascii=False))
+    try:
+        from playwright.sync_api import sync_playwright, TimeoutError as PWTimeout
+    except ImportError:
+        print("[!] Playwright не установлен. Запусти:")
+        print("    pip install playwright && playwright install chromium")
+        sys.exit(1)
+
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch(headless=False, args=["--start-maximized"])
+        ctx  = browser.new_context(viewport=None, user_agent=_WS_HEADERS["User-Agent"])
+        page = ctx.new_page()
+
+        print("[*] Открываем web.max.ru ...")
+        page.goto("https://web.max.ru", wait_until="domcontentloaded")
+
+        print("[*] Ждём QR-код ...")
+        try:
+            page.wait_for_selector("canvas", timeout=30_000)
+            print()
+            print("=" * 50)
+            print("  📱 Отсканируй QR-код в приложении MAX")
+            print("     Профиль → QR-код / Войти по QR")
+            print("=" * 50)
+        except PWTimeout:
+            print("[*] QR не найден — возможно уже авторизован")
+
+        print("[*] Ожидаем авторизации (до 2 минут) ...")
+        token, deadline = None, time.time() + 120
+        while time.time() < deadline:
+            try:
+                auth_raw = page.evaluate("() => localStorage.getItem('__oneme_auth')")
+                auth  = json.loads(auth_raw) if auth_raw else {}
+                token = auth.get("token") or auth.get("authToken")
+            except Exception: pass
+            if token: break
+            print(f"\r[*] Ждём токен... {int(deadline - time.time())}s  ", end="", flush=True)
+            time.sleep(1)
+        print()
+
+        if not token:
+            print("[!] Токен не получен. Попробуй снова.")
+            browser.close(); sys.exit(1)
+
+        auth_raw  = page.evaluate("() => localStorage.getItem('__oneme_auth')")
+        auth      = json.loads(auth_raw)
+        viewer_id = auth.get("viewerId") or auth.get("userId")
+        device_id = page.evaluate("() => localStorage.getItem('__oneme_device_id')")
+        time.sleep(2)
+        browser.close()
+
+    session = {"token": token, "viewerId": int(viewer_id), "deviceId": device_id}
+    SESSION_FILE.write_text(json.dumps(session, indent=2))
+    log.info(f"Сессия загружена из {SESSION_FILE}  (viewerId={viewer_id})")
+    print(f"[✓] Сессия сохранена в {SESSION_FILE}")
+    return session
 
 # ══════════════════════════════════════════════════════════════════════════════
-# RESOLVE + PING
+# ШАГИ 2-5: РЕЗОЛВ + ОБМЕН ТОЧКАМИ
 # ══════════════════════════════════════════════════════════════════════════════
 
-async def _resolve_and_ping(link_url: str) -> dict:
-    link_token = _extract_link_token(link_url)
-    transport  = MaxTransport("server", TOKEN, VIEWER_ID, DEVICE_ID, 0)
-    once: dict = {}
+class _SetupClient:
+    def __init__(self, transport: MaxTransport):
+        self.t = transport
+        transport.on_frame = lambda _: asyncio.sleep(0)
 
-    async def recv_loop(ws):
-        async for raw in ws:
+    async def _recv_loop(self):
+        async for raw in self.t.ws:
             try: frame = json.loads(raw)
             except Exception: continue
             op, cmd, pl = frame.get("opcode"), frame.get("cmd"), frame.get("payload", {})
-            if   cmd==1 and op==6  and "op6"  in once: f=once.pop("op6");  f.done() or f.set_result(pl)
-            elif cmd==1 and op==19 and "op19" in once: f=once.pop("op19"); f.done() or f.set_result(pl)
-            elif cmd==1 and op==89 and "op89" in once: f=once.pop("op89"); f.done() or f.set_result(pl)
-            elif cmd==1 and op==64 and "op64" in once: f=once.pop("op64"); f.done() or f.set_result(pl)
 
-    async with websockets.connect(
-        _WS_URL, additional_headers=_WS_HEADERS, ping_interval=20, ping_timeout=30,
-    ) as ws:
-        transport.ws = ws; transport._once = once
-        recv_task = asyncio.create_task(recv_loop(ws))
-        await asyncio.sleep(0)
-        await transport._handshake()
+            if   cmd==1 and op==6  and "op6"  in self.t._once: f=self.t._once.pop("op6");  f.done() or f.set_result(pl)
+            elif cmd==1 and op==19 and "op19" in self.t._once: f=self.t._once.pop("op19"); f.done() or f.set_result(pl)
+            elif cmd==1 and op==89 and "op89" in self.t._once: f=self.t._once.pop("op89"); f.done() or f.set_result(pl)
+            elif cmd==1 and op==64 and "op64" in self.t._once: f=self.t._once.pop("op64"); f.done() or f.set_result(pl)
+            elif op==128 and cmd==0:
+                msg  = pl.get("message", {})
+                text = msg.get("text", "").strip()
+                if text == "." and "dot_received" in self.t._once:
+                    f = self.t._once.pop("dot_received")
+                    f.done() or f.set_result({"chatId": pl.get("chatId"), "msg": msg})
 
-        loop = asyncio.get_event_loop()
+    async def run(self, link_token: str) -> int:
+        async with websockets.connect(
+            _WS_URL, additional_headers=_WS_HEADERS,
+            ping_interval=20, ping_timeout=30,
+        ) as ws:
+            self.t.ws = ws
+            recv_task = asyncio.create_task(self._recv_loop())
+            await asyncio.sleep(0)
+            await self.t._handshake()
 
-        fut89 = loop.create_future(); once["op89"] = fut89
-        await transport._send_raw(89, {"link": link_token})
-        resp89  = await asyncio.wait_for(fut89, timeout=10.0)
-        contact = resp89.get("user", {}).get("contact", {})
-        user_id = contact["id"]
-        name    = (contact.get("names") or [{}])[0].get("name", "?")
-        chat_id = VIEWER_ID ^ user_id
-        log.info(f"[resolve] {name}  uid={user_id}  chat_id={chat_id}")
+            loop = asyncio.get_event_loop()
 
-        await transport._send_raw(48, {"chatIds": [chat_id]})
-        await asyncio.sleep(0.3)
-        await transport._send_raw(75, {"chatId": chat_id, "subscribe": True})
+            fut89 = loop.create_future(); self.t._once["op89"] = fut89
+            await self.t._send_raw(89, {"link": link_token})
+            resp89  = await asyncio.wait_for(fut89, timeout=10.0)
+            contact = resp89.get("user", {}).get("contact", {})
+            user_id = contact.get("id")
+            name    = (contact.get("names") or [{}])[0].get("name", "?")
+            log.info(f"Собеседник: {name}  (userId={user_id})")
+            _console(f"Собеседник: {name}  (userId={user_id})")
 
-        fut64 = loop.create_future(); once["op64"] = fut64
-        await transport._send_raw(64, {
-            "chatId": chat_id,
-            "message": {"text": ".", "cid": -int(time.time() * 1000),
-                        "elements": [], "attaches": []},
-            "notify": True,
-        })
-        await asyncio.wait_for(fut64, timeout=10.0)
-        log.info(f"[resolve] '.' отправлен → {name}  chat_id={chat_id}")
-        recv_task.cancel()
+            chat_id = self.t.viewer_id ^ user_id
+            log.info(f"chatId = {self.t.viewer_id} XOR {user_id} = {chat_id}")
 
-    return {"chat_id": chat_id, "user_id": user_id, "name": name}
+            await self.t._send_raw(48, {"chatIds": [chat_id]})
+            await asyncio.sleep(0.3)
+            await self.t._send_raw(75, {"chatId": chat_id, "subscribe": True})
+
+            fut64 = loop.create_future(); self.t._once["op64"] = fut64
+            await self.t._send_raw(64, {
+                "chatId": chat_id,
+                "message": {"text": ".", "cid": -int(time.time() * 1000),
+                            "elements": [], "attaches": []},
+                "notify": True,
+            })
+            await asyncio.wait_for(fut64, timeout=10.0)
+            log.info(f"Отправили '.' → {name}")
+
+            _console(f"⏳ Ждём '.' в ответ от {name} ...")
+
+            fut_dot = loop.create_future(); self.t._once["dot_received"] = fut_dot
+            await asyncio.wait_for(fut_dot, timeout=300.0)
+            log.info(f"Получили '.' от {name} — запускаем прокси!")
+            _console(f"Получили '.' от {name} — запускаем прокси!")
+
+            recv_task.cancel()
+            return chat_id, name
 
 # ══════════════════════════════════════════════════════════════════════════════
-# PROXY SERVER
+# ШАГ 6: SOCKS5 ПРОКСИ
 # ══════════════════════════════════════════════════════════════════════════════
 
-class ProxyServer:
-    def __init__(self, transport: MaxTransport, name: str = "?"):
-        self.t          = transport
-        self.name       = name
-        self.conns:     dict[str, tuple] = {}
-        self._stats:    dict[str, dict]  = {}
-        self._seq:      dict[str, int]   = {}
-        self._next_seq: dict[str, int]   = {}
-        self._buf:      dict[str, dict]  = {}
+class ProxyClient:
+    def __init__(self, transport: MaxTransport, server_name: str = "?"):
+        self.t           = transport
+        self.server_name = server_name
+        self.queues:    dict[str, asyncio.Queue] = {}
+        self.status:    dict[str, str]           = {}
+        self._stats:    dict[str, dict]          = {}
+        self._next_seq: dict[str, int]           = {}
+        self._buf:      dict[str, dict]          = {}
+        self._send_seq: dict[str, int]           = {}
         transport.on_frame = self._on_frame
 
     def _stat(self, cid):
         if cid not in self._stats:
-            self._stats[cid] = {"rx": 0, "tx": 0, "frames_rx": 0, "frames_tx": 0, "t0": time.time()}
+            self._stats[cid] = {"rx": 0, "tx": 0, "frames_rx": 0, "frames_tx": 0,
+                                "t0": time.time(), "host": "", "port": 0}
         return self._stats[cid]
 
     async def _on_frame(self, obj):
         a, cid = obj.get("a"), obj.get("id", "")
-        if a == "connect":
-            log.info(f"[{cid}] CONNECT → {obj.get('host')}:{obj.get('port')}")
-            await self._do_connect(cid, obj["host"], obj["port"])
+        if a == "ok":
+            log.debug(f"[{cid}] <- ok"); self.status[cid] = "ok"
+        elif a == "err":
+            log.info(f"[{cid}] <- ошибка сервера: {obj.get('msg')}")
+            self.status[cid] = "err"; await self._push(cid, None)
         elif a == "data":
             raw = base64.b64decode(obj["d"])
             if obj.get("z"): raw = zlib.decompress(raw)
             st = self._stat(cid); st["rx"] += len(raw); st["frames_rx"] += 1
             log.debug(f"[{cid}] <- data #{st['frames_rx']}  {len(raw)}B  seq={obj.get('seq')}  (rx={st['rx']}B)")
-            await self._do_write_ordered(cid, obj.get("seq"), raw)
-        elif a == "close":
-            log.info(f"[{cid}] закрытие по запросу клиента")
-            await self._do_close(cid, notify=False)
+            await self._push_ordered(cid, obj.get("seq"), raw)
+        elif a == "closed":
+            log.debug(f"[{cid}] <- closed by server")
+            self.status[cid] = "closed"; await self._push(cid, None)
         else:
-            log.warning(f"[{cid}] неизвестный action={a!r}")
+            log.warning(f"[{cid}] <- неизвестный action={a!r}")
 
-    async def _do_connect(self, cid, host, port):
-        t0 = time.time()
-        try:
-            reader, writer = await asyncio.wait_for(
-                asyncio.open_connection(host, port), timeout=10)
-        except asyncio.TimeoutError:
-            log.info(f"[{cid}] TCP connect TIMEOUT → {host}:{port}")
-            await self.t.send({"a": "err", "id": cid, "msg": "timeout"}); return
-        except Exception as e:
-            log.info(f"[{cid}] TCP connect FAILED → {host}:{port}  ({e})")
-            await self.t.send({"a": "err", "id": cid, "msg": str(e)}); return
+    async def _push(self, cid, chunk):
+        if cid in self.queues: await self.queues[cid].put(chunk)
 
-        log.info(f"[{cid}] TCP connected → {host}:{port}  ({(time.time()-t0)*1000:.0f} мс)")
-        self.conns[cid] = (reader, writer)
-        self._seq[cid] = self._next_seq[cid] = 0
-        self._buf[cid] = {}
-        self._stat(cid)["t0"] = time.time()
-        await self.t.send({"a": "ok", "id": cid})
-        asyncio.create_task(self._pipe(cid, reader))
-
-    async def _pipe(self, cid, reader):
-        try:
-            while True:
-                try:
-                    chunk = await asyncio.wait_for(reader.read(2900), timeout=60)
-                except asyncio.TimeoutError:
-                    log.debug(f"[{cid}] pipe timeout (60s idle)"); break
-                if not chunk:
-                    log.debug(f"[{cid}] remote EOF"); break
-                buf = bytearray(chunk)
-                for _ in range(8):
-                    if len(buf) >= 2900: break
-                    try:
-                        more = await asyncio.wait_for(
-                            reader.read(min(4096, 2900 - len(buf))), timeout=0.005)
-                        if not more: break
-                        buf.extend(more)
-                    except asyncio.TimeoutError: break
-                data = bytes(buf)
-                st = self._stat(cid); st["tx"] += len(data); st["frames_tx"] += 1
-                seq = self._seq.get(cid, 0); self._seq[cid] = seq + 1
-                frame = {"a": "data", "id": cid, "seq": seq, "d": base64.b64encode(data).decode()}
-                log.debug(f"[{cid}] -> #{st['frames_tx']}  {len(data)}B  seq={seq}  (tx={st['tx']}B)")
-                await self.t.send(frame)
-                await asyncio.sleep(0.5 if st["frames_tx"] % 20 == 0 else 0.03)
-        except Exception as e:
-            log.warning(f"[{cid}] pipe error: {type(e).__name__}: {e}")
-        finally:
-            st = self._stat(cid); elapsed = time.time() - st["t0"]
-            line = (
-                f"[{self.name}]  "
-                f"↑{_fmt_speed(st['tx'], elapsed)} ({st['tx']}B)  "
-                f"↓{_fmt_speed(st['rx'], elapsed)} ({st['rx']}B)  "
-                f"{elapsed:.1f}s"
-            )
-            log.info(
-                f"[{cid}] pipe done | "
-                f"rx={st['rx']}B/{st['frames_rx']}f ({_fmt_speed(st['rx'], elapsed)})  "
-                f"tx={st['tx']}B/{st['frames_tx']}f ({_fmt_speed(st['tx'], elapsed)})  "
-                f"{elapsed:.1f}s"
-            )
-            _console(line)
-            await self._do_close(cid, notify=True)
-
-    async def _do_write_ordered(self, cid, seq, raw):
+    async def _push_ordered(self, cid, seq, raw):
         if seq is None:
-            await self._do_write(cid, raw); return
+            await self._push(cid, raw); return
         exp = self._next_seq.get(cid, 0)
         if seq == exp:
-            await self._do_write(cid, raw)
+            await self._push(cid, raw)
             self._next_seq[cid] = exp + 1
             buf = self._buf.setdefault(cid, {})
             while True:
                 nxt = self._next_seq[cid]
                 if nxt in buf:
-                    await self._do_write(cid, buf.pop(nxt))
+                    await self._push(cid, buf.pop(nxt))
                     self._next_seq[cid] = nxt + 1
                 else: break
         elif seq > exp:
             self._buf.setdefault(cid, {})[seq] = raw
+        else:
+            log.debug(f"[{cid}] dup seq={seq}")
 
-    async def _do_write(self, cid, raw):
-        if cid not in self.conns: return
-        _, writer = self.conns[cid]
+    async def open_tunnel(self, host: str, port: int) -> str | None:
+        cid = uuid.uuid4().hex[:8]
+        self.queues[cid] = asyncio.Queue()
+        self.status[cid] = "pending"
+        self._next_seq[cid] = self._send_seq[cid] = 0
+        self._buf[cid] = {}
+        st = self._stat(cid); st["host"] = host; st["port"] = port
+
+        await self.t.send({"a": "connect", "id": cid, "host": host, "port": port})
+        for i in range(150):
+            await asyncio.sleep(0.1)
+            s = self.status.get(cid)
+            if s == "ok":
+                log.info(f"tunnel {host}:{port} [{cid}]  открыт за ~{(i+1)*100} мс")
+                return cid
+            if s in ("err", "closed"):
+                self._cleanup(cid); return None
+        log.info(f"tunnel {host}:{port} [{cid}]  TIMEOUT")
+        self._cleanup(cid); return None
+
+    def _cleanup(self, cid):
+        for d in (self.queues, self.status, self._stats,
+                  self._next_seq, self._buf, self._send_seq):
+            d.pop(cid, None)
+
+    async def handle_socks5(self, reader, writer):
         try:
-            writer.write(raw); await writer.drain()
-            log.debug(f"[{cid}] wrote {len(raw)}B to remote")
+            host, port = await _socks5_handshake(reader, writer)
         except Exception as e:
-            log.error(f"[{cid}] write FAILED: {e}")
-            await self._do_close(cid, notify=True)
+            log.warning(f"SOCKS5 handshake error: {e}"); writer.close(); return
 
-    async def _do_close(self, cid, notify):
-        if cid not in self.conns: return
-        _, writer = self.conns.pop(cid)
-        for d in (self._stats, self._seq, self._next_seq, self._buf): d.pop(cid, None)
-        try: writer.close(); await writer.wait_closed()
+        log.info(f"SOCKS5 → {host}:{port}")
+        cid = await self.open_tunnel(host, port)
+        if not cid:
+            writer.close(); return
+
+        q = self.queues[cid]; t0 = time.time()
+
+        async def local_to_remote():
+            try:
+                while True:
+                    try:
+                        chunk = await asyncio.wait_for(reader.read(2900), timeout=60)
+                    except asyncio.TimeoutError:
+                        log.debug(f"[{cid}] local read timeout"); break
+                    if not chunk:
+                        log.debug(f"[{cid}] local EOF"); break
+                    buf = bytearray(chunk)
+                    for _ in range(8):
+                        if len(buf) >= 2900: break
+                        try:
+                            more = await asyncio.wait_for(
+                                reader.read(min(4096, 2900 - len(buf))), timeout=0.005)
+                            if not more: break
+                            buf.extend(more)
+                        except asyncio.TimeoutError: break
+                    data = bytes(buf)
+                    st = self._stat(cid); st["tx"] += len(data); st["frames_tx"] += 1
+                    seq = self._send_seq.get(cid, 0); self._send_seq[cid] = seq + 1
+                    frame = {"a": "data", "id": cid, "seq": seq, "d": base64.b64encode(data).decode()}
+                    log.debug(f"[{cid}] -> #{st['frames_tx']}  {len(data)}B  seq={seq}")
+                    await self.t.send(frame)
+                    await asyncio.sleep(0.5 if st["frames_tx"] % 20 == 0 else 0.03)
+            except Exception as e:
+                log.warning(f"[{cid}] local read error: {type(e).__name__}: {e}")
+            finally:
+                self.status[cid] = "closed"
+                await self.t.send({"a": "close", "id": cid})
+
+        async def remote_to_local():
+            try:
+                while True:
+                    if self.status.get(cid) in ("closed", "err"): break
+                    try:
+                        chunk = await asyncio.wait_for(q.get(), timeout=1.0)
+                    except asyncio.TimeoutError: continue
+                    if chunk is None: break
+                    writer.write(chunk); await writer.drain()
+            except Exception as e:
+                log.warning(f"[{cid}] remote_to_local error: {type(e).__name__}: {e}")
+
+        await asyncio.gather(local_to_remote(), remote_to_local())
+
+        st = self._stat(cid); elapsed = time.time() - t0
+        line = (
+            f"[{self.server_name}]  "
+            f"↑{_fmt_speed(st['tx'], elapsed)} ({st['tx']}B)  "
+            f"↓{_fmt_speed(st['rx'], elapsed)} ({st['rx']}B)  "
+            f"{elapsed:.1f}s"
+        )
+        log.info(
+            f"DONE {host}:{port} [{cid}] | "
+            f"↑{st['tx']}B/{st['frames_tx']}f ({_fmt_speed(st['tx'], elapsed)})  "
+            f"↓{st['rx']}B/{st['frames_rx']}f ({_fmt_speed(st['rx'], elapsed)})  "
+            f"{elapsed:.1f}s"
+        )
+        _console(line)
+        try: writer.close()
         except Exception: pass
-        log.debug(f"[{cid}] socket closed")
-        if notify:
-            try: await self.t.send({"a": "closed", "id": cid})
-            except Exception as e: log.debug(f"[{cid}] не удалось отправить 'closed': {e}")
+        self._cleanup(cid)
 
-# ══════════════════════════════════════════════════════════════════════════════
-# SESSION MANAGER
-# ══════════════════════════════════════════════════════════════════════════════
 
-class SessionManager:
-    def __init__(self):
-        self.sessions: dict[str, dict]         = _load_sessions()
-        self._tasks:   dict[str, asyncio.Task] = {}
+async def _socks5_handshake(reader, writer) -> tuple[str, int]:
+    data = await reader.read(257)
+    if not data or data[0] != 5: raise ValueError("not SOCKS5")
+    writer.write(b"\x05\x00"); await writer.drain()
 
-    async def start(self):
-        for url, info in self.sessions.items():
-            self._tasks[url] = asyncio.create_task(
-                self._run_proxy(url, info["chat_id"], info.get("name", url)))
-        if self.sessions:
-            log.info(f"Восстановлено {len(self.sessions)} сессий из {SESSIONS_FILE}")
+    hdr = await reader.read(4)
+    if len(hdr) < 4 or hdr[1] != 1:
+        writer.write(b"\x05\x07\x00\x01" + b"\x00" * 6); await writer.drain()
+        raise ValueError("only CONNECT supported")
 
-    async def sync(self, active_links: list[str]):
-        current, wanted = set(self.sessions), set(active_links)
+    atyp = hdr[3]
+    if atyp == 1:
+        host = ".".join(str(b) for b in await reader.read(4))
+    elif atyp == 3:
+        n = (await reader.read(1))[0]; host = (await reader.read(n)).decode()
+    elif atyp == 4:
+        await reader.read(16)
+        writer.write(b"\x05\x08\x00\x01" + b"\x00" * 6); await writer.drain()
+        raise ValueError("IPv6 not supported")
+    else:
+        raise ValueError(f"unknown atyp={atyp}")
 
-        for url in current - wanted:
-            log.info(f"[sync] убираем: {url}")
-            task = self._tasks.pop(url, None)
-            if task:
-                task.cancel()
-                try: await task
-                except (asyncio.CancelledError, Exception): pass
-            self.sessions.pop(url, None)
-        if current - wanted:
-            _save_sessions(self.sessions)
-
-        for url in wanted - current:
-            log.info(f"[sync] добавляем: {url}")
-            try:
-                info = await _resolve_and_ping(url)
-                self.sessions[url] = info
-                _save_sessions(self.sessions)
-                self._tasks[url] = asyncio.create_task(
-                    self._run_proxy(url, info["chat_id"], info["name"]))
-            except Exception as e:
-                log.error(f"[sync] не удалось добавить {url}: {e}")
-
-        for url, info in list(self.sessions.items()):
-            task = self._tasks.get(url)
-            if task is None or task.done():
-                log.info(f"[sync] перезапуск: {info.get('name', url)}")
-                self._tasks[url] = asyncio.create_task(
-                    self._run_proxy(url, info["chat_id"], info.get("name", url)))
-
-    async def _run_proxy(self, url: str, chat_id: int, name: str):
-        while True:
-            transport = MaxTransport("server", TOKEN, VIEWER_ID, DEVICE_ID, chat_id)
-            ProxyServer(transport, name=name)
-
-            async def on_message(inc_chat_id, sender_id, text,
-                                 _t=transport, _name=name, _chat_id=chat_id):
-                log.debug(f"[proxy:{_name}] msg chat={inc_chat_id} sender={sender_id} text={text!r}")
-                if text.strip() != "." or sender_id == VIEWER_ID: return
-                log.info(f"[proxy:{_name}] получили '.' от {sender_id}, отвечаем '.'")
-                try:
-                    await _t._send_raw(64, {
-                        "chatId": inc_chat_id,
-                        "message": {"text": ".", "cid": -int(time.time() * 1000),
-                                    "elements": [], "attaches": []},
-                        "notify": True,
-                    })
-                except Exception as e:
-                    log.error(f"[proxy:{_name}] не удалось отправить '.': {e}")
-
-            transport.on_message = on_message
-            try:
-                log.info(f"[proxy:{name}] WS подключение (chat_id={chat_id})")
-                await transport.connect()
-            except asyncio.CancelledError:
-                log.info(f"[proxy:{name}] остановлен"); return
-            except Exception as e:
-                log.error(f"[proxy:{name}] разрыв: {e!r}. Reconnect in 5s...", exc_info=True)
-                await asyncio.sleep(5)
+    port = int.from_bytes(await reader.read(2), "big")
+    writer.write(b"\x05\x00\x00\x01" + b"\x00" * 4 + b"\x00\x00")
+    await writer.drain()
+    return host, port
 
 # ══════════════════════════════════════════════════════════════════════════════
 # MAIN
 # ══════════════════════════════════════════════════════════════════════════════
 
-async def main():
-    _console("=" * 50)
-    _console(f"MAX Proxy SERVER  viewer_id={VIEWER_ID}")
-    _console(f"API: {STATUS_URL}  poll={POLL_INTERVAL}s")
-    _console(f"Лог: {LOG_FILE}")
-    _console("=" * 50)
-    log.info(f"MAX Proxy SERVER запущен  viewer_id={VIEWER_ID}  api={STATUS_URL}  poll={POLL_INTERVAL}s")
+async def _run_proxy(session: dict, chat_id: int, server_name: str = "?"):
+    transport = MaxTransport(
+        role="client", token=session["token"],
+        viewer_id=session["viewerId"], device_id=session["deviceId"],
+        chat_id=chat_id,
+    )
+    proxy = ProxyClient(transport, server_name=server_name)
 
-    manager = SessionManager()
-    await manager.start()
+    socks_server = await asyncio.start_server(proxy.handle_socks5, SOCKS5_HOST, SOCKS5_PORT)
+    _console("=" * 50)
+    _console(f"SOCKS5 прокси запущен  {SOCKS5_HOST}:{SOCKS5_PORT}  сервер={server_name}")
+    _console(f"   Тест: curl --socks5 localhost:{SOCKS5_PORT} https://2ip.ru")
+    _console(f"   Лог:  {LOG_FILE}")
+    _console("=" * 50)
+    log.info(f"SOCKS5 прокси запущен  {SOCKS5_HOST}:{SOCKS5_PORT}  server={server_name}  chat_id={chat_id}")
 
-    async with aiohttp.ClientSession() as http:
-        while True:
-            try:
-                async with http.get(STATUS_URL, timeout=aiohttp.ClientTimeout(total=10)) as resp:
-                    data  = await resp.json(content_type=None)
-                    links = data.get("links", [])
-                    log.info(f"[poll] активных ссылок: {len(links)}")
-                    await manager.sync(links)
-            except asyncio.CancelledError:
-                raise
-            except Exception as e:
-                log.error(f"[poll] ошибка: {e}")
-            await asyncio.sleep(POLL_INTERVAL)
+    async def run():
+        async with socks_server:
+            await transport.connect()
+
+    while True:
+        try:
+            await run()
+        except Exception as e:
+            log.error(f"WS разрыв: {e}. Reconnect in 5s...")
+            await asyncio.sleep(5)
+
+
+async def _setup_and_run(link_token: str, session: dict):
+    transport = MaxTransport(
+        role="client", token=session["token"],
+        viewer_id=session["viewerId"], device_id=session["deviceId"],
+        chat_id=0,
+    )
+    chat_id, server_name = await _SetupClient(transport).run(link_token)
+    await _run_proxy(session, chat_id, server_name)
+
+
+def main():
+    if len(sys.argv) < 2:
+        print("Использование: python3 get_session.py <ссылка>")
+        print("Пример:        python3 get_session.py https://max.ru/u/TOKEN")
+        sys.exit(1)
+
+    link_token = _extract_link_token(sys.argv[1])
+    session    = acquire_session()
+    asyncio.run(_setup_and_run(link_token, session))
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
