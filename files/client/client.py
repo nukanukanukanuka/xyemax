@@ -709,7 +709,6 @@ class ProxyClient:
                     frame = {"a": "data", "id": cid, "seq": seq, "d": base64.b64encode(data).decode()}
                     log.debug(f"[{cid}] -> #{st['frames_tx']}  {len(data)}B  seq={seq}")
                     await self.t.send(frame)
-                    await asyncio.sleep(0.5 if st["frames_tx"] % 20 == 0 else 0.03)
             except Exception as e:
                 log.warning(f"[{cid}] local read error: {type(e).__name__}: {e}")
             finally:
