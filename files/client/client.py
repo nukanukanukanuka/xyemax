@@ -217,7 +217,12 @@ class MaxTransport:
         # 2. Уведомление о загрузке файла (opcode 65)
         await self._send_raw(65, {"chatId": self.chat_id, "type": "FILE"})
 
-        # 3. Загрузить файл — multipart/form-data
+        # 3. Подписываемся на op136 ДО upload — MAX шлёт подтверждение сразу
+        # после обработки файла, подписка заранее убирает лишний round-trip
+        fut136 = asyncio.get_event_loop().create_future()
+        self._once["op136"] = fut136
+
+        # 4. Загрузить файл — multipart/form-data
         form = aiohttp.FormData()
         form.add_field("file", file_body,
                        filename="data.bin",
@@ -228,16 +233,13 @@ class MaxTransport:
                 log.error(f"[transport] upload failed {resp.status}: {body}"); return
             log.debug(f"[transport] upload ok  fileId={file_id}  size={len(file_body)}")
 
-        # 4. Ждём op136 — MAX должен подтвердить что файл принят в систему
-        # прежде чем fileId можно использовать в сообщении
-        fut136 = asyncio.get_event_loop().create_future()
-        self._once["op136"] = fut136
+        # 5. Ждём op136 — к этому моменту часто уже пришёл во время upload
         try:
             await asyncio.wait_for(fut136, timeout=5.0)
         except asyncio.TimeoutError:
             log.warning("[transport] op136 timeout — всё равно отправляем")
 
-        # 5. Отправить сообщение с вложением
+        # 6. Отправить сообщение с вложением
         await self._send_raw(64, {
             "chatId": self.chat_id,
             "message": {
@@ -366,7 +368,12 @@ class MaxTransport:
             close_timeout=5,
         ) as ws:
             self.ws = ws
-            self._http           = aiohttp.ClientSession()
+            connector = aiohttp.TCPConnector(
+                limit_per_host=4,
+                keepalive_timeout=30,
+                enable_cleanup_closed=True,
+            )
+            self._http = aiohttp.ClientSession(connector=connector)
             self._send_queue     = asyncio.Queue()
             recv_task            = asyncio.create_task(self._recv_loop())
             keepalive_task       = asyncio.create_task(self._keepalive())
@@ -708,6 +715,12 @@ class ProxyClient:
         except Exception as e:
             log.warning(f"SOCKS5 handshake error: {e}"); writer.close(); return
 
+        # TCP_NODELAY — отключаем алгоритм Нагла для интерактивного трафика
+        sock = writer.transport.get_extra_info("socket")
+        if sock:
+            import socket as _socket
+            sock.setsockopt(_socket.IPPROTO_TCP, _socket.TCP_NODELAY, 1)
+
         log.info(f"SOCKS5 → {host}:{port}")
         cid = await self.open_tunnel(host, port)
         if not cid:
@@ -729,7 +742,7 @@ class ProxyClient:
                         if len(buf) >= 8192: break
                         try:
                             more = await asyncio.wait_for(
-                                reader.read(min(4096, 8192 - len(buf))), timeout=0.005)
+                                reader.read(min(4096, 8192 - len(buf))), timeout=0.02)
                             if not more: break
                             buf.extend(more)
                         except asyncio.TimeoutError: break
