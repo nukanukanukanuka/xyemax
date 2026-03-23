@@ -227,12 +227,7 @@ class MaxTransport:
         # 2. Уведомление о загрузке файла (opcode 65)
         await self._send_raw(65, {"chatId": self.chat_id, "type": "FILE"})
 
-        # 3. Подписываемся на op136 ДО upload — MAX шлёт подтверждение сразу
-        # после обработки файла, подписка заранее убирает лишний round-trip
-        fut136 = asyncio.get_event_loop().create_future()
-        self._once["op136"] = fut136
-
-        # 4. Загрузить файл — multipart/form-data
+        # 3. Загрузить файл — multipart/form-data (op136 не ждём — не блокирует отправку)
         form = aiohttp.FormData()
         form.add_field("file", file_body,
                        filename="data.bin",
@@ -243,13 +238,7 @@ class MaxTransport:
                 log.error(f"[transport] upload failed {resp.status}: {body}"); return
             log.debug(f"[transport] upload ok  fileId={file_id}  size={len(file_body)}")
 
-        # 5. Ждём op136 — к этому моменту часто уже пришёл во время upload
-        try:
-            await asyncio.wait_for(fut136, timeout=5.0)
-        except asyncio.TimeoutError:
-            log.warning("[transport] op136 timeout — всё равно отправляем")
-
-        # 6. Отправить сообщение с вложением
+        # 4. Отправить сообщение с вложением
         await self._send_raw(64, {
             "chatId": self.chat_id,
             "message": {
@@ -857,12 +846,16 @@ async def _run_proxy(session: dict, chat_id: int, server_name: str = "?"):
         async with socks_server:
             await transport.connect()
 
+    _reconnect_delay = 5
     while True:
         try:
             await run()
+            _reconnect_delay = 5  # сброс после успешного подключения
         except Exception as e:
-            log.error(f"WS разрыв: {e}. Reconnect in 5s...")
-            await asyncio.sleep(5)
+            delay = min(_reconnect_delay, 60)
+            log.error(f"WS разрыв: {e}. Reconnect in {delay}s...")
+            await asyncio.sleep(delay)
+            _reconnect_delay = delay * 2
 
 
 async def _setup_and_run(link_token: str, session: dict):

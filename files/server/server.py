@@ -239,12 +239,7 @@ class MaxTransport:
         # 2. Уведомление о загрузке файла (opcode 65)
         await self._send_raw(65, {"chatId": self.chat_id, "type": "FILE"})
 
-        # 3. Подписываемся на op136 ДО upload — MAX шлёт подтверждение сразу
-        # после обработки файла, подписка заранее убирает лишний round-trip
-        fut136 = asyncio.get_event_loop().create_future()
-        self._once["op136"] = fut136
-
-        # 4. Загрузить файл — multipart/form-data
+        # 3. Загрузить файл — multipart/form-data (op136 не ждём — не блокирует отправку)
         form = aiohttp.FormData()
         form.add_field("file", file_body,
                        filename="data.bin",
@@ -255,13 +250,7 @@ class MaxTransport:
                 log.error(f"[transport] upload failed {resp.status}: {body}"); return
             log.debug(f"[transport] upload ok  fileId={file_id}  size={len(file_body)}")
 
-        # 5. Ждём op136 — к этому моменту часто уже пришёл во время upload
-        try:
-            await asyncio.wait_for(fut136, timeout=5.0)
-        except asyncio.TimeoutError:
-            log.warning("[transport] op136 timeout — всё равно отправляем")
-
-        # 6. Отправить сообщение с вложением
+        # 4. Отправить сообщение с вложением
         await self._send_raw(64, {
             "chatId": self.chat_id,
             "message": {
@@ -754,6 +743,7 @@ class SessionManager:
                     self._run_proxy(url, info["chat_id"], info.get("name", url)))
 
     async def _run_proxy(self, url: str, chat_id: int, name: str):
+        _reconnect_delay = 5
         while True:
             transport = MaxTransport("server", TOKEN, VIEWER_ID, DEVICE_ID, chat_id)
             ProxyServer(transport, name=name)
@@ -777,11 +767,14 @@ class SessionManager:
             try:
                 log.info(f"[proxy:{name}] WS подключение (chat_id={chat_id})")
                 await transport.connect()
+                _reconnect_delay = 5  # сброс после успешного подключения
             except asyncio.CancelledError:
                 log.info(f"[proxy:{name}] остановлен"); return
             except Exception as e:
-                log.error(f"[proxy:{name}] разрыв: {e!r}. Reconnect in 5s...", exc_info=True)
-                await asyncio.sleep(5)
+                delay = min(_reconnect_delay, 60)
+                log.error(f"[proxy:{name}] разрыв: {e!r}. Reconnect in {delay}s...", exc_info=True)
+                await asyncio.sleep(delay)
+                _reconnect_delay = delay * 2
 
 # ══════════════════════════════════════════════════════════════════════════════
 # MAIN
