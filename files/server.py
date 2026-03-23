@@ -134,6 +134,11 @@ class MaxTransport:
         self._once: dict[str, asyncio.Future] = {}
         self.on_frame   = None
         self.on_message = None
+        # Батчинг: накапливаем фреймы и отправляем одним файлом
+        self._send_buffer: list[bytes] = []
+        self._flush_task: asyncio.Task | None = None
+        self._BATCH_DELAY = 0.04   # секунд ждём перед отправкой
+        self._BATCH_MAX   = 16     # не более N фреймов в одном файле
 
     def _next_seq(self):
         s = self.seq; self.seq += 1; return s
@@ -149,9 +154,8 @@ class MaxTransport:
         return await asyncio.wait_for(fut, timeout=timeout)
 
     async def send(self, obj: dict):
-        """Отправить фрейм туннеля через файл в MAX-чате."""
+        """Отправить фрейм туннеля — добавляет в буфер и флашит через BATCH_DELAY."""
         obj = dict(obj); obj["src"] = self.role
-        # Извлекаем бинарные данные если есть (поле "d" — base64)
         raw_data = b""
         if "d" in obj:
             raw_data = base64.b64decode(obj.pop("d"))
@@ -159,10 +163,36 @@ class MaxTransport:
                 obj.pop("z")
                 raw_data = zlib.decompress(raw_data)
 
-        # Формируем файл: [4B длина заголовка][JSON заголовок][бинарные данные]
         hdr = json.dumps(obj, separators=(",", ":")).encode()
-        file_body = len(hdr).to_bytes(4, "big") + hdr + raw_data
+        frame_bytes = len(hdr).to_bytes(4, "big") + hdr + raw_data
+        self._send_buffer.append(frame_bytes)
 
+        # Если буфер достиг максимума — флашим немедленно
+        if len(self._send_buffer) >= self._BATCH_MAX:
+            if self._flush_task and not self._flush_task.done():
+                self._flush_task.cancel()
+            await self._flush_buffer()
+        elif self._flush_task is None or self._flush_task.done():
+            self._flush_task = asyncio.create_task(self._flush_after(self._BATCH_DELAY))
+
+    async def _flush_after(self, delay: float):
+        """Ждём delay секунд, затем отправляем накопленное."""
+        await asyncio.sleep(delay)
+        await self._flush_buffer()
+
+    async def _flush_buffer(self):
+        """Упаковать все накопленные фреймы в один файл и отправить."""
+        if not self._send_buffer:
+            return
+        frames = self._send_buffer[:]
+        self._send_buffer.clear()
+        n = len(frames)
+        # Формат: [4B: кол-во фреймов][4B: len(frame1)][frame1][4B: len(frame2)][frame2]...
+        parts = [n.to_bytes(4, "big")]
+        for f in frames:
+            parts.append(len(f).to_bytes(4, "big") + f)
+        file_body = b"".join(parts)
+        log.debug(f"[transport] batch flush  frames={n}  total={len(file_body)}B")
         await self._send_file(file_body)
 
     async def _send_file(self, file_body: bytes):
@@ -296,7 +326,7 @@ class MaxTransport:
             return None
 
     async def _recv_file(self, file_id: int, msg_id: str, chat_id: int, sender):
-        """Получить URL через opcode 88, скачать файл и распарсить фрейм туннеля."""
+        """Получить URL через opcode 88, скачать файл и распарсить фреймы туннеля."""
         url = await self._resolve_download_url(file_id, msg_id, chat_id)
         if not url:
             return
@@ -309,26 +339,16 @@ class MaxTransport:
         except Exception as e:
             log.error(f"[transport] download error: {e}"); return
 
-        # Парсим: [4B длина заголовка][JSON заголовок][бинарные данные]
-        if len(file_body) < 4:
-            log.warning("[transport] файл слишком короткий"); return
-        hdr_len = int.from_bytes(file_body[:4], "big")
-        if len(file_body) < 4 + hdr_len:
-            log.warning("[transport] повреждённый заголовок файла"); return
-        try:
-            obj = json.loads(file_body[4:4 + hdr_len])
-        except Exception as e:
-            log.warning(f"[transport] не удалось распарсить заголовок: {e}"); return
-
-        raw_data = file_body[4 + hdr_len:]
-        if raw_data:
-            obj["d"] = base64.b64encode(raw_data).decode()
-
-        if obj.get("src") == self.role:
-            return  # наш собственный фрейм, игнорируем
-        log.debug(f"[transport] recv_file ok  action={obj.get('a')}  id={obj.get('id')}  size={len(raw_data)}")
-        if self.on_frame:
-            asyncio.create_task(self.on_frame(obj))
+        frames = _unpack_batch(file_body)
+        if not frames:
+            log.warning("[transport] не удалось распарсить батч"); return
+        log.debug(f"[transport] recv_file  fileId={file_id}  frames={len(frames)}")
+        for obj in frames:
+            if obj.get("src") == self.role:
+                continue  # наш собственный фрейм, игнорируем
+            log.debug(f"[transport] frame  action={obj.get('a')}  id={obj.get('id')}  size={len(obj.get('d',''))}")
+            if self.on_frame:
+                asyncio.create_task(self.on_frame(obj))
 
     async def connect(self):
         try:
@@ -364,6 +384,45 @@ class MaxTransport:
 # ══════════════════════════════════════════════════════════════════════════════
 # HELPERS
 # ══════════════════════════════════════════════════════════════════════════════
+
+def _unpack_batch(file_body: bytes) -> list[dict]:
+    """Распаковать батч-файл в список объектов фреймов.
+
+    Формат: [4B: кол-во фреймов N]
+              ([4B: len(frame)][frame_bytes]) × N
+    Каждый frame_bytes: [4B: len(hdr)][JSON hdr][binary data]
+    """
+    if len(file_body) < 4:
+        log.warning("[unpack] файл слишком короткий"); return []
+    n = int.from_bytes(file_body[:4], "big")
+    if n == 0 or n > 256:
+        log.warning(f"[unpack] неверное кол-во фреймов: {n}"); return []
+    pos = 4
+    frames = []
+    for i in range(n):
+        if pos + 4 > len(file_body):
+            log.warning(f"[unpack] обрыв на фрейме {i}"); break
+        flen = int.from_bytes(file_body[pos:pos+4], "big")
+        pos += 4
+        if pos + flen > len(file_body):
+            log.warning(f"[unpack] фрейм {i} выходит за пределы файла"); break
+        frame_bytes = file_body[pos:pos+flen]
+        pos += flen
+        if len(frame_bytes) < 4:
+            continue
+        hdr_len = int.from_bytes(frame_bytes[:4], "big")
+        if len(frame_bytes) < 4 + hdr_len:
+            log.warning(f"[unpack] фрейм {i}: повреждённый заголовок"); continue
+        try:
+            obj = json.loads(frame_bytes[4:4+hdr_len])
+        except Exception as e:
+            log.warning(f"[unpack] фрейм {i}: ошибка парсинга JSON: {e}"); continue
+        raw_data = frame_bytes[4+hdr_len:]
+        if raw_data:
+            obj["d"] = base64.b64encode(raw_data).decode()
+        frames.append(obj)
+    return frames
+
 
 def _pack(data: bytes) -> tuple[str, bool]:
     c = zlib.compress(data, level=1)
