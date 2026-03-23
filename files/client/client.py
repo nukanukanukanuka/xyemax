@@ -277,7 +277,11 @@ class MaxTransport:
             if cmd == 1 and op == 87  and "op87"  in self._once:
                 f = self._once.pop("op87");  f.done() or f.set_result(pl); continue
             if cmd == 1 and op == 88:
-                key = next((k for k in list(self._once) if k.startswith("op88_")), None)
+                # Матчим по fileId из payload — поддерживает параллельные запросы
+                fid = pl.get("fileId") or pl.get("id")
+                key = f"op88_{fid}" if fid and f"op88_{fid}" in self._once else None
+                if key is None:
+                    key = next((k for k in list(self._once) if k.startswith("op88_")), None)
                 if key:
                     f = self._once.pop(key); f.done() or f.set_result(pl); continue
             if cmd == 0 and op == 136 and "op136" in self._once:
@@ -592,12 +596,13 @@ class ProxyClient:
     def __init__(self, transport: MaxTransport, server_name: str = "?"):
         self.t           = transport
         self.server_name = server_name
-        self.queues:    dict[str, asyncio.Queue] = {}
-        self.status:    dict[str, str]           = {}
-        self._stats:    dict[str, dict]          = {}
-        self._next_seq: dict[str, int]           = {}
-        self._buf:      dict[str, dict]          = {}
-        self._send_seq: dict[str, int]           = {}
+        self.queues:          dict[str, asyncio.Queue]   = {}
+        self.status:          dict[str, str]             = {}
+        self._connect_futs:   dict[str, asyncio.Future] = {}  # cid → Future[str]
+        self._stats:          dict[str, dict]            = {}
+        self._next_seq:       dict[str, int]             = {}
+        self._buf:            dict[str, dict]            = {}
+        self._send_seq:       dict[str, int]             = {}
         transport.on_frame = self._on_frame
 
     def _stat(self, cid):
@@ -609,10 +614,16 @@ class ProxyClient:
     async def _on_frame(self, obj):
         a, cid = obj.get("a"), obj.get("id", "")
         if a == "ok":
-            log.debug(f"[{cid}] <- ok"); self.status[cid] = "ok"
+            log.debug(f"[{cid}] <- ok")
+            self.status[cid] = "ok"
+            fut = self._connect_futs.pop(cid, None)
+            if fut and not fut.done(): fut.set_result("ok")
         elif a == "err":
             log.info(f"[{cid}] <- ошибка сервера: {obj.get('msg')}")
-            self.status[cid] = "err"; await self._push(cid, None)
+            self.status[cid] = "err"
+            fut = self._connect_futs.pop(cid, None)
+            if fut and not fut.done(): fut.set_result("err")
+            await self._push(cid, None)
         elif a == "data":
             raw = base64.b64decode(obj["d"])
             if obj.get("z"): raw = zlib.decompress(raw)
@@ -649,25 +660,32 @@ class ProxyClient:
 
     async def open_tunnel(self, host: str, port: int) -> str | None:
         cid = uuid.uuid4().hex[:8]
-        self.queues[cid] = asyncio.Queue()
-        self.status[cid] = "pending"
+        self.queues[cid]    = asyncio.Queue()
+        self.status[cid]    = "pending"
         self._next_seq[cid] = self._send_seq[cid] = 0
-        self._buf[cid] = {}
+        self._buf[cid]      = {}
         st = self._stat(cid); st["host"] = host; st["port"] = port
 
+        fut: asyncio.Future = asyncio.get_event_loop().create_future()
+        self._connect_futs[cid] = fut
+
+        t0 = time.monotonic()
         await self.t.send({"a": "connect", "id": cid, "host": host, "port": port})
-        for i in range(150):
-            await asyncio.sleep(0.1)
-            s = self.status.get(cid)
-            if s == "ok":
-                log.info(f"tunnel {host}:{port} [{cid}]  открыт за ~{(i+1)*100} мс")
-                return cid
-            if s in ("err", "closed"):
-                self._cleanup(cid); return None
-        log.info(f"tunnel {host}:{port} [{cid}]  TIMEOUT")
+        try:
+            result = await asyncio.wait_for(fut, timeout=20.0)
+        except asyncio.TimeoutError:
+            self._connect_futs.pop(cid, None)
+            log.info(f"tunnel {host}:{port} [{cid}]  TIMEOUT")
+            self._cleanup(cid); return None
+
+        elapsed_ms = (time.monotonic() - t0) * 1000
+        if result == "ok":
+            log.info(f"tunnel {host}:{port} [{cid}]  открыт за ~{elapsed_ms:.0f} мс")
+            return cid
         self._cleanup(cid); return None
 
     def _cleanup(self, cid):
+        self._connect_futs.pop(cid, None)
         for d in (self.queues, self.status, self._stats,
                   self._next_seq, self._buf, self._send_seq):
             d.pop(cid, None)

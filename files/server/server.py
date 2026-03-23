@@ -289,9 +289,11 @@ class MaxTransport:
             if cmd == 1 and op == 87  and "op87"  in self._once:
                 f = self._once.pop("op87");  f.done() or f.set_result(pl); continue
             if cmd == 1 and op == 88:
-                # ключ хранится как op88_{fileId}; fileId берём из запроса через seq —
-                # но проще: ищем совпадающий ключ, т.к. запросы обычно не параллельны
-                key = next((k for k in list(self._once) if k.startswith("op88_")), None)
+                # Матчим по fileId из payload — поддерживает параллельные запросы
+                fid = pl.get("fileId") or pl.get("id")
+                key = f"op88_{fid}" if fid and f"op88_{fid}" in self._once else None
+                if key is None:
+                    key = next((k for k in list(self._once) if k.startswith("op88_")), None)
                 if key:
                     f = self._once.pop(key); f.done() or f.set_result(pl); continue
             if cmd == 0 and op == 136 and "op136" in self._once:
