@@ -129,8 +129,9 @@ class MaxTransport:
         self._flush_task: asyncio.Task | None = None
         self._send_queue: asyncio.Queue = asyncio.Queue()   # сериализует _send_file
         self._send_worker_task: asyncio.Task | None = None
-        self._BATCH_DELAY = 0.04   # секунд ждём перед отправкой
-        self._BATCH_MAX   = 16     # не более N фреймов в одном файле
+        self._BATCH_DELAY = 0.015  # секунд ждём перед отправкой
+        self._BATCH_MAX   = 32     # не более N фреймов в одном файле
+        self._http: aiohttp.ClientSession | None = None  # persistent HTTP session
 
     def _next_seq(self):
         s = self.seq; self.seq += 1; return s
@@ -200,50 +201,45 @@ class MaxTransport:
 
     async def _send_file(self, file_body: bytes):
         """Загрузить файл через MAX File API и отправить сообщением с вложением."""
-        async with aiohttp.ClientSession() as http:
-            # 1. Запросить upload slot через WS opcode 87
-            fut = asyncio.get_event_loop().create_future()
-            self._once["op87"] = fut
-            await self._send_raw(87, {"count": 1})
-            try:
-                slot = await asyncio.wait_for(fut, timeout=10.0)
-            except asyncio.TimeoutError:
-                log.error("[transport] upload slot timeout"); return
-            info     = slot["info"][0]
-            up_url   = info["url"]
-            file_id  = info["fileId"]
+        http = self._http
+        # 1. Запросить upload slot через WS opcode 87
+        fut = asyncio.get_event_loop().create_future()
+        self._once["op87"] = fut
+        await self._send_raw(87, {"count": 1})
+        try:
+            slot = await asyncio.wait_for(fut, timeout=10.0)
+        except asyncio.TimeoutError:
+            log.error("[transport] upload slot timeout"); return
+        info     = slot["info"][0]
+        up_url   = info["url"]
+        file_id  = info["fileId"]
 
-            # 2. Уведомление о загрузке файла (opcode 65)
-            await self._send_raw(65, {"chatId": self.chat_id, "type": "FILE"})
+        # 2. Уведомление о загрузке файла (opcode 65)
+        await self._send_raw(65, {"chatId": self.chat_id, "type": "FILE"})
 
-            # 3. Загрузить файл — multipart/form-data
-            form = aiohttp.FormData()
-            form.add_field("file", file_body,
-                           filename="data.bin",
-                           content_type="application/octet-stream")
-            async with http.post(up_url, data=form) as resp:
-                if resp.status != 200:
-                    body = await resp.text()
-                    log.error(f"[transport] upload failed {resp.status}: {body}"); return
-                log.debug(f"[transport] upload ok  fileId={file_id}  size={len(file_body)}")
+        # 3. Загрузить файл — multipart/form-data
+        form = aiohttp.FormData()
+        form.add_field("file", file_body,
+                       filename="data.bin",
+                       content_type="application/octet-stream")
+        async with http.post(up_url, data=form) as resp:
+            if resp.status != 200:
+                body = await resp.text()
+                log.error(f"[transport] upload failed {resp.status}: {body}"); return
+            log.debug(f"[transport] upload ok  fileId={file_id}  size={len(file_body)}")
 
-            # 4. Ждём opcode 136 — подтверждение от сервера MAX
-            fut136 = asyncio.get_event_loop().create_future()
-            self._once["op136"] = fut136
-            try:
-                await asyncio.wait_for(fut136, timeout=10.0)
-            except asyncio.TimeoutError:
-                log.warning("[transport] op136 timeout — отправляем сообщение без подтверждения")
+        # 4. op136 не ждём — отправляем сообщение сразу после upload
+        # MAX принимает fileId как только файл залит, подтверждение не нужно
 
-            # 5. Отправить сообщение с вложением
-            await self._send_raw(64, {
-                "chatId": self.chat_id,
-                "message": {
-                    "cid": -int(time.time() * 1000),
-                    "attaches": [{"_type": "FILE", "fileId": file_id}],
-                },
-                "notify": False,
-            })
+        # 5. Отправить сообщение с вложением
+        await self._send_raw(64, {
+            "chatId": self.chat_id,
+            "message": {
+                "cid": -int(time.time() * 1000),
+                "attaches": [{"_type": "FILE", "fileId": file_id}],
+            },
+            "notify": False,
+        })
 
     async def _handshake(self):
         await self._send_raw(6, {
@@ -364,6 +360,7 @@ class MaxTransport:
             close_timeout=5,
         ) as ws:
             self.ws = ws
+            self._http           = aiohttp.ClientSession()
             self._send_queue     = asyncio.Queue()
             recv_task            = asyncio.create_task(self._recv_loop())
             keepalive_task       = asyncio.create_task(self._keepalive())
@@ -375,6 +372,8 @@ class MaxTransport:
                 keepalive_task.cancel()
                 await self._send_queue.put(None)  # останавливаем воркер
                 await send_worker_task
+                await self._http.close()
+                self._http = None
 
     async def _keepalive(self):
         """Отправляем переподписку на чат каждые 25с — MAX точно понимает и не рвёт соединение."""
@@ -710,24 +709,26 @@ class ProxyClient:
             try:
                 while True:
                     try:
-                        chunk = await asyncio.wait_for(reader.read(2900), timeout=60)
+                        chunk = await asyncio.wait_for(reader.read(8192), timeout=60)
                     except asyncio.TimeoutError:
                         log.debug(f"[{cid}] local read timeout"); break
                     if not chunk:
                         log.debug(f"[{cid}] local EOF"); break
                     buf = bytearray(chunk)
                     for _ in range(8):
-                        if len(buf) >= 2900: break
+                        if len(buf) >= 8192: break
                         try:
                             more = await asyncio.wait_for(
-                                reader.read(min(4096, 2900 - len(buf))), timeout=0.005)
+                                reader.read(min(4096, 8192 - len(buf))), timeout=0.005)
                             if not more: break
                             buf.extend(more)
                         except asyncio.TimeoutError: break
                     data = bytes(buf)
                     st = self._stat(cid); st["tx"] += len(data); st["frames_tx"] += 1
                     seq = self._send_seq.get(cid, 0); self._send_seq[cid] = seq + 1
-                    frame = {"a": "data", "id": cid, "seq": seq, "d": base64.b64encode(data).decode()}
+                    d, compressed = _pack(data)
+                    frame = {"a": "data", "id": cid, "seq": seq, "d": d}
+                    if compressed: frame["z"] = 1
                     log.debug(f"[{cid}] -> #{st['frames_tx']}  {len(data)}B  seq={seq}")
                     await self.t.send(frame)
             except Exception as e:
