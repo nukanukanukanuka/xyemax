@@ -48,7 +48,10 @@ _FILE_DOWNLOAD_URL = "https://fu.oneme.ru/api/download.do"
 SESSION_FILE = Path("session.json")
 SOCKS5_HOST  = "127.0.0.1"
 SOCKS5_PORT  = 1080
-LOG_FILE     = "proxy_client.log"
+
+_LOGS_DIR = Path("logs")
+_LOGS_DIR.mkdir(exist_ok=True)
+LOG_FILE  = _LOGS_DIR / f"client_{time.strftime('%Y-%m-%d_%H-%M-%S')}.log"
 
 # ══════════════════════════════════════════════════════════════════════════════
 # ЛОГИРОВАНИЕ
@@ -64,10 +67,8 @@ def _setup_logging():
     root = logging.getLogger()
     root.setLevel(logging.DEBUG)
 
-    # Файл — всё, DEBUG и выше
-    fh = logging.handlers.RotatingFileHandler(
-        LOG_FILE, maxBytes=10 * 1024 * 1024, backupCount=5, encoding="utf-8"
-    )
+    # Файл — всё, DEBUG и выше (каждый запуск — новый файл в logs/)
+    fh = logging.FileHandler(LOG_FILE, encoding="utf-8")
     fh.setLevel(logging.DEBUG)
     fh.setFormatter(logging.Formatter(
         "%(asctime)s [%(levelname)s] %(name)s — %(message)s",
@@ -352,12 +353,11 @@ class MaxTransport:
                 keepalive_task.cancel()
 
     async def _keepalive(self):
-        """Отправляем no-op фрейм каждые 30с чтобы не получить таймаут от MAX."""
+        """Отправляем переподписку на чат каждые 25с — MAX точно понимает и не рвёт соединение."""
         while True:
-            await asyncio.sleep(30)
+            await asyncio.sleep(25)
             try:
-                frame = {"ver": 11, "cmd": 2, "seq": self._next_seq(), "opcode": 0, "payload": {}}
-                await self.ws.send(json.dumps(frame, separators=(",", ":")))
+                await self._send_raw(48, {"chatIds": [self.chat_id]})
                 log.debug(f"[transport:{self.role}] keepalive sent")
             except Exception as e:
                 log.debug(f"[transport:{self.role}] keepalive error: {e}")

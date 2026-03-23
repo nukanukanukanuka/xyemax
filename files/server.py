@@ -60,7 +60,10 @@ DEVICE_ID = _cfg["DEVICE_ID"]
 STATUS_URL    = "https://telegram.mooner.pro/api/max/status"
 SESSIONS_FILE = Path("sessions.json")
 POLL_INTERVAL = 30
-LOG_FILE      = "proxy_server.log"
+
+_LOGS_DIR = Path("logs")
+_LOGS_DIR.mkdir(exist_ok=True)
+LOG_FILE  = _LOGS_DIR / f"server_{time.strftime('%Y-%m-%d_%H-%M-%S')}.log"
 
 # ══════════════════════════════════════════════════════════════════════════════
 # ЛОГИРОВАНИЕ
@@ -76,10 +79,8 @@ def _setup_logging():
     root = logging.getLogger()
     root.setLevel(logging.DEBUG)
 
-    # Файл — всё, DEBUG и выше
-    fh = logging.handlers.RotatingFileHandler(
-        LOG_FILE, maxBytes=10 * 1024 * 1024, backupCount=5, encoding="utf-8"
-    )
+    # Файл — всё, DEBUG и выше (каждый запуск — новый файл в logs/)
+    fh = logging.FileHandler(LOG_FILE, encoding="utf-8")
     fh.setLevel(logging.DEBUG)
     fh.setFormatter(logging.Formatter(
         "%(asctime)s [%(levelname)s] %(name)s — %(message)s",
