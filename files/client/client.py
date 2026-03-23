@@ -130,7 +130,7 @@ class MaxTransport:
         self._send_worker_task: asyncio.Task | None = None
         self._BATCH_DELAY = 0.005  # секунд ждём перед отправкой (5ms вместо 15ms)
         self._BATCH_MAX   = 32     # не более N фреймов в одном файле
-        self._UPLOAD_CONCURRENCY = 3  # параллельных загрузок файлов
+        self._UPLOAD_CONCURRENCY = 1  # MAX поддерживает только один op87 слот за раз
         self._http: aiohttp.ClientSession | None = None  # persistent HTTP session
 
     def _next_seq(self):
@@ -191,26 +191,23 @@ class MaxTransport:
         await self._send_queue.put(file_body)
 
     async def _send_worker(self):
-        """Отправляет батчи параллельно (до _UPLOAD_CONCURRENCY) — увеличивает пропускную способность."""
-        sem = asyncio.Semaphore(self._UPLOAD_CONCURRENCY)
-
-        async def _send_one(body: bytes):
-            async with sem:
+        """Отправляет батчи строго по одному — MAX поддерживает один op87 слот за раз."""
+        current: asyncio.Task | None = None
+        try:
+            while True:
+                file_body = await self._send_queue.get()
+                if file_body is None:  # сигнал остановки
+                    break
+                current = asyncio.create_task(self._send_file(file_body))
                 try:
-                    await self._send_file(body)
+                    await current
                 except Exception as e:
                     log.error(f"[transport] send_worker error: {e}", exc_info=True)
-
-        tasks: list[asyncio.Task] = []
-        while True:
-            file_body = await self._send_queue.get()
-            if file_body is None:  # сигнал остановки
-                if tasks:
-                    await asyncio.gather(*tasks, return_exceptions=True)
-                break
-            # Чистим завершённые задачи
-            tasks = [t for t in tasks if not t.done()]
-            tasks.append(asyncio.create_task(_send_one(file_body)))
+                current = None
+        finally:
+            if current and not current.done():
+                current.cancel()
+                await asyncio.gather(current, return_exceptions=True)
 
     async def _send_file(self, file_body: bytes):
         """Загрузить файл через MAX File API и отправить сообщением с вложением."""
@@ -395,13 +392,17 @@ class MaxTransport:
                 await recv_task
             finally:
                 keepalive_task.cancel()
+                try: await keepalive_task
+                except Exception: pass
                 await self._send_queue.put(None)  # останавливаем воркер
                 try:
-                    await send_worker_task
+                    await asyncio.wait_for(send_worker_task, timeout=5.0)
                 except Exception:
-                    pass
+                    send_worker_task.cancel()
+                    try: await send_worker_task
+                    except Exception: pass
                 if self._http and not self._http.closed:
-                    await asyncio.shield(self._http.close())
+                    await self._http.close()
                 self._http = None
 
     async def _keepalive(self):
