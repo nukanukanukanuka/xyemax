@@ -412,7 +412,7 @@ class MaxTransport:
             await self._send_raw(88, {"fileId": file_id, "chatId": chat_id,
                                       "messageId": msg_id})
             try:
-                pl = await asyncio.wait_for(fut, timeout=22.0)
+                pl = await asyncio.wait_for(fut, timeout=45.0)
             except asyncio.TimeoutError:
                 self._once.pop(key, None)
                 log.error(f"[transport:{self.label}] op88 timeout fileId={file_id}")
