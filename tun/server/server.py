@@ -487,7 +487,7 @@ class TunForwarder:
         self._flush_task: asyncio.Task | None = None
         self._lock = asyncio.Lock()
         # Батч окно для ответных пакетов (меньше чем у клиента — быстрее ответ)
-        self._resp_window_ms = 50
+        self._resp_window_ms = 300
 
     def attach(self, transport: MaxTransport):
         self.transport = transport
