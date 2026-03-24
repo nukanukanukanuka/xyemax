@@ -576,6 +576,9 @@ class TunManager:
             try:
                 pkt = await loop.run_in_executor(None, os.read, self.fd, TUN_MTU + 4)
             except OSError as e:
+                if e.errno == 11:  # EAGAIN — нет данных, это нормально
+                    await asyncio.sleep(0.01)
+                    continue
                 log.error(f"[tun] read error: {e}")
                 await asyncio.sleep(0.1)
                 continue

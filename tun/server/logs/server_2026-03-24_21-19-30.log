@@ -1,0 +1,46 @@
+2026-03-24 21:19:30 [DEBUG] __main__ — [tun] ip link set tun1 up mtu 1400: OK
+2026-03-24 21:19:30 [DEBUG] __main__ — [tun] ip addr add 10.0.1.2/30 dev tun1: OK
+2026-03-24 21:19:30 [DEBUG] __main__ — [tun] ip route add 10.0.1.1/32 dev tun1: OK
+2026-03-24 21:19:30 [INFO] __main__ — Восстановлено 1 сессий
+2026-03-24 21:19:30 [INFO] __main__ — [proxy:self-chat] WS подключение (acc1, chat_id=0)
+2026-03-24 21:19:30 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 21:19:30 [INFO] __main__ — Авторизован [server:acc1], chatId=0
+2026-03-24 21:19:39 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3001306978 size=66
+2026-03-24 21:19:39 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3000033623 size=66
+2026-03-24 21:19:40 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3000033879 size=66
+2026-03-24 21:19:41 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3004172369 size=66
+2026-03-24 21:19:42 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3000034135 size=66
+2026-03-24 21:19:43 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2996025432 size=66
+2026-03-24 21:19:45 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3000034391 size=66
+2026-03-24 21:19:49 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2999480088 size=66
+2026-03-24 21:19:58 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3004172881 size=66
+2026-03-24 21:20:00 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 21:20:14 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2993510228 size=66
+2026-03-24 21:20:14 [INFO] __main__ — [proxy:self-chat] acc1 остановлен
+2026-03-24 21:20:14 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x7c25fe229f60>, 162617.479742883)])']
+connector: <aiohttp.connector.TCPConnector object at 0x7c25fef3dd80>
+2026-03-24 21:20:14 [ERROR] asyncio — Fatal error on SSL transport
+protocol: <asyncio.sslproto.SSLProtocol object at 0x7c25fe203b20>
+transport: <_SelectorSocketTransport closing fd=10>
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 924, in write
+    n = self._sock.send(data)
+OSError: [Errno 9] Bad file descriptor
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/sslproto.py", line 690, in _process_write_backlog
+    self._transport.write(chunk)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 930, in write
+    self._fatal_error(exc, 'Fatal write error on socket transport')
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 725, in _fatal_error
+    self._force_close(exc)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 737, in _force_close
+    self._loop.call_soon(self._call_connection_lost, exc)
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 753, in call_soon
+    self._check_closed()
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 515, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
