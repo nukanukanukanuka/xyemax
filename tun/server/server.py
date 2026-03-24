@@ -445,7 +445,7 @@ class MaxTransport:
 
     async def connect(self):
         async with websockets.connect(
-            _WS_URL, extra_headers=_WS_HEADERS,
+            _WS_URL, additional_headers=_WS_HEADERS,
             ping_interval=20, ping_timeout=30, close_timeout=5,
         ) as ws:
             self.ws = ws
@@ -514,7 +514,7 @@ class TunForwarder:
             try:
                 pkt = await loop.run_in_executor(None, os.read, self.fd, TUN_MTU + 4)
             except OSError as e:
-                if e.errno == 11:  # EAGAIN — нет данных
+                if e.errno == 11:  # EAGAIN — нет данных, норма для O_NONBLOCK
                     await asyncio.sleep(0.01)
                     continue
                 log.error(f"[tun] read error: {e}")
