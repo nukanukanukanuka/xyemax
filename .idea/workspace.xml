@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89c49e48-d491-47be-8f3e-4c1cedbd3465" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/files/proxy_client.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/messages/client.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/messages/server.py" beforeDir="false" />
-    </list>
+    <list default="true" id="89c49e48-d491-47be-8f3e-4c1cedbd3465" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,7 +34,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "/var/www/html2/xyemax.test/http2/server",
+    "last_opened_file_path": "/var/www/html2/xyemax.test/tun/server",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -49,11 +45,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tun/server" />
       <recent name="$PROJECT_DIR$/http2/server" />
       <recent name="$PROJECT_DIR$/http2/client" />
       <recent name="$PROJECT_DIR$/http/server" />
       <recent name="$PROJECT_DIR$/http/client" />
-      <recent name="$PROJECT_DIR$/shybrid/client" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/shybrid/client" />
@@ -78,7 +74,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1774286591328</updated>
-      <workItem from="1774286592540" duration="44310000" />
+      <workItem from="1774286592540" duration="44949000" />
     </task>
     <servers />
   </component>
