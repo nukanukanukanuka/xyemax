@@ -1,0 +1,928 @@
+2026-03-24 11:40:26 [INFO] __main__ — MAX Proxy SERVER запущен  viewer_id=240876353  transports=2
+2026-03-24 11:40:26 [INFO] __main__ — Восстановлено 1 сессий из sessions.json
+2026-03-24 11:40:26 [INFO] __main__ — [proxy:self-chat] WS подключение (chat_id=0, transports=2)
+2026-03-24 11:40:27 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 11:40:27 [INFO] __main__ — Авторизован [server:acc1], chatId=0
+2026-03-24 11:40:27 [INFO] __main__ — Авторизован [server:acc2], chatId=0
+2026-03-24 11:40:33 [DEBUG] __main__ — [transport:acc1] text-recv  action=connect  id=69b67b0f
+2026-03-24 11:40:33 [INFO] __main__ — [69b67b0f] CONNECT → 188.40.167.82:443
+2026-03-24 11:40:33 [INFO] __main__ — [69b67b0f] TCP connected → 188.40.167.82:443  (1 мс)
+2026-03-24 11:40:33 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=48  action=ok  ms=0
+2026-03-24 11:40:33 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=69b67b0f
+2026-03-24 11:40:33 [DEBUG] __main__ — [69b67b0f] <- data #1  517B  seq=0
+2026-03-24 11:40:33 [DEBUG] __main__ — [69b67b0f] -> #1  2908B  seq=0
+2026-03-24 11:40:33 [DEBUG] __main__ — [69b67b0f] -> #2  226B  seq=1
+2026-03-24 11:40:33 [DEBUG] __main__ — [transport:acc1] file-send  size=2963  action=data  seq=0  prio=0
+2026-03-24 11:40:33 [DEBUG] __main__ — [transport:acc2] text-send  len=369  action=data  ms=0
+2026-03-24 11:40:34 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2992381737  size=2963
+2026-03-24 11:40:34 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2992381737
+2026-03-24 11:40:35 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=69b67b0f
+2026-03-24 11:40:35 [DEBUG] __main__ — [69b67b0f] <- data #2  186B  seq=2
+2026-03-24 11:40:35 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=69b67b0f
+2026-03-24 11:40:35 [DEBUG] __main__ — [69b67b0f] <- data #3  80B  seq=1
+2026-03-24 11:40:35 [DEBUG] __main__ — [69b67b0f] -> #3  744B  seq=2
+2026-03-24 11:40:35 [DEBUG] __main__ — [transport:acc1] text-send  len=1057  action=data  ms=1
+2026-03-24 11:40:35 [DEBUG] __main__ — [transport:acc1] gap ms=3..3, sending nack (attempt 1)
+2026-03-24 11:40:36 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=69b67b0f
+2026-03-24 11:40:36 [DEBUG] __main__ — [69b67b0f] <- data #4  31B  seq=3
+2026-03-24 11:40:36 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=69b67b0f
+2026-03-24 11:40:36 [DEBUG] __main__ — [transport:acc1] text-recv  action=close  id=69b67b0f
+2026-03-24 11:40:36 [DEBUG] __main__ — [69b67b0f] <- data #5  24B  seq=4
+2026-03-24 11:40:36 [INFO] __main__ — [69b67b0f] close requested last_seq=4
+2026-03-24 11:40:36 [DEBUG] __main__ — [69b67b0f] socket closed
+2026-03-24 11:40:36 [DEBUG] __main__ — [69b67b0f] remote EOF
+2026-03-24 11:40:36 [INFO] __main__ — [69b67b0f] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:40:37 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=d3c9ce01
+2026-03-24 11:40:37 [INFO] __main__ — [d3c9ce01] CONNECT → 188.40.167.82:443
+2026-03-24 11:40:37 [INFO] __main__ — [d3c9ce01] TCP connected → 188.40.167.82:443  (1 мс)
+2026-03-24 11:40:37 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=48  action=ok  ms=1
+2026-03-24 11:40:37 [DEBUG] __main__ — [transport:acc1] dup ms=3 (expected=5), skip
+2026-03-24 11:40:38 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d3c9ce01
+2026-03-24 11:40:38 [DEBUG] __main__ — [d3c9ce01] <- data #1  517B  seq=0
+2026-03-24 11:40:38 [DEBUG] __main__ — [d3c9ce01] -> #1  3134B  seq=0
+2026-03-24 11:40:38 [DEBUG] __main__ — [transport:acc1] file-send  size=3189  action=data  seq=0  prio=0
+2026-03-24 11:40:38 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2998098988  size=3189
+2026-03-24 11:40:39 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2998098988
+2026-03-24 11:40:39 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d3c9ce01
+2026-03-24 11:40:39 [DEBUG] __main__ — [d3c9ce01] <- data #2  80B  seq=1
+2026-03-24 11:40:39 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d3c9ce01
+2026-03-24 11:40:39 [DEBUG] __main__ — [d3c9ce01] <- data #3  186B  seq=2
+2026-03-24 11:40:39 [DEBUG] __main__ — [d3c9ce01] -> #2  636B  seq=1
+2026-03-24 11:40:39 [DEBUG] __main__ — [transport:acc2] text-send  len=913  action=data  ms=2
+2026-03-24 11:40:39 [DEBUG] __main__ — [d3c9ce01] -> #3  130B  seq=2
+2026-03-24 11:40:39 [DEBUG] __main__ — [transport:acc1] text-send  len=241  action=data  ms=2
+2026-03-24 11:40:39 [DEBUG] __main__ — [transport:acc2] gap ms=4..4, sending nack (attempt 1)
+2026-03-24 11:40:40 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d3c9ce01
+2026-03-24 11:40:40 [DEBUG] __main__ — [transport:acc2] text-recv  action=close  id=d3c9ce01
+2026-03-24 11:40:40 [DEBUG] __main__ — [d3c9ce01] <- data #4  31B  seq=3
+2026-03-24 11:40:40 [INFO] __main__ — [d3c9ce01] close requested last_seq=4
+2026-03-24 11:40:40 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d3c9ce01
+2026-03-24 11:40:40 [DEBUG] __main__ — [d3c9ce01] <- data #5  24B  seq=4
+2026-03-24 11:40:40 [DEBUG] __main__ — [d3c9ce01] socket closed
+2026-03-24 11:40:40 [DEBUG] __main__ — [d3c9ce01] remote EOF
+2026-03-24 11:40:40 [INFO] __main__ — [d3c9ce01] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:40:41 [DEBUG] __main__ — [transport:acc2] dup ms=4 (expected=6), skip
+2026-03-24 11:40:48 [DEBUG] __main__ — [transport:acc1] text-recv  action=connect  id=83fd0702
+2026-03-24 11:40:48 [INFO] __main__ — [83fd0702] CONNECT → 188.40.167.82:443
+2026-03-24 11:40:48 [INFO] __main__ — [83fd0702] TCP connected → 188.40.167.82:443  (0 мс)
+2026-03-24 11:40:48 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=48  action=ok  ms=3
+2026-03-24 11:40:49 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=83fd0702
+2026-03-24 11:40:49 [DEBUG] __main__ — [83fd0702] <- data #1  517B  seq=0
+2026-03-24 11:40:49 [DEBUG] __main__ — [83fd0702] -> #1  3134B  seq=0
+2026-03-24 11:40:49 [DEBUG] __main__ — [transport:acc1] file-send  size=3189  action=data  seq=0  prio=0
+2026-03-24 11:40:49 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2982681185  size=3189
+2026-03-24 11:40:50 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2982681185
+2026-03-24 11:40:50 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=83fd0702
+2026-03-24 11:40:50 [DEBUG] __main__ — [83fd0702] <- data #2  80B  seq=1
+2026-03-24 11:40:50 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=83fd0702
+2026-03-24 11:40:50 [DEBUG] __main__ — [83fd0702] <- data #3  186B  seq=2
+2026-03-24 11:40:50 [DEBUG] __main__ — [83fd0702] -> #2  636B  seq=1
+2026-03-24 11:40:50 [DEBUG] __main__ — [transport:acc2] text-send  len=913  action=data  ms=3
+2026-03-24 11:40:50 [DEBUG] __main__ — [83fd0702] -> #3  130B  seq=2
+2026-03-24 11:40:50 [DEBUG] __main__ — [transport:acc1] text-send  len=241  action=data  ms=4
+2026-03-24 11:40:50 [DEBUG] __main__ — [transport:acc1] gap ms=11..11, sending nack (attempt 1)
+2026-03-24 11:40:51 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=83fd0702
+2026-03-24 11:40:51 [DEBUG] __main__ — [83fd0702] <- data #4  31B  seq=3
+2026-03-24 11:40:51 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=83fd0702
+2026-03-24 11:40:51 [DEBUG] __main__ — [transport:acc1] text-recv  action=close  id=83fd0702
+2026-03-24 11:40:51 [DEBUG] __main__ — [83fd0702] <- data #5  24B  seq=4
+2026-03-24 11:40:51 [INFO] __main__ — [83fd0702] close requested last_seq=4
+2026-03-24 11:40:51 [DEBUG] __main__ — [83fd0702] socket closed
+2026-03-24 11:40:51 [DEBUG] __main__ — [83fd0702] remote EOF
+2026-03-24 11:40:51 [INFO] __main__ — [83fd0702] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:40:52 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:40:52 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:40:52 [DEBUG] __main__ — [transport:acc1] dup ms=11 (expected=13), skip
+2026-03-24 11:40:53 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=518a731d
+2026-03-24 11:40:53 [INFO] __main__ — [518a731d] CONNECT → 188.40.167.82:443
+2026-03-24 11:40:53 [INFO] __main__ — [518a731d] TCP connected → 188.40.167.82:443  (0 мс)
+2026-03-24 11:40:53 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=48  action=ok  ms=4
+2026-03-24 11:40:53 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=518a731d
+2026-03-24 11:40:53 [DEBUG] __main__ — [518a731d] <- data #1  517B  seq=0
+2026-03-24 11:40:53 [DEBUG] __main__ — [518a731d] -> #1  3134B  seq=0
+2026-03-24 11:40:53 [DEBUG] __main__ — [transport:acc1] file-send  size=3189  action=data  seq=0  prio=0
+2026-03-24 11:40:54 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2997008831  size=3189
+2026-03-24 11:40:54 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2997008831
+2026-03-24 11:40:54 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=518a731d
+2026-03-24 11:40:54 [DEBUG] __main__ — [518a731d] <- data #2  80B  seq=1
+2026-03-24 11:40:54 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=518a731d
+2026-03-24 11:40:54 [DEBUG] __main__ — [518a731d] <- data #3  186B  seq=2
+2026-03-24 11:40:54 [DEBUG] __main__ — [518a731d] -> #2  287B  seq=1
+2026-03-24 11:40:54 [DEBUG] __main__ — [transport:acc2] text-send  len=449  action=data  ms=5
+2026-03-24 11:40:54 [DEBUG] __main__ — [518a731d] -> #3  349B  seq=2
+2026-03-24 11:40:54 [DEBUG] __main__ — [transport:acc1] text-send  len=533  action=data  ms=5
+2026-03-24 11:40:54 [DEBUG] __main__ — [518a731d] -> #4  130B  seq=3
+2026-03-24 11:40:54 [DEBUG] __main__ — [transport:acc2] text-send  len=241  action=data  ms=6
+2026-03-24 11:40:55 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=518a731d
+2026-03-24 11:40:55 [DEBUG] __main__ — [518a731d] <- data #4  31B  seq=3
+2026-03-24 11:40:56 [DEBUG] __main__ — [transport:acc2] text-recv  action=close  id=518a731d
+2026-03-24 11:40:56 [INFO] __main__ — [518a731d] close requested last_seq=4
+2026-03-24 11:40:56 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=518a731d
+2026-03-24 11:40:56 [DEBUG] __main__ — [518a731d] <- data #5  24B  seq=4
+2026-03-24 11:40:56 [DEBUG] __main__ — [518a731d] socket closed
+2026-03-24 11:40:56 [DEBUG] __main__ — [518a731d] remote EOF
+2026-03-24 11:40:56 [INFO] __main__ — [518a731d] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:40:57 [DEBUG] __main__ — [transport:acc1] text-recv  action=connect  id=e837db13
+2026-03-24 11:40:57 [INFO] __main__ — [e837db13] CONNECT → 188.40.167.82:443
+2026-03-24 11:40:57 [INFO] __main__ — [e837db13] TCP connected → 188.40.167.82:443  (0 мс)
+2026-03-24 11:40:57 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=48  action=ok  ms=6
+2026-03-24 11:40:57 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 11:40:57 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=e837db13
+2026-03-24 11:40:57 [DEBUG] __main__ — [e837db13] <- data #1  517B  seq=0
+2026-03-24 11:40:57 [DEBUG] __main__ — [e837db13] -> #1  2920B  seq=0
+2026-03-24 11:40:57 [DEBUG] __main__ — [e837db13] -> #2  214B  seq=1
+2026-03-24 11:40:57 [DEBUG] __main__ — [transport:acc1] file-send  size=2975  action=data  seq=0  prio=0
+2026-03-24 11:40:57 [DEBUG] __main__ — [transport:acc2] text-send  len=353  action=data  ms=7
+2026-03-24 11:40:57 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2994040849  size=2975
+2026-03-24 11:40:58 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2994040849
+2026-03-24 11:40:58 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=e837db13
+2026-03-24 11:40:58 [DEBUG] __main__ — [e837db13] <- data #2  80B  seq=1
+2026-03-24 11:40:58 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=e837db13
+2026-03-24 11:40:58 [DEBUG] __main__ — [e837db13] <- data #3  186B  seq=2
+2026-03-24 11:40:58 [DEBUG] __main__ — [e837db13] -> #3  636B  seq=2
+2026-03-24 11:40:58 [DEBUG] __main__ — [transport:acc1] text-send  len=913  action=data  ms=7
+2026-03-24 11:40:58 [DEBUG] __main__ — [e837db13] -> #4  130B  seq=3
+2026-03-24 11:40:58 [DEBUG] __main__ — [transport:acc2] text-send  len=241  action=data  ms=8
+2026-03-24 11:40:58 [DEBUG] __main__ — [transport:acc1] gap ms=19..19, sending nack (attempt 1)
+2026-03-24 11:40:59 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=e837db13
+2026-03-24 11:40:59 [DEBUG] __main__ — [e837db13] <- data #4  31B  seq=3
+2026-03-24 11:40:59 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=e837db13
+2026-03-24 11:40:59 [DEBUG] __main__ — [transport:acc1] text-recv  action=close  id=e837db13
+2026-03-24 11:40:59 [DEBUG] __main__ — [e837db13] <- data #5  24B  seq=4
+2026-03-24 11:40:59 [INFO] __main__ — [e837db13] close requested last_seq=4
+2026-03-24 11:40:59 [DEBUG] __main__ — [e837db13] socket closed
+2026-03-24 11:40:59 [DEBUG] __main__ — [e837db13] remote EOF
+2026-03-24 11:40:59 [INFO] __main__ — [e837db13] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:41:00 [DEBUG] __main__ — [transport:acc1] dup ms=19 (expected=21), skip
+2026-03-24 11:41:02 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=d3eef869
+2026-03-24 11:41:02 [INFO] __main__ — [d3eef869] CONNECT → 188.40.167.82:443
+2026-03-24 11:41:02 [INFO] __main__ — [d3eef869] TCP connected → 188.40.167.82:443  (1 мс)
+2026-03-24 11:41:02 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=48  action=ok  ms=9
+2026-03-24 11:41:02 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d3eef869
+2026-03-24 11:41:02 [DEBUG] __main__ — [d3eef869] <- data #1  517B  seq=0
+2026-03-24 11:41:02 [DEBUG] __main__ — [d3eef869] -> #1  3134B  seq=0
+2026-03-24 11:41:02 [DEBUG] __main__ — [transport:acc1] file-send  size=3189  action=data  seq=0  prio=0
+2026-03-24 11:41:03 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2996802360  size=3189
+2026-03-24 11:41:03 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2996802360
+2026-03-24 11:41:04 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d3eef869
+2026-03-24 11:41:04 [DEBUG] __main__ — [d3eef869] <- data #2  186B  seq=2
+2026-03-24 11:41:04 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d3eef869
+2026-03-24 11:41:04 [DEBUG] __main__ — [d3eef869] <- data #3  80B  seq=1
+2026-03-24 11:41:04 [DEBUG] __main__ — [d3eef869] -> #2  766B  seq=1
+2026-03-24 11:41:04 [DEBUG] __main__ — [transport:acc2] text-send  len=1090  action=data  ms=10
+2026-03-24 11:41:04 [DEBUG] __main__ — [transport:acc2] gap ms=16..16, sending nack (attempt 1)
+2026-03-24 11:41:05 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d3eef869
+2026-03-24 11:41:05 [DEBUG] __main__ — [transport:acc2] text-recv  action=close  id=d3eef869
+2026-03-24 11:41:05 [DEBUG] __main__ — [d3eef869] <- data #4  31B  seq=3
+2026-03-24 11:41:05 [INFO] __main__ — [d3eef869] close requested last_seq=4
+2026-03-24 11:41:05 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d3eef869
+2026-03-24 11:41:05 [DEBUG] __main__ — [d3eef869] <- data #5  24B  seq=4
+2026-03-24 11:41:05 [DEBUG] __main__ — [d3eef869] socket closed
+2026-03-24 11:41:05 [DEBUG] __main__ — [d3eef869] remote EOF
+2026-03-24 11:41:05 [INFO] __main__ — [d3eef869] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:41:06 [DEBUG] __main__ — [transport:acc2] dup ms=16 (expected=18), skip
+2026-03-24 11:41:06 [DEBUG] __main__ — [transport:acc1] text-recv  action=connect  id=a2806620
+2026-03-24 11:41:06 [INFO] __main__ — [a2806620] CONNECT → 188.40.167.82:443
+2026-03-24 11:41:06 [INFO] __main__ — [a2806620] TCP connected → 188.40.167.82:443  (0 мс)
+2026-03-24 11:41:06 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=48  action=ok  ms=8
+2026-03-24 11:41:06 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=a2806620
+2026-03-24 11:41:06 [DEBUG] __main__ — [a2806620] <- data #1  517B  seq=0
+2026-03-24 11:41:07 [DEBUG] __main__ — [a2806620] -> #1  3134B  seq=0
+2026-03-24 11:41:07 [DEBUG] __main__ — [transport:acc1] file-send  size=3189  action=data  seq=0  prio=0
+2026-03-24 11:41:07 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2982062327  size=3189
+2026-03-24 11:41:07 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2982062327
+2026-03-24 11:41:08 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=a2806620
+2026-03-24 11:41:08 [DEBUG] __main__ — [a2806620] <- data #2  80B  seq=1
+2026-03-24 11:41:08 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=a2806620
+2026-03-24 11:41:08 [DEBUG] __main__ — [a2806620] <- data #3  186B  seq=2
+2026-03-24 11:41:08 [DEBUG] __main__ — [a2806620] -> #2  636B  seq=1
+2026-03-24 11:41:08 [DEBUG] __main__ — [transport:acc2] text-send  len=914  action=data  ms=11
+2026-03-24 11:41:08 [DEBUG] __main__ — [a2806620] -> #3  130B  seq=2
+2026-03-24 11:41:08 [DEBUG] __main__ — [transport:acc1] text-send  len=241  action=data  ms=9
+2026-03-24 11:41:08 [DEBUG] __main__ — [transport:acc1] gap ms=27..27, sending nack (attempt 1)
+2026-03-24 11:41:09 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=a2806620
+2026-03-24 11:41:09 [DEBUG] __main__ — [a2806620] <- data #4  31B  seq=3
+2026-03-24 11:41:09 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=a2806620
+2026-03-24 11:41:09 [DEBUG] __main__ — [transport:acc1] text-recv  action=close  id=a2806620
+2026-03-24 11:41:09 [DEBUG] __main__ — [a2806620] <- data #5  24B  seq=4
+2026-03-24 11:41:09 [INFO] __main__ — [a2806620] close requested last_seq=4
+2026-03-24 11:41:09 [DEBUG] __main__ — [a2806620] socket closed
+2026-03-24 11:41:09 [DEBUG] __main__ — [a2806620] remote EOF
+2026-03-24 11:41:09 [INFO] __main__ — [a2806620] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:41:10 [DEBUG] __main__ — [transport:acc1] dup ms=27 (expected=29), skip
+2026-03-24 11:41:11 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=21d6a81d
+2026-03-24 11:41:11 [INFO] __main__ — [21d6a81d] CONNECT → 188.40.167.82:443
+2026-03-24 11:41:11 [INFO] __main__ — [21d6a81d] TCP connected → 188.40.167.82:443  (0 мс)
+2026-03-24 11:41:11 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=49  action=ok  ms=12
+2026-03-24 11:41:11 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=21d6a81d
+2026-03-24 11:41:11 [DEBUG] __main__ — [21d6a81d] <- data #1  517B  seq=0
+2026-03-24 11:41:11 [DEBUG] __main__ — [21d6a81d] -> #1  2920B  seq=0
+2026-03-24 11:41:11 [DEBUG] __main__ — [21d6a81d] -> #2  214B  seq=1
+2026-03-24 11:41:11 [DEBUG] __main__ — [transport:acc1] file-send  size=2975  action=data  seq=0  prio=0
+2026-03-24 11:41:11 [DEBUG] __main__ — [transport:acc2] text-send  len=354  action=data  ms=13
+2026-03-24 11:41:11 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2998699241  size=2975
+2026-03-24 11:41:12 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2998699241
+2026-03-24 11:41:12 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=21d6a81d
+2026-03-24 11:41:12 [DEBUG] __main__ — [21d6a81d] <- data #2  80B  seq=1
+2026-03-24 11:41:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=21d6a81d
+2026-03-24 11:41:12 [DEBUG] __main__ — [21d6a81d] <- data #3  186B  seq=2
+2026-03-24 11:41:12 [DEBUG] __main__ — [21d6a81d] -> #3  636B  seq=2
+2026-03-24 11:41:12 [DEBUG] __main__ — [transport:acc1] text-send  len=914  action=data  ms=10
+2026-03-24 11:41:12 [DEBUG] __main__ — [21d6a81d] -> #4  130B  seq=3
+2026-03-24 11:41:12 [DEBUG] __main__ — [transport:acc2] text-send  len=242  action=data  ms=14
+2026-03-24 11:41:12 [DEBUG] __main__ — [transport:acc2] gap ms=22..22, sending nack (attempt 1)
+2026-03-24 11:41:13 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=21d6a81d
+2026-03-24 11:41:13 [DEBUG] __main__ — [transport:acc2] text-recv  action=close  id=21d6a81d
+2026-03-24 11:41:13 [DEBUG] __main__ — [21d6a81d] <- data #4  31B  seq=3
+2026-03-24 11:41:13 [INFO] __main__ — [21d6a81d] close requested last_seq=4
+2026-03-24 11:41:13 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=21d6a81d
+2026-03-24 11:41:13 [DEBUG] __main__ — [21d6a81d] <- data #5  24B  seq=4
+2026-03-24 11:41:13 [DEBUG] __main__ — [21d6a81d] socket closed
+2026-03-24 11:41:13 [DEBUG] __main__ — [21d6a81d] remote EOF
+2026-03-24 11:41:13 [INFO] __main__ — [21d6a81d] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:41:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=connect  id=6815ec04
+2026-03-24 11:41:14 [INFO] __main__ — [6815ec04] CONNECT → 188.40.167.82:443
+2026-03-24 11:41:14 [INFO] __main__ — [6815ec04] TCP connected → 188.40.167.82:443  (0 мс)
+2026-03-24 11:41:14 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=49  action=ok  ms=11
+2026-03-24 11:41:14 [DEBUG] __main__ — [transport:acc2] dup ms=22 (expected=24), skip
+2026-03-24 11:41:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6815ec04
+2026-03-24 11:41:14 [DEBUG] __main__ — [6815ec04] <- data #1  517B  seq=0
+2026-03-24 11:41:14 [DEBUG] __main__ — [6815ec04] -> #1  3134B  seq=0
+2026-03-24 11:41:14 [DEBUG] __main__ — [transport:acc1] file-send  size=3189  action=data  seq=0  prio=0
+2026-03-24 11:41:14 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2999730711  size=3189
+2026-03-24 11:41:15 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2999730711
+2026-03-24 11:41:15 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6815ec04
+2026-03-24 11:41:15 [DEBUG] __main__ — [6815ec04] <- data #2  80B  seq=1
+2026-03-24 11:41:15 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6815ec04
+2026-03-24 11:41:15 [DEBUG] __main__ — [6815ec04] <- data #3  186B  seq=2
+2026-03-24 11:41:15 [DEBUG] __main__ — [6815ec04] -> #2  636B  seq=1
+2026-03-24 11:41:15 [DEBUG] __main__ — [transport:acc2] text-send  len=914  action=data  ms=15
+2026-03-24 11:41:15 [DEBUG] __main__ — [6815ec04] -> #3  130B  seq=2
+2026-03-24 11:41:15 [DEBUG] __main__ — [transport:acc1] text-send  len=242  action=data  ms=12
+2026-03-24 11:41:16 [DEBUG] __main__ — [transport:acc1] gap ms=35..35, sending nack (attempt 1)
+2026-03-24 11:41:16 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6815ec04
+2026-03-24 11:41:16 [DEBUG] __main__ — [6815ec04] <- data #4  31B  seq=3
+2026-03-24 11:41:16 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6815ec04
+2026-03-24 11:41:16 [DEBUG] __main__ — [transport:acc1] text-recv  action=close  id=6815ec04
+2026-03-24 11:41:16 [DEBUG] __main__ — [6815ec04] <- data #5  24B  seq=4
+2026-03-24 11:41:16 [INFO] __main__ — [6815ec04] close requested last_seq=4
+2026-03-24 11:41:16 [DEBUG] __main__ — [6815ec04] socket closed
+2026-03-24 11:41:16 [DEBUG] __main__ — [6815ec04] remote EOF
+2026-03-24 11:41:16 [INFO] __main__ — [6815ec04] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:41:17 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:41:17 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:41:17 [DEBUG] __main__ — [transport:acc1] dup ms=35 (expected=37), skip
+2026-03-24 11:41:18 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=497653a0
+2026-03-24 11:41:18 [INFO] __main__ — [497653a0] CONNECT → 188.40.167.82:443
+2026-03-24 11:41:18 [INFO] __main__ — [497653a0] TCP connected → 188.40.167.82:443  (0 мс)
+2026-03-24 11:41:18 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=49  action=ok  ms=16
+2026-03-24 11:41:18 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=497653a0
+2026-03-24 11:41:18 [DEBUG] __main__ — [497653a0] <- data #1  517B  seq=0
+2026-03-24 11:41:18 [DEBUG] __main__ — [497653a0] -> #1  3134B  seq=0
+2026-03-24 11:41:18 [DEBUG] __main__ — [transport:acc1] file-send  size=3189  action=data  seq=0  prio=0
+2026-03-24 11:41:19 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2994325002  size=3189
+2026-03-24 11:41:20 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2994325002
+2026-03-24 11:41:21 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=497653a0
+2026-03-24 11:41:21 [DEBUG] __main__ — [497653a0] <- data #2  80B  seq=1
+2026-03-24 11:41:21 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=497653a0
+2026-03-24 11:41:21 [DEBUG] __main__ — [497653a0] <- data #3  186B  seq=2
+2026-03-24 11:41:21 [DEBUG] __main__ — [497653a0] -> #2  636B  seq=1
+2026-03-24 11:41:21 [DEBUG] __main__ — [transport:acc2] text-send  len=914  action=data  ms=17
+2026-03-24 11:41:21 [DEBUG] __main__ — [497653a0] -> #3  130B  seq=2
+2026-03-24 11:41:21 [DEBUG] __main__ — [transport:acc1] text-send  len=242  action=data  ms=13
+2026-03-24 11:41:21 [DEBUG] __main__ — [transport:acc2] gap ms=28..28, sending nack (attempt 1)
+2026-03-24 11:41:22 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=497653a0
+2026-03-24 11:41:22 [DEBUG] __main__ — [transport:acc2] text-recv  action=close  id=497653a0
+2026-03-24 11:41:22 [DEBUG] __main__ — [497653a0] <- data #4  31B  seq=3
+2026-03-24 11:41:22 [INFO] __main__ — [497653a0] close requested last_seq=4
+2026-03-24 11:41:22 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=497653a0
+2026-03-24 11:41:22 [DEBUG] __main__ — [497653a0] <- data #5  24B  seq=4
+2026-03-24 11:41:22 [DEBUG] __main__ — [497653a0] socket closed
+2026-03-24 11:41:22 [DEBUG] __main__ — [497653a0] remote EOF
+2026-03-24 11:41:22 [INFO] __main__ — [497653a0] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:41:23 [DEBUG] __main__ — [transport:acc2] dup ms=28 (expected=30), skip
+2026-03-24 11:41:23 [DEBUG] __main__ — [transport:acc1] text-recv  action=connect  id=eeaf9c88
+2026-03-24 11:41:23 [INFO] __main__ — [eeaf9c88] CONNECT → 188.40.167.82:443
+2026-03-24 11:41:23 [INFO] __main__ — [eeaf9c88] TCP connected → 188.40.167.82:443  (1 мс)
+2026-03-24 11:41:23 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=49  action=ok  ms=14
+2026-03-24 11:41:23 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=eeaf9c88
+2026-03-24 11:41:23 [DEBUG] __main__ — [eeaf9c88] <- data #1  517B  seq=0
+2026-03-24 11:41:23 [DEBUG] __main__ — [eeaf9c88] -> #1  3134B  seq=0
+2026-03-24 11:41:23 [DEBUG] __main__ — [transport:acc1] file-send  size=3189  action=data  seq=0  prio=0
+2026-03-24 11:41:23 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=3000175270  size=3189
+2026-03-24 11:41:24 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=3000175270
+2026-03-24 11:41:24 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=eeaf9c88
+2026-03-24 11:41:24 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=eeaf9c88
+2026-03-24 11:41:24 [DEBUG] __main__ — [eeaf9c88] <- data #2  80B  seq=1
+2026-03-24 11:41:24 [DEBUG] __main__ — [eeaf9c88] <- data #3  186B  seq=2
+2026-03-24 11:41:24 [DEBUG] __main__ — [eeaf9c88] -> #2  766B  seq=1
+2026-03-24 11:41:24 [DEBUG] __main__ — [transport:acc2] text-send  len=1090  action=data  ms=18
+2026-03-24 11:41:24 [DEBUG] __main__ — [transport:acc1] gap ms=43..43, sending nack (attempt 1)
+2026-03-24 11:41:25 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=eeaf9c88
+2026-03-24 11:41:25 [DEBUG] __main__ — [eeaf9c88] <- data #4  31B  seq=3
+2026-03-24 11:41:25 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=eeaf9c88
+2026-03-24 11:41:25 [DEBUG] __main__ — [transport:acc1] text-recv  action=close  id=eeaf9c88
+2026-03-24 11:41:25 [DEBUG] __main__ — [eeaf9c88] <- data #5  24B  seq=4
+2026-03-24 11:41:25 [INFO] __main__ — [eeaf9c88] close requested last_seq=4
+2026-03-24 11:41:25 [DEBUG] __main__ — [eeaf9c88] socket closed
+2026-03-24 11:41:25 [DEBUG] __main__ — [eeaf9c88] remote EOF
+2026-03-24 11:41:25 [INFO] __main__ — [eeaf9c88] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:41:26 [DEBUG] __main__ — [transport:acc1] dup ms=43 (expected=45), skip
+2026-03-24 11:41:26 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=985acb34
+2026-03-24 11:41:26 [INFO] __main__ — [985acb34] CONNECT → 188.40.167.82:443
+2026-03-24 11:41:26 [INFO] __main__ — [985acb34] TCP connected → 188.40.167.82:443  (1 мс)
+2026-03-24 11:41:26 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=49  action=ok  ms=19
+2026-03-24 11:41:27 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=985acb34
+2026-03-24 11:41:27 [DEBUG] __main__ — [985acb34] <- data #1  517B  seq=0
+2026-03-24 11:41:27 [DEBUG] __main__ — [985acb34] -> #1  3134B  seq=0
+2026-03-24 11:41:27 [DEBUG] __main__ — [transport:acc1] file-send  size=3189  action=data  seq=0  prio=0
+2026-03-24 11:41:27 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 11:41:28 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2991109803  size=3189
+2026-03-24 11:41:28 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2991109803
+2026-03-24 11:41:28 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=985acb34
+2026-03-24 11:41:28 [DEBUG] __main__ — [985acb34] <- data #2  80B  seq=1
+2026-03-24 11:41:28 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=985acb34
+2026-03-24 11:41:28 [DEBUG] __main__ — [985acb34] <- data #3  186B  seq=2
+2026-03-24 11:41:28 [DEBUG] __main__ — [985acb34] -> #2  636B  seq=1
+2026-03-24 11:41:28 [DEBUG] __main__ — [transport:acc2] text-send  len=914  action=data  ms=20
+2026-03-24 11:41:28 [DEBUG] __main__ — [985acb34] -> #3  130B  seq=2
+2026-03-24 11:41:28 [DEBUG] __main__ — [transport:acc1] text-send  len=242  action=data  ms=15
+2026-03-24 11:41:29 [DEBUG] __main__ — [transport:acc2] gap ms=34..34, sending nack (attempt 1)
+2026-03-24 11:41:29 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=985acb34
+2026-03-24 11:41:29 [DEBUG] __main__ — [transport:acc2] text-recv  action=close  id=985acb34
+2026-03-24 11:41:29 [DEBUG] __main__ — [985acb34] <- data #4  31B  seq=3
+2026-03-24 11:41:29 [INFO] __main__ — [985acb34] close requested last_seq=4
+2026-03-24 11:41:29 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=985acb34
+2026-03-24 11:41:29 [DEBUG] __main__ — [985acb34] <- data #5  24B  seq=4
+2026-03-24 11:41:29 [DEBUG] __main__ — [985acb34] socket closed
+2026-03-24 11:41:29 [DEBUG] __main__ — [985acb34] remote EOF
+2026-03-24 11:41:29 [INFO] __main__ — [985acb34] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:41:30 [DEBUG] __main__ — [transport:acc1] text-recv  action=connect  id=768e4e05
+2026-03-24 11:41:30 [INFO] __main__ — [768e4e05] CONNECT → 188.40.167.82:443
+2026-03-24 11:41:30 [INFO] __main__ — [768e4e05] TCP connected → 188.40.167.82:443  (1 мс)
+2026-03-24 11:41:30 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=49  action=ok  ms=16
+2026-03-24 11:41:30 [DEBUG] __main__ — [transport:acc2] dup ms=34 (expected=36), skip
+2026-03-24 11:41:30 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=768e4e05
+2026-03-24 11:41:30 [DEBUG] __main__ — [768e4e05] <- data #1  517B  seq=0
+2026-03-24 11:41:31 [DEBUG] __main__ — [768e4e05] -> #1  3134B  seq=0
+2026-03-24 11:41:31 [DEBUG] __main__ — [transport:acc1] file-send  size=3189  action=data  seq=0  prio=0
+2026-03-24 11:41:31 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2995461805  size=3189
+2026-03-24 11:41:31 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2995461805
+2026-03-24 11:41:31 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=768e4e05
+2026-03-24 11:41:31 [DEBUG] __main__ — [768e4e05] <- data #2  80B  seq=1
+2026-03-24 11:41:31 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=768e4e05
+2026-03-24 11:41:31 [DEBUG] __main__ — [768e4e05] <- data #3  130B  seq=2
+2026-03-24 11:41:32 [DEBUG] __main__ — [768e4e05] -> #2  636B  seq=1
+2026-03-24 11:41:32 [DEBUG] __main__ — [transport:acc2] text-send  len=914  action=data  ms=21
+2026-03-24 11:41:32 [DEBUG] __main__ — [768e4e05] -> #3  31B  seq=2
+2026-03-24 11:41:32 [DEBUG] __main__ — [transport:acc1] text-send  len=110  action=data  ms=17
+2026-03-24 11:41:32 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=768e4e05
+2026-03-24 11:41:32 [DEBUG] __main__ — [768e4e05] <- data #4  56B  seq=3
+2026-03-24 11:41:32 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=768e4e05
+2026-03-24 11:41:32 [DEBUG] __main__ — [768e4e05] <- data #5  31B  seq=4
+2026-03-24 11:41:33 [DEBUG] __main__ — [768e4e05] -> #4  99B  seq=3
+2026-03-24 11:41:33 [DEBUG] __main__ — [transport:acc2] text-send  len=198  action=data  ms=22
+2026-03-24 11:41:33 [DEBUG] __main__ — [transport:acc1] text-recv  action=close  id=768e4e05
+2026-03-24 11:41:33 [INFO] __main__ — [768e4e05] close requested last_seq=5
+2026-03-24 11:41:33 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=768e4e05
+2026-03-24 11:41:33 [DEBUG] __main__ — [768e4e05] <- data #6  24B  seq=5
+2026-03-24 11:41:33 [DEBUG] __main__ — [768e4e05] socket closed
+2026-03-24 11:41:33 [DEBUG] __main__ — [768e4e05] remote EOF
+2026-03-24 11:41:33 [INFO] __main__ — [768e4e05] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:41:34 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=3c345359
+2026-03-24 11:41:34 [INFO] __main__ — [3c345359] CONNECT → 188.40.167.82:443
+2026-03-24 11:41:34 [INFO] __main__ — [3c345359] TCP connected → 188.40.167.82:443  (1 мс)
+2026-03-24 11:41:34 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=49  action=ok  ms=23
+2026-03-24 11:41:35 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=3c345359
+2026-03-24 11:41:35 [DEBUG] __main__ — [3c345359] <- data #1  517B  seq=0
+2026-03-24 11:41:35 [DEBUG] __main__ — [3c345359] -> #1  3134B  seq=0
+2026-03-24 11:41:35 [DEBUG] __main__ — [transport:acc1] file-send  size=3189  action=data  seq=0  prio=0
+2026-03-24 11:41:35 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2998478895  size=3189
+2026-03-24 11:41:35 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2998478895
+2026-03-24 11:41:36 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=3c345359
+2026-03-24 11:41:36 [DEBUG] __main__ — [3c345359] <- data #2  80B  seq=1
+2026-03-24 11:41:36 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=3c345359
+2026-03-24 11:41:36 [DEBUG] __main__ — [3c345359] <- data #3  186B  seq=2
+2026-03-24 11:41:36 [DEBUG] __main__ — [3c345359] -> #2  636B  seq=1
+2026-03-24 11:41:36 [DEBUG] __main__ — [transport:acc2] text-send  len=914  action=data  ms=24
+2026-03-24 11:41:36 [DEBUG] __main__ — [3c345359] -> #3  130B  seq=2
+2026-03-24 11:41:36 [DEBUG] __main__ — [transport:acc1] text-send  len=242  action=data  ms=18
+2026-03-24 11:41:36 [DEBUG] __main__ — [transport:acc2] gap ms=41..41, sending nack (attempt 1)
+2026-03-24 11:41:37 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=3c345359
+2026-03-24 11:41:37 [DEBUG] __main__ — [transport:acc2] text-recv  action=close  id=3c345359
+2026-03-24 11:41:37 [DEBUG] __main__ — [3c345359] <- data #4  31B  seq=3
+2026-03-24 11:41:37 [INFO] __main__ — [3c345359] close requested last_seq=4
+2026-03-24 11:41:37 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=3c345359
+2026-03-24 11:41:37 [DEBUG] __main__ — [3c345359] <- data #5  24B  seq=4
+2026-03-24 11:41:37 [DEBUG] __main__ — [3c345359] socket closed
+2026-03-24 11:41:37 [DEBUG] __main__ — [3c345359] remote EOF
+2026-03-24 11:41:37 [INFO] __main__ — [3c345359] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:41:38 [DEBUG] __main__ — [transport:acc2] dup ms=41 (expected=43), skip
+2026-03-24 11:41:38 [DEBUG] __main__ — [transport:acc1] text-recv  action=connect  id=cd8432ae
+2026-03-24 11:41:38 [INFO] __main__ — [cd8432ae] CONNECT → 188.40.167.82:443
+2026-03-24 11:41:38 [INFO] __main__ — [cd8432ae] TCP connected → 188.40.167.82:443  (0 мс)
+2026-03-24 11:41:38 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=49  action=ok  ms=19
+2026-03-24 11:41:39 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=cd8432ae
+2026-03-24 11:41:39 [DEBUG] __main__ — [cd8432ae] <- data #1  517B  seq=0
+2026-03-24 11:41:39 [DEBUG] __main__ — [cd8432ae] -> #1  3134B  seq=0
+2026-03-24 11:41:39 [DEBUG] __main__ — [transport:acc1] file-send  size=3189  action=data  seq=0  prio=0
+2026-03-24 11:41:39 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2996535505  size=3189
+2026-03-24 11:41:39 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2996535505
+2026-03-24 11:41:40 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=cd8432ae
+2026-03-24 11:41:40 [DEBUG] __main__ — [cd8432ae] <- data #2  80B  seq=1
+2026-03-24 11:41:40 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=cd8432ae
+2026-03-24 11:41:40 [DEBUG] __main__ — [cd8432ae] <- data #3  186B  seq=2
+2026-03-24 11:41:40 [DEBUG] __main__ — [cd8432ae] -> #2  636B  seq=1
+2026-03-24 11:41:40 [DEBUG] __main__ — [transport:acc2] text-send  len=914  action=data  ms=25
+2026-03-24 11:41:40 [DEBUG] __main__ — [cd8432ae] -> #3  130B  seq=2
+2026-03-24 11:41:40 [DEBUG] __main__ — [transport:acc1] text-send  len=242  action=data  ms=20
+2026-03-24 11:41:40 [DEBUG] __main__ — [transport:acc1] gap ms=59..59, sending nack (attempt 1)
+2026-03-24 11:41:41 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=cd8432ae
+2026-03-24 11:41:41 [DEBUG] __main__ — [cd8432ae] <- data #4  31B  seq=3
+2026-03-24 11:41:41 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=cd8432ae
+2026-03-24 11:41:41 [DEBUG] __main__ — [transport:acc1] text-recv  action=close  id=cd8432ae
+2026-03-24 11:41:41 [DEBUG] __main__ — [cd8432ae] <- data #5  24B  seq=4
+2026-03-24 11:41:41 [INFO] __main__ — [cd8432ae] close requested last_seq=4
+2026-03-24 11:41:41 [DEBUG] __main__ — [cd8432ae] socket closed
+2026-03-24 11:41:41 [DEBUG] __main__ — [cd8432ae] remote EOF
+2026-03-24 11:41:41 [INFO] __main__ — [cd8432ae] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:41:42 [DEBUG] __main__ — [transport:acc1] dup ms=59 (expected=61), skip
+2026-03-24 11:41:42 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:41:42 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:41:42 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=fc1b4685
+2026-03-24 11:41:42 [INFO] __main__ — [fc1b4685] CONNECT → 188.40.167.82:443
+2026-03-24 11:41:42 [INFO] __main__ — [fc1b4685] TCP connected → 188.40.167.82:443  (0 мс)
+2026-03-24 11:41:42 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=49  action=ok  ms=26
+2026-03-24 11:41:43 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=fc1b4685
+2026-03-24 11:41:43 [DEBUG] __main__ — [fc1b4685] <- data #1  517B  seq=0
+2026-03-24 11:41:43 [DEBUG] __main__ — [fc1b4685] -> #1  3134B  seq=0
+2026-03-24 11:41:43 [DEBUG] __main__ — [transport:acc1] file-send  size=3189  action=data  seq=0  prio=0
+2026-03-24 11:41:43 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2995108602  size=3189
+2026-03-24 11:41:44 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2995108602
+2026-03-24 11:41:44 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=fc1b4685
+2026-03-24 11:41:44 [DEBUG] __main__ — [fc1b4685] <- data #2  80B  seq=1
+2026-03-24 11:41:44 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=fc1b4685
+2026-03-24 11:41:44 [DEBUG] __main__ — [fc1b4685] <- data #3  186B  seq=2
+2026-03-24 11:41:44 [DEBUG] __main__ — [fc1b4685] -> #2  636B  seq=1
+2026-03-24 11:41:44 [DEBUG] __main__ — [transport:acc2] text-send  len=914  action=data  ms=27
+2026-03-24 11:41:44 [DEBUG] __main__ — [fc1b4685] -> #3  130B  seq=2
+2026-03-24 11:41:44 [DEBUG] __main__ — [transport:acc1] text-send  len=242  action=data  ms=21
+2026-03-24 11:41:44 [DEBUG] __main__ — [transport:acc2] gap ms=47..47, sending nack (attempt 1)
+2026-03-24 11:41:45 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=fc1b4685
+2026-03-24 11:41:45 [DEBUG] __main__ — [fc1b4685] <- data #4  24B  seq=4
+2026-03-24 11:41:45 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=fc1b4685
+2026-03-24 11:41:45 [DEBUG] __main__ — [transport:acc2] text-recv  action=close  id=fc1b4685
+2026-03-24 11:41:45 [DEBUG] __main__ — [fc1b4685] <- data #5  31B  seq=3
+2026-03-24 11:41:45 [INFO] __main__ — [fc1b4685] close requested last_seq=4
+2026-03-24 11:41:45 [DEBUG] __main__ — [fc1b4685] socket closed
+2026-03-24 11:41:45 [DEBUG] __main__ — [fc1b4685] remote EOF
+2026-03-24 11:41:45 [INFO] __main__ — [fc1b4685] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:41:46 [DEBUG] __main__ — [transport:acc1] text-recv  action=connect  id=200294fa
+2026-03-24 11:41:46 [INFO] __main__ — [200294fa] CONNECT → 188.40.167.82:443
+2026-03-24 11:41:46 [INFO] __main__ — [200294fa] TCP connected → 188.40.167.82:443  (1 мс)
+2026-03-24 11:41:46 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=49  action=ok  ms=22
+2026-03-24 11:41:46 [DEBUG] __main__ — [transport:acc2] dup ms=47 (expected=49), skip
+2026-03-24 11:41:46 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=200294fa
+2026-03-24 11:41:46 [DEBUG] __main__ — [200294fa] <- data #1  517B  seq=0
+2026-03-24 11:41:46 [DEBUG] __main__ — [200294fa] -> #1  3134B  seq=0
+2026-03-24 11:41:46 [DEBUG] __main__ — [transport:acc1] file-send  size=3189  action=data  seq=0  prio=0
+2026-03-24 11:41:46 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2986493829  size=3189
+2026-03-24 11:41:47 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2986493829
+2026-03-24 11:41:47 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=200294fa
+2026-03-24 11:41:47 [DEBUG] __main__ — [200294fa] <- data #2  80B  seq=1
+2026-03-24 11:41:47 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=200294fa
+2026-03-24 11:41:47 [DEBUG] __main__ — [200294fa] <- data #3  95B  seq=2
+2026-03-24 11:41:47 [DEBUG] __main__ — [200294fa] -> #2  636B  seq=1
+2026-03-24 11:41:47 [DEBUG] __main__ — [transport:acc2] text-send  len=914  action=data  ms=28
+2026-03-24 11:41:47 [DEBUG] __main__ — [200294fa] -> #3  31B  seq=2
+2026-03-24 11:41:47 [DEBUG] __main__ — [transport:acc1] text-send  len=110  action=data  ms=23
+2026-03-24 11:41:48 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=200294fa
+2026-03-24 11:41:48 [DEBUG] __main__ — [200294fa] <- data #4  91B  seq=3
+2026-03-24 11:41:48 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=200294fa
+2026-03-24 11:41:48 [DEBUG] __main__ — [200294fa] <- data #5  31B  seq=4
+2026-03-24 11:41:48 [DEBUG] __main__ — [200294fa] -> #4  99B  seq=3
+2026-03-24 11:41:48 [DEBUG] __main__ — [transport:acc2] text-send  len=198  action=data  ms=29
+2026-03-24 11:41:48 [DEBUG] __main__ — [transport:acc1] text-recv  action=close  id=200294fa
+2026-03-24 11:41:48 [INFO] __main__ — [200294fa] close requested last_seq=5
+2026-03-24 11:41:49 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=200294fa
+2026-03-24 11:41:49 [DEBUG] __main__ — [200294fa] <- data #6  24B  seq=5
+2026-03-24 11:41:49 [DEBUG] __main__ — [200294fa] socket closed
+2026-03-24 11:41:49 [DEBUG] __main__ — [200294fa] remote EOF
+2026-03-24 11:41:49 [INFO] __main__ — [200294fa] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:41:50 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=0b72e3b7
+2026-03-24 11:41:50 [INFO] __main__ — [0b72e3b7] CONNECT → 188.40.167.82:443
+2026-03-24 11:41:50 [INFO] __main__ — [0b72e3b7] TCP connected → 188.40.167.82:443  (0 мс)
+2026-03-24 11:41:50 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=49  action=ok  ms=30
+2026-03-24 11:41:50 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=0b72e3b7
+2026-03-24 11:41:50 [DEBUG] __main__ — [0b72e3b7] <- data #1  517B  seq=0
+2026-03-24 11:41:50 [DEBUG] __main__ — [0b72e3b7] -> #1  3134B  seq=0
+2026-03-24 11:41:50 [DEBUG] __main__ — [transport:acc1] file-send  size=3189  action=data  seq=0  prio=0
+2026-03-24 11:41:50 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2995848308  size=3189
+2026-03-24 11:41:51 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2995848308
+2026-03-24 11:41:51 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=0b72e3b7
+2026-03-24 11:41:51 [DEBUG] __main__ — [0b72e3b7] <- data #2  80B  seq=1
+2026-03-24 11:41:51 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=0b72e3b7
+2026-03-24 11:41:51 [DEBUG] __main__ — [0b72e3b7] <- data #3  130B  seq=2
+2026-03-24 11:41:51 [DEBUG] __main__ — [0b72e3b7] -> #2  636B  seq=1
+2026-03-24 11:41:51 [DEBUG] __main__ — [transport:acc2] text-send  len=914  action=data  ms=31
+2026-03-24 11:41:51 [DEBUG] __main__ — [0b72e3b7] -> #3  31B  seq=2
+2026-03-24 11:41:51 [DEBUG] __main__ — [transport:acc1] text-send  len=110  action=data  ms=24
+2026-03-24 11:41:52 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=0b72e3b7
+2026-03-24 11:41:52 [DEBUG] __main__ — [0b72e3b7] <- data #4  31B  seq=4
+2026-03-24 11:41:52 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=0b72e3b7
+2026-03-24 11:41:52 [DEBUG] __main__ — [0b72e3b7] <- data #5  56B  seq=3
+2026-03-24 11:41:52 [DEBUG] __main__ — [0b72e3b7] -> #4  99B  seq=3
+2026-03-24 11:41:52 [DEBUG] __main__ — [transport:acc2] text-send  len=198  action=data  ms=32
+2026-03-24 11:41:53 [DEBUG] __main__ — [transport:acc2] gap ms=55..55, sending nack (attempt 1)
+2026-03-24 11:41:53 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=0b72e3b7
+2026-03-24 11:41:53 [DEBUG] __main__ — [transport:acc2] text-recv  action=close  id=0b72e3b7
+2026-03-24 11:41:53 [DEBUG] __main__ — [0b72e3b7] <- data #6  24B  seq=5
+2026-03-24 11:41:53 [INFO] __main__ — [0b72e3b7] close requested last_seq=5
+2026-03-24 11:41:53 [DEBUG] __main__ — [0b72e3b7] socket closed
+2026-03-24 11:41:53 [DEBUG] __main__ — [0b72e3b7] remote EOF
+2026-03-24 11:41:53 [INFO] __main__ — [0b72e3b7] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:41:54 [DEBUG] __main__ — [transport:acc1] text-recv  action=connect  id=840617e6
+2026-03-24 11:41:54 [INFO] __main__ — [840617e6] CONNECT → 188.40.167.82:443
+2026-03-24 11:41:54 [INFO] __main__ — [840617e6] TCP connected → 188.40.167.82:443  (0 мс)
+2026-03-24 11:41:54 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=49  action=ok  ms=25
+2026-03-24 11:41:54 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=840617e6
+2026-03-24 11:41:54 [DEBUG] __main__ — [840617e6] <- data #1  517B  seq=0
+2026-03-24 11:41:54 [DEBUG] __main__ — [840617e6] -> #1  3134B  seq=0
+2026-03-24 11:41:54 [DEBUG] __main__ — [transport:acc1] file-send  size=3189  action=data  seq=0  prio=0
+2026-03-24 11:41:54 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2997408546  size=3189
+2026-03-24 11:41:54 [DEBUG] __main__ — [transport:acc2] dup ms=55 (expected=57), skip
+2026-03-24 11:41:55 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2997408546
+2026-03-24 11:41:55 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=840617e6
+2026-03-24 11:41:55 [DEBUG] __main__ — [840617e6] <- data #2  95B  seq=2
+2026-03-24 11:41:55 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=840617e6
+2026-03-24 11:41:55 [DEBUG] __main__ — [840617e6] <- data #3  80B  seq=1
+2026-03-24 11:41:55 [DEBUG] __main__ — [840617e6] -> #2  667B  seq=1
+2026-03-24 11:41:55 [DEBUG] __main__ — [transport:acc2] text-send  len=958  action=data  ms=33
+2026-03-24 11:41:56 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=840617e6
+2026-03-24 11:41:56 [DEBUG] __main__ — [840617e6] <- data #4  31B  seq=4
+2026-03-24 11:41:56 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=840617e6
+2026-03-24 11:41:56 [DEBUG] __main__ — [840617e6] <- data #5  91B  seq=3
+2026-03-24 11:41:56 [DEBUG] __main__ — [840617e6] -> #3  99B  seq=2
+2026-03-24 11:41:56 [DEBUG] __main__ — [transport:acc1] text-send  len=198  action=data  ms=26
+2026-03-24 11:41:57 [DEBUG] __main__ — [transport:acc1] text-recv  action=close  id=840617e6
+2026-03-24 11:41:57 [INFO] __main__ — [840617e6] close requested last_seq=5
+2026-03-24 11:41:57 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=840617e6
+2026-03-24 11:41:57 [DEBUG] __main__ — [840617e6] <- data #6  24B  seq=5
+2026-03-24 11:41:57 [DEBUG] __main__ — [840617e6] socket closed
+2026-03-24 11:41:57 [DEBUG] __main__ — [840617e6] remote EOF
+2026-03-24 11:41:57 [INFO] __main__ — [840617e6] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:41:57 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 11:41:58 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=5ffc1a41
+2026-03-24 11:41:58 [INFO] __main__ — [5ffc1a41] CONNECT → 188.40.167.82:443
+2026-03-24 11:41:58 [INFO] __main__ — [5ffc1a41] TCP connected → 188.40.167.82:443  (0 мс)
+2026-03-24 11:41:58 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=49  action=ok  ms=34
+2026-03-24 11:41:59 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=5ffc1a41
+2026-03-24 11:41:59 [DEBUG] __main__ — [5ffc1a41] <- data #1  517B  seq=0
+2026-03-24 11:41:59 [DEBUG] __main__ — [5ffc1a41] -> #1  3134B  seq=0
+2026-03-24 11:41:59 [DEBUG] __main__ — [transport:acc1] file-send  size=3189  action=data  seq=0  prio=0
+2026-03-24 11:41:59 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2992244103  size=3189
+2026-03-24 11:42:00 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2992244103
+2026-03-24 11:42:00 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=5ffc1a41
+2026-03-24 11:42:00 [DEBUG] __main__ — [5ffc1a41] <- data #2  80B  seq=1
+2026-03-24 11:42:00 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=5ffc1a41
+2026-03-24 11:42:00 [DEBUG] __main__ — [5ffc1a41] <- data #3  186B  seq=2
+2026-03-24 11:42:00 [DEBUG] __main__ — [5ffc1a41] -> #2  766B  seq=1
+2026-03-24 11:42:00 [DEBUG] __main__ — [transport:acc2] text-send  len=1090  action=data  ms=35
+2026-03-24 11:42:00 [DEBUG] __main__ — [transport:acc2] gap ms=62..62, sending nack (attempt 1)
+2026-03-24 11:42:01 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=5ffc1a41
+2026-03-24 11:42:01 [DEBUG] __main__ — [transport:acc2] text-recv  action=close  id=5ffc1a41
+2026-03-24 11:42:01 [DEBUG] __main__ — [5ffc1a41] <- data #4  31B  seq=3
+2026-03-24 11:42:01 [INFO] __main__ — [5ffc1a41] close requested last_seq=4
+2026-03-24 11:42:01 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=5ffc1a41
+2026-03-24 11:42:01 [DEBUG] __main__ — [5ffc1a41] <- data #5  24B  seq=4
+2026-03-24 11:42:01 [DEBUG] __main__ — [5ffc1a41] socket closed
+2026-03-24 11:42:01 [DEBUG] __main__ — [5ffc1a41] remote EOF
+2026-03-24 11:42:01 [INFO] __main__ — [5ffc1a41] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:42:02 [DEBUG] __main__ — [transport:acc2] dup ms=62 (expected=64), skip
+2026-03-24 11:42:02 [DEBUG] __main__ — [transport:acc1] text-recv  action=connect  id=f5abde18
+2026-03-24 11:42:02 [INFO] __main__ — [f5abde18] CONNECT → 188.40.167.82:443
+2026-03-24 11:42:02 [INFO] __main__ — [f5abde18] TCP connected → 188.40.167.82:443  (1 мс)
+2026-03-24 11:42:02 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=49  action=ok  ms=27
+2026-03-24 11:42:02 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=f5abde18
+2026-03-24 11:42:02 [DEBUG] __main__ — [f5abde18] <- data #1  517B  seq=0
+2026-03-24 11:42:03 [DEBUG] __main__ — [f5abde18] -> #1  3134B  seq=0
+2026-03-24 11:42:03 [DEBUG] __main__ — [transport:acc1] file-send  size=3189  action=data  seq=0  prio=0
+2026-03-24 11:42:03 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2982802399  size=3189
+2026-03-24 11:42:03 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2982802399
+2026-03-24 11:42:04 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=f5abde18
+2026-03-24 11:42:04 [DEBUG] __main__ — [f5abde18] <- data #2  80B  seq=1
+2026-03-24 11:42:04 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=f5abde18
+2026-03-24 11:42:04 [DEBUG] __main__ — [f5abde18] <- data #3  95B  seq=2
+2026-03-24 11:42:04 [DEBUG] __main__ — [f5abde18] -> #2  667B  seq=1
+2026-03-24 11:42:04 [DEBUG] __main__ — [transport:acc2] text-send  len=958  action=data  ms=36
+2026-03-24 11:42:05 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=f5abde18
+2026-03-24 11:42:05 [DEBUG] __main__ — [f5abde18] <- data #4  91B  seq=3
+2026-03-24 11:42:05 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=f5abde18
+2026-03-24 11:42:05 [DEBUG] __main__ — [f5abde18] <- data #5  31B  seq=4
+2026-03-24 11:42:05 [DEBUG] __main__ — [f5abde18] -> #3  99B  seq=2
+2026-03-24 11:42:05 [DEBUG] __main__ — [transport:acc1] text-send  len=198  action=data  ms=28
+2026-03-24 11:42:05 [DEBUG] __main__ — [transport:acc1] text-recv  action=close  id=f5abde18
+2026-03-24 11:42:05 [INFO] __main__ — [f5abde18] close requested last_seq=5
+2026-03-24 11:42:06 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=f5abde18
+2026-03-24 11:42:06 [DEBUG] __main__ — [f5abde18] <- data #6  24B  seq=5
+2026-03-24 11:42:06 [DEBUG] __main__ — [f5abde18] socket closed
+2026-03-24 11:42:06 [DEBUG] __main__ — [f5abde18] remote EOF
+2026-03-24 11:42:06 [INFO] __main__ — [f5abde18] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:42:06 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=42bea407
+2026-03-24 11:42:06 [INFO] __main__ — [42bea407] CONNECT → 188.40.167.82:443
+2026-03-24 11:42:06 [INFO] __main__ — [42bea407] TCP connected → 188.40.167.82:443  (0 мс)
+2026-03-24 11:42:06 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=49  action=ok  ms=37
+2026-03-24 11:42:06 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=42bea407
+2026-03-24 11:42:06 [DEBUG] __main__ — [42bea407] <- data #1  517B  seq=0
+2026-03-24 11:42:06 [DEBUG] __main__ — [42bea407] -> #1  3134B  seq=0
+2026-03-24 11:42:06 [DEBUG] __main__ — [transport:acc1] file-send  size=3189  action=data  seq=0  prio=0
+2026-03-24 11:42:07 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2995244854  size=3189
+2026-03-24 11:42:07 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:42:07 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:42:07 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2995244854
+2026-03-24 11:42:07 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=42bea407
+2026-03-24 11:42:07 [DEBUG] __main__ — [42bea407] <- data #2  80B  seq=1
+2026-03-24 11:42:07 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=42bea407
+2026-03-24 11:42:07 [DEBUG] __main__ — [42bea407] <- data #3  95B  seq=2
+2026-03-24 11:42:07 [DEBUG] __main__ — [42bea407] -> #2  636B  seq=1
+2026-03-24 11:42:07 [DEBUG] __main__ — [transport:acc2] text-send  len=914  action=data  ms=38
+2026-03-24 11:42:07 [DEBUG] __main__ — [42bea407] -> #3  31B  seq=2
+2026-03-24 11:42:07 [DEBUG] __main__ — [transport:acc1] text-send  len=110  action=data  ms=29
+2026-03-24 11:42:08 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=42bea407
+2026-03-24 11:42:08 [DEBUG] __main__ — [42bea407] <- data #4  91B  seq=3
+2026-03-24 11:42:08 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=42bea407
+2026-03-24 11:42:08 [DEBUG] __main__ — [42bea407] <- data #5  31B  seq=4
+2026-03-24 11:42:08 [DEBUG] __main__ — [42bea407] -> #4  99B  seq=3
+2026-03-24 11:42:08 [DEBUG] __main__ — [transport:acc2] text-send  len=198  action=data  ms=39
+2026-03-24 11:42:09 [DEBUG] __main__ — [transport:acc2] gap ms=70..70, sending nack (attempt 1)
+2026-03-24 11:42:09 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=42bea407
+2026-03-24 11:42:09 [DEBUG] __main__ — [transport:acc2] text-recv  action=close  id=42bea407
+2026-03-24 11:42:09 [DEBUG] __main__ — [42bea407] <- data #6  24B  seq=5
+2026-03-24 11:42:09 [INFO] __main__ — [42bea407] close requested last_seq=5
+2026-03-24 11:42:09 [DEBUG] __main__ — [42bea407] socket closed
+2026-03-24 11:42:09 [DEBUG] __main__ — [42bea407] remote EOF
+2026-03-24 11:42:09 [INFO] __main__ — [42bea407] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:42:10 [DEBUG] __main__ — [transport:acc1] text-recv  action=connect  id=5d526f00
+2026-03-24 11:42:10 [INFO] __main__ — [5d526f00] CONNECT → 188.40.167.82:443
+2026-03-24 11:42:10 [INFO] __main__ — [5d526f00] TCP connected → 188.40.167.82:443  (0 мс)
+2026-03-24 11:42:10 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=49  action=ok  ms=30
+2026-03-24 11:42:10 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=5d526f00
+2026-03-24 11:42:10 [DEBUG] __main__ — [5d526f00] <- data #1  517B  seq=0
+2026-03-24 11:42:10 [DEBUG] __main__ — [transport:acc2] dup ms=70 (expected=72), skip
+2026-03-24 11:42:10 [DEBUG] __main__ — [5d526f00] -> #1  2920B  seq=0
+2026-03-24 11:42:10 [DEBUG] __main__ — [5d526f00] -> #2  214B  seq=1
+2026-03-24 11:42:10 [DEBUG] __main__ — [transport:acc1] file-send  size=2975  action=data  seq=0  prio=0
+2026-03-24 11:42:10 [DEBUG] __main__ — [transport:acc2] text-send  len=354  action=data  ms=40
+2026-03-24 11:42:11 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2996497819  size=2975
+2026-03-24 11:42:11 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2996497819
+2026-03-24 11:42:12 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=5d526f00
+2026-03-24 11:42:12 [DEBUG] __main__ — [5d526f00] <- data #2  80B  seq=1
+2026-03-24 11:42:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=5d526f00
+2026-03-24 11:42:12 [DEBUG] __main__ — [5d526f00] <- data #3  186B  seq=2
+2026-03-24 11:42:12 [DEBUG] __main__ — [5d526f00] -> #3  636B  seq=2
+2026-03-24 11:42:12 [DEBUG] __main__ — [transport:acc1] text-send  len=914  action=data  ms=31
+2026-03-24 11:42:12 [DEBUG] __main__ — [5d526f00] -> #4  130B  seq=3
+2026-03-24 11:42:12 [DEBUG] __main__ — [transport:acc2] text-send  len=242  action=data  ms=41
+2026-03-24 11:42:12 [DEBUG] __main__ — [transport:acc1] gap ms=91..91, sending nack (attempt 1)
+2026-03-24 11:42:13 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=5d526f00
+2026-03-24 11:42:13 [DEBUG] __main__ — [5d526f00] <- data #4  31B  seq=3
+2026-03-24 11:42:13 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=5d526f00
+2026-03-24 11:42:13 [DEBUG] __main__ — [transport:acc1] text-recv  action=close  id=5d526f00
+2026-03-24 11:42:13 [DEBUG] __main__ — [5d526f00] <- data #5  24B  seq=4
+2026-03-24 11:42:13 [INFO] __main__ — [5d526f00] close requested last_seq=4
+2026-03-24 11:42:13 [DEBUG] __main__ — [5d526f00] socket closed
+2026-03-24 11:42:13 [DEBUG] __main__ — [5d526f00] remote EOF
+2026-03-24 11:42:13 [INFO] __main__ — [5d526f00] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:42:13 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=efa92dfa
+2026-03-24 11:42:13 [INFO] __main__ — [efa92dfa] CONNECT → 188.40.167.82:443
+2026-03-24 11:42:13 [INFO] __main__ — [efa92dfa] TCP connected → 188.40.167.82:443  (1 мс)
+2026-03-24 11:42:13 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=49  action=ok  ms=42
+2026-03-24 11:42:14 [DEBUG] __main__ — [transport:acc1] dup ms=91 (expected=93), skip
+2026-03-24 11:42:15 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=efa92dfa
+2026-03-24 11:42:15 [DEBUG] __main__ — [efa92dfa] <- data #1  517B  seq=0
+2026-03-24 11:42:15 [DEBUG] __main__ — [efa92dfa] -> #1  3134B  seq=0
+2026-03-24 11:42:15 [DEBUG] __main__ — [transport:acc1] file-send  size=3189  action=data  seq=0  prio=0
+2026-03-24 11:42:15 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2998324758  size=3189
+2026-03-24 11:42:15 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2998324758
+2026-03-24 11:42:16 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=efa92dfa
+2026-03-24 11:42:16 [DEBUG] __main__ — [efa92dfa] <- data #2  80B  seq=1
+2026-03-24 11:42:16 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=efa92dfa
+2026-03-24 11:42:16 [DEBUG] __main__ — [efa92dfa] <- data #3  130B  seq=2
+2026-03-24 11:42:16 [DEBUG] __main__ — [efa92dfa] -> #2  636B  seq=1
+2026-03-24 11:42:16 [DEBUG] __main__ — [transport:acc2] text-send  len=914  action=data  ms=43
+2026-03-24 11:42:16 [DEBUG] __main__ — [efa92dfa] -> #3  31B  seq=2
+2026-03-24 11:42:16 [DEBUG] __main__ — [transport:acc1] text-send  len=110  action=data  ms=32
+2026-03-24 11:42:17 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=efa92dfa
+2026-03-24 11:42:17 [DEBUG] __main__ — [efa92dfa] <- data #4  56B  seq=3
+2026-03-24 11:42:17 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=efa92dfa
+2026-03-24 11:42:17 [DEBUG] __main__ — [efa92dfa] <- data #5  31B  seq=4
+2026-03-24 11:42:17 [DEBUG] __main__ — [efa92dfa] -> #4  99B  seq=3
+2026-03-24 11:42:17 [DEBUG] __main__ — [transport:acc2] text-send  len=198  action=data  ms=44
+2026-03-24 11:42:17 [DEBUG] __main__ — [transport:acc2] gap ms=77..77, sending nack (attempt 1)
+2026-03-24 11:42:18 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=efa92dfa
+2026-03-24 11:42:18 [DEBUG] __main__ — [transport:acc2] text-recv  action=close  id=efa92dfa
+2026-03-24 11:42:18 [DEBUG] __main__ — [efa92dfa] <- data #6  24B  seq=5
+2026-03-24 11:42:18 [INFO] __main__ — [efa92dfa] close requested last_seq=5
+2026-03-24 11:42:18 [DEBUG] __main__ — [efa92dfa] socket closed
+2026-03-24 11:42:18 [DEBUG] __main__ — [efa92dfa] remote EOF
+2026-03-24 11:42:18 [INFO] __main__ — [efa92dfa] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:42:18 [DEBUG] __main__ — [transport:acc1] text-recv  action=connect  id=e45e5d98
+2026-03-24 11:42:18 [INFO] __main__ — [e45e5d98] CONNECT → 188.40.167.82:443
+2026-03-24 11:42:18 [INFO] __main__ — [e45e5d98] TCP connected → 188.40.167.82:443  (1 мс)
+2026-03-24 11:42:18 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=49  action=ok  ms=33
+2026-03-24 11:42:19 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=e45e5d98
+2026-03-24 11:42:19 [DEBUG] __main__ — [e45e5d98] <- data #1  517B  seq=0
+2026-03-24 11:42:19 [DEBUG] __main__ — [transport:acc2] dup ms=77 (expected=79), skip
+2026-03-24 11:42:19 [DEBUG] __main__ — [e45e5d98] -> #1  3134B  seq=0
+2026-03-24 11:42:19 [DEBUG] __main__ — [transport:acc1] file-send  size=3189  action=data  seq=0  prio=0
+2026-03-24 11:42:19 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2993973502  size=3189
+2026-03-24 11:42:19 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2993973502
+2026-03-24 11:42:20 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=e45e5d98
+2026-03-24 11:42:20 [DEBUG] __main__ — [e45e5d98] <- data #2  80B  seq=1
+2026-03-24 11:42:20 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=e45e5d98
+2026-03-24 11:42:20 [DEBUG] __main__ — [e45e5d98] <- data #3  186B  seq=2
+2026-03-24 11:42:20 [DEBUG] __main__ — [e45e5d98] -> #2  636B  seq=1
+2026-03-24 11:42:20 [DEBUG] __main__ — [transport:acc2] text-send  len=914  action=data  ms=45
+2026-03-24 11:42:20 [DEBUG] __main__ — [e45e5d98] -> #3  130B  seq=2
+2026-03-24 11:42:20 [DEBUG] __main__ — [transport:acc1] text-send  len=242  action=data  ms=34
+2026-03-24 11:42:20 [DEBUG] __main__ — [transport:acc1] gap ms=99..99, sending nack (attempt 1)
+2026-03-24 11:42:21 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=e45e5d98
+2026-03-24 11:42:21 [DEBUG] __main__ — [e45e5d98] <- data #4  31B  seq=3
+2026-03-24 11:42:21 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=e45e5d98
+2026-03-24 11:42:21 [DEBUG] __main__ — [transport:acc1] text-recv  action=close  id=e45e5d98
+2026-03-24 11:42:21 [DEBUG] __main__ — [e45e5d98] <- data #5  24B  seq=4
+2026-03-24 11:42:21 [INFO] __main__ — [e45e5d98] close requested last_seq=4
+2026-03-24 11:42:21 [DEBUG] __main__ — [e45e5d98] socket closed
+2026-03-24 11:42:21 [DEBUG] __main__ — [e45e5d98] remote EOF
+2026-03-24 11:42:21 [INFO] __main__ — [e45e5d98] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:42:22 [DEBUG] __main__ — [transport:acc1] dup ms=99 (expected=101), skip
+2026-03-24 11:42:23 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=18b42698
+2026-03-24 11:42:23 [INFO] __main__ — [18b42698] CONNECT → 188.40.167.82:443
+2026-03-24 11:42:23 [INFO] __main__ — [18b42698] TCP connected → 188.40.167.82:443  (0 мс)
+2026-03-24 11:42:23 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=49  action=ok  ms=46
+2026-03-24 11:42:23 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=18b42698
+2026-03-24 11:42:23 [DEBUG] __main__ — [18b42698] <- data #1  517B  seq=0
+2026-03-24 11:42:24 [DEBUG] __main__ — [18b42698] -> #1  3134B  seq=0
+2026-03-24 11:42:24 [DEBUG] __main__ — [transport:acc1] file-send  size=3189  action=data  seq=0  prio=0
+2026-03-24 11:42:24 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2990117596  size=3189
+2026-03-24 11:42:24 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2990117596
+2026-03-24 11:42:25 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=18b42698
+2026-03-24 11:42:25 [DEBUG] __main__ — [18b42698] <- data #2  80B  seq=1
+2026-03-24 11:42:25 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=18b42698
+2026-03-24 11:42:25 [DEBUG] __main__ — [18b42698] <- data #3  186B  seq=2
+2026-03-24 11:42:25 [DEBUG] __main__ — [18b42698] -> #2  766B  seq=1
+2026-03-24 11:42:25 [DEBUG] __main__ — [transport:acc2] text-send  len=1090  action=data  ms=47
+2026-03-24 11:42:25 [DEBUG] __main__ — [transport:acc2] gap ms=83..83, sending nack (attempt 1)
+2026-03-24 11:42:26 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=18b42698
+2026-03-24 11:42:26 [DEBUG] __main__ — [transport:acc2] text-recv  action=close  id=18b42698
+2026-03-24 11:42:26 [DEBUG] __main__ — [18b42698] <- data #4  31B  seq=3
+2026-03-24 11:42:26 [INFO] __main__ — [18b42698] close requested last_seq=4
+2026-03-24 11:42:26 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=18b42698
+2026-03-24 11:42:26 [DEBUG] __main__ — [18b42698] <- data #5  24B  seq=4
+2026-03-24 11:42:26 [DEBUG] __main__ — [18b42698] socket closed
+2026-03-24 11:42:26 [DEBUG] __main__ — [18b42698] remote EOF
+2026-03-24 11:42:26 [INFO] __main__ — [18b42698] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:42:27 [DEBUG] __main__ — [transport:acc2] dup ms=83 (expected=85), skip
+2026-03-24 11:42:28 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 11:42:28 [DEBUG] __main__ — [transport:acc1] text-recv  action=connect  id=4d31778e
+2026-03-24 11:42:28 [INFO] __main__ — [4d31778e] CONNECT → 188.40.167.82:443
+2026-03-24 11:42:28 [INFO] __main__ — [4d31778e] TCP connected → 188.40.167.82:443  (0 мс)
+2026-03-24 11:42:28 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=49  action=ok  ms=35
+2026-03-24 11:42:28 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=4d31778e
+2026-03-24 11:42:28 [DEBUG] __main__ — [4d31778e] <- data #1  517B  seq=0
+2026-03-24 11:42:28 [DEBUG] __main__ — [4d31778e] -> #1  3134B  seq=0
+2026-03-24 11:42:28 [DEBUG] __main__ — [transport:acc1] file-send  size=3189  action=data  seq=0  prio=0
+2026-03-24 11:42:28 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2990338463  size=3189
+2026-03-24 11:42:29 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2990338463
+2026-03-24 11:42:29 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=4d31778e
+2026-03-24 11:42:29 [DEBUG] __main__ — [4d31778e] <- data #2  80B  seq=1
+2026-03-24 11:42:29 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=4d31778e
+2026-03-24 11:42:29 [DEBUG] __main__ — [4d31778e] <- data #3  186B  seq=2
+2026-03-24 11:42:29 [DEBUG] __main__ — [4d31778e] -> #2  636B  seq=1
+2026-03-24 11:42:29 [DEBUG] __main__ — [transport:acc2] text-send  len=914  action=data  ms=48
+2026-03-24 11:42:29 [DEBUG] __main__ — [4d31778e] -> #3  130B  seq=2
+2026-03-24 11:42:29 [DEBUG] __main__ — [transport:acc1] text-send  len=242  action=data  ms=36
+2026-03-24 11:42:30 [DEBUG] __main__ — [transport:acc1] gap ms=107..107, sending nack (attempt 1)
+2026-03-24 11:42:30 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=4d31778e
+2026-03-24 11:42:30 [DEBUG] __main__ — [4d31778e] <- data #4  31B  seq=3
+2026-03-24 11:42:30 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=4d31778e
+2026-03-24 11:42:30 [DEBUG] __main__ — [transport:acc1] text-recv  action=close  id=4d31778e
+2026-03-24 11:42:30 [DEBUG] __main__ — [4d31778e] <- data #5  24B  seq=4
+2026-03-24 11:42:30 [INFO] __main__ — [4d31778e] close requested last_seq=4
+2026-03-24 11:42:30 [DEBUG] __main__ — [4d31778e] socket closed
+2026-03-24 11:42:30 [DEBUG] __main__ — [4d31778e] remote EOF
+2026-03-24 11:42:30 [INFO] __main__ — [4d31778e] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:42:31 [DEBUG] __main__ — [transport:acc1] dup ms=107 (expected=109), skip
+2026-03-24 11:42:32 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=115b4bcf
+2026-03-24 11:42:32 [INFO] __main__ — [115b4bcf] CONNECT → 81.19.72.34:443
+2026-03-24 11:42:32 [INFO] __main__ — [115b4bcf] TCP connected → 81.19.72.34:443  (1 мс)
+2026-03-24 11:42:32 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=49  action=ok  ms=49
+2026-03-24 11:42:32 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:42:32 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:42:32 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=115b4bcf
+2026-03-24 11:42:32 [DEBUG] __main__ — [115b4bcf] <- data #1  517B  seq=0
+2026-03-24 11:42:32 [DEBUG] __main__ — [115b4bcf] -> #1  3739B  seq=0
+2026-03-24 11:42:32 [DEBUG] __main__ — [transport:acc1] file-send  size=3794  action=data  seq=0  prio=0
+2026-03-24 11:42:33 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2996715467  size=3794
+2026-03-24 11:42:33 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2996715467
+2026-03-24 11:42:34 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=115b4bcf
+2026-03-24 11:42:34 [DEBUG] __main__ — [115b4bcf] <- data #2  93B  seq=1
+2026-03-24 11:42:34 [DEBUG] __main__ — [115b4bcf] -> #2  120B  seq=1
+2026-03-24 11:42:34 [DEBUG] __main__ — [transport:acc2] text-send  len=226  action=data  ms=50
+2026-03-24 11:42:34 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=115b4bcf
+2026-03-24 11:42:34 [DEBUG] __main__ — [115b4bcf] <- data #3  215B  seq=2
+2026-03-24 11:42:34 [DEBUG] __main__ — [115b4bcf] -> #3  19651B  seq=2
+2026-03-24 11:42:34 [DEBUG] __main__ — [transport:acc1] file-send  size=19706  action=data  seq=2  prio=1
+2026-03-24 11:42:34 [DEBUG] __main__ — [115b4bcf] -> #4  53756B  seq=3
+2026-03-24 11:42:34 [DEBUG] __main__ — [transport:acc2] file-send  size=53811  action=data  seq=3  prio=1
+2026-03-24 11:42:34 [DEBUG] __main__ — [115b4bcf] -> #5  50632B  seq=4
+2026-03-24 11:42:34 [DEBUG] __main__ — [115b4bcf] -> #6  323B  seq=5
+2026-03-24 11:42:34 [DEBUG] __main__ — [transport:acc2] text-send  len=498  action=data  ms=51
+2026-03-24 11:42:34 [DEBUG] __main__ — [115b4bcf] -> #7  18831B  seq=6
+2026-03-24 11:42:34 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2981499067  size=19706
+2026-03-24 11:42:35 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=115b4bcf
+2026-03-24 11:42:35 [DEBUG] __main__ — [115b4bcf] <- data #4  38B  seq=3
+2026-03-24 11:42:35 [DEBUG] __main__ — [transport:acc1] file-send  size=50687  action=data  seq=4  prio=1
+2026-03-24 11:42:35 [DEBUG] __main__ — [transport:acc2] upload ok  fileId=2996826620  size=53811
+2026-03-24 11:42:35 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2981499067
+2026-03-24 11:42:35 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2990621757  size=50687
+2026-03-24 11:42:35 [DEBUG] __main__ — [transport:acc2] пропускаем свой исходящий файл fileId=2996826620
+2026-03-24 11:42:35 [DEBUG] __main__ — [transport:acc1] file-send  size=18886  action=data  seq=6  prio=2
+2026-03-24 11:42:35 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2990621757
+2026-03-24 11:42:36 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2997776569  size=18886
+2026-03-24 11:42:36 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2997776569
+2026-03-24 11:42:36 [DEBUG] __main__ — [transport:acc2] text-recv  action=close  id=115b4bcf
+2026-03-24 11:42:36 [INFO] __main__ — [115b4bcf] close requested last_seq=4
+2026-03-24 11:42:36 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=115b4bcf
+2026-03-24 11:42:36 [DEBUG] __main__ — [115b4bcf] <- data #5  31B  seq=4
+2026-03-24 11:42:36 [DEBUG] __main__ — [115b4bcf] socket closed
+2026-03-24 11:42:36 [DEBUG] __main__ — [115b4bcf] remote EOF
+2026-03-24 11:42:36 [INFO] __main__ — [115b4bcf] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:42:38 [DEBUG] __main__ — [transport:acc1] text-recv  action=connect  id=a4ec08dc
+2026-03-24 11:42:38 [INFO] __main__ — [a4ec08dc] CONNECT → 81.19.72.33:443
+2026-03-24 11:42:38 [INFO] __main__ — [a4ec08dc] TCP connected → 81.19.72.33:443  (1 мс)
+2026-03-24 11:42:38 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=49  action=ok  ms=37
+2026-03-24 11:42:38 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=a4ec08dc
+2026-03-24 11:42:38 [DEBUG] __main__ — [a4ec08dc] <- data #1  517B  seq=0
+2026-03-24 11:42:38 [DEBUG] __main__ — [a4ec08dc] -> #1  3740B  seq=0
+2026-03-24 11:42:38 [DEBUG] __main__ — [transport:acc1] file-send  size=3795  action=data  seq=0  prio=0
+2026-03-24 11:42:38 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=3000718685  size=3795
+2026-03-24 11:42:39 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=3000718685
+2026-03-24 11:42:39 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=a4ec08dc
+2026-03-24 11:42:39 [DEBUG] __main__ — [a4ec08dc] <- data #2  93B  seq=1
+2026-03-24 11:42:39 [DEBUG] __main__ — [a4ec08dc] -> #2  120B  seq=1
+2026-03-24 11:42:39 [DEBUG] __main__ — [transport:acc2] text-send  len=226  action=data  ms=52
+2026-03-24 11:42:39 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=a4ec08dc
+2026-03-24 11:42:39 [DEBUG] __main__ — [a4ec08dc] <- data #3  109B  seq=2
+2026-03-24 11:42:39 [DEBUG] __main__ — [a4ec08dc] -> #3  38B  seq=2
+2026-03-24 11:42:39 [DEBUG] __main__ — [transport:acc1] text-send  len=118  action=data  ms=38
+2026-03-24 11:42:40 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=a4ec08dc
+2026-03-24 11:42:40 [DEBUG] __main__ — [a4ec08dc] <- data #4  106B  seq=3
+2026-03-24 11:42:40 [DEBUG] __main__ — [a4ec08dc] -> #4  8688B  seq=3
+2026-03-24 11:42:40 [DEBUG] __main__ — [transport:acc2] file-send  size=8743  action=data  seq=3  prio=1
+2026-03-24 11:42:40 [DEBUG] __main__ — [a4ec08dc] -> #5  33580B  seq=4
+2026-03-24 11:42:40 [DEBUG] __main__ — [a4ec08dc] -> #6  179B  seq=5
+2026-03-24 11:42:40 [DEBUG] __main__ — [transport:acc1] file-send  size=33635  action=data  seq=4  prio=1
+2026-03-24 11:42:40 [DEBUG] __main__ — [transport:acc2] text-send  len=306  action=data  ms=53
+2026-03-24 11:42:41 [DEBUG] __main__ — [a4ec08dc] -> #7  28505B  seq=6
+2026-03-24 11:42:42 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=a4ec08dc
+2026-03-24 11:42:42 [DEBUG] __main__ — [a4ec08dc] <- data #5  38B  seq=4
+2026-03-24 11:42:56 [DEBUG] __main__ — [a4ec08dc] -> #8  7240B  seq=7
+2026-03-24 11:42:57 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:42:57 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:43:02 [DEBUG] __main__ — [transport:acc2] upload ok  fileId=2994422758  size=8743
+2026-03-24 11:43:02 [DEBUG] __main__ — [a4ec08dc] -> #9  13032B  seq=8
+2026-03-24 11:43:02 [DEBUG] __main__ — [a4ec08dc] -> #10  4344B  seq=9
+2026-03-24 11:43:03 [DEBUG] __main__ — [transport:acc2] file-send  size=7295  action=data  seq=7  prio=2
+2026-03-24 11:43:03 [INFO] __main__ — [proxy:self-chat] остановлен
+2026-03-24 11:43:03 [INFO] __main__ — [a4ec08dc] pipe done | rx=863B/5f (0.0 КБ/с)  tx=99466B/10f (3.8 КБ/с)  25.5s
+2026-03-24 11:43:03 [DEBUG] __main__ — [a4ec08dc] socket closed
+2026-03-24 11:43:08 [ERROR] asyncio — Fatal error on SSL transport
+protocol: <asyncio.sslproto.SSLProtocol object at 0x7ea834977310>
+transport: <_SelectorSocketTransport closing fd=12>
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 924, in write
+    n = self._sock.send(data)
+OSError: [Errno 9] Bad file descriptor
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/sslproto.py", line 690, in _process_write_backlog
+    self._transport.write(chunk)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 930, in write
+    self._fatal_error(exc, 'Fatal write error on socket transport')
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 725, in _fatal_error
+    self._force_close(exc)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 737, in _force_close
+    self._loop.call_soon(self._call_connection_lost, exc)
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 753, in call_soon
+    self._check_closed()
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 515, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+2026-03-24 11:43:08 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7ea83554e530>
+2026-03-24 11:43:08 [ERROR] asyncio — Unclosed connector
+connections: ['[(<aiohttp.client_proto.ResponseHandler object at 0x7ea83553e620>, 127985.071464553)]']
+connector: <aiohttp.connector.TCPConnector object at 0x7ea834975870>

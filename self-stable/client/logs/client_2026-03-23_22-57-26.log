@@ -1,0 +1,49 @@
+2026-03-23 22:57:26 [INFO] __main__ — SOCKS5 запущен  127.0.0.1:1080  chat_id=240876353
+2026-03-23 22:57:26 [INFO] __main__ — Авторизован, chatId=240876353 (self-chat)
+2026-03-23 22:57:30 [DEBUG] __main__ — [transport] op128 chat=1400511 attaches=0
+2026-03-23 22:57:36 [INFO] __main__ — SOCKS5 → 188.40.167.82:443
+2026-03-23 22:57:36 [DEBUG] __main__ — [transport] batch flush  frames=1  total=77B
+2026-03-23 22:57:37 [DEBUG] __main__ — [transport] upload ok  fileId=2986036941  size=77
+2026-03-23 22:57:51 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 22:57:56 [INFO] __main__ — tunnel 188.40.167.82:443 [3b34c3ce]  TIMEOUT
+2026-03-23 22:58:16 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 22:58:41 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 22:59:06 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 22:59:31 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 22:59:56 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:00:21 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:00:46 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:01:11 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:01:36 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:02:01 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:02:26 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:02:51 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:03:16 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:03:41 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:04:06 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:04:31 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:04:56 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:05:21 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:05:46 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:06:11 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:06:36 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:07:01 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:07:26 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:07:51 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:08:16 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:08:41 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:09:06 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:09:31 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:09:56 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:10:21 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:10:46 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:11:11 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:11:36 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:12:01 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:12:26 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:12:51 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:13:16 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:13:41 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:14:06 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:14:22 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x73563a937f70>

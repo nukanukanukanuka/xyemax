@@ -1,0 +1,641 @@
+2026-03-24 01:19:07 [INFO] __main__ — SOCKS5 запущен  127.0.0.1:1080  transports=2
+2026-03-24 01:19:08 [INFO] __main__ — Авторизован [acc1], chatId=0 (self-chat)
+2026-03-24 01:19:08 [INFO] __main__ — Авторизован [acc2], chatId=0 (self-chat)
+2026-03-24 01:19:11 [INFO] __main__ — SOCKS5 → 188.40.167.82:443
+2026-03-24 01:19:11 [DEBUG] __main__ — [transport:acc1] text-send  len=80  action=connect
+2026-03-24 01:19:11 [DEBUG] __main__ — [transport:acc1] text-recv  action=ok  id=d19449e9
+2026-03-24 01:19:11 [DEBUG] __main__ — [d19449e9] <- ok
+2026-03-24 01:19:11 [INFO] __main__ — tunnel 188.40.167.82:443 [d19449e9]  открыт за ~268 мс
+2026-03-24 01:19:11 [DEBUG] __main__ — [d19449e9] -> #1  517B  seq=0
+2026-03-24 01:19:11 [DEBUG] __main__ — [transport:acc1] text-send  len=750  action=data
+2026-03-24 01:19:11 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d19449e9
+2026-03-24 01:19:11 [DEBUG] __main__ — [d19449e9] <- data #1  434B  seq=1
+2026-03-24 01:19:11 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d19449e9
+2026-03-24 01:19:11 [DEBUG] __main__ — [d19449e9] <- data #2  2700B  seq=0
+2026-03-24 01:19:11 [DEBUG] __main__ — [d19449e9] -> #2  266B  seq=1
+2026-03-24 01:19:11 [DEBUG] __main__ — [transport:acc2] text-send  len=414  action=data
+2026-03-24 01:19:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d19449e9
+2026-03-24 01:19:12 [DEBUG] __main__ — [d19449e9] <- data #3  744B  seq=2
+2026-03-24 01:19:12 [DEBUG] __main__ — [d19449e9] -> #3  55B  seq=2
+2026-03-24 01:19:12 [DEBUG] __main__ — [transport:acc1] text-send  len=134  action=data
+2026-03-24 01:19:12 [DEBUG] __main__ — [d19449e9] local EOF
+2026-03-24 01:19:12 [DEBUG] __main__ — [transport:acc1] text-send  len=57  action=close
+2026-03-24 01:19:13 [INFO] __main__ — DONE 188.40.167.82:443 [d19449e9] | ↑838B/3f (0.5 КБ/с)  ↓3878B/3f (2.2 КБ/с)  1.7s
+2026-03-24 01:19:31 [INFO] __main__ — SOCKS5 → www.google.com:443
+2026-03-24 01:19:31 [DEBUG] __main__ — [transport:acc2] text-send  len=81  action=connect
+2026-03-24 01:19:31 [DEBUG] __main__ — [transport:acc2] text-recv  action=ok  id=d7b4b9de
+2026-03-24 01:19:31 [DEBUG] __main__ — [d7b4b9de] <- ok
+2026-03-24 01:19:31 [INFO] __main__ — tunnel www.google.com:443 [d7b4b9de]  открыт за ~376 мс
+2026-03-24 01:19:31 [DEBUG] __main__ — [d7b4b9de] -> #1  1820B  seq=0
+2026-03-24 01:19:31 [DEBUG] __main__ — [transport:acc1] text-send  len=2486  action=data
+2026-03-24 01:19:32 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d7b4b9de
+2026-03-24 01:19:32 [DEBUG] __main__ — [d7b4b9de] <- data #1  1375B  seq=1
+2026-03-24 01:19:32 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d7b4b9de
+2026-03-24 01:19:32 [DEBUG] __main__ — [d7b4b9de] <- data #2  2700B  seq=0
+2026-03-24 01:19:32 [DEBUG] __main__ — [d7b4b9de] -> #2  2700B  seq=1
+2026-03-24 01:19:32 [DEBUG] __main__ — [transport:acc2] text-send  len=3658  action=data
+2026-03-24 01:19:32 [DEBUG] __main__ — [d7b4b9de] -> #3  2516B  seq=2
+2026-03-24 01:19:32 [DEBUG] __main__ — [transport:acc1] text-send  len=3414  action=data
+2026-03-24 01:19:32 [DEBUG] __main__ — [d7b4b9de] -> #4  2700B  seq=3
+2026-03-24 01:19:32 [DEBUG] __main__ — [transport:acc2] text-send  len=3658  action=data
+2026-03-24 01:19:32 [DEBUG] __main__ — [d7b4b9de] -> #5  2700B  seq=4
+2026-03-24 01:19:32 [DEBUG] __main__ — [transport:acc1] text-send  len=3658  action=data
+2026-03-24 01:19:32 [DEBUG] __main__ — [d7b4b9de] -> #6  427B  seq=5
+2026-03-24 01:19:32 [DEBUG] __main__ — [transport:acc2] text-send  len=630  action=data
+2026-03-24 01:19:32 [INFO] __main__ — SOCKS5 → yandex.ru:443
+2026-03-24 01:19:32 [DEBUG] __main__ — [transport:acc1] text-send  len=76  action=connect
+2026-03-24 01:19:32 [DEBUG] __main__ — [d7b4b9de] -> #7  2700B  seq=6
+2026-03-24 01:19:32 [DEBUG] __main__ — [transport:acc1] text-send  len=3658  action=data
+2026-03-24 01:19:32 [DEBUG] __main__ — [d7b4b9de] -> #8  2700B  seq=7
+2026-03-24 01:19:32 [INFO] __main__ — SOCKS5 → ogs.google.com:443
+2026-03-24 01:19:32 [DEBUG] __main__ — [transport:acc2] text-send  len=3658  action=data
+2026-03-24 01:19:32 [DEBUG] __main__ — [transport:acc2] text-send  len=81  action=connect
+2026-03-24 01:19:32 [DEBUG] __main__ — [d7b4b9de] -> #9  2700B  seq=8
+2026-03-24 01:19:32 [DEBUG] __main__ — [transport:acc1] text-send  len=3658  action=data
+2026-03-24 01:19:32 [DEBUG] __main__ — [d7b4b9de] -> #10  2244B  seq=9
+2026-03-24 01:19:32 [DEBUG] __main__ — [transport:acc2] text-send  len=3050  action=data
+2026-03-24 01:19:32 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d7b4b9de
+2026-03-24 01:19:32 [DEBUG] __main__ — [d7b4b9de] <- data #3  1047B  seq=2
+2026-03-24 01:19:32 [DEBUG] __main__ — [d7b4b9de] -> #11  31B  seq=10
+2026-03-24 01:19:32 [DEBUG] __main__ — [transport:acc1] text-send  len=103  action=data
+2026-03-24 01:19:32 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d7b4b9de
+2026-03-24 01:19:32 [DEBUG] __main__ — [d7b4b9de] <- data #4  742B  seq=3
+2026-03-24 01:19:32 [DEBUG] __main__ — [d7b4b9de] -> #12  39B  seq=11
+2026-03-24 01:19:32 [DEBUG] __main__ — [transport:acc2] text-send  len=111  action=data
+2026-03-24 01:19:32 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d7b4b9de
+2026-03-24 01:19:32 [DEBUG] __main__ — [d7b4b9de] <- data #5  742B  seq=3
+2026-03-24 01:19:32 [DEBUG] __main__ — [d7b4b9de] dup seq=3
+2026-03-24 01:19:32 [DEBUG] __main__ — [transport:acc1] text-recv  action=ok  id=6b4654ae
+2026-03-24 01:19:32 [DEBUG] __main__ — [6b4654ae] <- ok
+2026-03-24 01:19:32 [INFO] __main__ — tunnel yandex.ru:443 [6b4654ae]  открыт за ~382 мс
+2026-03-24 01:19:32 [DEBUG] __main__ — [transport:acc2] text-recv  action=ok  id=4ae82b94
+2026-03-24 01:19:32 [DEBUG] __main__ — [4ae82b94] <- ok
+2026-03-24 01:19:32 [INFO] __main__ — tunnel ogs.google.com:443 [4ae82b94]  открыт за ~383 мс
+2026-03-24 01:19:32 [DEBUG] __main__ — [6b4654ae] -> #1  1783B  seq=0
+2026-03-24 01:19:32 [DEBUG] __main__ — [transport:acc1] text-send  len=2438  action=data
+2026-03-24 01:19:32 [DEBUG] __main__ — [4ae82b94] -> #1  1788B  seq=0
+2026-03-24 01:19:32 [DEBUG] __main__ — [transport:acc1] text-send  len=2442  action=data
+2026-03-24 01:19:32 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d7b4b9de
+2026-03-24 01:19:32 [DEBUG] __main__ — [d7b4b9de] <- data #6  1861B  seq=4
+2026-03-24 01:19:33 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 01:19:33 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 01:19:33 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=4ae82b94
+2026-03-24 01:19:33 [DEBUG] __main__ — [4ae82b94] <- data #1  2700B  seq=1
+2026-03-24 01:19:33 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:33 [DEBUG] __main__ — [6b4654ae] <- data #1  1296B  seq=1
+2026-03-24 01:19:33 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=4ae82b94
+2026-03-24 01:19:33 [DEBUG] __main__ — [4ae82b94] <- data #2  2700B  seq=0
+2026-03-24 01:19:33 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=4ae82b94
+2026-03-24 01:19:33 [DEBUG] __main__ — [4ae82b94] <- data #3  2479B  seq=2
+2026-03-24 01:19:33 [DEBUG] __main__ — [4ae82b94] -> #2  2700B  seq=1
+2026-03-24 01:19:33 [DEBUG] __main__ — [transport:acc2] text-send  len=3658  action=data
+2026-03-24 01:19:33 [DEBUG] __main__ — [4ae82b94] -> #3  2328B  seq=2
+2026-03-24 01:19:33 [DEBUG] __main__ — [transport:acc1] text-send  len=3162  action=data
+2026-03-24 01:19:33 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:33 [DEBUG] __main__ — [6b4654ae] <- data #2  2700B  seq=0
+2026-03-24 01:19:33 [DEBUG] __main__ — [6b4654ae] -> #2  2173B  seq=1
+2026-03-24 01:19:33 [DEBUG] __main__ — [transport:acc2] text-send  len=2958  action=data
+2026-03-24 01:19:33 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=4ae82b94
+2026-03-24 01:19:33 [DEBUG] __main__ — [4ae82b94] <- data #4  989B  seq=3
+2026-03-24 01:19:33 [DEBUG] __main__ — [4ae82b94] -> #4  31B  seq=3
+2026-03-24 01:19:33 [DEBUG] __main__ — [transport:acc2] text-send  len=102  action=data
+2026-03-24 01:19:33 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:33 [DEBUG] __main__ — [6b4654ae] <- data #3  533B  seq=2
+2026-03-24 01:19:33 [DEBUG] __main__ — [6b4654ae] -> #3  31B  seq=2
+2026-03-24 01:19:33 [DEBUG] __main__ — [transport:acc1] text-send  len=102  action=data
+2026-03-24 01:19:33 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=4ae82b94
+2026-03-24 01:19:33 [DEBUG] __main__ — [4ae82b94] <- data #5  2700B  seq=5
+2026-03-24 01:19:33 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=4ae82b94
+2026-03-24 01:19:33 [DEBUG] __main__ — [4ae82b94] <- data #6  2700B  seq=7
+2026-03-24 01:19:33 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:33 [DEBUG] __main__ — [6b4654ae] <- data #4  1447B  seq=3
+2026-03-24 01:19:33 [INFO] __main__ — SOCKS5 → safebrowsing.brave.com:443
+2026-03-24 01:19:33 [DEBUG] __main__ — [transport:acc1] text-send  len=89  action=connect
+2026-03-24 01:19:33 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=4ae82b94
+2026-03-24 01:19:33 [DEBUG] __main__ — [4ae82b94] <- data #7  2700B  seq=4
+2026-03-24 01:19:33 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=4ae82b94
+2026-03-24 01:19:33 [DEBUG] __main__ — [4ae82b94] <- data #8  2700B  seq=6
+2026-03-24 01:19:33 [INFO] __main__ — SOCKS5 → passport.yandex.ru:443
+2026-03-24 01:19:33 [DEBUG] __main__ — [transport:acc2] text-send  len=85  action=connect
+2026-03-24 01:19:33 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=4ae82b94
+2026-03-24 01:19:33 [DEBUG] __main__ — [4ae82b94] <- data #9  1451B  seq=8
+2026-03-24 01:19:33 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=4ae82b94
+2026-03-24 01:19:33 [DEBUG] __main__ — [4ae82b94] <- data #10  2700B  seq=9
+2026-03-24 01:19:33 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=4ae82b94
+2026-03-24 01:19:33 [DEBUG] __main__ — [4ae82b94] <- data #11  2700B  seq=10
+2026-03-24 01:19:33 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=4ae82b94
+2026-03-24 01:19:33 [DEBUG] __main__ — [4ae82b94] <- data #12  1405B  seq=13
+2026-03-24 01:19:33 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=4ae82b94
+2026-03-24 01:19:33 [DEBUG] __main__ — [4ae82b94] <- data #13  2700B  seq=12
+2026-03-24 01:19:34 [INFO] __main__ — SOCKS5 → safebrowsing.brave.com:443
+2026-03-24 01:19:34 [DEBUG] __main__ — [transport:acc1] text-send  len=89  action=connect
+2026-03-24 01:19:34 [DEBUG] __main__ — [transport:acc1] text-recv  action=ok  id=3aa7b71f
+2026-03-24 01:19:34 [DEBUG] __main__ — [3aa7b71f] <- ok
+2026-03-24 01:19:34 [INFO] __main__ — tunnel safebrowsing.brave.com:443 [3aa7b71f]  открыт за ~358 мс
+2026-03-24 01:19:34 [DEBUG] __main__ — [transport:acc2] text-recv  action=ok  id=a19cf25d
+2026-03-24 01:19:34 [DEBUG] __main__ — [a19cf25d] <- ok
+2026-03-24 01:19:34 [INFO] __main__ — tunnel passport.yandex.ru:443 [a19cf25d]  открыт за ~354 мс
+2026-03-24 01:19:34 [DEBUG] __main__ — [3aa7b71f] -> #1  1828B  seq=0
+2026-03-24 01:19:34 [DEBUG] __main__ — [transport:acc1] text-send  len=2498  action=data
+2026-03-24 01:19:34 [DEBUG] __main__ — [a19cf25d] -> #1  1824B  seq=0
+2026-03-24 01:19:34 [DEBUG] __main__ — [transport:acc1] text-send  len=2490  action=data
+2026-03-24 01:19:34 [DEBUG] __main__ — [transport:acc1] text-recv  action=ok  id=cebb20d4
+2026-03-24 01:19:34 [DEBUG] __main__ — [cebb20d4] <- ok
+2026-03-24 01:19:34 [INFO] __main__ — tunnel safebrowsing.brave.com:443 [cebb20d4]  открыт за ~333 мс
+2026-03-24 01:19:34 [DEBUG] __main__ — [cebb20d4] -> #1  1764B  seq=0
+2026-03-24 01:19:34 [DEBUG] __main__ — [transport:acc1] text-send  len=2410  action=data
+2026-03-24 01:19:34 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=3aa7b71f
+2026-03-24 01:19:34 [DEBUG] __main__ — [3aa7b71f] <- data #1  2700B  seq=1
+2026-03-24 01:19:34 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=3aa7b71f
+2026-03-24 01:19:34 [DEBUG] __main__ — [3aa7b71f] <- data #2  2700B  seq=0
+2026-03-24 01:19:34 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=3aa7b71f
+2026-03-24 01:19:34 [DEBUG] __main__ — [3aa7b71f] <- data #3  515B  seq=2
+2026-03-24 01:19:34 [DEBUG] __main__ — [cebb20d4] local EOF
+2026-03-24 01:19:34 [DEBUG] __main__ — [transport:acc1] text-send  len=57  action=close
+2026-03-24 01:19:34 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=a19cf25d
+2026-03-24 01:19:34 [DEBUG] __main__ — [a19cf25d] <- data #1  1158B  seq=1
+2026-03-24 01:19:34 [DEBUG] __main__ — [3aa7b71f] -> #2  1181B  seq=1
+2026-03-24 01:19:34 [DEBUG] __main__ — [transport:acc2] text-send  len=1634  action=data
+2026-03-24 01:19:34 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=a19cf25d
+2026-03-24 01:19:34 [DEBUG] __main__ — [a19cf25d] <- data #2  2700B  seq=0
+2026-03-24 01:19:34 [DEBUG] __main__ — [a19cf25d] -> #2  2309B  seq=1
+2026-03-24 01:19:34 [DEBUG] __main__ — [transport:acc2] text-send  len=3138  action=data
+2026-03-24 01:19:34 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=cebb20d4
+2026-03-24 01:19:34 [DEBUG] __main__ — [cebb20d4] <- data #1  2700B  seq=1
+2026-03-24 01:19:34 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=cebb20d4
+2026-03-24 01:19:34 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=cebb20d4
+2026-03-24 01:19:34 [DEBUG] __main__ — [cebb20d4] <- data #2  2700B  seq=0
+2026-03-24 01:19:34 [DEBUG] __main__ — [cebb20d4] <- data #3  515B  seq=2
+2026-03-24 01:19:34 [INFO] __main__ — DONE safebrowsing.brave.com:443 [cebb20d4] | ↑1764B/1f (3.8 КБ/с)  ↓5915B/3f (12.8 КБ/с)  0.5s
+2026-03-24 01:19:34 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=3aa7b71f
+2026-03-24 01:19:34 [DEBUG] __main__ — [3aa7b71f] <- data #4  250B  seq=3
+2026-03-24 01:19:34 [DEBUG] __main__ — [3aa7b71f] -> #3  31B  seq=2
+2026-03-24 01:19:34 [DEBUG] __main__ — [transport:acc1] text-send  len=102  action=data
+2026-03-24 01:19:35 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=3aa7b71f
+2026-03-24 01:19:35 [DEBUG] __main__ — [3aa7b71f] <- data #5  503B  seq=5
+2026-03-24 01:19:35 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=a19cf25d
+2026-03-24 01:19:35 [DEBUG] __main__ — [a19cf25d] <- data #3  689B  seq=2
+2026-03-24 01:19:35 [DEBUG] __main__ — [a19cf25d] -> #3  31B  seq=2
+2026-03-24 01:19:35 [DEBUG] __main__ — [transport:acc1] text-send  len=102  action=data
+2026-03-24 01:19:35 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=a19cf25d
+2026-03-24 01:19:35 [DEBUG] __main__ — [a19cf25d] <- data #4  2700B  seq=3
+2026-03-24 01:19:35 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=a19cf25d
+2026-03-24 01:19:35 [DEBUG] __main__ — [a19cf25d] <- data #5  647B  seq=4
+2026-03-24 01:19:35 [DEBUG] __main__ — [6b4654ae] -> #4  754B  seq=3
+2026-03-24 01:19:35 [DEBUG] __main__ — [transport:acc2] text-send  len=1066  action=data
+2026-03-24 01:19:35 [DEBUG] __main__ — [d7b4b9de] -> #13  2700B  seq=12
+2026-03-24 01:19:35 [DEBUG] __main__ — [transport:acc1] text-send  len=3659  action=data
+2026-03-24 01:19:35 [DEBUG] __main__ — [d7b4b9de] -> #14  2700B  seq=13
+2026-03-24 01:19:35 [DEBUG] __main__ — [transport:acc2] text-send  len=3659  action=data
+2026-03-24 01:19:35 [INFO] __main__ — SOCKS5 → play.google.com:443
+2026-03-24 01:19:35 [DEBUG] __main__ — [transport:acc2] text-send  len=82  action=connect
+2026-03-24 01:19:35 [DEBUG] __main__ — [d7b4b9de] -> #15  1110B  seq=14
+2026-03-24 01:19:35 [DEBUG] __main__ — [transport:acc1] text-send  len=1539  action=data
+2026-03-24 01:19:35 [DEBUG] __main__ — [transport:acc2] text-recv  action=ok  id=ed3badba
+2026-03-24 01:19:35 [DEBUG] __main__ — [ed3badba] <- ok
+2026-03-24 01:19:35 [INFO] __main__ — tunnel play.google.com:443 [ed3badba]  открыт за ~436 мс
+2026-03-24 01:19:35 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:35 [DEBUG] __main__ — [6b4654ae] <- data #5  2700B  seq=5
+2026-03-24 01:19:35 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:35 [DEBUG] __main__ — [6b4654ae] <- data #6  2700B  seq=4
+2026-03-24 01:19:35 [DEBUG] __main__ — [ed3badba] -> #1  1725B  seq=0
+2026-03-24 01:19:35 [DEBUG] __main__ — [transport:acc1] text-send  len=2358  action=data
+2026-03-24 01:19:35 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:35 [DEBUG] __main__ — [6b4654ae] <- data #7  2700B  seq=7
+2026-03-24 01:19:35 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:35 [DEBUG] __main__ — [6b4654ae] <- data #8  2700B  seq=9
+2026-03-24 01:19:35 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:35 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:35 [DEBUG] __main__ — [6b4654ae] <- data #9  2700B  seq=6
+2026-03-24 01:19:35 [DEBUG] __main__ — [6b4654ae] <- data #10  1280B  seq=8
+2026-03-24 01:19:35 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:35 [DEBUG] __main__ — [6b4654ae] <- data #11  2700B  seq=11
+2026-03-24 01:19:35 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:35 [DEBUG] __main__ — [6b4654ae] <- data #12  2700B  seq=10
+2026-03-24 01:19:35 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:35 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:35 [DEBUG] __main__ — [6b4654ae] <- data #13  2700B  seq=13
+2026-03-24 01:19:35 [DEBUG] __main__ — [6b4654ae] <- data #14  356B  seq=12
+2026-03-24 01:19:35 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:35 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:35 [DEBUG] __main__ — [6b4654ae] <- data #15  2700B  seq=14
+2026-03-24 01:19:35 [DEBUG] __main__ — [6b4654ae] <- data #16  2700B  seq=15
+2026-03-24 01:19:35 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:35 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:35 [DEBUG] __main__ — [6b4654ae] <- data #17  2700B  seq=17
+2026-03-24 01:19:35 [DEBUG] __main__ — [6b4654ae] <- data #18  2700B  seq=16
+2026-03-24 01:19:35 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:35 [DEBUG] __main__ — [6b4654ae] <- data #19  712B  seq=19
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #20  2700B  seq=18
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #21  2700B  seq=21
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #22  2700B  seq=20
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #23  2700B  seq=23
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #24  2700B  seq=22
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #25  2456B  seq=25
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #26  2700B  seq=24
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #27  2700B  seq=27
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #28  2700B  seq=26
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #29  2700B  seq=29
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #30  2700B  seq=28
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #31  2700B  seq=31
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #32  2700B  seq=30
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #33  2700B  seq=33
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #34  2700B  seq=32
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #35  2700B  seq=35
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #36  2700B  seq=34
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #37  2700B  seq=37
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #38  2700B  seq=36
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #39  2700B  seq=39
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #40  2700B  seq=38
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #41  2700B  seq=41
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #42  2700B  seq=40
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #43  2700B  seq=43
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #44  2700B  seq=42
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #45  2700B  seq=45
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #46  2700B  seq=44
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #47  2700B  seq=47
+2026-03-24 01:19:36 [INFO] __main__ — SOCKS5 → star-randsrv.bsg.brave.com:443
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc1] text-send  len=93  action=connect
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #48  2700B  seq=49
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #49  2700B  seq=46
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #50  2376B  seq=51
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #51  2700B  seq=48
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=ed3badba
+2026-03-24 01:19:36 [DEBUG] __main__ — [ed3badba] <- data #1  2700B  seq=1
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:36 [DEBUG] __main__ — [6b4654ae] <- data #52  2700B  seq=50
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=ed3badba
+2026-03-24 01:19:36 [DEBUG] __main__ — [ed3badba] <- data #2  2700B  seq=0
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=ed3badba
+2026-03-24 01:19:36 [DEBUG] __main__ — [ed3badba] <- data #3  2314B  seq=2
+2026-03-24 01:19:36 [DEBUG] __main__ — [ed3badba] -> #2  2700B  seq=1
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc2] text-send  len=3658  action=data
+2026-03-24 01:19:36 [DEBUG] __main__ — [ed3badba] -> #3  2700B  seq=2
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc1] text-send  len=3658  action=data
+2026-03-24 01:19:36 [DEBUG] __main__ — [ed3badba] -> #4  737B  seq=3
+2026-03-24 01:19:36 [DEBUG] __main__ — [transport:acc2] text-send  len=1042  action=data
+2026-03-24 01:19:37 [DEBUG] __main__ — [transport:acc1] text-recv  action=ok  id=bc37a3d3
+2026-03-24 01:19:37 [DEBUG] __main__ — [bc37a3d3] <- ok
+2026-03-24 01:19:37 [INFO] __main__ — tunnel star-randsrv.bsg.brave.com:443 [bc37a3d3]  открыт за ~354 мс
+2026-03-24 01:19:37 [DEBUG] __main__ — [bc37a3d3] -> #1  1736B  seq=0
+2026-03-24 01:19:37 [DEBUG] __main__ — [transport:acc1] text-send  len=2374  action=data
+2026-03-24 01:19:37 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=ed3badba
+2026-03-24 01:19:37 [DEBUG] __main__ — [ed3badba] <- data #4  647B  seq=3
+2026-03-24 01:19:37 [DEBUG] __main__ — [ed3badba] -> #5  31B  seq=4
+2026-03-24 01:19:37 [DEBUG] __main__ — [transport:acc1] text-send  len=102  action=data
+2026-03-24 01:19:37 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=ed3badba
+2026-03-24 01:19:37 [DEBUG] __main__ — [ed3badba] <- data #5  1194B  seq=4
+2026-03-24 01:19:37 [DEBUG] __main__ — [ed3badba] -> #6  39B  seq=5
+2026-03-24 01:19:37 [DEBUG] __main__ — [transport:acc2] text-send  len=110  action=data
+2026-03-24 01:19:37 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=bc37a3d3
+2026-03-24 01:19:37 [DEBUG] __main__ — [bc37a3d3] <- data #1  1568B  seq=1
+2026-03-24 01:19:37 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=bc37a3d3
+2026-03-24 01:19:37 [DEBUG] __main__ — [bc37a3d3] <- data #2  2700B  seq=0
+2026-03-24 01:19:37 [DEBUG] __main__ — [bc37a3d3] -> #2  855B  seq=1
+2026-03-24 01:19:37 [DEBUG] __main__ — [transport:acc2] text-send  len=1198  action=data
+2026-03-24 01:19:38 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=bc37a3d3
+2026-03-24 01:19:38 [DEBUG] __main__ — [bc37a3d3] <- data #3  669B  seq=2
+2026-03-24 01:19:38 [DEBUG] __main__ — [bc37a3d3] -> #3  38B  seq=2
+2026-03-24 01:19:38 [DEBUG] __main__ — [transport:acc1] text-send  len=110  action=data
+2026-03-24 01:19:38 [DEBUG] __main__ — [4ae82b94] -> #5  35B  seq=4
+2026-03-24 01:19:38 [DEBUG] __main__ — [transport:acc1] text-send  len=106  action=data
+2026-03-24 01:19:38 [DEBUG] __main__ — [d7b4b9de] -> #16  35B  seq=15
+2026-03-24 01:19:38 [DEBUG] __main__ — [transport:acc2] text-send  len=107  action=data
+2026-03-24 01:19:38 [INFO] __main__ — SOCKS5 → yastatic.net:443
+2026-03-24 01:19:38 [DEBUG] __main__ — [transport:acc2] text-send  len=79  action=connect
+2026-03-24 01:19:38 [INFO] __main__ — SOCKS5 → yastatic.net:443
+2026-03-24 01:19:38 [DEBUG] __main__ — [transport:acc1] text-send  len=79  action=connect
+2026-03-24 01:19:38 [INFO] __main__ — SOCKS5 → yastatic.net:443
+2026-03-24 01:19:38 [DEBUG] __main__ — [d7b4b9de] -> #17  2700B  seq=16
+2026-03-24 01:19:38 [DEBUG] __main__ — [transport:acc2] text-send  len=79  action=connect
+2026-03-24 01:19:38 [DEBUG] __main__ — [transport:acc1] text-send  len=3659  action=data
+2026-03-24 01:19:38 [DEBUG] __main__ — [d7b4b9de] -> #18  2700B  seq=17
+2026-03-24 01:19:38 [DEBUG] __main__ — [transport:acc2] text-send  len=3659  action=data
+2026-03-24 01:19:38 [DEBUG] __main__ — [d7b4b9de] -> #19  2700B  seq=18
+2026-03-24 01:19:38 [DEBUG] __main__ — [transport:acc1] text-send  len=3659  action=data
+2026-03-24 01:19:38 [DEBUG] __main__ — [d7b4b9de] -> #20  2218B  seq=19
+2026-03-24 01:19:38 [DEBUG] __main__ — [transport:acc2] text-send  len=3019  action=data
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc1] text-recv  action=ok  id=cdf006ba
+2026-03-24 01:19:39 [DEBUG] __main__ — [cdf006ba] <- ok
+2026-03-24 01:19:39 [INFO] __main__ — tunnel yastatic.net:443 [cdf006ba]  открыт за ~344 мс
+2026-03-24 01:19:39 [DEBUG] __main__ — [cdf006ba] -> #1  1818B  seq=0
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc1] text-send  len=2482  action=data
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc2] text-recv  action=ok  id=faec18bc
+2026-03-24 01:19:39 [DEBUG] __main__ — [faec18bc] <- ok
+2026-03-24 01:19:39 [INFO] __main__ — tunnel yastatic.net:443 [faec18bc]  открыт за ~373 мс
+2026-03-24 01:19:39 [DEBUG] __main__ — [faec18bc] -> #1  1786B  seq=0
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc1] text-send  len=2442  action=data
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc2] text-recv  action=ok  id=05d9ef5f
+2026-03-24 01:19:39 [DEBUG] __main__ — [05d9ef5f] <- ok
+2026-03-24 01:19:39 [INFO] __main__ — tunnel yastatic.net:443 [05d9ef5f]  открыт за ~406 мс
+2026-03-24 01:19:39 [DEBUG] __main__ — [05d9ef5f] -> #1  1786B  seq=0
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc1] text-send  len=2442  action=data
+2026-03-24 01:19:39 [INFO] __main__ — SOCKS5 → avatars.mds.yandex.net:443
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc1] text-send  len=89  action=connect
+2026-03-24 01:19:39 [INFO] __main__ — SOCKS5 → yastatic.net:443
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc2] text-send  len=79  action=connect
+2026-03-24 01:19:39 [INFO] __main__ — SOCKS5 → yastatic.net:443
+2026-03-24 01:19:39 [INFO] __main__ — SOCKS5 → yastatic.net:443
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc1] text-send  len=79  action=connect
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc2] text-send  len=79  action=connect
+2026-03-24 01:19:39 [INFO] __main__ — SOCKS5 → an.yandex.ru:443
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc1] text-send  len=79  action=connect
+2026-03-24 01:19:39 [DEBUG] __main__ — [6b4654ae] -> #5  1260B  seq=4
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc1] text-send  len=1738  action=data
+2026-03-24 01:19:39 [INFO] __main__ — SOCKS5 → polkadot.js.org:443
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc2] text-send  len=82  action=connect
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=cdf006ba
+2026-03-24 01:19:39 [DEBUG] __main__ — [cdf006ba] <- data #1  2103B  seq=1
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=cdf006ba
+2026-03-24 01:19:39 [DEBUG] __main__ — [cdf006ba] <- data #2  2700B  seq=0
+2026-03-24 01:19:39 [DEBUG] __main__ — [faec18bc] local EOF
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc2] text-send  len=57  action=close
+2026-03-24 01:19:39 [DEBUG] __main__ — [05d9ef5f] local EOF
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc2] text-send  len=57  action=close
+2026-03-24 01:19:39 [DEBUG] __main__ — [cdf006ba] -> #2  1263B  seq=1
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc2] text-send  len=1742  action=data
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=faec18bc
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=faec18bc
+2026-03-24 01:19:39 [DEBUG] __main__ — [faec18bc] <- data #1  2103B  seq=1
+2026-03-24 01:19:39 [DEBUG] __main__ — [faec18bc] <- data #2  2700B  seq=0
+2026-03-24 01:19:39 [INFO] __main__ — DONE yastatic.net:443 [faec18bc] | ↑1786B/1f (4.6 КБ/с)  ↓4803B/2f (12.3 КБ/с)  0.4s
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=05d9ef5f
+2026-03-24 01:19:39 [DEBUG] __main__ — [05d9ef5f] <- data #1  2103B  seq=1
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=05d9ef5f
+2026-03-24 01:19:39 [DEBUG] __main__ — [05d9ef5f] <- data #2  2700B  seq=0
+2026-03-24 01:19:39 [INFO] __main__ — DONE yastatic.net:443 [05d9ef5f] | ↑1786B/1f (4.6 КБ/с)  ↓4803B/2f (12.4 КБ/с)  0.4s
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc1] text-recv  action=ok  id=9a3ad9ab
+2026-03-24 01:19:39 [DEBUG] __main__ — [9a3ad9ab] <- ok
+2026-03-24 01:19:39 [INFO] __main__ — tunnel avatars.mds.yandex.net:443 [9a3ad9ab]  открыт за ~408 мс
+2026-03-24 01:19:39 [DEBUG] __main__ — [9a3ad9ab] -> #1  1732B  seq=0
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc1] text-send  len=2370  action=data
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc2] text-recv  action=ok  id=06488c12
+2026-03-24 01:19:39 [DEBUG] __main__ — [06488c12] <- ok
+2026-03-24 01:19:39 [INFO] __main__ — tunnel yastatic.net:443 [06488c12]  открыт за ~395 мс
+2026-03-24 01:19:39 [DEBUG] __main__ — [06488c12] -> #1  1754B  seq=0
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc1] text-send  len=2398  action=data
+2026-03-24 01:19:39 [DEBUG] __main__ — [06488c12] local EOF
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc2] text-send  len=57  action=close
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc2] text-recv  action=ok  id=89dcc5f9
+2026-03-24 01:19:39 [DEBUG] __main__ — [89dcc5f9] <- ok
+2026-03-24 01:19:39 [INFO] __main__ — tunnel yastatic.net:443 [89dcc5f9]  открыт за ~433 мс
+2026-03-24 01:19:39 [DEBUG] __main__ — [89dcc5f9] -> #1  1818B  seq=0
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc1] text-send  len=2482  action=data
+2026-03-24 01:19:39 [DEBUG] __main__ — [89dcc5f9] local EOF
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc2] text-send  len=57  action=close
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc1] text-recv  action=ok  id=64ddae32
+2026-03-24 01:19:39 [DEBUG] __main__ — [64ddae32] <- ok
+2026-03-24 01:19:39 [INFO] __main__ — tunnel yastatic.net:443 [64ddae32]  открыт за ~434 мс
+2026-03-24 01:19:39 [DEBUG] __main__ — [64ddae32] -> #1  1786B  seq=0
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc1] text-send  len=2442  action=data
+2026-03-24 01:19:39 [DEBUG] __main__ — [64ddae32] local EOF
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc1] text-send  len=57  action=close
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc1] text-recv  action=ok  id=bb1e566b
+2026-03-24 01:19:39 [DEBUG] __main__ — [bb1e566b] <- ok
+2026-03-24 01:19:39 [INFO] __main__ — tunnel an.yandex.ru:443 [bb1e566b]  открыт за ~466 мс
+2026-03-24 01:19:39 [DEBUG] __main__ — [bb1e566b] -> #1  1754B  seq=0
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc1] text-send  len=2398  action=data
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=6b4654ae
+2026-03-24 01:19:39 [DEBUG] __main__ — [6b4654ae] <- data #53  339B  seq=52
+2026-03-24 01:19:39 [DEBUG] __main__ — [6b4654ae] -> #6  35B  seq=5
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc2] text-send  len=106  action=data
+2026-03-24 01:19:39 [DEBUG] __main__ — [cdf006ba] -> #3  76B  seq=2
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc1] text-send  len=162  action=data
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=cdf006ba
+2026-03-24 01:19:39 [DEBUG] __main__ — [cdf006ba] <- data #3  2700B  seq=3
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=cdf006ba
+2026-03-24 01:19:39 [DEBUG] __main__ — [cdf006ba] <- data #4  2700B  seq=5
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=cdf006ba
+2026-03-24 01:19:39 [DEBUG] __main__ — [cdf006ba] <- data #5  2700B  seq=7
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=cdf006ba
+2026-03-24 01:19:39 [DEBUG] __main__ — [cdf006ba] <- data #6  2700B  seq=2
+2026-03-24 01:19:39 [DEBUG] __main__ — [cdf006ba] -> #4  31B  seq=3
+2026-03-24 01:19:39 [DEBUG] __main__ — [transport:acc2] text-send  len=102  action=data
+2026-03-24 01:19:40 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=cdf006ba
+2026-03-24 01:19:40 [DEBUG] __main__ — [cdf006ba] <- data #7  2700B  seq=4
+2026-03-24 01:19:40 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=cdf006ba
+2026-03-24 01:19:40 [DEBUG] __main__ — [cdf006ba] <- data #8  2700B  seq=9
+2026-03-24 01:19:40 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=cdf006ba
+2026-03-24 01:19:40 [DEBUG] __main__ — [cdf006ba] <- data #9  2700B  seq=11
+2026-03-24 01:19:40 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=cdf006ba
+2026-03-24 01:19:40 [DEBUG] __main__ — [cdf006ba] <- data #10  140B  seq=6
+2026-03-24 01:19:40 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=cdf006ba
+2026-03-24 01:19:40 [DEBUG] __main__ — [cdf006ba] <- data #11  2700B  seq=8
+2026-03-24 01:19:40 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=cdf006ba
+2026-03-24 01:19:40 [DEBUG] __main__ — [cdf006ba] <- data #12  2700B  seq=13
+2026-03-24 01:19:40 [INFO] __main__ — DONE yastatic.net:443 [06488c12] | ↑1754B/1f (1.7 КБ/с)  ↓0B/0f (0.0 КБ/с)  1.0s
+2026-03-24 01:19:40 [INFO] __main__ — DONE yastatic.net:443 [89dcc5f9] | ↑1818B/1f (1.8 КБ/с)  ↓0B/0f (0.0 КБ/с)  1.0s
+2026-03-24 01:19:40 [INFO] __main__ — DONE yastatic.net:443 [64ddae32] | ↑1786B/1f (1.7 КБ/с)  ↓0B/0f (0.0 КБ/с)  1.0s
+2026-03-24 01:19:54 [INFO] __main__ — tunnel polkadot.js.org:443 [63524e15]  TIMEOUT
+2026-03-24 01:19:54 [INFO] __main__ — SOCKS5 → polkadot.js.org:443
+2026-03-24 01:19:54 [DEBUG] __main__ — [transport:acc1] text-send  len=82  action=connect
+2026-03-24 01:19:56 [INFO] __main__ — SOCKS5 → api.github.com:443
+2026-03-24 01:19:56 [DEBUG] __main__ — [transport:acc2] text-send  len=81  action=connect
+2026-03-24 01:19:58 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 01:19:58 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 01:20:03 [WARNING] __main__ — [4ae82b94] reorder stall: seq=11 missing for 30s, buf=2 frames — closing
+2026-03-24 01:20:05 [WARNING] __main__ — [3aa7b71f] reorder stall: seq=4 missing for 30s, buf=1 frames — closing
+2026-03-24 01:20:08 [DEBUG] __main__ — [d7b4b9de] -> #21  70B  seq=20
+2026-03-24 01:20:08 [DEBUG] __main__ — [transport:acc1] text-send  len=155  action=data
+2026-03-24 01:20:08 [DEBUG] __main__ — [d7b4b9de] -> #22  35B  seq=21
+2026-03-24 01:20:08 [DEBUG] __main__ — [transport:acc2] text-send  len=107  action=data
+2026-03-24 01:20:08 [DEBUG] __main__ — [d7b4b9de] -> #23  35B  seq=22
+2026-03-24 01:20:08 [DEBUG] __main__ — [transport:acc1] text-send  len=107  action=data
+2026-03-24 01:20:09 [DEBUG] __main__ — [9a3ad9ab] local EOF
+2026-03-24 01:20:09 [DEBUG] __main__ — [transport:acc1] text-send  len=57  action=close
+2026-03-24 01:20:09 [DEBUG] __main__ — [bb1e566b] local EOF
+2026-03-24 01:20:09 [DEBUG] __main__ — [transport:acc1] text-send  len=57  action=close
+2026-03-24 01:20:09 [INFO] __main__ — tunnel polkadot.js.org:443 [150e448a]  TIMEOUT
+2026-03-24 01:20:09 [INFO] __main__ — DONE avatars.mds.yandex.net:443 [9a3ad9ab] | ↑1732B/1f (0.1 КБ/с)  ↓0B/0f (0.0 КБ/с)  30.0s
+2026-03-24 01:20:09 [INFO] __main__ — DONE an.yandex.ru:443 [bb1e566b] | ↑1754B/1f (0.1 КБ/с)  ↓0B/0f (0.0 КБ/с)  30.0s
+2026-03-24 01:20:10 [WARNING] __main__ — [cdf006ba] reorder stall: seq=10 missing for 30s, buf=2 frames — closing
+2026-03-24 01:20:11 [INFO] __main__ — tunnel api.github.com:443 [ce248ba4]  TIMEOUT
+2026-03-24 01:20:11 [INFO] __main__ — SOCKS5 → api.github.com:443
+2026-03-24 01:20:11 [DEBUG] __main__ — [transport:acc1] text-send  len=81  action=connect
+2026-03-24 01:20:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=ok  id=7b00407c
+2026-03-24 01:20:12 [DEBUG] __main__ — [7b00407c] <- ok
+2026-03-24 01:20:12 [INFO] __main__ — tunnel api.github.com:443 [7b00407c]  открыт за ~333 мс
+2026-03-24 01:20:12 [DEBUG] __main__ — [7b00407c] -> #1  1867B  seq=0
+2026-03-24 01:20:12 [DEBUG] __main__ — [transport:acc1] text-send  len=2550  action=data
+2026-03-24 01:20:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=7b00407c
+2026-03-24 01:20:12 [DEBUG] __main__ — [7b00407c] <- data #1  2700B  seq=0
+2026-03-24 01:20:12 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=7b00407c
+2026-03-24 01:20:12 [DEBUG] __main__ — [7b00407c] <- data #2  396B  seq=1
+2026-03-24 01:20:12 [DEBUG] __main__ — [7b00407c] -> #2  520B  seq=1
+2026-03-24 01:20:12 [DEBUG] __main__ — [transport:acc2] text-send  len=754  action=data
+2026-03-24 01:20:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=7b00407c
+2026-03-24 01:20:12 [DEBUG] __main__ — [7b00407c] <- data #3  222B  seq=2
+2026-03-24 01:20:12 [DEBUG] __main__ — [7b00407c] -> #3  31B  seq=2
+2026-03-24 01:20:12 [DEBUG] __main__ — [transport:acc1] text-send  len=102  action=data
+2026-03-24 01:20:13 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=7b00407c
+2026-03-24 01:20:13 [DEBUG] __main__ — [7b00407c] <- data #4  1051B  seq=3
+2026-03-24 01:20:23 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 01:20:23 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 01:20:37 [INFO] __main__ — SOCKS5 → 188.40.167.82:443
+2026-03-24 01:20:37 [DEBUG] __main__ — [transport:acc2] text-send  len=80  action=connect
+2026-03-24 01:20:37 [DEBUG] __main__ — [transport:acc2] text-recv  action=ok  id=a3f4b926
+2026-03-24 01:20:37 [DEBUG] __main__ — [a3f4b926] <- ok
+2026-03-24 01:20:37 [INFO] __main__ — tunnel 188.40.167.82:443 [a3f4b926]  открыт за ~256 мс
+2026-03-24 01:20:37 [DEBUG] __main__ — [a3f4b926] -> #1  517B  seq=0
+2026-03-24 01:20:37 [DEBUG] __main__ — [transport:acc1] text-send  len=750  action=data
+2026-03-24 01:20:37 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=a3f4b926
+2026-03-24 01:20:37 [DEBUG] __main__ — [a3f4b926] <- data #1  2700B  seq=0
+2026-03-24 01:20:37 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=a3f4b926
+2026-03-24 01:20:37 [DEBUG] __main__ — [a3f4b926] <- data #2  434B  seq=1
+2026-03-24 01:20:38 [DEBUG] __main__ — [a3f4b926] -> #2  266B  seq=1
+2026-03-24 01:20:38 [DEBUG] __main__ — [transport:acc2] text-send  len=414  action=data
+2026-03-24 01:20:38 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=a3f4b926
+2026-03-24 01:20:38 [DEBUG] __main__ — [a3f4b926] <- data #3  744B  seq=2
+2026-03-24 01:20:38 [DEBUG] __main__ — [a3f4b926] -> #3  55B  seq=2
+2026-03-24 01:20:38 [DEBUG] __main__ — [transport:acc1] text-send  len=134  action=data
+2026-03-24 01:20:38 [DEBUG] __main__ — [a3f4b926] local EOF
+2026-03-24 01:20:38 [DEBUG] __main__ — [transport:acc2] text-send  len=57  action=close
+2026-03-24 01:20:39 [INFO] __main__ — SOCKS5 → collector.bsg.brave.com:443
+2026-03-24 01:20:39 [DEBUG] __main__ — [transport:acc1] text-send  len=90  action=connect
+2026-03-24 01:20:39 [INFO] __main__ — DONE 188.40.167.82:443 [a3f4b926] | ↑838B/3f (0.5 КБ/с)  ↓3878B/3f (2.3 КБ/с)  1.6s
+2026-03-24 01:20:39 [DEBUG] __main__ — [transport:acc1] text-recv  action=ok  id=ee234194
+2026-03-24 01:20:39 [DEBUG] __main__ — [ee234194] <- ok
+2026-03-24 01:20:39 [INFO] __main__ — tunnel collector.bsg.brave.com:443 [ee234194]  открыт за ~310 мс
+2026-03-24 01:20:39 [DEBUG] __main__ — [ee234194] -> #1  1765B  seq=0
+2026-03-24 01:20:39 [DEBUG] __main__ — [transport:acc1] text-send  len=2414  action=data
+2026-03-24 01:20:39 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=ee234194
+2026-03-24 01:20:39 [DEBUG] __main__ — [ee234194] <- data #1  2700B  seq=0
+2026-03-24 01:20:39 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=ee234194
+2026-03-24 01:20:39 [DEBUG] __main__ — [ee234194] <- data #2  1568B  seq=1
+2026-03-24 01:20:39 [DEBUG] __main__ — [ee234194] -> #2  2700B  seq=1
+2026-03-24 01:20:39 [DEBUG] __main__ — [transport:acc2] text-send  len=3658  action=data
+2026-03-24 01:20:39 [DEBUG] __main__ — [ee234194] -> #3  1B  seq=2
+2026-03-24 01:20:39 [DEBUG] __main__ — [transport:acc1] text-send  len=62  action=data
+2026-03-24 01:20:40 [DEBUG] __main__ — [cdf006ba] -> #5  72B  seq=4
+2026-03-24 01:20:40 [DEBUG] __main__ — [transport:acc1] text-send  len=154  action=data
+2026-03-24 01:20:40 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=ee234194
+2026-03-24 01:20:40 [DEBUG] __main__ — [ee234194] <- data #3  282B  seq=2
+2026-03-24 01:20:40 [DEBUG] __main__ — [ee234194] -> #4  38B  seq=3
+2026-03-24 01:20:40 [DEBUG] __main__ — [transport:acc2] text-send  len=110  action=data
+2026-03-24 01:20:40 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=ee234194
+2026-03-24 01:20:40 [DEBUG] __main__ — [ee234194] <- data #4  64B  seq=3
+2026-03-24 01:20:43 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=7b00407c
+2026-03-24 01:20:43 [DEBUG] __main__ — [7b00407c] <- data #5  39B  seq=4
+2026-03-24 01:20:43 [DEBUG] __main__ — [7b00407c] local EOF
+2026-03-24 01:20:43 [DEBUG] __main__ — [transport:acc1] text-send  len=57  action=close
+2026-03-24 01:20:44 [INFO] __main__ — DONE api.github.com:443 [7b00407c] | ↑2418B/3f (0.1 КБ/с)  ↓4408B/5f (0.1 КБ/с)  32.0s
+2026-03-24 01:20:46 [INFO] __main__ — SOCKS5 → 188.40.167.82:443
+2026-03-24 01:20:46 [DEBUG] __main__ — [transport:acc2] text-send  len=80  action=connect
+2026-03-24 01:20:46 [DEBUG] __main__ — [transport:acc2] text-recv  action=ok  id=9108e1b5
+2026-03-24 01:20:46 [DEBUG] __main__ — [9108e1b5] <- ok
+2026-03-24 01:20:46 [INFO] __main__ — tunnel 188.40.167.82:443 [9108e1b5]  открыт за ~259 мс
+2026-03-24 01:20:46 [DEBUG] __main__ — [9108e1b5] -> #1  517B  seq=0
+2026-03-24 01:20:46 [DEBUG] __main__ — [transport:acc1] text-send  len=750  action=data
+2026-03-24 01:20:46 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=9108e1b5
+2026-03-24 01:20:46 [DEBUG] __main__ — [9108e1b5] <- data #1  2700B  seq=0
+2026-03-24 01:20:46 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=9108e1b5
+2026-03-24 01:20:46 [DEBUG] __main__ — [9108e1b5] <- data #2  434B  seq=1
+2026-03-24 01:20:46 [DEBUG] __main__ — [9108e1b5] -> #2  266B  seq=1
+2026-03-24 01:20:46 [DEBUG] __main__ — [transport:acc2] text-send  len=414  action=data
+2026-03-24 01:20:47 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=9108e1b5
+2026-03-24 01:20:47 [DEBUG] __main__ — [9108e1b5] <- data #3  744B  seq=2
+2026-03-24 01:20:47 [DEBUG] __main__ — [9108e1b5] -> #3  55B  seq=2
+2026-03-24 01:20:47 [DEBUG] __main__ — [transport:acc1] text-send  len=134  action=data
+2026-03-24 01:20:47 [DEBUG] __main__ — [9108e1b5] local EOF
+2026-03-24 01:20:47 [DEBUG] __main__ — [transport:acc2] text-send  len=57  action=close
+2026-03-24 01:20:48 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 01:20:48 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 01:20:48 [INFO] __main__ — DONE 188.40.167.82:443 [9108e1b5] | ↑838B/3f (0.5 КБ/с)  ↓3878B/3f (2.3 КБ/с)  1.6s
+2026-03-24 01:20:54 [DEBUG] __main__ — [cdf006ba] -> #6  107B  seq=5
+2026-03-24 01:20:54 [DEBUG] __main__ — [transport:acc2] text-send  len=202  action=data
+2026-03-24 01:20:54 [DEBUG] __main__ — [cdf006ba] -> #7  210B  seq=6
+2026-03-24 01:20:54 [DEBUG] __main__ — [transport:acc1] text-send  len=338  action=data
+2026-03-24 01:20:56 [INFO] __main__ — SOCKS5 → eppo-proxy.phantom.app:443
+2026-03-24 01:20:56 [DEBUG] __main__ — [transport:acc1] text-send  len=89  action=connect
+2026-03-24 01:20:56 [DEBUG] __main__ — [transport:acc1] text-recv  action=ok  id=ed9274a5
+2026-03-24 01:20:56 [DEBUG] __main__ — [ed9274a5] <- ok
+2026-03-24 01:20:56 [INFO] __main__ — tunnel eppo-proxy.phantom.app:443 [ed9274a5]  открыт за ~317 мс
+2026-03-24 01:20:56 [DEBUG] __main__ — [ed9274a5] -> #1  2035B  seq=0
+2026-03-24 01:20:56 [DEBUG] __main__ — [transport:acc1] text-send  len=2774  action=data
+2026-03-24 01:20:56 [INFO] __main__ — SOCKS5 → api.github.com:443
+2026-03-24 01:20:56 [DEBUG] __main__ — [transport:acc2] text-send  len=81  action=connect
+2026-03-24 01:20:57 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=ed9274a5
+2026-03-24 01:20:57 [DEBUG] __main__ — [ed9274a5] <- data #1  1375B  seq=0
+2026-03-24 01:20:57 [DEBUG] __main__ — [ed9274a5] -> #2  757B  seq=1
+2026-03-24 01:20:57 [DEBUG] __main__ — [transport:acc2] text-send  len=1070  action=data
+2026-03-24 01:20:57 [DEBUG] __main__ — [transport:acc2] text-recv  action=ok  id=219eb6c0
+2026-03-24 01:20:57 [DEBUG] __main__ — [219eb6c0] <- ok
+2026-03-24 01:20:57 [INFO] __main__ — tunnel api.github.com:443 [219eb6c0]  открыт за ~320 мс
+2026-03-24 01:20:57 [DEBUG] __main__ — [219eb6c0] -> #1  1835B  seq=0
+2026-03-24 01:20:57 [DEBUG] __main__ — [transport:acc1] text-send  len=2506  action=data
+2026-03-24 01:20:57 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=ed9274a5
+2026-03-24 01:20:57 [DEBUG] __main__ — [ed9274a5] <- data #2  521B  seq=1
+2026-03-24 01:20:57 [DEBUG] __main__ — [ed9274a5] -> #3  31B  seq=2
+2026-03-24 01:20:57 [DEBUG] __main__ — [transport:acc1] text-send  len=102  action=data
+2026-03-24 01:20:57 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=219eb6c0
+2026-03-24 01:20:57 [DEBUG] __main__ — [219eb6c0] <- data #1  2700B  seq=0
+2026-03-24 01:20:57 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=219eb6c0
+2026-03-24 01:20:57 [DEBUG] __main__ — [219eb6c0] <- data #2  396B  seq=1
+2026-03-24 01:20:57 [DEBUG] __main__ — [219eb6c0] -> #2  520B  seq=1
+2026-03-24 01:20:57 [DEBUG] __main__ — [transport:acc2] text-send  len=754  action=data
+2026-03-24 01:20:57 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=ed9274a5
+2026-03-24 01:20:57 [DEBUG] __main__ — [ed9274a5] <- data #3  2700B  seq=2
+2026-03-24 01:20:57 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=ed9274a5
+2026-03-24 01:20:57 [DEBUG] __main__ — [ed9274a5] <- data #4  2700B  seq=4
+2026-03-24 01:20:57 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=ed9274a5
+2026-03-24 01:20:57 [DEBUG] __main__ — [ed9274a5] <- data #5  2700B  seq=3
+2026-03-24 01:20:57 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=ed9274a5
+2026-03-24 01:20:57 [DEBUG] __main__ — [ed9274a5] <- data #6  2700B  seq=6
+2026-03-24 01:20:57 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=ed9274a5
+2026-03-24 01:20:57 [DEBUG] __main__ — [ed9274a5] <- data #7  2700B  seq=5
+2026-03-24 01:20:57 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=ed9274a5
+2026-03-24 01:20:57 [DEBUG] __main__ — [ed9274a5] <- data #8  2700B  seq=8
+2026-03-24 01:20:57 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=ed9274a5
+2026-03-24 01:20:57 [DEBUG] __main__ — [ed9274a5] <- data #9  2700B  seq=7
+2026-03-24 01:20:57 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=ed9274a5
+2026-03-24 01:20:57 [DEBUG] __main__ — [ed9274a5] <- data #10  2700B  seq=9
+2026-03-24 01:20:57 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=ed9274a5
+2026-03-24 01:20:57 [DEBUG] __main__ — [ed9274a5] <- data #11  2700B  seq=10
+2026-03-24 01:20:57 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=ed9274a5
+2026-03-24 01:20:57 [DEBUG] __main__ — [ed9274a5] <- data #12  2700B  seq=11
+2026-03-24 01:20:57 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=ed9274a5
+2026-03-24 01:20:57 [DEBUG] __main__ — [ed9274a5] <- data #13  2700B  seq=12
+2026-03-24 01:20:57 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=ed9274a5
+2026-03-24 01:20:57 [DEBUG] __main__ — [ed9274a5] <- data #14  2700B  seq=13
+2026-03-24 01:20:57 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=ed9274a5
+2026-03-24 01:20:57 [DEBUG] __main__ — [ed9274a5] <- data #15  2700B  seq=15
+2026-03-24 01:21:01 [DEBUG] __main__ — [ee234194] -> #5  2700B  seq=4
+2026-03-24 01:21:01 [DEBUG] __main__ — [transport:acc1] text-send  len=3658  action=data
+2026-03-24 01:21:01 [DEBUG] __main__ — [ee234194] -> #6  794B  seq=5
+2026-03-24 01:21:01 [DEBUG] __main__ — [transport:acc2] text-send  len=1118  action=data
+2026-03-24 01:21:01 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7c6746313c70>
+2026-03-24 01:21:01 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7c6746359ba0>

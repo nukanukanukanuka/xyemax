@@ -1,0 +1,224 @@
+2026-03-24 00:44:20 [INFO] __main__ — MAX Proxy SERVER запущен  viewer_id=240876353  api=https://telegram.mooner.pro/api/max/status  poll=30s  transports=2
+2026-03-24 00:44:20 [INFO] __main__ — Восстановлено 1 сессий из sessions.json
+2026-03-24 00:44:20 [INFO] __main__ — [proxy:self-chat] WS подключение (chat_id=0)
+2026-03-24 00:44:21 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 00:44:21 [INFO] __main__ — Авторизован [server:acc1], chatId=0
+2026-03-24 00:44:21 [INFO] __main__ — Авторизован [server:acc2], chatId=0
+2026-03-24 00:44:27 [DEBUG] __main__ — [transport] msg-event op=128 cmd=0 chat=0 sender=240876353 attaches=1
+2026-03-24 00:44:27 [DEBUG] __main__ — [transport] attach full={'_type': 'FILE', 'name': 'OUT_data.bin', 'size': 77, 'fileId': 2988987246, 'token': 'f9LHodD0cOK-ONnUocafAUbOCDik_q_nGKG350-6U8NrOOPb6pfNjFO9w3s4n3nPZqKLVByRvEjQDt0f9MNQ'}
+2026-03-24 00:44:28 [DEBUG] __main__ — [transport] op88 fileId=2988987246 url=https://fd.oneme.ru/getfile?sig=Kku0HlEYYyjl1B5ecyRtEg7F3SmZJ4ZOrGxXhsTV8H1_XtVGjpGIZnk9hT8rgtx9385p4SxkGn-47IGGXKTvZw&expires=1774395867972&clientType=6&id=2988987246&userId=240876353
+2026-03-24 00:44:28 [DEBUG] __main__ — [transport:acc1] recv_file  fileId=2988987246  frames=1
+2026-03-24 00:44:28 [DEBUG] __main__ — [transport:acc1] frame  action=connect  id=ececf870  size=0
+2026-03-24 00:44:28 [INFO] __main__ — [ececf870] CONNECT → 188.40.167.82:443
+2026-03-24 00:44:28 [INFO] __main__ — [ececf870] TCP connected → 188.40.167.82:443  (5 мс)
+2026-03-24 00:44:28 [DEBUG] __main__ — [transport:acc1] batch flush  frames=1  total=53B
+2026-03-24 00:44:29 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2992334138  size=53
+2026-03-24 00:44:29 [DEBUG] __main__ — [transport] msg-event op=64 cmd=1 chat=0 sender=240876353 attaches=1
+2026-03-24 00:44:29 [DEBUG] __main__ — [transport] attach full={'_type': 'FILE', 'name': 'data.bin', 'size': 53, 'fileId': 2992334138, 'token': 'f9LHodD0cOLbyyCV_bB0ZBO6M-sGXIqc_4jO8v9d8sNp_MbeZ8F9efKKKvZLl1HYjfkBzel6ZCFcC8n9ety6'}
+2026-03-24 00:44:29 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2992334138
+2026-03-24 00:44:30 [DEBUG] __main__ — [transport] msg-event op=128 cmd=0 chat=0 sender=240876353 attaches=1
+2026-03-24 00:44:30 [DEBUG] __main__ — [transport] attach full={'_type': 'FILE', 'name': 'OUT_data.bin', 'size': 565, 'fileId': 2992334394, 'token': 'f9LHodD0cOJEGbzlJpZTWe1RulCFnO8ycvwW6aFXtQ83AFjxAtFaS_YN5tErSOAO7QZqjlzxPMtZjbLhZeMx'}
+2026-03-24 00:44:30 [DEBUG] __main__ — [transport] op88 fileId=2992334394 url=https://fd.oneme.ru/getfile?sig=W2BBp0N7nvhFuPTII9_fSc0hdpXw8hjfNmF0ZfM7Ns6wMY22SRgnbnti-AF-ty78SG6CDFzvovYbOw4OUoKu0Q&expires=1774395870672&clientType=6&id=2992334394&userId=240876353
+2026-03-24 00:44:30 [DEBUG] __main__ — [transport:acc1] recv_file  fileId=2992334394  frames=1
+2026-03-24 00:44:30 [DEBUG] __main__ — [transport:acc1] frame  action=data  id=ececf870  size=692
+2026-03-24 00:44:30 [DEBUG] __main__ — [ececf870] <- data #1  517B  seq=0  (rx=517B)
+2026-03-24 00:44:30 [DEBUG] __main__ — [ececf870] wrote 517B to remote
+2026-03-24 00:44:30 [DEBUG] __main__ — [ececf870] -> #1  3134B  seq=0  (tx=3134B)
+2026-03-24 00:44:30 [DEBUG] __main__ — [transport:acc1] batch flush  frames=1  total=3197B
+2026-03-24 00:44:31 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2987167933  size=3197
+2026-03-24 00:44:31 [DEBUG] __main__ — [transport] msg-event op=64 cmd=1 chat=0 sender=240876353 attaches=1
+2026-03-24 00:44:31 [DEBUG] __main__ — [transport] attach full={'_type': 'FILE', 'name': 'data.bin', 'size': 3197, 'fileId': 2987167933, 'token': 'f9LHodD0cOLMJRgn8rrO9t12z3pS7d7f7b70tqfjjGSLY2RiFxdyXW7l-hI8PQZRpwjeTwJ3vb1ZAEKoUKCA'}
+2026-03-24 00:44:31 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2987167933
+2026-03-24 00:44:32 [DEBUG] __main__ — [transport] msg-event op=128 cmd=0 chat=0 sender=240002558 attaches=1
+2026-03-24 00:44:32 [DEBUG] __main__ — [transport] attach full={'_type': 'FILE', 'name': 'OUT_data.bin', 'size': 314, 'fileId': 2993795655, 'token': 'f9LHodD0cOK6nJQ3vgImgqjU9bgt0uMdoW4Kc4loqzOO7uIh0ts8KrsW-z7x-6rVK8NLKmvIfDCaCEb2PKpE'}
+2026-03-24 00:44:32 [DEBUG] __main__ — [transport] op88 fileId=2993795655 url=https://fd.oneme.ru/getfile?sig=UlhBKlt7a-5y_YD4wT4jq54MxcGzYzN0UR_JcJg3_QmUptk5a5T6IAiIt5JdMcAlo1sn3i5pjqYpM1baiiED_g&expires=1774395872906&clientType=6&id=2993795655&userId=240002558
+2026-03-24 00:44:33 [DEBUG] __main__ — [transport:acc2] recv_file  fileId=2993795655  frames=1
+2026-03-24 00:44:33 [DEBUG] __main__ — [transport:acc2] frame  action=data  id=ececf870  size=356
+2026-03-24 00:44:33 [DEBUG] __main__ — [ececf870] <- data #2  266B  seq=1  (rx=783B)
+2026-03-24 00:44:33 [DEBUG] __main__ — [ececf870] wrote 266B to remote
+2026-03-24 00:44:33 [DEBUG] __main__ — [ececf870] -> #2  744B  seq=1  (tx=3878B)
+2026-03-24 00:44:33 [DEBUG] __main__ — [transport:acc2] batch flush  frames=1  total=807B
+2026-03-24 00:44:33 [DEBUG] __main__ — [transport:acc2] upload ok  fileId=2987915477  size=807
+2026-03-24 00:44:34 [DEBUG] __main__ — [transport] msg-event op=64 cmd=1 chat=0 sender=240002558 attaches=1
+2026-03-24 00:44:34 [DEBUG] __main__ — [transport] attach full={'_type': 'FILE', 'name': 'data.bin', 'size': 807, 'fileId': 2987915477, 'token': 'f9LHodD0cOIJ5-Oq51Ox2wBJdLjAxYtOC26ItioyvDN07sHFgoirh5OPEgDOUaEh_gRxDI2WfbGuxMQf7yi3'}
+2026-03-24 00:44:34 [DEBUG] __main__ — [transport:acc2] пропускаем свой исходящий файл fileId=2987915477
+2026-03-24 00:44:35 [DEBUG] __main__ — [transport] msg-event op=128 cmd=0 chat=0 sender=240876353 attaches=1
+2026-03-24 00:44:35 [DEBUG] __main__ — [transport] attach full={'_type': 'FILE', 'name': 'OUT_data.bin', 'size': 153, 'fileId': 2984986653, 'token': 'f9LHodD0cOLm48EllS_MIG2CszVvW17XbDm_PNPoUEXVpXzx8Oicob8TkjHZyOkHVE_KY14rZgRAwBnZVJnp'}
+2026-03-24 00:44:35 [DEBUG] __main__ — [transport] op88 fileId=2984986653 url=https://fd.oneme.ru/getfile?sig=2q_inZpFhZKZs8d67TaHc6K_RrJKA4c2CWHPUbs6fS2x9eIj6ZSBaOaGQ-3_hdlO85FbU2EJzH6NDD9RFq88-A&expires=1774395875766&clientType=6&id=2984986653&userId=240876353
+2026-03-24 00:44:41 [DEBUG] __main__ — [transport] msg-event op=128 cmd=0 chat=0 sender=240002558 attaches=1
+2026-03-24 00:44:41 [DEBUG] __main__ — [transport] attach full={'_type': 'FILE', 'name': 'OUT_data.bin', 'size': 75, 'fileId': 2984544975, 'token': 'f9LHodD0cOIAnuLTvSvFbS2rHLVdlfqWFBNcvs7BwzeSeIS7JeHj2CGwPLtLQA1LbPYFjotsvBqRLP_FWvI6'}
+2026-03-24 00:44:41 [DEBUG] __main__ — [transport] op88 fileId=2984544975 url=https://fd.oneme.ru/getfile?sig=h2YPv493xC5AnI2IoNINLuD4FXH0iftxvz-GD9WElWEiA5LxBJkhBmhkxYNs2Zs38L57KMNDVDR6oqokOn-7Hw&expires=1774395881330&clientType=6&id=2984544975&userId=240002558
+2026-03-24 00:44:41 [DEBUG] __main__ — [transport:acc2] recv_file  fileId=2984544975  frames=1
+2026-03-24 00:44:41 [DEBUG] __main__ — [transport:acc2] frame  action=connect  id=8a902b7b  size=0
+2026-03-24 00:44:41 [INFO] __main__ — [8a902b7b] CONNECT → 81.19.72.34:443
+2026-03-24 00:44:41 [INFO] __main__ — [8a902b7b] TCP connected → 81.19.72.34:443  (1 мс)
+2026-03-24 00:44:41 [DEBUG] __main__ — [transport:acc2] batch flush  frames=1  total=53B
+2026-03-24 00:44:41 [DEBUG] __main__ — [transport:acc2] upload ok  fileId=2987919171  size=53
+2026-03-24 00:44:42 [DEBUG] __main__ — [transport] msg-event op=64 cmd=1 chat=0 sender=240002558 attaches=1
+2026-03-24 00:44:42 [DEBUG] __main__ — [transport] attach full={'_type': 'FILE', 'name': 'data.bin', 'size': 53, 'fileId': 2987919171, 'token': 'f9LHodD0cOKDogVWForOgSEDkuh96U3wTRW8KOaDQaULGtMMApGhlX--JizmSaE_pxwKJ0IplNSjLED8hVXK'}
+2026-03-24 00:44:42 [DEBUG] __main__ — [transport:acc2] пропускаем свой исходящий файл fileId=2987919171
+2026-03-24 00:44:43 [DEBUG] __main__ — [transport] msg-event op=128 cmd=0 chat=0 sender=240876353 attaches=1
+2026-03-24 00:44:43 [DEBUG] __main__ — [transport] attach full={'_type': 'FILE', 'name': 'OUT_data.bin', 'size': 565, 'fileId': 2992239605, 'token': 'f9LHodD0cOLvnYhI7DaKsatC4j5y7xWzrU8liRl9cbImggeO_DsDIll4TJKi_InsGZdpiVzaNtx4QKy5vwLh'}
+2026-03-24 00:44:43 [DEBUG] __main__ — [transport] op88 fileId=2992239605 url=https://fd.oneme.ru/getfile?sig=_chb3r4dhz9loQhX099FKWNYlxzgQkp1s-uxIug3Tn1AlRoOl-KOgq-tnV_hnPtKNi4U09bnWJ8RFl6q-8dsOw&expires=1774395883482&clientType=6&id=2992239605&userId=240876353
+2026-03-24 00:44:43 [DEBUG] __main__ — [transport:acc1] recv_file  fileId=2992239605  frames=1
+2026-03-24 00:44:43 [DEBUG] __main__ — [transport:acc1] frame  action=data  id=8a902b7b  size=692
+2026-03-24 00:44:43 [DEBUG] __main__ — [8a902b7b] <- data #1  517B  seq=0  (rx=517B)
+2026-03-24 00:44:43 [DEBUG] __main__ — [8a902b7b] wrote 517B to remote
+2026-03-24 00:44:44 [DEBUG] __main__ — [8a902b7b] -> #1  3739B  seq=0  (tx=3739B)
+2026-03-24 00:44:44 [DEBUG] __main__ — [transport:acc1] batch flush  frames=1  total=3802B
+2026-03-24 00:44:44 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2991563566  size=3802
+2026-03-24 00:44:44 [DEBUG] __main__ — [transport] msg-event op=64 cmd=1 chat=0 sender=240876353 attaches=1
+2026-03-24 00:44:44 [DEBUG] __main__ — [transport] attach full={'_type': 'FILE', 'name': 'data.bin', 'size': 3802, 'fileId': 2991563566, 'token': 'f9LHodD0cOLoFBbho50e4u9IHhFmxSSNyZBsJJ83eJAnf1DQjpQctZ3DQXLVWyusRUHP-h49pGx6YfM0Cizm'}
+2026-03-24 00:44:44 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2991563566
+2026-03-24 00:44:45 [DEBUG] __main__ — [transport] msg-event op=128 cmd=0 chat=0 sender=240002558 attaches=1
+2026-03-24 00:44:45 [DEBUG] __main__ — [transport] attach full={'_type': 'FILE', 'name': 'OUT_data.bin', 'size': 141, 'fileId': 2982509584, 'token': 'f9LHodD0cOKQWxiHHVdwqME9-fXEWZsy5MEpLCOnYd7vofPuc02iKO27ku2kw_5SJojwzSA6WkuDLHa4QII0'}
+2026-03-24 00:44:46 [DEBUG] __main__ — [transport] op88 fileId=2982509584 url=https://fd.oneme.ru/getfile?sig=Km0ttt4k7BDFk97v2A2Zo2M3zoYk_QfUxZ4XrPMUySxgL4z8V8xbWBY-288xNfNtn5-FUOX2fUQJGkQzgp4aSA&expires=1774395886011&clientType=6&id=2982509584&userId=240002558
+2026-03-24 00:44:46 [DEBUG] __main__ — [transport:acc2] recv_file  fileId=2982509584  frames=1
+2026-03-24 00:44:46 [DEBUG] __main__ — [transport:acc2] frame  action=data  id=8a902b7b  size=124
+2026-03-24 00:44:46 [DEBUG] __main__ — [8a902b7b] <- data #2  93B  seq=1  (rx=610B)
+2026-03-24 00:44:46 [DEBUG] __main__ — [8a902b7b] wrote 93B to remote
+2026-03-24 00:44:46 [DEBUG] __main__ — [8a902b7b] -> #2  120B  seq=1  (tx=3859B)
+2026-03-24 00:44:46 [DEBUG] __main__ — [transport:acc2] batch flush  frames=1  total=183B
+2026-03-24 00:44:46 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:44:46 [DEBUG] __main__ — [transport:acc2] upload ok  fileId=2991661296  size=183
+2026-03-24 00:44:46 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:44:46 [DEBUG] __main__ — [transport] msg-event op=64 cmd=1 chat=0 sender=240002558 attaches=1
+2026-03-24 00:44:46 [DEBUG] __main__ — [transport] attach full={'_type': 'FILE', 'name': 'data.bin', 'size': 183, 'fileId': 2991661296, 'token': 'f9LHodD0cOJ7cND7MIGjkzUzoHESxCocR8T2XKnzJRUqE_DQ2g-NmYd4fqsRI5yYcv1j_0YdWpSKSS7Hb7uU'}
+2026-03-24 00:44:46 [DEBUG] __main__ — [transport:acc2] пропускаем свой исходящий файл fileId=2991661296
+2026-03-24 00:44:47 [DEBUG] __main__ — [transport] msg-event op=128 cmd=0 chat=0 sender=240876353 attaches=1
+2026-03-24 00:44:47 [DEBUG] __main__ — [transport] attach full={'_type': 'FILE', 'name': 'OUT_data.bin', 'size': 301, 'fileId': 2979916908, 'token': 'f9LHodD0cOIro6sKVICVf7jFPxepb2Q6U2gKpCZ71c6GONr-ZP2x9t3i2tLEC9B7BkDwMpUCUMmQ-oNYAztN'}
+2026-03-24 00:44:48 [DEBUG] __main__ — [transport] op88 fileId=2979916908 url=https://fd.oneme.ru/getfile?sig=vWlIOaeCaub5wFKJsiLPX0nJdCBXlPAvDoRR5w-exSKtNcKx5Fo2vuzxm-nTnn_TEcj9BWiSuc6KOfP3_m1_aA&expires=1774395887976&clientType=6&id=2979916908&userId=240876353
+2026-03-24 00:44:48 [DEBUG] __main__ — [transport:acc1] recv_file  fileId=2979916908  frames=1
+2026-03-24 00:44:48 [DEBUG] __main__ — [transport:acc1] frame  action=data  id=8a902b7b  size=340
+2026-03-24 00:44:48 [DEBUG] __main__ — [8a902b7b] <- data #3  253B  seq=2  (rx=863B)
+2026-03-24 00:44:48 [DEBUG] __main__ — [8a902b7b] wrote 253B to remote
+2026-03-24 00:44:48 [DEBUG] __main__ — [8a902b7b] -> #3  13859B  seq=2  (tx=17718B)
+2026-03-24 00:44:48 [DEBUG] __main__ — [transport:acc1] batch flush  frames=1  total=13922B
+2026-03-24 00:44:48 [DEBUG] __main__ — [8a902b7b] -> #4  23168B  seq=3  (tx=40886B)
+2026-03-24 00:44:48 [DEBUG] __main__ — [transport:acc2] batch flush  frames=1  total=23231B
+2026-03-24 00:44:48 [DEBUG] __main__ — [8a902b7b] -> #5  37648B  seq=4  (tx=78534B)
+2026-03-24 00:44:48 [DEBUG] __main__ — [transport:acc1] batch flush  frames=1  total=37711B
+2026-03-24 00:44:48 [DEBUG] __main__ — [8a902b7b] -> #6  65536B  seq=5  (tx=144070B)
+2026-03-24 00:44:48 [DEBUG] __main__ — [transport:acc2] batch flush  frames=1  total=65599B
+2026-03-24 00:44:48 [DEBUG] __main__ — [8a902b7b] -> #7  4191B  seq=6  (tx=148261B)
+2026-03-24 00:44:48 [DEBUG] __main__ — [transport:acc1] batch flush  frames=1  total=4254B
+2026-03-24 00:44:48 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2994529166  size=13922
+2026-03-24 00:44:48 [DEBUG] __main__ — [transport:acc2] upload ok  fileId=2990940875  size=23231
+2026-03-24 00:44:48 [DEBUG] __main__ — [transport] msg-event op=64 cmd=1 chat=0 sender=240876353 attaches=1
+2026-03-24 00:44:48 [DEBUG] __main__ — [transport] attach full={'_type': 'FILE', 'name': 'data.bin', 'size': 13922, 'fileId': 2994529166, 'token': 'f9LHodD0cOI8gnwY9ONoXZqtT31pYq_HhtejiGBaTxFPVk8j9q4vCOdag5ckgRI6qimAytoio1uJcsxbWQz7'}
+2026-03-24 00:44:48 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2994529166
+2026-03-24 00:44:49 [DEBUG] __main__ — [transport] msg-event op=64 cmd=1 chat=0 sender=240002558 attaches=1
+2026-03-24 00:44:49 [DEBUG] __main__ — [transport] attach full={'_type': 'FILE', 'name': 'data.bin', 'size': 23231, 'fileId': 2990940875, 'token': 'f9LHodD0cOJNBjYtsSIk0mOIqIPB_QZNq9ZjnFFszSZ0NVeYeUFF6oZpUa4854OI2QsuU65u8SBRAIBX5FM-'}
+2026-03-24 00:44:49 [DEBUG] __main__ — [transport:acc2] пропускаем свой исходящий файл fileId=2990940875
+2026-03-24 00:44:49 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2988530955  size=37711
+2026-03-24 00:44:49 [DEBUG] __main__ — [transport:acc2] upload ok  fileId=2993796167  size=65599
+2026-03-24 00:44:49 [DEBUG] __main__ — [transport] msg-event op=64 cmd=1 chat=0 sender=240876353 attaches=1
+2026-03-24 00:44:49 [DEBUG] __main__ — [transport] attach full={'_type': 'FILE', 'name': 'data.bin', 'size': 37711, 'fileId': 2988530955, 'token': 'f9LHodD0cOIh5O_lzZhNuDM969V3sfuu27lbRFnlyptEQoec2aAGfziBmBd4cIk8n-nn5jLMprd_rPA5IFJy'}
+2026-03-24 00:44:49 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2988530955
+2026-03-24 00:44:49 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2989636781  size=4254
+2026-03-24 00:44:50 [DEBUG] __main__ — [transport] msg-event op=64 cmd=1 chat=0 sender=240002558 attaches=1
+2026-03-24 00:44:50 [DEBUG] __main__ — [transport] attach full={'_type': 'FILE', 'name': 'data.bin', 'size': 65599, 'fileId': 2993796167, 'token': 'f9LHodD0cOJbFUkzxArKnNqX-3EFUqmRdsy8hZnouKLtRpxN030nJnYdyr3qNUegyamwlnuphOhlQsaBP6tp'}
+2026-03-24 00:44:50 [DEBUG] __main__ — [transport:acc2] пропускаем свой исходящий файл fileId=2993796167
+2026-03-24 00:44:50 [DEBUG] __main__ — [transport] msg-event op=64 cmd=1 chat=0 sender=240876353 attaches=1
+2026-03-24 00:44:50 [DEBUG] __main__ — [transport] attach full={'_type': 'FILE', 'name': 'data.bin', 'size': 4254, 'fileId': 2989636781, 'token': 'f9LHodD0cOK8o1aVRLYxHr_tUlOtZvJt2YWJU6zzPIgUgHPPx4SLUQLn0RNqr_oNM-98t-7ZDfMfFPsAhTDh'}
+2026-03-24 00:44:50 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2989636781
+2026-03-24 00:44:50 [ERROR] __main__ — [transport:acc1] download error: 
+2026-03-24 00:44:51 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 00:44:51 [DEBUG] __main__ — [transport] msg-event op=128 cmd=0 chat=0 sender=240002558 attaches=1
+2026-03-24 00:44:51 [DEBUG] __main__ — [transport] attach full={'_type': 'FILE', 'name': 'OUT_data.bin', 'size': 129, 'fileId': 2978761897, 'token': 'f9LHodD0cOIYTn51ovEanG6TQiyGukXpJPenZD2895AIbi2xJ4VwJ7u3xn0f_gOKnEp7YmNJtZpK1PlUCdzq'}
+2026-03-24 00:44:51 [DEBUG] __main__ — [transport] op88 fileId=2978761897 url=https://fd.oneme.ru/getfile?sig=3jt8UboHswuS-trvvnCi4JaQsppoYwvHy0lcIGGqihNCP3_z87SvMuJDUDKIXLJo4JEqycaODulqcXIVdQFmKg&expires=1774395891788&clientType=6&id=2978761897&userId=240002558
+2026-03-24 00:44:51 [DEBUG] __main__ — [transport:acc2] recv_file  fileId=2978761897  frames=2
+2026-03-24 00:44:51 [DEBUG] __main__ — [transport:acc2] frame  action=data  id=8a902b7b  size=44
+2026-03-24 00:44:51 [DEBUG] __main__ — [transport:acc2] frame  action=close  id=8a902b7b  size=0
+2026-03-24 00:44:51 [DEBUG] __main__ — [8a902b7b] <- data #4  31B  seq=3  (rx=894B)
+2026-03-24 00:44:51 [DEBUG] __main__ — [8a902b7b] wrote 31B to remote
+2026-03-24 00:44:51 [INFO] __main__ — [8a902b7b] close requested last_seq=3
+2026-03-24 00:44:51 [INFO] __main__ — [8a902b7b] finalize close (all data received, last_seq=3)
+2026-03-24 00:44:51 [DEBUG] __main__ — [8a902b7b] socket closed
+2026-03-24 00:44:51 [DEBUG] __main__ — [8a902b7b] remote EOF
+2026-03-24 00:44:51 [INFO] __main__ — [8a902b7b] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 00:45:11 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:45:11 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:45:21 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 00:45:36 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:45:36 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:45:48 [DEBUG] __main__ — [ececf870] -> #3  63B  seq=2  (tx=3941B)
+2026-03-24 00:45:48 [DEBUG] __main__ — [ececf870] remote EOF
+2026-03-24 00:45:48 [INFO] __main__ — [ececf870] pipe done | rx=783B/2f (0.0 КБ/с)  tx=3941B/3f (0.0 КБ/с)  80.1s
+2026-03-24 00:45:48 [DEBUG] __main__ — [ececf870] socket closed
+2026-03-24 00:45:48 [DEBUG] __main__ — [transport:acc1] batch flush  frames=2  total=179B
+2026-03-24 00:45:49 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2991266872  size=179
+2026-03-24 00:45:49 [DEBUG] __main__ — [transport] msg-event op=64 cmd=1 chat=0 sender=240876353 attaches=1
+2026-03-24 00:45:49 [DEBUG] __main__ — [transport] attach full={'_type': 'FILE', 'name': 'data.bin', 'size': 179, 'fileId': 2991266872, 'token': 'f9LHodD0cOI4GwIqpLh3zzBcmILwQ6FboHzJbxSlMe5CRWpuTm1b7AW-nxxLUXfF6hvpX8GH5j4w1JM2ZCfD'}
+2026-03-24 00:45:49 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2991266872
+2026-03-24 00:45:52 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 00:46:01 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:46:01 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:46:22 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 00:46:26 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:46:26 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:46:51 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:46:51 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:46:52 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 00:47:16 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:47:16 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:47:22 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 00:47:41 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:47:41 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:47:53 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 00:48:06 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:48:06 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:48:23 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 00:48:31 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:48:31 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:48:53 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 00:48:56 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:48:56 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:49:21 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:49:21 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:49:23 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 00:49:46 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:49:46 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:49:54 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 00:50:11 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:50:11 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:50:24 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 00:50:36 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:50:36 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:50:54 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 00:51:01 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:51:01 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:51:24 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 00:51:26 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:51:26 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:51:51 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:51:51 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:51:55 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 00:52:16 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:52:16 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:52:25 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 00:52:41 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:52:41 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:52:55 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 00:53:06 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:53:06 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:53:25 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 00:53:31 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:53:31 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:53:56 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 00:53:56 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:53:56 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:54:21 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:54:21 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:54:26 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 00:54:46 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:54:46 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:54:56 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 00:55:11 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:55:11 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 00:55:27 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 00:55:30 [INFO] __main__ — [proxy:self-chat] остановлен
+2026-03-24 00:55:30 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7ee942162980>
+2026-03-24 00:55:30 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7ee941591090>

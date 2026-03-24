@@ -1,0 +1,11 @@
+2026-03-24 19:59:06 [INFO] __main__ — Авторизован [client:acc1], chatId=0
+2026-03-24 19:59:07 [INFO] __main__ — Авторизован [client:acc2], chatId=0
+2026-03-24 19:59:20 [DEBUG] __main__ — [batch] flush batch_id=f980aa8e0cc6 reqs=2 size=2419
+2026-03-24 19:59:20 [DEBUG] __main__ — [multi] send via acc2
+2026-03-24 19:59:20 [INFO] __main__ — BATCH sent  id=f980aa8e0cc6  reqs=2  2КБ  urls=['http://unknownJ\x0b:P@&���7M(Q����\x11�i\x0f���?Hݼg�5\x00', 'http://unknown\x1d\x01\x17�9��\tN��\x07`+�ٵYqm��\x1f�L�GO��$m\x00']
+2026-03-24 19:59:21 [DEBUG] __main__ — [transport:acc2] upload ok  fileId=2998851929  size=2419
+2026-03-24 19:59:24 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7d66422509d0>
+2026-03-24 19:59:24 [ERROR] asyncio — Unclosed connector
+connections: ['[(<aiohttp.client_proto.ResponseHandler object at 0x7d664223be20>, 157764.530365497)]']
+connector: <aiohttp.connector.TCPConnector object at 0x7d66422501c0>

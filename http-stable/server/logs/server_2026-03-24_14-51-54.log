@@ -1,0 +1,7 @@
+2026-03-24 14:51:54 [INFO] __main__ — Восстановлено 1 сессий
+2026-03-24 14:51:54 [INFO] __main__ — [proxy:self-chat] WS подключение (chat_id=0)
+2026-03-24 14:51:55 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 14:51:56 [INFO] __main__ — Авторизован [server:acc1], chatId=0
+2026-03-24 14:52:07 [INFO] __main__ — [proxy:self-chat] остановлен
+2026-03-24 14:52:07 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7db614fc4280>

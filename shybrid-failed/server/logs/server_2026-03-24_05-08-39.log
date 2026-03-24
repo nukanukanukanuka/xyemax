@@ -1,0 +1,407 @@
+2026-03-24 05:08:39 [INFO] __main__ — MAX Proxy SERVER запущен  viewer_id=240876353  transports=2
+2026-03-24 05:08:39 [INFO] __main__ — Восстановлено 1 сессий из sessions.json
+2026-03-24 05:08:39 [INFO] __main__ — [proxy:self-chat] WS подключение (chat_id=0, transports=2)
+2026-03-24 05:08:39 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 05:08:39 [INFO] __main__ — Авторизован [server:acc1], chatId=0
+2026-03-24 05:08:40 [INFO] __main__ — Авторизован [server:acc2], chatId=0
+2026-03-24 05:08:53 [DEBUG] __main__ — [transport:acc1] text-recv  action=connect  id=2a600168
+2026-03-24 05:08:53 [INFO] __main__ — [2a600168] CONNECT → 188.40.167.82:443
+2026-03-24 05:08:53 [INFO] __main__ — [2a600168] TCP connected → 188.40.167.82:443  (4 мс)
+2026-03-24 05:08:53 [DEBUG] __main__ — [transport:acc1] text-send  len=48  action=ok  ms=0
+2026-03-24 05:08:54 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=2a600168
+2026-03-24 05:08:54 [DEBUG] __main__ — [2a600168] <- data #1  517B  seq=0
+2026-03-24 05:08:54 [DEBUG] __main__ — [2a600168] -> #1  2700B  seq=0
+2026-03-24 05:08:54 [DEBUG] __main__ — [transport:acc1] text-send  len=3665  action=data  ms=1
+2026-03-24 05:08:54 [DEBUG] __main__ — [2a600168] -> #2  434B  seq=1
+2026-03-24 05:08:54 [DEBUG] __main__ — [transport:acc2] text-send  len=645  action=data  ms=0
+2026-03-24 05:08:54 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=2a600168
+2026-03-24 05:08:54 [DEBUG] __main__ — [2a600168] <- data #2  266B  seq=1
+2026-03-24 05:08:54 [DEBUG] __main__ — [2a600168] -> #3  744B  seq=2
+2026-03-24 05:08:54 [DEBUG] __main__ — [transport:acc1] text-send  len=1057  action=data  ms=2
+2026-03-24 05:08:54 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=2a600168
+2026-03-24 05:08:54 [DEBUG] __main__ — [2a600168] <- data #3  55B  seq=2
+2026-03-24 05:08:54 [DEBUG] __main__ — [transport:acc1] text-recv  action=close  id=2a600168
+2026-03-24 05:08:54 [INFO] __main__ — [2a600168] close requested last_seq=2
+2026-03-24 05:08:54 [DEBUG] __main__ — [2a600168] socket closed
+2026-03-24 05:08:54 [DEBUG] __main__ — [2a600168] remote EOF
+2026-03-24 05:08:54 [INFO] __main__ — [2a600168] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 05:08:59 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=baa6a324
+2026-03-24 05:08:59 [INFO] __main__ — [baa6a324] CONNECT → 81.19.72.34:443
+2026-03-24 05:08:59 [INFO] __main__ — [baa6a324] TCP connected → 81.19.72.34:443  (8 мс)
+2026-03-24 05:08:59 [DEBUG] __main__ — [transport:acc2] text-send  len=48  action=ok  ms=1
+2026-03-24 05:09:00 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=baa6a324
+2026-03-24 05:09:00 [DEBUG] __main__ — [baa6a324] <- data #1  517B  seq=0
+2026-03-24 05:09:00 [DEBUG] __main__ — [baa6a324] -> #1  2700B  seq=0
+2026-03-24 05:09:00 [DEBUG] __main__ — [transport:acc1] text-send  len=3665  action=data  ms=3
+2026-03-24 05:09:00 [DEBUG] __main__ — [baa6a324] -> #2  1039B  seq=1
+2026-03-24 05:09:00 [DEBUG] __main__ — [transport:acc2] text-send  len=1453  action=data  ms=2
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=baa6a324
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] <- data #2  93B  seq=1
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #3  120B  seq=2
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=225  action=data  ms=4
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=baa6a324
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] <- data #3  253B  seq=2
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #4  2700B  seq=3
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=3665  action=data  ms=3
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #5  2700B  seq=4
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=3665  action=data  ms=5
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #6  2700B  seq=5
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=3665  action=data  ms=4
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #7  2700B  seq=6
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=3665  action=data  ms=6
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #8  2700B  seq=7
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=3665  action=data  ms=5
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #9  359B  seq=8
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=545  action=data  ms=7
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #10  2700B  seq=9
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=3665  action=data  ms=6
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #11  2700B  seq=10
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=3666  action=data  ms=8
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #12  2700B  seq=11
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=3666  action=data  ms=7
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #13  2700B  seq=12
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=3666  action=data  ms=9
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #14  2700B  seq=13
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=3666  action=data  ms=8
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #15  2700B  seq=14
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=3667  action=data  ms=10
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #16  2700B  seq=15
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=3666  action=data  ms=9
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #17  2700B  seq=16
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=3667  action=data  ms=11
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #18  2700B  seq=17
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=3667  action=data  ms=10
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #19  2700B  seq=18
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=3667  action=data  ms=12
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #20  2700B  seq=19
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=3667  action=data  ms=11
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #21  2700B  seq=20
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=3667  action=data  ms=13
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #22  2700B  seq=21
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=3667  action=data  ms=12
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #23  2700B  seq=22
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=3667  action=data  ms=14
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #24  2700B  seq=23
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=3667  action=data  ms=13
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #25  2700B  seq=24
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=3667  action=data  ms=15
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #26  2700B  seq=25
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=3667  action=data  ms=14
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #27  2700B  seq=26
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=3667  action=data  ms=16
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #28  2700B  seq=27
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=3667  action=data  ms=15
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #29  2700B  seq=28
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=3667  action=data  ms=17
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #30  2700B  seq=29
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=3667  action=data  ms=16
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #31  2700B  seq=30
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=3667  action=data  ms=18
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #32  2700B  seq=31
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=3667  action=data  ms=17
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #33  2700B  seq=32
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=3667  action=data  ms=19
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #34  2700B  seq=33
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=3667  action=data  ms=18
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #35  2700B  seq=34
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=3667  action=data  ms=20
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #36  2700B  seq=35
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=3667  action=data  ms=19
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #37  2700B  seq=36
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=3667  action=data  ms=21
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #38  2700B  seq=37
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=3667  action=data  ms=20
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #39  2700B  seq=38
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=3667  action=data  ms=22
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #40  2700B  seq=39
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=3667  action=data  ms=21
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #41  2700B  seq=40
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=3667  action=data  ms=23
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #42  2700B  seq=41
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=3667  action=data  ms=22
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #43  2700B  seq=42
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=3667  action=data  ms=24
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #44  2700B  seq=43
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=3667  action=data  ms=23
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #45  2700B  seq=44
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=3667  action=data  ms=25
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #46  2700B  seq=45
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=3667  action=data  ms=24
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #47  2700B  seq=46
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=3667  action=data  ms=26
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #48  2700B  seq=47
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=3667  action=data  ms=25
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #49  2700B  seq=48
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=3667  action=data  ms=27
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #50  2700B  seq=49
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=3667  action=data  ms=26
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #51  2700B  seq=50
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=3667  action=data  ms=28
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #52  2700B  seq=51
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=3667  action=data  ms=27
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #53  2700B  seq=52
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=3667  action=data  ms=29
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #54  2700B  seq=53
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=3667  action=data  ms=28
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #55  2700B  seq=54
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=3667  action=data  ms=30
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #56  2700B  seq=55
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #57  2700B  seq=56
+2026-03-24 05:09:01 [DEBUG] __main__ — [baa6a324] -> #58  403B  seq=57
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=3667  action=data  ms=29
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc1] text-send  len=3667  action=data  ms=31
+2026-03-24 05:09:01 [DEBUG] __main__ — [transport:acc2] text-send  len=607  action=data  ms=30
+2026-03-24 05:09:03 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=baa6a324
+2026-03-24 05:09:03 [DEBUG] __main__ — [baa6a324] <- data #4  31B  seq=3
+2026-03-24 05:09:03 [DEBUG] __main__ — [transport:acc2] text-recv  action=close  id=baa6a324
+2026-03-24 05:09:03 [INFO] __main__ — [baa6a324] close requested last_seq=3
+2026-03-24 05:09:03 [DEBUG] __main__ — [baa6a324] socket closed
+2026-03-24 05:09:03 [DEBUG] __main__ — [baa6a324] remote EOF
+2026-03-24 05:09:03 [INFO] __main__ — [baa6a324] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 05:09:04 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 05:09:04 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 05:09:09 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 05:09:09 [DEBUG] __main__ — [transport:acc1] text-recv  action=connect  id=e732653c
+2026-03-24 05:09:09 [INFO] __main__ — [e732653c] CONNECT → whatismyipaddress.com:443
+2026-03-24 05:09:10 [INFO] __main__ — [e732653c] TCP connected → whatismyipaddress.com:443  (95 мс)
+2026-03-24 05:09:10 [DEBUG] __main__ — [transport:acc1] text-send  len=49  action=ok  ms=32
+2026-03-24 05:09:10 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=e732653c
+2026-03-24 05:09:10 [DEBUG] __main__ — [e732653c] <- data #1  1763B  seq=0
+2026-03-24 05:09:10 [DEBUG] __main__ — [e732653c] -> #1  2700B  seq=0
+2026-03-24 05:09:10 [DEBUG] __main__ — [transport:acc1] text-send  len=3666  action=data  ms=33
+2026-03-24 05:09:10 [DEBUG] __main__ — [e732653c] -> #2  788B  seq=1
+2026-03-24 05:09:10 [DEBUG] __main__ — [transport:acc2] text-send  len=1118  action=data  ms=31
+2026-03-24 05:09:10 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=e732653c
+2026-03-24 05:09:10 [DEBUG] __main__ — [e732653c] <- data #2  1142B  seq=1
+2026-03-24 05:09:10 [DEBUG] __main__ — [e732653c] -> #3  537B  seq=2
+2026-03-24 05:09:10 [DEBUG] __main__ — [transport:acc1] text-send  len=782  action=data  ms=34
+2026-03-24 05:09:11 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=e732653c
+2026-03-24 05:09:11 [DEBUG] __main__ — [e732653c] <- data #3  31B  seq=2
+2026-03-24 05:09:11 [DEBUG] __main__ — [e732653c] -> #4  2700B  seq=3
+2026-03-24 05:09:11 [DEBUG] __main__ — [transport:acc2] text-send  len=3666  action=data  ms=32
+2026-03-24 05:09:11 [DEBUG] __main__ — [e732653c] -> #5  2700B  seq=4
+2026-03-24 05:09:11 [DEBUG] __main__ — [transport:acc1] text-send  len=3666  action=data  ms=35
+2026-03-24 05:09:11 [DEBUG] __main__ — [e732653c] -> #6  2700B  seq=5
+2026-03-24 05:09:11 [DEBUG] __main__ — [transport:acc2] text-send  len=3666  action=data  ms=33
+2026-03-24 05:09:11 [DEBUG] __main__ — [e732653c] -> #7  418B  seq=6
+2026-03-24 05:09:11 [DEBUG] __main__ — [transport:acc1] text-send  len=626  action=data  ms=36
+2026-03-24 05:09:11 [DEBUG] __main__ — [e732653c] -> #8  2700B  seq=7
+2026-03-24 05:09:11 [DEBUG] __main__ — [transport:acc2] text-send  len=3666  action=data  ms=34
+2026-03-24 05:09:11 [DEBUG] __main__ — [e732653c] -> #9  2700B  seq=8
+2026-03-24 05:09:11 [DEBUG] __main__ — [transport:acc1] text-send  len=3666  action=data  ms=37
+2026-03-24 05:09:11 [DEBUG] __main__ — [e732653c] -> #10  2700B  seq=9
+2026-03-24 05:09:11 [DEBUG] __main__ — [transport:acc2] text-send  len=3666  action=data  ms=35
+2026-03-24 05:09:11 [DEBUG] __main__ — [e732653c] -> #11  783B  seq=10
+2026-03-24 05:09:11 [DEBUG] __main__ — [transport:acc1] text-send  len=1111  action=data  ms=38
+2026-03-24 05:09:11 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=d78006d7
+2026-03-24 05:09:11 [INFO] __main__ — [d78006d7] CONNECT → ds6.probe.whatismyipaddress.com:443
+2026-03-24 05:09:11 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=e732653c
+2026-03-24 05:09:11 [DEBUG] __main__ — [e732653c] <- data #4  142B  seq=3
+2026-03-24 05:09:11 [INFO] __main__ — [d78006d7] TCP connect FAILED → ds6.probe.whatismyipaddress.com:443  ([Errno 99] Cannot assign requested address)
+2026-03-24 05:09:11 [DEBUG] __main__ — [transport:acc2] text-send  len=101  action=err  ms=36
+2026-03-24 05:09:11 [DEBUG] __main__ — [e732653c] -> #12  2700B  seq=11
+2026-03-24 05:09:11 [DEBUG] __main__ — [transport:acc2] text-send  len=3667  action=data  ms=37
+2026-03-24 05:09:11 [DEBUG] __main__ — [e732653c] -> #13  2700B  seq=12
+2026-03-24 05:09:11 [DEBUG] __main__ — [transport:acc1] text-send  len=3667  action=data  ms=39
+2026-03-24 05:09:11 [DEBUG] __main__ — [e732653c] -> #14  2700B  seq=13
+2026-03-24 05:09:11 [DEBUG] __main__ — [transport:acc2] text-send  len=3667  action=data  ms=38
+2026-03-24 05:09:11 [DEBUG] __main__ — [e732653c] -> #15  1799B  seq=14
+2026-03-24 05:09:11 [DEBUG] __main__ — [transport:acc1] text-send  len=2467  action=data  ms=40
+2026-03-24 05:09:12 [DEBUG] __main__ — [e732653c] -> #16  2700B  seq=15
+2026-03-24 05:09:12 [DEBUG] __main__ — [transport:acc2] text-send  len=3667  action=data  ms=39
+2026-03-24 05:09:12 [DEBUG] __main__ — [e732653c] -> #17  2700B  seq=16
+2026-03-24 05:09:12 [DEBUG] __main__ — [transport:acc1] text-send  len=3667  action=data  ms=41
+2026-03-24 05:09:12 [DEBUG] __main__ — [e732653c] -> #18  2700B  seq=17
+2026-03-24 05:09:12 [DEBUG] __main__ — [transport:acc2] text-send  len=3667  action=data  ms=40
+2026-03-24 05:09:12 [DEBUG] __main__ — [e732653c] -> #19  2700B  seq=18
+2026-03-24 05:09:12 [DEBUG] __main__ — [transport:acc1] text-send  len=3667  action=data  ms=42
+2026-03-24 05:09:12 [DEBUG] __main__ — [e732653c] -> #20  2700B  seq=19
+2026-03-24 05:09:12 [DEBUG] __main__ — [transport:acc2] text-send  len=3667  action=data  ms=41
+2026-03-24 05:09:12 [DEBUG] __main__ — [e732653c] -> #21  1498B  seq=20
+2026-03-24 05:09:12 [DEBUG] __main__ — [transport:acc1] text-send  len=2067  action=data  ms=43
+2026-03-24 05:09:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=connect  id=ed39f2cb
+2026-03-24 05:09:12 [INFO] __main__ — [ed39f2cb] CONNECT → ds6.probe.whatismyipaddress.com:443
+2026-03-24 05:09:12 [INFO] __main__ — [ed39f2cb] TCP connect FAILED → ds6.probe.whatismyipaddress.com:443  ([Errno 99] Cannot assign requested address)
+2026-03-24 05:09:12 [DEBUG] __main__ — [transport:acc1] text-send  len=101  action=err  ms=44
+2026-03-24 05:09:14 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=a3ad3be7
+2026-03-24 05:09:14 [INFO] __main__ — [a3ad3be7] CONNECT → ds6.probe.whatismyipaddress.com:443
+2026-03-24 05:09:14 [INFO] __main__ — [a3ad3be7] TCP connect FAILED → ds6.probe.whatismyipaddress.com:443  ([Errno 99] Cannot assign requested address)
+2026-03-24 05:09:14 [DEBUG] __main__ — [transport:acc2] text-send  len=101  action=err  ms=42
+2026-03-24 05:09:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=connect  id=1245300c
+2026-03-24 05:09:14 [INFO] __main__ — [1245300c] CONNECT → app.fusebox.fm:443
+2026-03-24 05:09:14 [INFO] __main__ — [1245300c] TCP connected → app.fusebox.fm:443  (80 мс)
+2026-03-24 05:09:14 [DEBUG] __main__ — [transport:acc1] text-send  len=49  action=ok  ms=45
+2026-03-24 05:09:14 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=10549c04
+2026-03-24 05:09:14 [INFO] __main__ — [10549c04] CONNECT → ds6.probe.whatismyipaddress.com:443
+2026-03-24 05:09:14 [INFO] __main__ — [10549c04] TCP connect FAILED → ds6.probe.whatismyipaddress.com:443  ([Errno 99] Cannot assign requested address)
+2026-03-24 05:09:14 [DEBUG] __main__ — [transport:acc2] text-send  len=101  action=err  ms=43
+2026-03-24 05:09:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=1245300c
+2026-03-24 05:09:14 [DEBUG] __main__ — [1245300c] <- data #1  2059B  seq=0
+2026-03-24 05:09:14 [DEBUG] __main__ — [1245300c] -> #1  1375B  seq=0
+2026-03-24 05:09:14 [DEBUG] __main__ — [transport:acc1] text-send  len=1902  action=data  ms=46
+2026-03-24 05:09:14 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=1245300c
+2026-03-24 05:09:14 [DEBUG] __main__ — [1245300c] <- data #2  572B  seq=1
+2026-03-24 05:09:15 [DEBUG] __main__ — [1245300c] -> #2  1037B  seq=1
+2026-03-24 05:09:15 [DEBUG] __main__ — [transport:acc2] text-send  len=1450  action=data  ms=44
+2026-03-24 05:09:15 [DEBUG] __main__ — [transport:acc1] gap ms=12..12, sending nack
+2026-03-24 05:09:15 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=c97a8522
+2026-03-24 05:09:15 [INFO] __main__ — [c97a8522] CONNECT → map1.whatismyipaddress.com:443
+2026-03-24 05:09:15 [INFO] __main__ — [c97a8522] TCP connected → map1.whatismyipaddress.com:443  (102 мс)
+2026-03-24 05:09:15 [DEBUG] __main__ — [transport:acc2] text-send  len=49  action=ok  ms=45
+2026-03-24 05:09:16 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=3046875f
+2026-03-24 05:09:16 [INFO] __main__ — [3046875f] CONNECT → api.omappapi.com:443
+2026-03-24 05:09:16 [INFO] __main__ — [3046875f] TCP connected → api.omappapi.com:443  (77 мс)
+2026-03-24 05:09:16 [DEBUG] __main__ — [transport:acc2] text-send  len=49  action=ok  ms=46
+2026-03-24 05:09:16 [DEBUG] __main__ — [transport:acc1] gap ms=12..15, sending nack
+2026-03-24 05:09:17 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=976b26d1
+2026-03-24 05:09:17 [INFO] __main__ — [976b26d1] CONNECT → data.phantom.app:443
+2026-03-24 05:09:17 [INFO] __main__ — [976b26d1] TCP connected → data.phantom.app:443  (105 мс)
+2026-03-24 05:09:17 [DEBUG] __main__ — [transport:acc2] text-send  len=49  action=ok  ms=47
+2026-03-24 05:09:17 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=8cb52f65
+2026-03-24 05:09:17 [INFO] __main__ — [8cb52f65] CONNECT → api.suiet.app:443
+2026-03-24 05:09:17 [INFO] __main__ — [8cb52f65] TCP connected → api.suiet.app:443  (101 мс)
+2026-03-24 05:09:17 [DEBUG] __main__ — [transport:acc2] text-send  len=49  action=ok  ms=48
+2026-03-24 05:09:17 [DEBUG] __main__ — [transport:acc1] gap ms=12..18, sending nack
+2026-03-24 05:09:27 [DEBUG] __main__ — [transport:acc1] gap ms=12..21, sending nack
+2026-03-24 05:09:28 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=8171cadd
+2026-03-24 05:09:28 [INFO] __main__ — [8171cadd] CONNECT → www.google.com:443
+2026-03-24 05:09:28 [INFO] __main__ — [8171cadd] TCP connected → www.google.com:443  (73 мс)
+2026-03-24 05:09:28 [DEBUG] __main__ — [transport:acc2] text-send  len=49  action=ok  ms=49
+2026-03-24 05:09:29 [DEBUG] __main__ — [transport:acc1] gap ms=12..22, sending nack
+2026-03-24 05:09:29 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 05:09:29 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 05:09:30 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=717175ff
+2026-03-24 05:09:30 [INFO] __main__ — [717175ff] CONNECT → www.google.com:443
+2026-03-24 05:09:30 [INFO] __main__ — [717175ff] TCP connected → www.google.com:443  (72 мс)
+2026-03-24 05:09:30 [DEBUG] __main__ — [transport:acc2] text-send  len=49  action=ok  ms=50
+2026-03-24 05:09:30 [DEBUG] __main__ — [transport:acc1] gap ms=12..24, sending nack
+2026-03-24 05:09:30 [DEBUG] __main__ — [c97a8522] remote EOF
+2026-03-24 05:09:30 [INFO] __main__ — [c97a8522] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  15.1s
+2026-03-24 05:09:30 [DEBUG] __main__ — [c97a8522] socket closed
+2026-03-24 05:09:30 [DEBUG] __main__ — [transport:acc2] text-send  len=53  action=closed  ms=51
+2026-03-24 05:09:31 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=8cfc1f44
+2026-03-24 05:09:31 [INFO] __main__ — [8cfc1f44] CONNECT → eppo-proxy.phantom.app:443
+2026-03-24 05:09:31 [INFO] __main__ — [8cfc1f44] TCP connected → eppo-proxy.phantom.app:443  (73 мс)
+2026-03-24 05:09:31 [DEBUG] __main__ — [transport:acc2] text-send  len=49  action=ok  ms=52
+2026-03-24 05:09:31 [DEBUG] __main__ — [3046875f] remote EOF
+2026-03-24 05:09:31 [INFO] __main__ — [3046875f] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  15.1s
+2026-03-24 05:09:31 [DEBUG] __main__ — [3046875f] socket closed
+2026-03-24 05:09:31 [DEBUG] __main__ — [transport:acc2] text-send  len=53  action=closed  ms=53
+2026-03-24 05:09:31 [DEBUG] __main__ — [transport:acc1] gap ms=12..27, sending nack
+2026-03-24 05:09:32 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=1a87b254
+2026-03-24 05:09:32 [INFO] __main__ — [1a87b254] CONNECT → blowfish-blocklist-proxy.phantom.app:443
+2026-03-24 05:09:32 [DEBUG] __main__ — [976b26d1] remote EOF
+2026-03-24 05:09:32 [INFO] __main__ — [976b26d1] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  15.1s
+2026-03-24 05:09:32 [DEBUG] __main__ — [976b26d1] socket closed
+2026-03-24 05:09:32 [DEBUG] __main__ — [transport:acc2] text-send  len=53  action=closed  ms=54
+2026-03-24 05:09:32 [INFO] __main__ — [1a87b254] TCP connected → blowfish-blocklist-proxy.phantom.app:443  (88 мс)
+2026-03-24 05:09:32 [DEBUG] __main__ — [transport:acc2] text-send  len=49  action=ok  ms=55
+2026-03-24 05:09:34 [DEBUG] __main__ — [transport:acc1] gap ms=12..29, sending nack
+2026-03-24 05:09:35 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=ade69505
+2026-03-24 05:09:35 [INFO] __main__ — [ade69505] CONNECT → blowfish-blocklist-proxy.phantom.app:443
+2026-03-24 05:09:35 [INFO] __main__ — [ade69505] TCP connected → blowfish-blocklist-proxy.phantom.app:443  (86 мс)
+2026-03-24 05:09:35 [DEBUG] __main__ — [transport:acc2] text-send  len=49  action=ok  ms=56
+2026-03-24 05:09:37 [DEBUG] __main__ — [transport:acc1] gap ms=12..31, sending nack
+2026-03-24 05:09:38 [DEBUG] __main__ — [8171cadd] remote EOF
+2026-03-24 05:09:38 [INFO] __main__ — [8171cadd] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  10.2s
+2026-03-24 05:09:38 [DEBUG] __main__ — [8171cadd] socket closed
+2026-03-24 05:09:38 [DEBUG] __main__ — [transport:acc2] text-send  len=53  action=closed  ms=57
+2026-03-24 05:09:40 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 05:09:40 [DEBUG] __main__ — [717175ff] remote EOF
+2026-03-24 05:09:40 [INFO] __main__ — [717175ff] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  10.2s
+2026-03-24 05:09:40 [DEBUG] __main__ — [717175ff] socket closed
+2026-03-24 05:09:40 [DEBUG] __main__ — [transport:acc2] text-send  len=53  action=closed  ms=58
+2026-03-24 05:09:42 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=13f64f15
+2026-03-24 05:09:42 [INFO] __main__ — [13f64f15] CONNECT → www.google.com:443
+2026-03-24 05:09:43 [INFO] __main__ — [13f64f15] TCP connected → www.google.com:443  (94 мс)
+2026-03-24 05:09:43 [DEBUG] __main__ — [transport:acc2] text-send  len=49  action=ok  ms=59
+2026-03-24 05:09:43 [DEBUG] __main__ — [transport:acc1] gap ms=12..32, sending nack
+2026-03-24 05:09:45 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=dc488032
+2026-03-24 05:09:45 [INFO] __main__ — [dc488032] CONNECT → www.google.com:443
+2026-03-24 05:09:45 [INFO] __main__ — [dc488032] TCP connected → www.google.com:443  (91 мс)
+2026-03-24 05:09:45 [DEBUG] __main__ — [transport:acc2] text-send  len=49  action=ok  ms=60
+2026-03-24 05:09:45 [DEBUG] __main__ — [transport:acc2] text-recv  action=close  id=c97a8522
+2026-03-24 05:09:45 [INFO] __main__ — [c97a8522] close requested last_seq=0
+2026-03-24 05:09:45 [DEBUG] __main__ — [transport:acc1] gap ms=12..34, sending nack
+2026-03-24 05:09:46 [DEBUG] __main__ — [transport:acc2] text-recv  action=close  id=3046875f
+2026-03-24 05:09:46 [INFO] __main__ — [3046875f] close requested last_seq=0
+2026-03-24 05:09:46 [DEBUG] __main__ — [8cfc1f44] remote EOF
+2026-03-24 05:09:46 [INFO] __main__ — [8cfc1f44] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  15.1s
+2026-03-24 05:09:46 [DEBUG] __main__ — [8cfc1f44] socket closed
+2026-03-24 05:09:46 [DEBUG] __main__ — [transport:acc2] text-send  len=53  action=closed  ms=61
+2026-03-24 05:09:47 [DEBUG] __main__ — [transport:acc2] text-recv  action=close  id=976b26d1
+2026-03-24 05:09:47 [INFO] __main__ — [976b26d1] close requested last_seq=0
+2026-03-24 05:09:47 [DEBUG] __main__ — [transport:acc2] text-recv  action=close  id=8cb52f65
+2026-03-24 05:09:47 [INFO] __main__ — [8cb52f65] close requested last_seq=0
+2026-03-24 05:09:47 [DEBUG] __main__ — [transport:acc1] gap ms=12..35, sending nack
+2026-03-24 05:09:47 [DEBUG] __main__ — [1a87b254] remote EOF
+2026-03-24 05:09:47 [INFO] __main__ — [1a87b254] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  15.1s
+2026-03-24 05:09:47 [DEBUG] __main__ — [1a87b254] socket closed
+2026-03-24 05:09:47 [DEBUG] __main__ — [transport:acc2] text-send  len=53  action=closed  ms=62
+2026-03-24 05:09:49 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=0ed20879
+2026-03-24 05:09:49 [INFO] __main__ — [0ed20879] CONNECT → yandex.ru:443
+2026-03-24 05:09:50 [INFO] __main__ — [0ed20879] TCP connected → yandex.ru:443  (107 мс)
+2026-03-24 05:09:50 [DEBUG] __main__ — [transport:acc2] text-send  len=49  action=ok  ms=63
+2026-03-24 05:09:50 [DEBUG] __main__ — [transport:acc1] gap ms=12..36, sending nack
+2026-03-24 05:09:50 [DEBUG] __main__ — [ade69505] remote EOF
+2026-03-24 05:09:50 [INFO] __main__ — [ade69505] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  15.1s
+2026-03-24 05:09:50 [DEBUG] __main__ — [ade69505] socket closed
+2026-03-24 05:09:50 [DEBUG] __main__ — [transport:acc2] text-send  len=53  action=closed  ms=64
+2026-03-24 05:09:51 [DEBUG] __main__ — [transport:acc1] gap ms=12..37, sending nack
+2026-03-24 05:09:52 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=5e03a50f
+2026-03-24 05:09:52 [INFO] __main__ — [5e03a50f] CONNECT → data.phantom.app:443
+2026-03-24 05:09:52 [INFO] __main__ — [5e03a50f] TCP connected → data.phantom.app:443  (72 мс)
+2026-03-24 05:09:52 [DEBUG] __main__ — [transport:acc2] text-send  len=49  action=ok  ms=65
+2026-03-24 05:09:53 [DEBUG] __main__ — [13f64f15] remote EOF
+2026-03-24 05:09:53 [INFO] __main__ — [13f64f15] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  10.2s
+2026-03-24 05:09:53 [DEBUG] __main__ — [13f64f15] socket closed
+2026-03-24 05:09:53 [DEBUG] __main__ — [transport:acc2] text-send  len=53  action=closed  ms=66
+2026-03-24 05:09:54 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 05:09:54 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 05:09:55 [DEBUG] __main__ — [dc488032] remote EOF
+2026-03-24 05:09:55 [INFO] __main__ — [dc488032] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  10.2s
+2026-03-24 05:09:55 [DEBUG] __main__ — [dc488032] socket closed
+2026-03-24 05:09:55 [DEBUG] __main__ — [transport:acc2] text-send  len=53  action=closed  ms=67
+2026-03-24 05:09:57 [DEBUG] __main__ — [transport:acc1] gap ms=12..39, sending nack
+2026-03-24 05:09:58 [DEBUG] __main__ — [transport:acc2] text-recv  action=close  id=8171cadd
+2026-03-24 05:09:58 [INFO] __main__ — [8171cadd] close requested last_seq=0
+2026-03-24 05:09:58 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=1a9ef578
+2026-03-24 05:09:58 [INFO] __main__ — [1a9ef578] CONNECT → eppo-proxy.phantom.app:443
+2026-03-24 05:09:59 [INFO] __main__ — [1a9ef578] TCP connected → eppo-proxy.phantom.app:443  (95 мс)
+2026-03-24 05:09:59 [DEBUG] __main__ — [transport:acc2] text-send  len=49  action=ok  ms=68
+2026-03-24 05:09:59 [DEBUG] __main__ — [transport:acc1] gap ms=12..40, sending nack
+2026-03-24 05:10:00 [DEBUG] __main__ — [transport:acc2] text-recv  action=close  id=717175ff
+2026-03-24 05:10:00 [INFO] __main__ — [717175ff] close requested last_seq=0
+2026-03-24 05:10:01 [DEBUG] __main__ — [transport:acc2] text-recv  action=close  id=8cfc1f44
+2026-03-24 05:10:01 [INFO] __main__ — [8cfc1f44] close requested last_seq=0
+2026-03-24 05:10:02 [DEBUG] __main__ — [transport:acc2] text-recv  action=close  id=1a87b254
+2026-03-24 05:10:02 [INFO] __main__ — [1a87b254] close requested last_seq=0
+2026-03-24 05:10:02 [DEBUG] __main__ — [transport:acc1] gap ms=12..41, sending nack
+2026-03-24 05:10:04 [DEBUG] __main__ — [transport:acc2] text-recv  action=connect  id=132b5498
+2026-03-24 05:10:04 [INFO] __main__ — [132b5498] CONNECT → detectportal.brave-http-only.com:80
+2026-03-24 05:10:05 [INFO] __main__ — [132b5498] TCP connected → detectportal.brave-http-only.com:80  (149 мс)
+2026-03-24 05:10:05 [DEBUG] __main__ — [transport:acc2] text-send  len=49  action=ok  ms=69
+2026-03-24 05:10:05 [DEBUG] __main__ — [transport:acc2] text-recv  action=close  id=ade69505
+2026-03-24 05:10:05 [INFO] __main__ — [ade69505] close requested last_seq=0
+2026-03-24 05:10:05 [DEBUG] __main__ — [transport:acc1] gap ms=12..42, sending nack
+2026-03-24 05:10:07 [DEBUG] __main__ — [5e03a50f] remote EOF
+2026-03-24 05:10:07 [INFO] __main__ — [5e03a50f] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  15.1s
+2026-03-24 05:10:07 [DEBUG] __main__ — [5e03a50f] socket closed
+2026-03-24 05:10:07 [DEBUG] __main__ — [transport:acc2] text-send  len=53  action=closed  ms=70
+2026-03-24 05:10:09 [INFO] __main__ — [8cb52f65] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  52.4s
+2026-03-24 05:10:09 [INFO] __main__ — [1245300c] pipe done | rx=2631B/2f (0.0 КБ/с)  tx=2412B/2f (0.0 КБ/с)  55.6s
+2026-03-24 05:10:09 [INFO] __main__ — [proxy:self-chat] остановлен
+2026-03-24 05:10:09 [INFO] __main__ — [132b5498] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  4.7s
+2026-03-24 05:10:09 [INFO] __main__ — [0ed20879] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  19.8s
+2026-03-24 05:10:09 [DEBUG] __main__ — [8cb52f65] socket closed
+2026-03-24 05:10:09 [DEBUG] __main__ — [1245300c] socket closed
+2026-03-24 05:10:09 [INFO] __main__ — [1a9ef578] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  10.8s
+2026-03-24 05:10:09 [DEBUG] __main__ — [132b5498] socket closed
+2026-03-24 05:10:09 [INFO] __main__ — [e732653c] pipe done | rx=3078B/4f (0.1 КБ/с)  tx=46323B/21f (0.8 КБ/с)  59.8s
+2026-03-24 05:10:09 [DEBUG] __main__ — [0ed20879] socket closed
+2026-03-24 05:10:09 [DEBUG] __main__ — [1a9ef578] socket closed
+2026-03-24 05:10:09 [DEBUG] __main__ — [e732653c] socket closed
+2026-03-24 05:10:09 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7dd590a3a5f0>
+2026-03-24 05:10:09 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7dd590a8c820>

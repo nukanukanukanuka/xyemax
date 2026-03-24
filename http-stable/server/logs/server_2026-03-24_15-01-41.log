@@ -1,0 +1,49 @@
+2026-03-24 15:01:41 [INFO] __main__ — Восстановлено 1 сессий
+2026-03-24 15:01:41 [INFO] __main__ — [proxy:self-chat] WS подключение (chat_id=0)
+2026-03-24 15:01:41 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 15:01:42 [INFO] __main__ — Авторизован [server:acc1], chatId=0
+2026-03-24 15:01:50 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2987154057 size=230
+2026-03-24 15:01:50 [INFO] __main__ — BATCH recv  id=02cce1b3312d  reqs=1
+2026-03-24 15:01:51 [DEBUG] __main__ — [fetcher] GET https://lenta.ru/ → 200 141797B
+2026-03-24 15:01:51 [INFO] __main__ — BATCH done  id=02cce1b3312d  reqs=1  payload=138КБ  file=55КБ  0.7s  213.0 КБ/с
+2026-03-24 15:01:52 [DEBUG] __main__ — [transport:acc1] published response fileId=2994940147 size=57192
+2026-03-24 15:02:11 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 15:02:42 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 15:03:12 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 15:03:14 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2998518028 size=230
+2026-03-24 15:03:14 [INFO] __main__ — BATCH recv  id=3bf2f0476681  reqs=1
+2026-03-24 15:03:15 [DEBUG] __main__ — [fetcher] GET https://lenta.ru/ → 200 141756B
+2026-03-24 15:03:15 [INFO] __main__ — BATCH done  id=3bf2f0476681  reqs=1  payload=138КБ  file=56КБ  0.6s  223.4 КБ/с
+2026-03-24 15:03:16 [DEBUG] __main__ — [transport:acc1] published response fileId=2993202725 size=57550
+2026-03-24 15:03:31 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2998630263 size=226
+2026-03-24 15:03:31 [INFO] __main__ — BATCH recv  id=11b8453c6637  reqs=1
+2026-03-24 15:03:31 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 15:03:31 [INFO] __main__ — BATCH done  id=11b8453c6637  reqs=1  payload=0КБ  file=0КБ  0.4s  0.0 КБ/с
+2026-03-24 15:03:32 [DEBUG] __main__ — [transport:acc1] published response fileId=2997016536 size=194
+2026-03-24 15:03:43 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 15:04:13 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 15:04:44 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 15:05:15 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 15:05:45 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 15:06:16 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 15:06:46 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 15:07:17 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 15:07:33 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2993269919 size=226
+2026-03-24 15:07:33 [INFO] __main__ — BATCH recv  id=fa6b059a0405  reqs=1
+2026-03-24 15:07:33 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 15:07:33 [INFO] __main__ — BATCH done  id=fa6b059a0405  reqs=1  payload=0КБ  file=0КБ  0.2s  0.1 КБ/с
+2026-03-24 15:07:34 [DEBUG] __main__ — [transport:acc1] published response fileId=3002036330 size=193
+2026-03-24 15:07:43 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2996687720 size=230
+2026-03-24 15:07:43 [INFO] __main__ — BATCH recv  id=a40a6765199e  reqs=1
+2026-03-24 15:07:48 [DEBUG] __main__ — [fetcher] GET https://lenta.ru/ → 200 141868B
+2026-03-24 15:07:48 [INFO] __main__ — BATCH done  id=a40a6765199e  reqs=1  payload=138КБ  file=56КБ  4.2s  32.9 КБ/с
+2026-03-24 15:07:48 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 15:07:48 [DEBUG] __main__ — [transport:acc1] published response fileId=3001513749 size=57438
+2026-03-24 15:08:18 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 15:08:48 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 15:09:20 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 15:09:50 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 15:10:21 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 15:10:49 [INFO] __main__ — [proxy:self-chat] остановлен
+2026-03-24 15:10:49 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x716bf5dc4220>

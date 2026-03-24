@@ -1,0 +1,140 @@
+2026-03-24 20:01:46 [INFO] __main__ — Авторизован [client:acc1], chatId=0
+2026-03-24 20:01:46 [INFO] __main__ — Авторизован [client:acc2], chatId=0
+2026-03-24 20:01:59 [DEBUG] __main__ — [batch] flush batch_id=e21704833aa5 reqs=1 size=1299
+2026-03-24 20:01:59 [DEBUG] __main__ — [multi] send via acc2
+2026-03-24 20:01:59 [INFO] __main__ — BATCH sent  id=e21704833aa5  reqs=1  1КБ  urls=['http://unknown��\t�[�\x0e��ɀ���nJ����t�DRU�V,�+H\x00']
+2026-03-24 20:02:04 [DEBUG] __main__ — [batch] flush batch_id=42d4e0a2b7fa reqs=1 size=2080
+2026-03-24 20:02:04 [DEBUG] __main__ — [multi] send via acc1
+2026-03-24 20:02:04 [INFO] __main__ — BATCH sent  id=42d4e0a2b7fa  reqs=1  2КБ  urls=['http://unknownU�,pxKa�\x1b��!��ǝqP�;��\x17�{[�\x0bJy��\x00']
+2026-03-24 20:02:04 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2986443707  size=2080
+2026-03-24 20:02:06 [DEBUG] __main__ — [transport:acc2] upload ok  fileId=2999214938  size=1299
+2026-03-24 20:02:07 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2999270155 size=253
+2026-03-24 20:02:07 [INFO] __main__ — BATCH recv  id=42d4e0a2b7fa  reqs=1
+2026-03-24 20:02:08 [DEBUG] __main__ — [batch] flush batch_id=4b1f77532665 reqs=1 size=1634
+2026-03-24 20:02:08 [DEBUG] __main__ — [multi] send via acc2
+2026-03-24 20:02:08 [INFO] __main__ — BATCH sent  id=4b1f77532665  reqs=1  1КБ  urls=['http://unknownd?O&�W�\x14|[c���\tI��~Ҡ|��`U"X�;�<\x00']
+2026-03-24 20:02:09 [DEBUG] __main__ — [transport:acc2] upload ok  fileId=2989032628  size=1634
+2026-03-24 20:02:09 [DEBUG] __main__ — [transport:acc2] recv_file fileId=2994054001 size=261
+2026-03-24 20:02:09 [INFO] __main__ — BATCH recv  id=e21704833aa5  reqs=1
+2026-03-24 20:02:10 [DEBUG] __main__ — [transport:acc2] recv_file fileId=2995324575 size=405
+2026-03-24 20:02:10 [INFO] __main__ — BATCH recv  id=4b1f77532665  reqs=1
+2026-03-24 20:03:37 [DEBUG] __main__ — [tunnel] CONNECT 2ip.ru:443 (MITM)
+2026-03-24 20:03:37 [DEBUG] __main__ — [tunnel] CONNECT blowfish-blocklist-proxy.phantom.app:443 (MITM)
+2026-03-24 20:03:37 [DEBUG] __main__ — [tunnel] TLS handshake failed 2ip.ru: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:03:37 [DEBUG] __main__ — [tunnel] TLS handshake failed blowfish-blocklist-proxy.phantom.app: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:03:37 [DEBUG] __main__ — [batch] flush batch_id=f53a4aaabd06 reqs=1 size=327
+2026-03-24 20:03:37 [DEBUG] __main__ — [multi] send via acc1
+2026-03-24 20:03:37 [INFO] __main__ — BATCH sent  id=f53a4aaabd06  reqs=1  0КБ  urls=['http://detectportal.brave-http-only.com/']
+2026-03-24 20:03:38 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2997080563  size=327
+2026-03-24 20:03:41 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3004221947 size=172
+2026-03-24 20:03:41 [INFO] __main__ — BATCH recv  id=f53a4aaabd06  reqs=1
+2026-03-24 20:03:44 [DEBUG] __main__ — [tunnel] CONNECT 2ip.ru:443 (MITM)
+2026-03-24 20:03:44 [DEBUG] __main__ — [tunnel] TLS handshake failed 2ip.ru: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:03:44 [DEBUG] __main__ — [tunnel] CONNECT 2ip.ru:443 (MITM)
+2026-03-24 20:03:44 [DEBUG] __main__ — [tunnel] CONNECT blowfish-blocklist-proxy.phantom.app:443 (MITM)
+2026-03-24 20:03:44 [DEBUG] __main__ — [tunnel] TLS handshake failed blowfish-blocklist-proxy.phantom.app: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:03:44 [DEBUG] __main__ — [batch] flush batch_id=1dcdbc5e8fbc reqs=1 size=726
+2026-03-24 20:03:44 [DEBUG] __main__ — [multi] send via acc2
+2026-03-24 20:03:44 [INFO] __main__ — BATCH sent  id=1dcdbc5e8fbc  reqs=1  0КБ  urls=['https://2ip.ru/']
+2026-03-24 20:03:46 [DEBUG] __main__ — [transport:acc2] upload ok  fileId=3002213422  size=726
+2026-03-24 20:03:47 [WARNING] asyncio — returning true from eof_received() has no effect when using ssl
+2026-03-24 20:03:47 [DEBUG] __main__ — [tunnel] CONNECT 2ip.ru:443 (MITM)
+2026-03-24 20:03:47 [DEBUG] __main__ — [tunnel] TLS handshake failed 2ip.ru: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:03:47 [DEBUG] __main__ — [tunnel] CONNECT 2ip.ru:443 (MITM)
+2026-03-24 20:03:47 [DEBUG] __main__ — [tunnel] CONNECT blowfish-blocklist-proxy.phantom.app:443 (MITM)
+2026-03-24 20:03:47 [DEBUG] __main__ — [tunnel] TLS handshake failed blowfish-blocklist-proxy.phantom.app: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:03:47 [DEBUG] __main__ — [batch] flush batch_id=8ef499e8846b reqs=1 size=729
+2026-03-24 20:03:47 [DEBUG] __main__ — [multi] send via acc1
+2026-03-24 20:03:47 [INFO] __main__ — BATCH sent  id=8ef499e8846b  reqs=1  0КБ  urls=['https://2ip.ru/']
+2026-03-24 20:03:47 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=3003544084  size=729
+2026-03-24 20:03:49 [DEBUG] __main__ — [transport:acc2] recv_file fileId=3001712184 size=220824
+2026-03-24 20:03:49 [INFO] __main__ — BATCH recv  id=1dcdbc5e8fbc  reqs=1
+2026-03-24 20:03:49 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2991126709 size=220824
+2026-03-24 20:03:49 [INFO] __main__ — BATCH recv  id=8ef499e8846b  reqs=1
+2026-03-24 20:04:01 [DEBUG] __main__ — [tunnel] CONNECT 2ip.ru:443 (MITM)
+2026-03-24 20:04:01 [DEBUG] __main__ — [tunnel] TLS handshake failed 2ip.ru: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:04:01 [DEBUG] __main__ — [tunnel] CONNECT 2ip.ru:443 (MITM)
+2026-03-24 20:04:01 [DEBUG] __main__ — [tunnel] CONNECT blowfish-blocklist-proxy.phantom.app:443 (MITM)
+2026-03-24 20:04:01 [DEBUG] __main__ — [tunnel] TLS handshake failed blowfish-blocklist-proxy.phantom.app: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:04:01 [DEBUG] __main__ — [batch] flush batch_id=53eef52b7290 reqs=1 size=728
+2026-03-24 20:04:01 [DEBUG] __main__ — [multi] send via acc2
+2026-03-24 20:04:01 [INFO] __main__ — BATCH sent  id=53eef52b7290  reqs=1  0КБ  urls=['https://2ip.ru/']
+2026-03-24 20:04:01 [DEBUG] __main__ — [transport:acc2] upload ok  fileId=3000790644  size=728
+2026-03-24 20:04:03 [DEBUG] __main__ — [transport:acc2] recv_file fileId=3000746871 size=220824
+2026-03-24 20:04:03 [INFO] __main__ — BATCH recv  id=53eef52b7290  reqs=1
+2026-03-24 20:04:07 [DEBUG] __main__ — [tunnel] CONNECT 2ip.ru:443 (MITM)
+2026-03-24 20:04:07 [DEBUG] __main__ — [tunnel] TLS handshake failed 2ip.ru: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:04:07 [DEBUG] __main__ — [tunnel] CONNECT 2ip.ru:443 (MITM)
+2026-03-24 20:04:07 [DEBUG] __main__ — [tunnel] CONNECT blowfish-blocklist-proxy.phantom.app:443 (MITM)
+2026-03-24 20:04:07 [DEBUG] __main__ — [tunnel] TLS handshake failed blowfish-blocklist-proxy.phantom.app: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:04:07 [DEBUG] __main__ — [batch] flush batch_id=9dc04ab9875b reqs=1 size=708
+2026-03-24 20:04:07 [DEBUG] __main__ — [multi] send via acc1
+2026-03-24 20:04:07 [INFO] __main__ — BATCH sent  id=9dc04ab9875b  reqs=1  0КБ  urls=['https://2ip.ru/']
+2026-03-24 20:04:07 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2981813763  size=708
+2026-03-24 20:04:09 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3001873401 size=220824
+2026-03-24 20:04:09 [INFO] __main__ — BATCH recv  id=9dc04ab9875b  reqs=1
+2026-03-24 20:04:15 [DEBUG] __main__ — [tunnel] CONNECT 2ip.ru:443 (MITM)
+2026-03-24 20:04:15 [DEBUG] __main__ — [tunnel] TLS handshake failed 2ip.ru: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:04:15 [DEBUG] __main__ — [tunnel] CONNECT 2ip.ru:443 (MITM)
+2026-03-24 20:04:15 [DEBUG] __main__ — [tunnel] CONNECT blowfish-blocklist-proxy.phantom.app:443 (MITM)
+2026-03-24 20:04:15 [DEBUG] __main__ — [tunnel] TLS handshake failed blowfish-blocklist-proxy.phantom.app: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:04:15 [DEBUG] __main__ — [batch] flush batch_id=8c5b9fb7e162 reqs=1 size=727
+2026-03-24 20:04:15 [DEBUG] __main__ — [multi] send via acc2
+2026-03-24 20:04:15 [INFO] __main__ — BATCH sent  id=8c5b9fb7e162  reqs=1  0КБ  urls=['https://2ip.ru/']
+2026-03-24 20:04:16 [DEBUG] __main__ — [transport:acc2] upload ok  fileId=3005510322  size=727
+2026-03-24 20:04:18 [DEBUG] __main__ — [transport:acc2] recv_file fileId=2987816452 size=220824
+2026-03-24 20:04:18 [INFO] __main__ — BATCH recv  id=8c5b9fb7e162  reqs=1
+2026-03-24 20:04:47 [DEBUG] __main__ — [tunnel] CONNECT claude.ai:443 (MITM)
+2026-03-24 20:04:47 [DEBUG] __main__ — [tunnel] TLS handshake failed claude.ai: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:04:47 [DEBUG] __main__ — [tunnel] CONNECT claude.ai:443 (MITM)
+2026-03-24 20:04:47 [DEBUG] __main__ — [tunnel] CONNECT claude.ai:443 (MITM)
+2026-03-24 20:04:47 [DEBUG] __main__ — [tunnel] TLS handshake failed claude.ai: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:04:47 [DEBUG] __main__ — [tunnel] TLS handshake failed claude.ai: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:04:47 [DEBUG] __main__ — [tunnel] CONNECT claude.ai:443 (MITM)
+2026-03-24 20:04:47 [DEBUG] __main__ — [tunnel] TLS handshake failed claude.ai: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:04:49 [DEBUG] __main__ — [tunnel] CONNECT eppo-proxy.phantom.app:443 (MITM)
+2026-03-24 20:04:49 [DEBUG] __main__ — [tunnel] TLS handshake failed eppo-proxy.phantom.app: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:04:49 [DEBUG] __main__ — [tunnel] CONNECT data.phantom.app:443 (MITM)
+2026-03-24 20:04:49 [DEBUG] __main__ — [tunnel] TLS handshake failed data.phantom.app: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:04:49 [DEBUG] __main__ — [tunnel] CONNECT data.phantom.app:443 (MITM)
+2026-03-24 20:04:49 [DEBUG] __main__ — [tunnel] TLS handshake failed data.phantom.app: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:04:50 [DEBUG] __main__ — [tunnel] CONNECT data.phantom.app:443 (MITM)
+2026-03-24 20:04:50 [DEBUG] __main__ — [tunnel] TLS handshake failed data.phantom.app: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:04:51 [DEBUG] __main__ — [tunnel] CONNECT data.phantom.app:443 (MITM)
+2026-03-24 20:04:51 [DEBUG] __main__ — [tunnel] TLS handshake failed data.phantom.app: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:07:10 [DEBUG] __main__ — [tunnel] CONNECT claude.ai:443 (MITM)
+2026-03-24 20:07:10 [DEBUG] __main__ — [tunnel] TLS handshake failed claude.ai: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:07:11 [DEBUG] __main__ — [batch] flush batch_id=d9e083666a91 reqs=1 size=325
+2026-03-24 20:07:11 [DEBUG] __main__ — [multi] send via acc1
+2026-03-24 20:07:11 [INFO] __main__ — BATCH sent  id=d9e083666a91  reqs=1  0КБ  urls=['http://detectportal.brave-http-only.com/']
+2026-03-24 20:07:11 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2996030822  size=325
+2026-03-24 20:07:12 [DEBUG] __main__ — [tunnel] CONNECT sanity-proxy-v2.phantom.app:443 (MITM)
+2026-03-24 20:07:12 [DEBUG] __main__ — [tunnel] CONNECT eppo-proxy.phantom.app:443 (MITM)
+2026-03-24 20:07:12 [DEBUG] __main__ — [tunnel] TLS handshake failed sanity-proxy-v2.phantom.app: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:07:12 [DEBUG] __main__ — [tunnel] TLS handshake failed eppo-proxy.phantom.app: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:07:12 [DEBUG] __main__ — [tunnel] CONNECT blowfish-blocklist-proxy.phantom.app:443 (MITM)
+2026-03-24 20:07:12 [DEBUG] __main__ — [tunnel] TLS handshake failed blowfish-blocklist-proxy.phantom.app: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:07:12 [DEBUG] __main__ — [tunnel] CONNECT sanity-proxy-v2.phantom.app:443 (MITM)
+2026-03-24 20:07:12 [DEBUG] __main__ — [tunnel] TLS handshake failed sanity-proxy-v2.phantom.app: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:07:12 [DEBUG] __main__ — [tunnel] CONNECT sanity-proxy-v2.phantom.app:443 (MITM)
+2026-03-24 20:07:12 [DEBUG] __main__ — [tunnel] TLS handshake failed sanity-proxy-v2.phantom.app: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:07:12 [DEBUG] __main__ — [tunnel] CONNECT sentry-intake.datadoghq.com:443 (MITM)
+2026-03-24 20:07:13 [DEBUG] __main__ — [tunnel] TLS handshake failed sentry-intake.datadoghq.com: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:07:14 [DEBUG] __main__ — [tunnel] CONNECT 2ip.ru:443 (MITM)
+2026-03-24 20:07:14 [DEBUG] __main__ — [tunnel] TLS handshake failed 2ip.ru: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:07:14 [DEBUG] __main__ — [tunnel] CONNECT 2ip.ru:443 (MITM)
+2026-03-24 20:07:14 [DEBUG] __main__ — [tunnel] CONNECT blowfish-blocklist-proxy.phantom.app:443 (MITM)
+2026-03-24 20:07:14 [DEBUG] __main__ — [tunnel] TLS handshake failed blowfish-blocklist-proxy.phantom.app: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:07:14 [DEBUG] __main__ — [batch] flush batch_id=d5df1e2f4c35 reqs=1 size=728
+2026-03-24 20:07:14 [DEBUG] __main__ — [multi] send via acc2
+2026-03-24 20:07:14 [INFO] __main__ — BATCH sent  id=d5df1e2f4c35  reqs=1  0КБ  urls=['https://2ip.ru/']
+2026-03-24 20:07:14 [DEBUG] __main__ — [tunnel] CONNECT api.suiet.app:443 (MITM)
+2026-03-24 20:07:14 [DEBUG] __main__ — [tunnel] TLS handshake failed api.suiet.app: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 20:07:14 [DEBUG] __main__ — [transport:acc2] upload ok  fileId=2992321930  size=728
+2026-03-24 20:07:15 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3005832797 size=172
+2026-03-24 20:07:15 [INFO] __main__ — BATCH recv  id=d9e083666a91  reqs=1
+2026-03-24 20:07:18 [DEBUG] __main__ — [transport:acc2] recv_file fileId=2998056182 size=220824
+2026-03-24 20:07:18 [INFO] __main__ — BATCH recv  id=d5df1e2f4c35  reqs=1
+2026-03-24 20:10:23 [ERROR] __main__ — [multi] acc2 разрыв: no close frame received or sent. Reconnect in 5s...
+2026-03-24 20:10:23 [WARNING] __main__ — [multi] транспорт acc2 отвалился, живых: 1/2
+2026-03-24 20:10:29 [INFO] __main__ — Авторизован [client:acc2], chatId=0

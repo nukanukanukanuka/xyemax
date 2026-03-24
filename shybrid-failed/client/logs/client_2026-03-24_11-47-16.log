@@ -1,0 +1,97 @@
+2026-03-24 11:47:16 [INFO] __main__ — SOCKS5 запущен  127.0.0.1:1080  transports=2
+2026-03-24 11:47:17 [INFO] __main__ — Авторизован [acc2], chatId=0 (self-chat)
+2026-03-24 11:47:17 [INFO] __main__ — Авторизован [acc1], chatId=0 (self-chat)
+2026-03-24 11:47:25 [INFO] __main__ — SOCKS5 → 188.40.167.82:443
+2026-03-24 11:47:25 [DEBUG] __main__ — [transport:acc1] file-send  size=84  action=connect  seq=?  prio=0
+2026-03-24 11:47:25 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2985270908  size=84
+2026-03-24 11:47:25 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2985270908
+2026-03-24 11:47:27 [DEBUG] __main__ — tunnel 188.40.167.82:443 [bec79dc9]  no ok in 2s, retrying connect
+2026-03-24 11:47:27 [DEBUG] __main__ — [transport:acc1] file-send  size=84  action=connect  seq=?  prio=0
+2026-03-24 11:47:27 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2998861398  size=84
+2026-03-24 11:47:27 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2998861398
+2026-03-24 11:47:27 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2994410430  action=ok
+2026-03-24 11:47:27 [DEBUG] __main__ — [bec79dc9] <- ok
+2026-03-24 11:47:27 [INFO] __main__ — tunnel 188.40.167.82:443 [bec79dc9]  открыт за ~2979 мс
+2026-03-24 11:47:27 [DEBUG] __main__ — [bec79dc9] -> #1  517B  seq=0
+2026-03-24 11:47:27 [DEBUG] __main__ — [transport:acc1] file-send  size=572  action=data  seq=0  prio=0
+2026-03-24 11:47:28 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2993959967  size=572
+2026-03-24 11:47:28 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2992879730  action=ok
+2026-03-24 11:47:28 [DEBUG] __main__ — [bec79dc9] <- ok
+2026-03-24 11:47:28 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2993959967
+2026-03-24 11:47:29 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2996592865  action=data
+2026-03-24 11:47:29 [DEBUG] __main__ — [bec79dc9] <- data #1  3134B  seq=0
+2026-03-24 11:47:29 [DEBUG] __main__ — [bec79dc9] -> #2  80B  seq=1
+2026-03-24 11:47:29 [DEBUG] __main__ — [transport:acc2] file-send  size=135  action=data  seq=1  prio=1
+2026-03-24 11:47:29 [DEBUG] __main__ — [bec79dc9] -> #3  95B  seq=2
+2026-03-24 11:47:29 [DEBUG] __main__ — [transport:acc1] file-send  size=150  action=data  seq=2  prio=1
+2026-03-24 11:47:29 [DEBUG] __main__ — [bec79dc9] -> #4  91B  seq=3
+2026-03-24 11:47:30 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2982771809  size=150
+2026-03-24 11:47:30 [DEBUG] __main__ — [transport:acc2] upload ok  fileId=2990921823  size=135
+2026-03-24 11:47:30 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2982771809
+2026-03-24 11:47:30 [DEBUG] __main__ — [transport:acc2] file-send  size=146  action=data  seq=3  prio=1
+2026-03-24 11:47:30 [DEBUG] __main__ — [transport:acc2] пропускаем свой исходящий файл fileId=2990921823
+2026-03-24 11:47:30 [DEBUG] __main__ — [transport:acc2] upload ok  fileId=2995359866  size=146
+2026-03-24 11:47:31 [DEBUG] __main__ — [transport:acc2] пропускаем свой исходящий файл fileId=2995359866
+2026-03-24 11:47:32 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2991108661  action=data
+2026-03-24 11:47:32 [DEBUG] __main__ — [bec79dc9] <- data #2  99B  seq=2
+2026-03-24 11:47:32 [DEBUG] __main__ — [transport:acc2] file-recv  fileId=2990840605  action=data
+2026-03-24 11:47:32 [DEBUG] __main__ — [bec79dc9] <- data #3  667B  seq=1
+2026-03-24 11:47:32 [DEBUG] __main__ — [bec79dc9] -> #5  31B  seq=4
+2026-03-24 11:47:32 [DEBUG] __main__ — [transport:acc1] file-send  size=86  action=data  seq=4  prio=1
+2026-03-24 11:47:32 [DEBUG] __main__ — [bec79dc9] -> #6  24B  seq=5
+2026-03-24 11:47:32 [DEBUG] __main__ — [transport:acc2] file-send  size=79  action=data  seq=5  prio=2
+2026-03-24 11:47:32 [DEBUG] __main__ — [bec79dc9] local EOF
+2026-03-24 11:47:33 [DEBUG] __main__ — [transport:acc2] upload ok  fileId=2995708958  size=79
+2026-03-24 11:47:33 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2998487584  size=86
+2026-03-24 11:47:33 [DEBUG] __main__ — [transport:acc1] file-send  size=61  action=close  seq=?  prio=1
+2026-03-24 11:47:33 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2998487584
+2026-03-24 11:47:33 [DEBUG] __main__ — [transport:acc2] пропускаем свой исходящий файл fileId=2995708958
+2026-03-24 11:47:33 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2999400310  size=61
+2026-03-24 11:47:33 [INFO] __main__ — DONE 188.40.167.82:443 [bec79dc9] | ↑838B/6f (0.1 КБ/с)  ↓3900B/3f (0.6 КБ/с)  5.9s
+2026-03-24 11:47:34 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2999400310
+2026-03-24 11:47:34 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2994099673  action=closed
+2026-03-24 11:47:34 [DEBUG] __main__ — [bec79dc9] <- closed by server
+2026-03-24 11:47:41 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 11:47:41 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 11:48:06 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 11:48:06 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 11:48:31 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 11:48:31 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 11:48:56 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 11:48:56 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 11:49:21 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 11:49:21 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 11:49:46 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 11:49:46 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 11:50:11 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 11:50:11 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 11:50:36 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 11:50:36 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 11:51:01 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 11:51:01 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 11:51:26 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 11:51:26 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 11:51:51 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 11:51:51 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 11:52:16 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 11:52:16 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 11:52:41 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 11:52:41 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 11:53:06 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 11:53:06 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 11:53:31 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 11:53:31 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 11:53:56 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 11:53:56 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 11:54:21 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 11:54:21 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 11:54:46 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 11:54:46 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 11:55:11 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 11:55:11 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 11:55:36 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 11:55:36 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 11:55:42 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f59fd037250>
+2026-03-24 11:55:42 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f59fd034e80>

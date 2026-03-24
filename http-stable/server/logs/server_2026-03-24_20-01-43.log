@@ -1,0 +1,78 @@
+2026-03-24 20:01:43 [INFO] __main__ — Восстановлено 1 сессий
+2026-03-24 20:01:43 [INFO] __main__ — [proxy:self-chat] WS подключение (acc1, chat_id=0)
+2026-03-24 20:01:43 [INFO] __main__ — [proxy:self-chat] WS подключение (acc2, chat_id=0)
+2026-03-24 20:01:43 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 20:01:44 [INFO] __main__ — Авторизован [server:acc2], chatId=0
+2026-03-24 20:01:45 [INFO] __main__ — Авторизован [server:acc1], chatId=0
+2026-03-24 20:02:06 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2986443707 size=4714
+2026-03-24 20:02:06 [INFO] __main__ — BATCH recv  id=42d4e0a2b7fa  reqs=1
+2026-03-24 20:02:06 [INFO] __main__ — BATCH done  id=42d4e0a2b7fa  reqs=1  payload=0КБ  file=0КБ  0.0s  213.6 КБ/с
+2026-03-24 20:02:06 [DEBUG] __main__ — [transport:acc1] published response fileId=2999270155 size=210
+2026-03-24 20:02:07 [DEBUG] __main__ — [transport:acc2] recv_file fileId=2999214938 size=2850
+2026-03-24 20:02:07 [INFO] __main__ — BATCH recv  id=e21704833aa5  reqs=1
+2026-03-24 20:02:07 [INFO] __main__ — BATCH done  id=e21704833aa5  reqs=1  payload=0КБ  file=0КБ  0.0s  204.4 КБ/с
+2026-03-24 20:02:08 [DEBUG] __main__ — [transport:acc2] published response fileId=2994054001 size=213
+2026-03-24 20:02:09 [DEBUG] __main__ — [transport:acc2] recv_file fileId=2989032628 size=3672
+2026-03-24 20:02:09 [INFO] __main__ — BATCH recv  id=4b1f77532665  reqs=1
+2026-03-24 20:02:09 [INFO] __main__ — BATCH done  id=4b1f77532665  reqs=1  payload=0КБ  file=0КБ  0.0s  369.0 КБ/с
+2026-03-24 20:02:10 [DEBUG] __main__ — [transport:acc2] published response fileId=2995324575 size=302
+2026-03-24 20:02:14 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 20:02:44 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 20:03:14 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 20:03:39 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2997080563 size=501
+2026-03-24 20:03:39 [INFO] __main__ — BATCH recv  id=f53a4aaabd06  reqs=1
+2026-03-24 20:03:39 [DEBUG] __main__ — [fetcher] GET http://detectportal.brave-http-only.com/ → 204 0B
+2026-03-24 20:03:39 [INFO] __main__ — BATCH done  id=f53a4aaabd06  reqs=1  payload=0КБ  file=0КБ  0.5s  0.0 КБ/с
+2026-03-24 20:03:40 [DEBUG] __main__ — [transport:acc1] published response fileId=3004221947 size=147
+2026-03-24 20:03:45 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 20:03:47 [DEBUG] __main__ — [transport:acc2] recv_file fileId=3002213422 size=1303
+2026-03-24 20:03:47 [INFO] __main__ — BATCH recv  id=1dcdbc5e8fbc  reqs=1
+2026-03-24 20:03:47 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 165159B
+2026-03-24 20:03:47 [INFO] __main__ — BATCH done  id=1dcdbc5e8fbc  reqs=1  payload=161КБ  file=54КБ  0.3s  517.8 КБ/с
+2026-03-24 20:03:48 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3003544084 size=1303
+2026-03-24 20:03:48 [INFO] __main__ — BATCH recv  id=8ef499e8846b  reqs=1
+2026-03-24 20:03:48 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 165159B
+2026-03-24 20:03:48 [INFO] __main__ — BATCH done  id=8ef499e8846b  reqs=1  payload=161КБ  file=54КБ  0.3s  493.7 КБ/с
+2026-03-24 20:03:48 [DEBUG] __main__ — [transport:acc2] published response fileId=3001712184 size=56218
+2026-03-24 20:03:49 [DEBUG] __main__ — [transport:acc1] published response fileId=2991126709 size=56262
+2026-03-24 20:04:02 [DEBUG] __main__ — [transport:acc2] recv_file fileId=3000790644 size=1303
+2026-03-24 20:04:02 [INFO] __main__ — BATCH recv  id=53eef52b7290  reqs=1
+2026-03-24 20:04:02 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 165159B
+2026-03-24 20:04:02 [INFO] __main__ — BATCH done  id=53eef52b7290  reqs=1  payload=161КБ  file=54КБ  0.1s  1.3 МБ/с
+2026-03-24 20:04:03 [DEBUG] __main__ — [transport:acc2] published response fileId=3000746871 size=56242
+2026-03-24 20:04:07 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2981813763 size=1273
+2026-03-24 20:04:08 [INFO] __main__ — BATCH recv  id=9dc04ab9875b  reqs=1
+2026-03-24 20:04:08 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 165159B
+2026-03-24 20:04:08 [INFO] __main__ — BATCH done  id=9dc04ab9875b  reqs=1  payload=161КБ  file=54КБ  0.1s  1.1 МБ/с
+2026-03-24 20:04:08 [DEBUG] __main__ — [transport:acc1] published response fileId=3001873401 size=56238
+2026-03-24 20:04:15 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 20:04:16 [DEBUG] __main__ — [transport:acc2] recv_file fileId=3005510322 size=1303
+2026-03-24 20:04:16 [INFO] __main__ — BATCH recv  id=8c5b9fb7e162  reqs=1
+2026-03-24 20:04:17 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 165159B
+2026-03-24 20:04:17 [INFO] __main__ — BATCH done  id=8c5b9fb7e162  reqs=1  payload=161КБ  file=54КБ  0.1s  1.4 МБ/с
+2026-03-24 20:04:17 [DEBUG] __main__ — [transport:acc2] published response fileId=2987816452 size=56227
+2026-03-24 20:04:46 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 20:05:16 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 20:05:46 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 20:06:17 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 20:06:47 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 20:07:13 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2996030822 size=501
+2026-03-24 20:07:13 [INFO] __main__ — BATCH recv  id=d9e083666a91  reqs=1
+2026-03-24 20:07:13 [DEBUG] __main__ — [fetcher] GET http://detectportal.brave-http-only.com/ → 204 0B
+2026-03-24 20:07:13 [INFO] __main__ — BATCH done  id=d9e083666a91  reqs=1  payload=0КБ  file=0КБ  0.5s  0.0 КБ/с
+2026-03-24 20:07:14 [DEBUG] __main__ — [transport:acc1] published response fileId=3005832797 size=147
+2026-03-24 20:07:15 [DEBUG] __main__ — [transport:acc2] recv_file fileId=2992321930 size=1303
+2026-03-24 20:07:15 [INFO] __main__ — BATCH recv  id=d5df1e2f4c35  reqs=1
+2026-03-24 20:07:16 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 165159B
+2026-03-24 20:07:16 [INFO] __main__ — BATCH done  id=d5df1e2f4c35  reqs=1  payload=161КБ  file=54КБ  0.3s  530.8 КБ/с
+2026-03-24 20:07:17 [DEBUG] __main__ — [transport:acc2] published response fileId=2998056182 size=56239
+2026-03-24 20:07:17 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 20:07:48 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 20:08:18 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 20:08:49 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 20:09:19 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 20:09:49 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 20:10:21 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 20:10:52 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 20:10:54 [INFO] __main__ — [proxy:self-chat] acc1 остановлен
+2026-03-24 20:10:54 [INFO] __main__ — [proxy:self-chat] acc2 остановлен

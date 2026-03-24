@@ -1,0 +1,15 @@
+2026-03-24 11:55:46 [INFO] __main__ — MAX Proxy SERVER запущен  viewer_id=240876353  transports=2
+2026-03-24 11:55:46 [INFO] __main__ — Восстановлено 1 сессий из sessions.json
+2026-03-24 11:55:46 [INFO] __main__ — [proxy:self-chat] WS подключение (chat_id=0, transports=2)
+2026-03-24 11:55:46 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 11:56:01 [WARNING] __main__ — [acc1#ws0] ошибка: TimeoutError()
+2026-03-24 11:56:01 [WARNING] __main__ — [acc2#ws1] ошибка: TimeoutError()
+2026-03-24 11:56:01 [WARNING] __main__ — [acc2#ws0] ошибка: TimeoutError()
+2026-03-24 11:56:01 [WARNING] __main__ — [acc1#ws1] ошибка: TimeoutError()
+2026-03-24 11:56:01 [WARNING] __main__ — [acc2#ws2] ошибка: TimeoutError()
+2026-03-24 11:56:01 [WARNING] __main__ — [acc1#ws2] ошибка: TimeoutError()
+2026-03-24 11:56:14 [INFO] __main__ — [proxy:self-chat] остановлен
+2026-03-24 11:56:14 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7cf2a797fd90>
+2026-03-24 11:56:14 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7cf2a7510070>

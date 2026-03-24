@@ -1,0 +1,105 @@
+2026-03-24 11:47:20 [INFO] __main__ — MAX Proxy SERVER запущен  viewer_id=240876353  transports=2
+2026-03-24 11:47:20 [INFO] __main__ — Восстановлено 1 сессий из sessions.json
+2026-03-24 11:47:20 [INFO] __main__ — [proxy:self-chat] WS подключение (chat_id=0, transports=2)
+2026-03-24 11:47:20 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 11:47:20 [INFO] __main__ — Авторизован [server:acc1], chatId=0
+2026-03-24 11:47:21 [INFO] __main__ — Авторизован [server:acc2], chatId=0
+2026-03-24 11:47:26 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2985270908  action=connect
+2026-03-24 11:47:26 [INFO] __main__ — [bec79dc9] CONNECT → 188.40.167.82:443
+2026-03-24 11:47:26 [INFO] __main__ — [bec79dc9] TCP connected → 188.40.167.82:443  (1 мс)
+2026-03-24 11:47:26 [DEBUG] __main__ — [transport:acc1] file-send  size=45  action=ok  seq=?  prio=0
+2026-03-24 11:47:27 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2994410430  size=45
+2026-03-24 11:47:27 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2994410430
+2026-03-24 11:47:27 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2998861398  action=connect
+2026-03-24 11:47:27 [INFO] __main__ — [bec79dc9] CONNECT → 188.40.167.82:443
+2026-03-24 11:47:27 [INFO] __main__ — [bec79dc9] TCP connected → 188.40.167.82:443  (1 мс)
+2026-03-24 11:47:27 [DEBUG] __main__ — [transport:acc1] file-send  size=45  action=ok  seq=?  prio=0
+2026-03-24 11:47:28 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2992879730  size=45
+2026-03-24 11:47:28 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2992879730
+2026-03-24 11:47:28 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2993959967  action=data
+2026-03-24 11:47:28 [DEBUG] __main__ — [bec79dc9] <- data #1  517B  seq=0
+2026-03-24 11:47:28 [DEBUG] __main__ — [bec79dc9] -> #1  3134B  seq=0
+2026-03-24 11:47:28 [DEBUG] __main__ — [transport:acc1] file-send  size=3189  action=data  seq=0  prio=0
+2026-03-24 11:47:29 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2996592865  size=3189
+2026-03-24 11:47:29 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2996592865
+2026-03-24 11:47:30 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2982771809  action=data
+2026-03-24 11:47:30 [DEBUG] __main__ — [bec79dc9] <- data #2  95B  seq=2
+2026-03-24 11:47:31 [DEBUG] __main__ — [transport:acc2] file-recv  fileId=2990921823  action=data
+2026-03-24 11:47:31 [DEBUG] __main__ — [bec79dc9] <- data #3  80B  seq=1
+2026-03-24 11:47:31 [DEBUG] __main__ — [bec79dc9] -> #2  667B  seq=1
+2026-03-24 11:47:31 [DEBUG] __main__ — [transport:acc2] file-send  size=722  action=data  seq=1  prio=1
+2026-03-24 11:47:31 [DEBUG] __main__ — [transport:acc2] file-recv  fileId=2995359866  action=data
+2026-03-24 11:47:31 [DEBUG] __main__ — [bec79dc9] <- data #4  91B  seq=3
+2026-03-24 11:47:31 [DEBUG] __main__ — [bec79dc9] -> #3  99B  seq=2
+2026-03-24 11:47:31 [DEBUG] __main__ — [transport:acc1] file-send  size=154  action=data  seq=2  prio=1
+2026-03-24 11:47:31 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2991108661  size=154
+2026-03-24 11:47:31 [DEBUG] __main__ — [transport:acc2] upload ok  fileId=2990840605  size=722
+2026-03-24 11:47:32 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2991108661
+2026-03-24 11:47:32 [DEBUG] __main__ — [transport:acc2] пропускаем свой исходящий файл fileId=2990840605
+2026-03-24 11:47:33 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2998487584  action=data
+2026-03-24 11:47:33 [DEBUG] __main__ — [bec79dc9] <- data #5  31B  seq=4
+2026-03-24 11:47:33 [DEBUG] __main__ — [transport:acc2] file-recv  fileId=2995708958  action=data
+2026-03-24 11:47:33 [DEBUG] __main__ — [bec79dc9] <- data #6  24B  seq=5
+2026-03-24 11:47:33 [DEBUG] __main__ — [bec79dc9] remote EOF
+2026-03-24 11:47:33 [INFO] __main__ — [bec79dc9] pipe done | rx=838B/6f (0.1 КБ/с)  tx=3900B/3f (0.6 КБ/с)  6.0s
+2026-03-24 11:47:33 [DEBUG] __main__ — [bec79dc9] socket closed
+2026-03-24 11:47:33 [DEBUG] __main__ — [transport:acc1] file-send  size=49  action=closed  seq=?  prio=0
+2026-03-24 11:47:34 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2994099673  size=49
+2026-03-24 11:47:34 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2999400310  action=close
+2026-03-24 11:47:34 [INFO] __main__ — [bec79dc9] close requested last_seq=5
+2026-03-24 11:47:34 [DEBUG] __main__ — [transport:acc1] пропускаем свой исходящий файл fileId=2994099673
+2026-03-24 11:47:45 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:47:45 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:47:50 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 11:48:10 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:48:10 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:48:21 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 11:48:26 [DEBUG] __main__ — [bec79dc9] remote EOF
+2026-03-24 11:48:26 [INFO] __main__ — [bec79dc9] pipe done | rx=0B/0f (0.0 КБ/с)  tx=0B/0f (0.0 КБ/с)  0.0s
+2026-03-24 11:48:35 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:48:35 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:48:51 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 11:49:00 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:49:00 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:49:21 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 11:49:25 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:49:25 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:49:50 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:49:50 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:49:52 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 11:50:15 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:50:15 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:50:22 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 11:50:40 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:50:40 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:50:52 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 11:51:05 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:51:05 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:51:22 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 11:51:30 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:51:30 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:51:53 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 11:51:55 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:51:55 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:52:20 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:52:20 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:52:23 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 11:52:45 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:52:53 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 11:53:10 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:53:24 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 11:53:35 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:53:57 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 11:54:00 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:54:25 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:54:33 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 11:54:50 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:55:03 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 11:55:15 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:55:33 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 11:55:40 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-24 11:55:40 [INFO] __main__ — [proxy:self-chat] остановлен
+2026-03-24 11:55:41 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7af5fefa2230>
+2026-03-24 11:55:41 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7af5fe671840>

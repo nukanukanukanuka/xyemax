@@ -1,0 +1,1049 @@
+2026-03-24 05:20:42 [INFO] __main__ — SOCKS5 запущен  127.0.0.1:1080  transports=2
+2026-03-24 05:20:43 [INFO] __main__ — Авторизован [acc1], chatId=0 (self-chat)
+2026-03-24 05:20:43 [INFO] __main__ — Авторизован [acc2], chatId=0 (self-chat)
+2026-03-24 05:20:49 [INFO] __main__ — SOCKS5 → 188.40.167.82:443
+2026-03-24 05:20:49 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=87  action=connect  ms=0
+2026-03-24 05:20:49 [DEBUG] __main__ — [transport:acc1] text-recv  action=ok  id=3f849994
+2026-03-24 05:20:49 [DEBUG] __main__ — [3f849994] <- ok
+2026-03-24 05:20:49 [INFO] __main__ — tunnel 188.40.167.82:443 [3f849994]  открыт за ~256 мс
+2026-03-24 05:20:49 [DEBUG] __main__ — [3f849994] -> #1  517B  seq=0
+2026-03-24 05:20:49 [DEBUG] __main__ — [transport:acc1] text-send  len=757  action=data  ms=1
+2026-03-24 05:20:49 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=3f849994
+2026-03-24 05:20:49 [DEBUG] __main__ — [3f849994] <- data #1  2700B  seq=0
+2026-03-24 05:20:49 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=3f849994
+2026-03-24 05:20:49 [DEBUG] __main__ — [3f849994] <- data #2  434B  seq=1
+2026-03-24 05:20:49 [DEBUG] __main__ — [3f849994] -> #2  266B  seq=1
+2026-03-24 05:20:49 [DEBUG] __main__ — [transport:acc2] text-send  len=421  action=data  ms=0
+2026-03-24 05:20:50 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=3f849994
+2026-03-24 05:20:50 [DEBUG] __main__ — [3f849994] <- data #3  744B  seq=2
+2026-03-24 05:20:50 [DEBUG] __main__ — [3f849994] -> #3  55B  seq=2
+2026-03-24 05:20:50 [DEBUG] __main__ — [transport:acc1] text-send  len=141  action=data  ms=2
+2026-03-24 05:20:50 [DEBUG] __main__ — [3f849994] local EOF
+2026-03-24 05:20:50 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=64  action=close  ms=3
+2026-03-24 05:20:50 [DEBUG] __main__ — [transport:acc1] text-recv  action=closed  id=3f849994
+2026-03-24 05:20:50 [DEBUG] __main__ — [3f849994] <- closed by server
+2026-03-24 05:20:50 [INFO] __main__ — DONE 188.40.167.82:443 [3f849994] | ↑838B/3f (0.8 КБ/с)  ↓3878B/3f (3.7 КБ/с)  1.0s
+2026-03-24 05:20:53 [INFO] __main__ — SOCKS5 → 188.40.167.82:443
+2026-03-24 05:20:53 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=87  action=connect  ms=1
+2026-03-24 05:20:53 [DEBUG] __main__ — [transport:acc2] text-recv  action=ok  id=bfa24e17
+2026-03-24 05:20:53 [DEBUG] __main__ — [bfa24e17] <- ok
+2026-03-24 05:20:53 [INFO] __main__ — tunnel 188.40.167.82:443 [bfa24e17]  открыт за ~278 мс
+2026-03-24 05:20:53 [DEBUG] __main__ — [bfa24e17] -> #1  517B  seq=0
+2026-03-24 05:20:53 [DEBUG] __main__ — [transport:acc1] text-send  len=757  action=data  ms=4
+2026-03-24 05:20:54 [DEBUG] __main__ — [transport:acc1] got nack ms=3..3
+2026-03-24 05:20:54 [DEBUG] __main__ — [transport:acc1] retransmit ms=3
+2026-03-24 05:20:54 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=bfa24e17
+2026-03-24 05:20:54 [DEBUG] __main__ — [bfa24e17] <- data #1  2700B  seq=0
+2026-03-24 05:20:54 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=bfa24e17
+2026-03-24 05:20:54 [DEBUG] __main__ — [bfa24e17] <- data #2  434B  seq=1
+2026-03-24 05:20:54 [DEBUG] __main__ — [bfa24e17] -> #2  266B  seq=1
+2026-03-24 05:20:54 [DEBUG] __main__ — [transport:acc2] text-send  len=421  action=data  ms=2
+2026-03-24 05:20:55 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=bfa24e17
+2026-03-24 05:20:55 [DEBUG] __main__ — [bfa24e17] <- data #3  744B  seq=2
+2026-03-24 05:20:55 [DEBUG] __main__ — [bfa24e17] -> #3  55B  seq=2
+2026-03-24 05:20:55 [DEBUG] __main__ — [transport:acc1] text-send  len=141  action=data  ms=5
+2026-03-24 05:20:55 [DEBUG] __main__ — [bfa24e17] local EOF
+2026-03-24 05:20:55 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=64  action=close  ms=3
+2026-03-24 05:20:56 [INFO] __main__ — DONE 188.40.167.82:443 [bfa24e17] | ↑838B/3f (0.4 КБ/с)  ↓3878B/3f (1.7 КБ/с)  2.3s
+2026-03-24 05:20:57 [INFO] __main__ — SOCKS5 → 81.19.72.33:443
+2026-03-24 05:20:57 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=85  action=connect  ms=6
+2026-03-24 05:20:57 [DEBUG] __main__ — [transport:acc1] text-recv  action=ok  id=d0759569
+2026-03-24 05:20:57 [DEBUG] __main__ — [d0759569] <- ok
+2026-03-24 05:20:57 [INFO] __main__ — tunnel 81.19.72.33:443 [d0759569]  открыт за ~256 мс
+2026-03-24 05:20:57 [DEBUG] __main__ — [d0759569] -> #1  517B  seq=0
+2026-03-24 05:20:57 [DEBUG] __main__ — [transport:acc1] text-send  len=757  action=data  ms=7
+2026-03-24 05:20:57 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:57 [DEBUG] __main__ — [d0759569] <- data #1  2700B  seq=0
+2026-03-24 05:20:57 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:57 [DEBUG] __main__ — [d0759569] <- data #2  1041B  seq=1
+2026-03-24 05:20:57 [DEBUG] __main__ — [d0759569] -> #2  93B  seq=1
+2026-03-24 05:20:57 [DEBUG] __main__ — [transport:acc2] text-send  len=189  action=data  ms=4
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] <- data #3  120B  seq=2
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] -> #3  253B  seq=2
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc1] text-send  len=405  action=data  ms=8
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] <- data #4  2700B  seq=4
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] <- data #5  1415B  seq=6
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] <- data #6  2700B  seq=3
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] <- data #7  2700B  seq=8
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] <- data #8  2700B  seq=5
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] <- data #9  2700B  seq=10
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] <- data #10  2700B  seq=7
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] <- data #11  2700B  seq=12
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] <- data #12  2700B  seq=9
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] <- data #13  2700B  seq=14
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] <- data #14  771B  seq=16
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] <- data #15  2700B  seq=11
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] <- data #16  2700B  seq=13
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] <- data #17  2700B  seq=18
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] <- data #18  2700B  seq=15
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] <- data #19  2700B  seq=17
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] <- data #20  2700B  seq=20
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] <- data #21  2700B  seq=22
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] <- data #22  2700B  seq=19
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] <- data #23  2365B  seq=24
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] <- data #24  2700B  seq=21
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] <- data #25  2700B  seq=26
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] <- data #26  2700B  seq=23
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] <- data #27  2700B  seq=28
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] <- data #28  2700B  seq=30
+2026-03-24 05:20:58 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:58 [DEBUG] __main__ — [d0759569] <- data #29  2700B  seq=25
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #30  2700B  seq=32
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #31  2700B  seq=27
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #32  2700B  seq=34
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #33  2700B  seq=29
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #34  2700B  seq=36
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #35  2700B  seq=31
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #36  2700B  seq=38
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #37  2700B  seq=40
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #38  2700B  seq=33
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #39  2700B  seq=42
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #40  2700B  seq=35
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #41  2700B  seq=44
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #42  2700B  seq=37
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #43  2700B  seq=46
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #44  2700B  seq=39
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #45  2700B  seq=41
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #46  2700B  seq=48
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #47  2700B  seq=43
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #48  2700B  seq=50
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #49  2700B  seq=52
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #50  2700B  seq=45
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #51  2700B  seq=54
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #52  2700B  seq=47
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #53  2700B  seq=56
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #54  2700B  seq=49
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #55  2700B  seq=51
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #56  2700B  seq=53
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #57  2700B  seq=55
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=d0759569
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] <- data #58  1440B  seq=57
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] -> #4  31B  seq=3
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc2] text-send  len=109  action=data  ms=5
+2026-03-24 05:20:59 [DEBUG] __main__ — [d0759569] local EOF
+2026-03-24 05:20:59 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=64  action=close  ms=9
+2026-03-24 05:21:00 [INFO] __main__ — DONE 81.19.72.33:443 [d0759569] | ↑894B/4f (0.3 КБ/с)  ↓147552B/58f (43.0 КБ/с)  3.4s
+2026-03-24 05:21:07 [INFO] __main__ — SOCKS5 → yandex.ru:443
+2026-03-24 05:21:07 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=83  action=connect  ms=6
+2026-03-24 05:21:07 [DEBUG] __main__ — [transport:acc2] text-recv  action=ok  id=c3d98d3b
+2026-03-24 05:21:07 [DEBUG] __main__ — [c3d98d3b] <- ok
+2026-03-24 05:21:07 [INFO] __main__ — tunnel yandex.ru:443 [c3d98d3b]  открыт за ~421 мс
+2026-03-24 05:21:07 [DEBUG] __main__ — [c3d98d3b] -> #1  2022B  seq=0
+2026-03-24 05:21:07 [DEBUG] __main__ — [transport:acc1] text-send  len=2762  action=data  ms=10
+2026-03-24 05:21:08 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:08 [DEBUG] __main__ — [c3d98d3b] <- data #1  212B  seq=0
+2026-03-24 05:21:08 [DEBUG] __main__ — [c3d98d3b] -> #2  2243B  seq=1
+2026-03-24 05:21:08 [DEBUG] __main__ — [transport:acc2] text-send  len=3057  action=data  ms=7
+2026-03-24 05:21:08 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 05:21:08 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 05:21:08 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:08 [DEBUG] __main__ — [c3d98d3b] <- data #2  533B  seq=1
+2026-03-24 05:21:08 [DEBUG] __main__ — [c3d98d3b] -> #3  31B  seq=2
+2026-03-24 05:21:08 [DEBUG] __main__ — [transport:acc1] text-send  len=110  action=data  ms=11
+2026-03-24 05:21:08 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:08 [DEBUG] __main__ — [c3d98d3b] <- data #3  2700B  seq=2
+2026-03-24 05:21:08 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:08 [DEBUG] __main__ — [c3d98d3b] <- data #4  2700B  seq=3
+2026-03-24 05:21:08 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:08 [DEBUG] __main__ — [c3d98d3b] <- data #5  2700B  seq=4
+2026-03-24 05:21:08 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:08 [DEBUG] __main__ — [c3d98d3b] <- data #6  2700B  seq=5
+2026-03-24 05:21:08 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:08 [DEBUG] __main__ — [c3d98d3b] <- data #7  1280B  seq=6
+2026-03-24 05:21:08 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:08 [DEBUG] __main__ — [c3d98d3b] <- data #8  2416B  seq=7
+2026-03-24 05:21:08 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:08 [DEBUG] __main__ — [c3d98d3b] <- data #9  2132B  seq=9
+2026-03-24 05:21:08 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:08 [DEBUG] __main__ — [c3d98d3b] <- data #10  2700B  seq=8
+2026-03-24 05:21:08 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:08 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:08 [DEBUG] __main__ — [c3d98d3b] <- data #11  2700B  seq=10
+2026-03-24 05:21:08 [DEBUG] __main__ — [c3d98d3b] <- data #12  2700B  seq=11
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #13  2700B  seq=12
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #14  2700B  seq=13
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #15  2700B  seq=14
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #16  2700B  seq=15
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #17  2700B  seq=16
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #18  2700B  seq=17
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #19  2700B  seq=18
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #20  2700B  seq=19
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #21  2700B  seq=20
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #22  2700B  seq=21
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #23  2700B  seq=22
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #24  2700B  seq=23
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #25  2700B  seq=24
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #26  2700B  seq=25
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #27  2700B  seq=26
+2026-03-24 05:21:09 [INFO] __main__ — SOCKS5 → yastatic.net:443
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=87  action=connect  ms=12
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #28  2700B  seq=27
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #29  2700B  seq=29
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #30  2700B  seq=28
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #31  2700B  seq=31
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #32  2700B  seq=30
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #33  2700B  seq=32
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #34  2700B  seq=33
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #35  2700B  seq=34
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #36  2700B  seq=35
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #37  2700B  seq=36
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #38  2700B  seq=37
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #39  2700B  seq=38
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #40  2700B  seq=39
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #41  2700B  seq=41
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #42  2700B  seq=40
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #43  2700B  seq=43
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #44  2700B  seq=45
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #45  2700B  seq=47
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #46  2700B  seq=42
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #47  2700B  seq=44
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #48  2700B  seq=46
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:09 [DEBUG] __main__ — [c3d98d3b] <- data #49  2111B  seq=48
+2026-03-24 05:21:09 [DEBUG] __main__ — [transport:acc1] text-recv  action=ok  id=acdfd7db
+2026-03-24 05:21:09 [DEBUG] __main__ — [acdfd7db] <- ok
+2026-03-24 05:21:09 [INFO] __main__ — tunnel yastatic.net:443 [acdfd7db]  открыт за ~677 мс
+2026-03-24 05:21:10 [DEBUG] __main__ — [acdfd7db] -> #1  1722B  seq=0
+2026-03-24 05:21:10 [DEBUG] __main__ — [transport:acc1] text-send  len=2362  action=data  ms=13
+2026-03-24 05:21:10 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:10 [DEBUG] __main__ — [acdfd7db] <- data #1  2700B  seq=0
+2026-03-24 05:21:10 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:10 [DEBUG] __main__ — [acdfd7db] <- data #2  2103B  seq=1
+2026-03-24 05:21:10 [DEBUG] __main__ — [acdfd7db] -> #2  727B  seq=1
+2026-03-24 05:21:10 [DEBUG] __main__ — [transport:acc2] text-send  len=1037  action=data  ms=8
+2026-03-24 05:21:10 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:10 [DEBUG] __main__ — [acdfd7db] <- data #3  1159B  seq=2
+2026-03-24 05:21:10 [DEBUG] __main__ — [acdfd7db] -> #3  66B  seq=2
+2026-03-24 05:21:10 [DEBUG] __main__ — [transport:acc1] text-send  len=154  action=data  ms=14
+2026-03-24 05:21:11 [INFO] __main__ — SOCKS5 → avatars.mds.yandex.net:443
+2026-03-24 05:21:11 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=96  action=connect  ms=9
+2026-03-24 05:21:11 [DEBUG] __main__ — [acdfd7db] -> #4  215B  seq=3
+2026-03-24 05:21:11 [DEBUG] __main__ — [transport:acc2] text-send  len=354  action=data  ms=10
+2026-03-24 05:21:11 [INFO] __main__ — SOCKS5 → yastatic.net:443
+2026-03-24 05:21:11 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=87  action=connect  ms=15
+2026-03-24 05:21:11 [DEBUG] __main__ — [acdfd7db] -> #5  107B  seq=4
+2026-03-24 05:21:11 [DEBUG] __main__ — [transport:acc1] text-send  len=210  action=data  ms=16
+2026-03-24 05:21:11 [DEBUG] __main__ — [acdfd7db] -> #6  94B  seq=5
+2026-03-24 05:21:11 [DEBUG] __main__ — [transport:acc2] text-send  len=194  action=data  ms=11
+2026-03-24 05:21:11 [DEBUG] __main__ — [acdfd7db] -> #7  76B  seq=6
+2026-03-24 05:21:11 [DEBUG] __main__ — [c3d98d3b] -> #4  662B  seq=3
+2026-03-24 05:21:11 [DEBUG] __main__ — [transport:acc1] text-send  len=170  action=data  ms=17
+2026-03-24 05:21:11 [DEBUG] __main__ — [transport:acc2] text-send  len=950  action=data  ms=12
+2026-03-24 05:21:11 [INFO] __main__ — SOCKS5 → an.yandex.ru:443
+2026-03-24 05:21:11 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=87  action=connect  ms=13
+2026-03-24 05:21:11 [INFO] __main__ — SOCKS5 → polkadot.js.org:443
+2026-03-24 05:21:11 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=90  action=connect  ms=18
+2026-03-24 05:21:11 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:11 [DEBUG] __main__ — [acdfd7db] <- data #4  1472B  seq=4
+2026-03-24 05:21:11 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:11 [DEBUG] __main__ — [acdfd7db] <- data #5  2416B  seq=3
+2026-03-24 05:21:11 [DEBUG] __main__ — [transport:acc2] text-recv  action=ok  id=d535a0bf
+2026-03-24 05:21:11 [DEBUG] __main__ — [d535a0bf] <- ok
+2026-03-24 05:21:11 [INFO] __main__ — tunnel avatars.mds.yandex.net:443 [d535a0bf]  открыт за ~466 мс
+2026-03-24 05:21:11 [DEBUG] __main__ — [d535a0bf] -> #1  1796B  seq=0
+2026-03-24 05:21:11 [DEBUG] __main__ — [transport:acc1] text-send  len=2462  action=data  ms=19
+2026-03-24 05:21:11 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:11 [DEBUG] __main__ — [acdfd7db] <- data #6  2700B  seq=6
+2026-03-24 05:21:11 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:11 [DEBUG] __main__ — [acdfd7db] <- data #7  2700B  seq=5
+2026-03-24 05:21:11 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:11 [DEBUG] __main__ — [transport:acc1] text-recv  action=ok  id=0a572c2c
+2026-03-24 05:21:11 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:11 [DEBUG] __main__ — [acdfd7db] <- data #8  2700B  seq=8
+2026-03-24 05:21:11 [DEBUG] __main__ — [0a572c2c] <- ok
+2026-03-24 05:21:11 [DEBUG] __main__ — [acdfd7db] <- data #9  2700B  seq=7
+2026-03-24 05:21:11 [INFO] __main__ — tunnel yastatic.net:443 [0a572c2c]  открыт за ~474 мс
+2026-03-24 05:21:12 [DEBUG] __main__ — [0a572c2c] -> #1  1786B  seq=0
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc1] text-send  len=2450  action=data  ms=20
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #10  2700B  seq=9
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #11  2700B  seq=11
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #12  2700B  seq=10
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #13  2700B  seq=12
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #14  2700B  seq=13
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #15  2700B  seq=14
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #16  2700B  seq=16
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #17  2700B  seq=15
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #18  2700B  seq=18
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #19  2700B  seq=17
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #20  2700B  seq=20
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #21  2700B  seq=19
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #22  2700B  seq=22
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #23  2700B  seq=21
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #24  2700B  seq=24
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #25  2700B  seq=23
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #26  2700B  seq=26
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc1] got nack ms=18..18
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc1] retransmit ms=18
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #27  2700B  seq=25
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc2] text-recv  action=ok  id=4f4ecf91
+2026-03-24 05:21:12 [DEBUG] __main__ — [4f4ecf91] <- ok
+2026-03-24 05:21:12 [INFO] __main__ — tunnel an.yandex.ru:443 [4f4ecf91]  открыт за ~811 мс
+2026-03-24 05:21:12 [DEBUG] __main__ — [4f4ecf91] -> #1  1818B  seq=0
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc1] text-send  len=2490  action=data  ms=21
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #28  2700B  seq=28
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [c3d98d3b] <- data #50  35B  seq=49
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #29  2700B  seq=30
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #30  2700B  seq=32
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=c3d98d3b
+2026-03-24 05:21:12 [DEBUG] __main__ — [c3d98d3b] <- data #51  281B  seq=50
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #31  2700B  seq=34
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #32  2700B  seq=36
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #33  2700B  seq=38
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #34  2700B  seq=40
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #35  2700B  seq=42
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #36  2700B  seq=44
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #37  2700B  seq=46
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #38  2700B  seq=48
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #39  2700B  seq=50
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #40  2700B  seq=27
+2026-03-24 05:21:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:12 [DEBUG] __main__ — [acdfd7db] <- data #41  2700B  seq=52
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #42  2700B  seq=29
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #43  2700B  seq=54
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #44  2700B  seq=31
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #45  2700B  seq=56
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #46  2700B  seq=33
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #47  2700B  seq=58
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #48  2700B  seq=35
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #49  2700B  seq=60
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #50  2700B  seq=37
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #51  2700B  seq=62
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #52  2700B  seq=64
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #53  2700B  seq=39
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #54  2700B  seq=66
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #55  2700B  seq=41
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #56  2700B  seq=68
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #57  2700B  seq=43
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #58  2700B  seq=70
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #59  2700B  seq=45
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #60  2700B  seq=72
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #61  2700B  seq=47
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #62  2700B  seq=74
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #63  2700B  seq=49
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #64  2700B  seq=76
+2026-03-24 05:21:13 [INFO] __main__ — SOCKS5 → eppo-proxy.phantom.app:443
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=97  action=connect  ms=14
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #65  2700B  seq=78
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #66  2700B  seq=51
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #67  2700B  seq=80
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #68  2700B  seq=53
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #69  2700B  seq=82
+2026-03-24 05:21:13 [DEBUG] __main__ — tunnel polkadot.js.org:443 [06d32aed]  no ok in 2s, retrying connect
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=90  action=connect  ms=22
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #70  2700B  seq=55
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #71  2700B  seq=84
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #72  2700B  seq=57
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #73  2700B  seq=86
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #74  2700B  seq=88
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #75  2700B  seq=59
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #76  2700B  seq=90
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #77  2700B  seq=61
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #78  2700B  seq=92
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #79  2700B  seq=63
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #80  2700B  seq=94
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #81  2700B  seq=65
+2026-03-24 05:21:13 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:13 [DEBUG] __main__ — [acdfd7db] <- data #82  2700B  seq=96
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #83  2700B  seq=98
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #84  2700B  seq=67
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #85  2700B  seq=69
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #86  2700B  seq=100
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #87  2700B  seq=71
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #88  2700B  seq=102
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #89  2700B  seq=73
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #90  2700B  seq=104
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #91  2700B  seq=106
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #92  2700B  seq=75
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #93  2700B  seq=108
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #94  2700B  seq=110
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #95  2700B  seq=77
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #96  2700B  seq=79
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #97  2700B  seq=112
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #98  2700B  seq=81
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #99  2700B  seq=114
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #100  2700B  seq=116
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #101  2700B  seq=83
+2026-03-24 05:21:14 [INFO] __main__ — SOCKS5 → data.phantom.app:443
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=91  action=connect  ms=23
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #102  2700B  seq=85
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #103  2700B  seq=118
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #104  2700B  seq=120
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #105  2700B  seq=87
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #106  2700B  seq=122
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #107  2700B  seq=89
+2026-03-24 05:21:14 [INFO] __main__ — SOCKS5 → blowfish-blocklist-proxy.phantom.app:443
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=111  action=connect  ms=15
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #108  2700B  seq=124
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #109  2700B  seq=126
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #110  2700B  seq=91
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #111  2700B  seq=93
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #112  2700B  seq=128
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #113  2700B  seq=130
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #114  2700B  seq=95
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #115  2700B  seq=132
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #116  2700B  seq=97
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #117  2700B  seq=134
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #118  2700B  seq=99
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #119  2700B  seq=136
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #120  2700B  seq=138
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #121  2700B  seq=101
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #122  2700B  seq=140
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #123  2700B  seq=103
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #124  2700B  seq=142
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #125  2700B  seq=105
+2026-03-24 05:21:14 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:14 [DEBUG] __main__ — [acdfd7db] <- data #126  2700B  seq=144
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:15 [DEBUG] __main__ — [acdfd7db] <- data #127  2700B  seq=107
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:15 [DEBUG] __main__ — [acdfd7db] <- data #128  2700B  seq=146
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:15 [DEBUG] __main__ — [acdfd7db] <- data #129  2700B  seq=109
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:15 [DEBUG] __main__ — [acdfd7db] <- data #130  2700B  seq=148
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc1] got nack ms=18..22
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc1] retransmit ms=18
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc1] retransmit ms=19
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc1] retransmit ms=20
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc1] retransmit ms=21
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc1] retransmit ms=22
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:15 [DEBUG] __main__ — [acdfd7db] <- data #131  2700B  seq=111
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:15 [DEBUG] __main__ — [acdfd7db] <- data #132  2700B  seq=113
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:15 [DEBUG] __main__ — [acdfd7db] <- data #133  2700B  seq=115
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:15 [DEBUG] __main__ — [acdfd7db] <- data #134  2700B  seq=117
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:15 [DEBUG] __main__ — [acdfd7db] <- data #135  2700B  seq=119
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:15 [DEBUG] __main__ — [acdfd7db] <- data #136  2700B  seq=121
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc2] gap ms=121..121, sending nack
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc2] text-recv  action=ok  id=b1441651
+2026-03-24 05:21:15 [DEBUG] __main__ — [acdfd7db] <- data #137  2700B  seq=123
+2026-03-24 05:21:15 [DEBUG] __main__ — [b1441651] <- ok
+2026-03-24 05:21:15 [INFO] __main__ — tunnel eppo-proxy.phantom.app:443 [b1441651]  открыт за ~1968 мс
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:15 [DEBUG] __main__ — [acdfd7db] <- data #138  2700B  seq=125
+2026-03-24 05:21:15 [DEBUG] __main__ — [b1441651] -> #1  1764B  seq=0
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc1] text-send  len=2418  action=data  ms=24
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:15 [DEBUG] __main__ — [acdfd7db] <- data #139  2700B  seq=127
+2026-03-24 05:21:15 [DEBUG] __main__ — [acdfd7db] -> #8  35B  seq=7
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc2] text-send  len=114  action=data  ms=16
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:15 [DEBUG] __main__ — [acdfd7db] <- data #140  2700B  seq=129
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:15 [DEBUG] __main__ — [acdfd7db] <- data #141  2700B  seq=131
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:15 [DEBUG] __main__ — [acdfd7db] <- data #142  2700B  seq=133
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:15 [DEBUG] __main__ — [acdfd7db] <- data #143  2700B  seq=135
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:15 [DEBUG] __main__ — [acdfd7db] <- data #144  2700B  seq=137
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:15 [DEBUG] __main__ — [acdfd7db] <- data #145  2700B  seq=139
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:15 [DEBUG] __main__ — [acdfd7db] <- data #146  2700B  seq=141
+2026-03-24 05:21:15 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:15 [DEBUG] __main__ — [acdfd7db] <- data #147  2700B  seq=143
+2026-03-24 05:21:16 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:16 [DEBUG] __main__ — [acdfd7db] <- data #148  2700B  seq=145
+2026-03-24 05:21:16 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:16 [DEBUG] __main__ — [acdfd7db] <- data #149  2700B  seq=147
+2026-03-24 05:21:16 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:16 [DEBUG] __main__ — [acdfd7db] <- data #150  2700B  seq=149
+2026-03-24 05:21:16 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:16 [DEBUG] __main__ — [acdfd7db] <- data #151  2700B  seq=151
+2026-03-24 05:21:16 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:16 [DEBUG] __main__ — [acdfd7db] <- data #152  2700B  seq=153
+2026-03-24 05:21:16 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:16 [DEBUG] __main__ — [acdfd7db] <- data #153  2700B  seq=155
+2026-03-24 05:21:16 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:16 [DEBUG] __main__ — [acdfd7db] <- data #154  2700B  seq=157
+2026-03-24 05:21:16 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:16 [DEBUG] __main__ — [acdfd7db] <- data #155  2700B  seq=159
+2026-03-24 05:21:16 [DEBUG] __main__ — [transport:acc2] gap ms=141..141, sending nack
+2026-03-24 05:21:16 [DEBUG] __main__ — tunnel data.phantom.app:443 [ff748f3c]  no ok in 2s, retrying connect
+2026-03-24 05:21:16 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=91  action=connect  ms=25
+2026-03-24 05:21:16 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:16 [DEBUG] __main__ — [transport:acc2] text-recv  action=ok  id=88020d48
+2026-03-24 05:21:16 [DEBUG] __main__ — [acdfd7db] <- data #156  2700B  seq=161
+2026-03-24 05:21:16 [DEBUG] __main__ — [88020d48] <- ok
+2026-03-24 05:21:16 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:16 [INFO] __main__ — tunnel blowfish-blocklist-proxy.phantom.app:443 [88020d48]  открыт за ~1904 мс
+2026-03-24 05:21:16 [DEBUG] __main__ — [acdfd7db] <- data #157  2700B  seq=163
+2026-03-24 05:21:16 [DEBUG] __main__ — [88020d48] -> #1  1810B  seq=0
+2026-03-24 05:21:16 [DEBUG] __main__ — [transport:acc1] text-send  len=2482  action=data  ms=26
+2026-03-24 05:21:16 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:16 [DEBUG] __main__ — [acdfd7db] <- data #158  2700B  seq=165
+2026-03-24 05:21:16 [DEBUG] __main__ — tunnel polkadot.js.org:443 [06d32aed]  no ok in 3s, retrying connect
+2026-03-24 05:21:16 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=90  action=connect  ms=27
+2026-03-24 05:21:19 [DEBUG] __main__ — tunnel data.phantom.app:443 [ff748f3c]  no ok in 3s, retrying connect
+2026-03-24 05:21:19 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=91  action=connect  ms=28
+2026-03-24 05:21:19 [DEBUG] __main__ — [transport:acc1] got nack ms=18..27
+2026-03-24 05:21:19 [DEBUG] __main__ — [transport:acc1] retransmit ms=18
+2026-03-24 05:21:19 [DEBUG] __main__ — [transport:acc1] retransmit ms=19
+2026-03-24 05:21:19 [DEBUG] __main__ — [transport:acc1] retransmit ms=20
+2026-03-24 05:21:19 [DEBUG] __main__ — [transport:acc1] retransmit ms=21
+2026-03-24 05:21:19 [DEBUG] __main__ — [transport:acc1] retransmit ms=22
+2026-03-24 05:21:19 [DEBUG] __main__ — [transport:acc1] retransmit capped at 5/nack
+2026-03-24 05:21:20 [DEBUG] __main__ — tunnel polkadot.js.org:443 [06d32aed]  no ok in 4s, retrying connect
+2026-03-24 05:21:20 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=90  action=connect  ms=29
+2026-03-24 05:21:23 [DEBUG] __main__ — tunnel data.phantom.app:443 [ff748f3c]  no ok in 4s, retrying connect
+2026-03-24 05:21:23 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=91  action=connect  ms=30
+2026-03-24 05:21:23 [DEBUG] __main__ — [transport:acc1] got nack ms=18..29
+2026-03-24 05:21:23 [DEBUG] __main__ — [transport:acc1] retransmit ms=18
+2026-03-24 05:21:23 [DEBUG] __main__ — [transport:acc1] retransmit ms=19
+2026-03-24 05:21:23 [DEBUG] __main__ — [transport:acc1] retransmit ms=20
+2026-03-24 05:21:23 [DEBUG] __main__ — [transport:acc1] retransmit ms=21
+2026-03-24 05:21:23 [DEBUG] __main__ — [transport:acc1] retransmit ms=22
+2026-03-24 05:21:23 [DEBUG] __main__ — [transport:acc1] retransmit capped at 5/nack
+2026-03-24 05:21:25 [INFO] __main__ — tunnel polkadot.js.org:443 [06d32aed]  TIMEOUT
+2026-03-24 05:21:25 [INFO] __main__ — SOCKS5 → polkadot.js.org:443
+2026-03-24 05:21:25 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=90  action=connect  ms=31
+2026-03-24 05:21:27 [DEBUG] __main__ — tunnel polkadot.js.org:443 [842d02b4]  no ok in 2s, retrying connect
+2026-03-24 05:21:27 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=90  action=connect  ms=32
+2026-03-24 05:21:28 [INFO] __main__ — tunnel data.phantom.app:443 [ff748f3c]  TIMEOUT
+2026-03-24 05:21:28 [INFO] __main__ — SOCKS5 → data.phantom.app:443
+2026-03-24 05:21:28 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=91  action=connect  ms=17
+2026-03-24 05:21:28 [DEBUG] __main__ — [transport:acc2] gap ms=145..152, sending nack
+2026-03-24 05:21:29 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:29 [DEBUG] __main__ — [acdfd7db] <- data #159  2700B  seq=167
+2026-03-24 05:21:29 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:29 [DEBUG] __main__ — [acdfd7db] <- data #160  2700B  seq=169
+2026-03-24 05:21:30 [DEBUG] __main__ — [transport:acc2] gap ms=147..154, sending nack
+2026-03-24 05:21:30 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:30 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:30 [DEBUG] __main__ — [acdfd7db] <- data #161  2700B  seq=171
+2026-03-24 05:21:30 [DEBUG] __main__ — [acdfd7db] <- data #162  2700B  seq=173
+2026-03-24 05:21:30 [DEBUG] __main__ — tunnel data.phantom.app:443 [bb84f608]  no ok in 2s, retrying connect
+2026-03-24 05:21:30 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=91  action=connect  ms=18
+2026-03-24 05:21:30 [DEBUG] __main__ — tunnel polkadot.js.org:443 [842d02b4]  no ok in 3s, retrying connect
+2026-03-24 05:21:30 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=90  action=connect  ms=33
+2026-03-24 05:21:30 [DEBUG] __main__ — [transport:acc1] gap ms=139..154, sending nack
+2026-03-24 05:21:31 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:31 [DEBUG] __main__ — [acdfd7db] <- data #163  2700B  seq=150
+2026-03-24 05:21:31 [DEBUG] __main__ — [acdfd7db] -> #9  70B  seq=8
+2026-03-24 05:21:31 [DEBUG] __main__ — [transport:acc1] text-send  len=162  action=data  ms=34
+2026-03-24 05:21:31 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:31 [DEBUG] __main__ — [acdfd7db] <- data #164  2700B  seq=152
+2026-03-24 05:21:33 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 05:21:33 [DEBUG] __main__ — tunnel data.phantom.app:443 [bb84f608]  no ok in 3s, retrying connect
+2026-03-24 05:21:33 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=91  action=connect  ms=19
+2026-03-24 05:21:33 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 05:21:33 [DEBUG] __main__ — [transport:acc2] gap ms=149..156, sending nack
+2026-03-24 05:21:34 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:34 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:34 [DEBUG] __main__ — [acdfd7db] <- data #165  2700B  seq=175
+2026-03-24 05:21:34 [DEBUG] __main__ — [acdfd7db] <- data #166  2700B  seq=177
+2026-03-24 05:21:34 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:34 [DEBUG] __main__ — [acdfd7db] <- data #167  2700B  seq=179
+2026-03-24 05:21:34 [DEBUG] __main__ — tunnel polkadot.js.org:443 [842d02b4]  no ok in 4s, retrying connect
+2026-03-24 05:21:34 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=90  action=connect  ms=35
+2026-03-24 05:21:34 [INFO] __main__ — SOCKS5 → data.phantom.app:443
+2026-03-24 05:21:34 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=91  action=connect  ms=36
+2026-03-24 05:21:35 [DEBUG] __main__ — [transport:acc1] got nack ms=18..35
+2026-03-24 05:21:35 [DEBUG] __main__ — [transport:acc1] retransmit ms=18
+2026-03-24 05:21:35 [DEBUG] __main__ — [transport:acc1] retransmit ms=19
+2026-03-24 05:21:35 [DEBUG] __main__ — [transport:acc1] retransmit ms=20
+2026-03-24 05:21:35 [DEBUG] __main__ — [transport:acc1] retransmit ms=21
+2026-03-24 05:21:35 [DEBUG] __main__ — [transport:acc1] retransmit ms=22
+2026-03-24 05:21:35 [DEBUG] __main__ — [transport:acc1] retransmit capped at 5/nack
+2026-03-24 05:21:36 [DEBUG] __main__ — tunnel data.phantom.app:443 [ebf42dc0]  no ok in 2s, retrying connect
+2026-03-24 05:21:36 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=91  action=connect  ms=37
+2026-03-24 05:21:37 [DEBUG] __main__ — tunnel data.phantom.app:443 [bb84f608]  no ok in 4s, retrying connect
+2026-03-24 05:21:37 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=91  action=connect  ms=20
+2026-03-24 05:21:37 [DEBUG] __main__ — [transport:acc2] gap ms=152..157, sending nack
+2026-03-24 05:21:38 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=acdfd7db
+2026-03-24 05:21:38 [DEBUG] __main__ — [transport:acc2] text-recv  action=ok  id=bb84f608
+2026-03-24 05:21:38 [DEBUG] __main__ — [transport:acc2] text-recv  action=closed  id=b1441651
+2026-03-24 05:21:38 [DEBUG] __main__ — [transport:acc2] text-recv  action=closed  id=88020d48
+2026-03-24 05:21:38 [DEBUG] __main__ — [transport:acc2] text-recv  action=ok  id=bb84f608
+2026-03-24 05:21:38 [DEBUG] __main__ — [transport:acc2] text-recv  action=ok  id=bb84f608
+2026-03-24 05:21:38 [DEBUG] __main__ — [transport:acc2] text-recv  action=ok  id=bb84f608
+2026-03-24 05:21:38 [DEBUG] __main__ — [acdfd7db] <- data #168  110B  seq=181
+2026-03-24 05:21:38 [DEBUG] __main__ — [bb84f608] <- ok
+2026-03-24 05:21:38 [DEBUG] __main__ — [b1441651] <- closed by server
+2026-03-24 05:21:38 [DEBUG] __main__ — [88020d48] <- closed by server
+2026-03-24 05:21:38 [DEBUG] __main__ — [bb84f608] <- ok
+2026-03-24 05:21:38 [DEBUG] __main__ — [bb84f608] <- ok
+2026-03-24 05:21:38 [DEBUG] __main__ — [bb84f608] <- ok
+2026-03-24 05:21:38 [INFO] __main__ — tunnel data.phantom.app:443 [bb84f608]  открыт за ~9648 мс
+2026-03-24 05:21:38 [DEBUG] __main__ — [bb84f608] -> #1  1726B  seq=0
+2026-03-24 05:21:38 [DEBUG] __main__ — [transport:acc1] text-send  len=2370  action=data  ms=38
+2026-03-24 05:21:38 [DEBUG] __main__ — [transport:acc1] got nack ms=18..37
+2026-03-24 05:21:38 [DEBUG] __main__ — [transport:acc1] retransmit ms=18
+2026-03-24 05:21:38 [DEBUG] __main__ — [transport:acc1] retransmit ms=19
+2026-03-24 05:21:38 [DEBUG] __main__ — [transport:acc1] retransmit ms=20
+2026-03-24 05:21:38 [DEBUG] __main__ — [transport:acc1] retransmit ms=21
+2026-03-24 05:21:38 [DEBUG] __main__ — [transport:acc1] retransmit ms=22
+2026-03-24 05:21:38 [DEBUG] __main__ — [transport:acc1] retransmit capped at 5/nack
+2026-03-24 05:21:39 [INFO] __main__ — tunnel polkadot.js.org:443 [842d02b4]  TIMEOUT
+2026-03-24 05:21:39 [DEBUG] __main__ — tunnel data.phantom.app:443 [ebf42dc0]  no ok in 3s, retrying connect
+2026-03-24 05:21:39 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=91  action=connect  ms=39
+2026-03-24 05:21:41 [DEBUG] __main__ — [d535a0bf] local EOF
+2026-03-24 05:21:41 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=65  action=close  ms=21
+2026-03-24 05:21:41 [DEBUG] __main__ — [0a572c2c] local EOF
+2026-03-24 05:21:41 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=65  action=close  ms=40
+2026-03-24 05:21:41 [DEBUG] __main__ — [4f4ecf91] local EOF
+2026-03-24 05:21:41 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=65  action=close  ms=22
+2026-03-24 05:21:41 [DEBUG] __main__ — [transport:acc1] got nack ms=18..39
+2026-03-24 05:21:41 [DEBUG] __main__ — [transport:acc1] retransmit ms=18
+2026-03-24 05:21:41 [DEBUG] __main__ — [transport:acc1] retransmit ms=19
+2026-03-24 05:21:41 [DEBUG] __main__ — [transport:acc1] retransmit ms=20
+2026-03-24 05:21:41 [DEBUG] __main__ — [transport:acc1] retransmit ms=21
+2026-03-24 05:21:41 [DEBUG] __main__ — [transport:acc1] retransmit ms=22
+2026-03-24 05:21:41 [DEBUG] __main__ — [transport:acc1] retransmit capped at 5/nack
+2026-03-24 05:21:41 [INFO] __main__ — DONE avatars.mds.yandex.net:443 [d535a0bf] | ↑1796B/1f (0.1 КБ/с)  ↓0B/0f (0.0 КБ/с)  30.0s
+2026-03-24 05:21:42 [INFO] __main__ — DONE yastatic.net:443 [0a572c2c] | ↑1786B/1f (0.1 КБ/с)  ↓0B/0f (0.0 КБ/с)  30.0s
+2026-03-24 05:21:42 [INFO] __main__ — DONE an.yandex.ru:443 [4f4ecf91] | ↑1818B/1f (0.1 КБ/с)  ↓0B/0f (0.0 КБ/с)  30.0s
+2026-03-24 05:21:43 [DEBUG] __main__ — [b1441651] local EOF
+2026-03-24 05:21:43 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=65  action=close  ms=23
+2026-03-24 05:21:43 [INFO] __main__ — DONE eppo-proxy.phantom.app:443 [b1441651] | ↑1764B/1f (0.1 КБ/с)  ↓0B/0f (0.0 КБ/с)  28.0s
+2026-03-24 05:21:43 [DEBUG] __main__ — tunnel data.phantom.app:443 [ebf42dc0]  no ok in 4s, retrying connect
+2026-03-24 05:21:43 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=91  action=connect  ms=41
+2026-03-24 05:21:43 [DEBUG] __main__ — [transport:acc2] text-recv  action=closed  id=bb84f608
+2026-03-24 05:21:43 [DEBUG] __main__ — [bb84f608] <- closed by server
+2026-03-24 05:21:44 [DEBUG] __main__ — [88020d48] local EOF
+2026-03-24 05:21:44 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=65  action=close  ms=24
+2026-03-24 05:21:44 [INFO] __main__ — DONE blowfish-blocklist-proxy.phantom.app:443 [88020d48] | ↑1810B/1f (0.1 КБ/с)  ↓0B/0f (0.0 КБ/с)  28.1s
+2026-03-24 05:21:48 [INFO] __main__ — tunnel data.phantom.app:443 [ebf42dc0]  TIMEOUT
+2026-03-24 05:21:48 [INFO] __main__ — SOCKS5 → data.phantom.app:443
+2026-03-24 05:21:48 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=91  action=connect  ms=25
+2026-03-24 05:21:49 [DEBUG] __main__ — [transport:acc2] text-recv  action=ok  id=66d40fbb
+2026-03-24 05:21:49 [DEBUG] __main__ — [66d40fbb] <- ok
+2026-03-24 05:21:49 [INFO] __main__ — tunnel data.phantom.app:443 [66d40fbb]  открыт за ~354 мс
+2026-03-24 05:21:49 [DEBUG] __main__ — [66d40fbb] -> #1  1726B  seq=0
+2026-03-24 05:21:49 [DEBUG] __main__ — [transport:acc1] text-send  len=2370  action=data  ms=42
+2026-03-24 05:21:49 [DEBUG] __main__ — [transport:acc1] got nack ms=18..41
+2026-03-24 05:21:49 [DEBUG] __main__ — [transport:acc1] retransmit ms=18
+2026-03-24 05:21:49 [DEBUG] __main__ — [transport:acc1] retransmit ms=19
+2026-03-24 05:21:49 [DEBUG] __main__ — [transport:acc1] retransmit ms=20
+2026-03-24 05:21:49 [DEBUG] __main__ — [transport:acc1] retransmit ms=21
+2026-03-24 05:21:49 [DEBUG] __main__ — [transport:acc1] retransmit ms=22
+2026-03-24 05:21:49 [DEBUG] __main__ — [transport:acc1] retransmit capped at 5/nack
+2026-03-24 05:21:56 [INFO] __main__ — SOCKS5 → api.github.com:443
+2026-03-24 05:21:56 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=89  action=connect  ms=43
+2026-03-24 05:21:57 [DEBUG] __main__ — [transport:acc1] got nack ms=18..42
+2026-03-24 05:21:57 [DEBUG] __main__ — [transport:acc1] retransmit ms=18
+2026-03-24 05:21:57 [DEBUG] __main__ — [transport:acc1] retransmit ms=19
+2026-03-24 05:21:57 [DEBUG] __main__ — [transport:acc1] retransmit ms=20
+2026-03-24 05:21:57 [DEBUG] __main__ — [transport:acc1] retransmit ms=21
+2026-03-24 05:21:57 [DEBUG] __main__ — [transport:acc1] retransmit ms=22
+2026-03-24 05:21:57 [DEBUG] __main__ — [transport:acc1] retransmit capped at 5/nack
+2026-03-24 05:21:58 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 05:21:58 [DEBUG] __main__ — [bb84f608] local EOF
+2026-03-24 05:21:58 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=65  action=close  ms=26
+2026-03-24 05:21:58 [INFO] __main__ — DONE data.phantom.app:443 [bb84f608] | ↑1726B/1f (0.1 КБ/с)  ↓0B/0f (0.0 КБ/с)  20.4s
+2026-03-24 05:21:58 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 05:21:58 [INFO] __main__ — SOCKS5 → data.phantom.app:443
+2026-03-24 05:21:58 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=91  action=connect  ms=27
+2026-03-24 05:21:58 [DEBUG] __main__ — tunnel api.github.com:443 [68129ae2]  no ok in 2s, retrying connect
+2026-03-24 05:21:58 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=89  action=connect  ms=44
+2026-03-24 05:21:59 [DEBUG] __main__ — [transport:acc2] text-recv  action=ok  id=8a5f90f0
+2026-03-24 05:21:59 [DEBUG] __main__ — [8a5f90f0] <- ok
+2026-03-24 05:21:59 [INFO] __main__ — tunnel data.phantom.app:443 [8a5f90f0]  открыт за ~357 мс
+2026-03-24 05:21:59 [DEBUG] __main__ — [8a5f90f0] -> #1  1758B  seq=0
+2026-03-24 05:21:59 [DEBUG] __main__ — [transport:acc1] text-send  len=2410  action=data  ms=45
+2026-03-24 05:21:59 [DEBUG] __main__ — [transport:acc1] got nack ms=18..43
+2026-03-24 05:21:59 [DEBUG] __main__ — [transport:acc1] retransmit ms=18
+2026-03-24 05:21:59 [DEBUG] __main__ — [transport:acc1] retransmit ms=19
+2026-03-24 05:21:59 [DEBUG] __main__ — [transport:acc1] retransmit ms=20
+2026-03-24 05:21:59 [DEBUG] __main__ — [transport:acc1] retransmit ms=21
+2026-03-24 05:21:59 [DEBUG] __main__ — [transport:acc1] retransmit ms=22
+2026-03-24 05:21:59 [DEBUG] __main__ — [transport:acc1] retransmit capped at 5/nack
+2026-03-24 05:22:01 [WARNING] __main__ — [acdfd7db] reorder stall: seq=154 missing for 30s, buf=14 frames — closing
+2026-03-24 05:22:01 [DEBUG] __main__ — tunnel api.github.com:443 [68129ae2]  no ok in 3s, retrying connect
+2026-03-24 05:22:01 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=89  action=connect  ms=46
+2026-03-24 05:22:02 [DEBUG] __main__ — [transport:acc1] got nack ms=18..45
+2026-03-24 05:22:02 [DEBUG] __main__ — [transport:acc1] retransmit ms=18
+2026-03-24 05:22:02 [DEBUG] __main__ — [transport:acc1] retransmit ms=19
+2026-03-24 05:22:02 [DEBUG] __main__ — [transport:acc1] retransmit ms=20
+2026-03-24 05:22:02 [DEBUG] __main__ — [transport:acc1] retransmit ms=21
+2026-03-24 05:22:02 [DEBUG] __main__ — [transport:acc1] retransmit ms=22
+2026-03-24 05:22:02 [DEBUG] __main__ — [transport:acc1] retransmit capped at 5/nack
+2026-03-24 05:22:04 [DEBUG] __main__ — [transport:acc2] text-recv  action=closed  id=66d40fbb
+2026-03-24 05:22:04 [DEBUG] __main__ — [66d40fbb] <- closed by server
+2026-03-24 05:22:05 [DEBUG] __main__ — tunnel api.github.com:443 [68129ae2]  no ok in 4s, retrying connect
+2026-03-24 05:22:05 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=89  action=connect  ms=47
+2026-03-24 05:22:06 [DEBUG] __main__ — [transport:acc1] got nack ms=18..46
+2026-03-24 05:22:06 [DEBUG] __main__ — [transport:acc1] retransmit ms=18
+2026-03-24 05:22:06 [DEBUG] __main__ — [transport:acc1] retransmit ms=19
+2026-03-24 05:22:06 [DEBUG] __main__ — [transport:acc1] retransmit ms=20
+2026-03-24 05:22:06 [DEBUG] __main__ — [transport:acc1] retransmit ms=21
+2026-03-24 05:22:06 [DEBUG] __main__ — [transport:acc1] retransmit ms=22
+2026-03-24 05:22:06 [DEBUG] __main__ — [transport:acc1] retransmit capped at 5/nack
+2026-03-24 05:22:10 [INFO] __main__ — tunnel api.github.com:443 [68129ae2]  TIMEOUT
+2026-03-24 05:22:11 [INFO] __main__ — SOCKS5 → api.github.com:443
+2026-03-24 05:22:11 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=89  action=connect  ms=48
+2026-03-24 05:22:11 [DEBUG] __main__ — [transport:acc1] got nack ms=18..47
+2026-03-24 05:22:11 [DEBUG] __main__ — [transport:acc1] retransmit ms=18
+2026-03-24 05:22:11 [DEBUG] __main__ — [transport:acc1] retransmit ms=19
+2026-03-24 05:22:11 [DEBUG] __main__ — [transport:acc1] retransmit ms=20
+2026-03-24 05:22:11 [DEBUG] __main__ — [transport:acc1] retransmit ms=21
+2026-03-24 05:22:11 [DEBUG] __main__ — [transport:acc1] retransmit ms=22
+2026-03-24 05:22:11 [DEBUG] __main__ — [transport:acc1] retransmit capped at 5/nack
+2026-03-24 05:22:11 [DEBUG] __main__ — [transport:acc2] text-recv  action=closed  id=d535a0bf
+2026-03-24 05:22:11 [DEBUG] __main__ — [d535a0bf] <- closed by server
+2026-03-24 05:22:12 [DEBUG] __main__ — [transport:acc1] gap ms=141..156, sending nack
+2026-03-24 05:22:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:22:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:22:12 [DEBUG] __main__ — [acdfd7db] <- data #169  2700B  seq=154
+2026-03-24 05:22:12 [DEBUG] __main__ — [acdfd7db] <- data #170  2700B  seq=156
+2026-03-24 05:22:12 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=acdfd7db
+2026-03-24 05:22:12 [DEBUG] __main__ — [acdfd7db] <- data #171  2700B  seq=158
+2026-03-24 05:22:13 [DEBUG] __main__ — tunnel api.github.com:443 [772da484]  no ok in 2s, retrying connect
+2026-03-24 05:22:13 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=89  action=connect  ms=49
+2026-03-24 05:22:13 [DEBUG] __main__ — [transport:acc1] got nack ms=18..48
+2026-03-24 05:22:13 [DEBUG] __main__ — [transport:acc1] retransmit ms=18
+2026-03-24 05:22:13 [DEBUG] __main__ — [transport:acc1] retransmit ms=19
+2026-03-24 05:22:13 [DEBUG] __main__ — [transport:acc1] retransmit ms=20
+2026-03-24 05:22:13 [DEBUG] __main__ — [transport:acc1] retransmit ms=21
+2026-03-24 05:22:13 [DEBUG] __main__ — [transport:acc1] retransmit ms=22
+2026-03-24 05:22:13 [DEBUG] __main__ — [transport:acc1] retransmit capped at 5/nack
+2026-03-24 05:22:14 [DEBUG] __main__ — [transport:acc2] text-recv  action=closed  id=8a5f90f0
+2026-03-24 05:22:14 [DEBUG] __main__ — [8a5f90f0] <- closed by server
+2026-03-24 05:22:16 [DEBUG] __main__ — tunnel api.github.com:443 [772da484]  no ok in 3s, retrying connect
+2026-03-24 05:22:16 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=89  action=connect  ms=50
+2026-03-24 05:22:16 [DEBUG] __main__ — [transport:acc1] got nack ms=18..49
+2026-03-24 05:22:16 [DEBUG] __main__ — [transport:acc1] retransmit ms=18
+2026-03-24 05:22:16 [DEBUG] __main__ — [transport:acc1] retransmit ms=19
+2026-03-24 05:22:16 [DEBUG] __main__ — [transport:acc1] retransmit ms=20
+2026-03-24 05:22:16 [DEBUG] __main__ — [transport:acc1] retransmit ms=21
+2026-03-24 05:22:16 [DEBUG] __main__ — [transport:acc1] retransmit ms=22
+2026-03-24 05:22:16 [DEBUG] __main__ — [transport:acc1] retransmit capped at 5/nack
+2026-03-24 05:22:16 [INFO] __main__ — SOCKS5 → api.github.com:443
+2026-03-24 05:22:16 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=89  action=connect  ms=28
+2026-03-24 05:22:17 [DEBUG] __main__ — [transport:acc2] text-recv  action=ok  id=3003a5da
+2026-03-24 05:22:17 [DEBUG] __main__ — [3003a5da] <- ok
+2026-03-24 05:22:17 [INFO] __main__ — tunnel api.github.com:443 [3003a5da]  открыт за ~363 мс
+2026-03-24 05:22:17 [DEBUG] __main__ — [3003a5da] -> #1  1820B  seq=0
+2026-03-24 05:22:17 [DEBUG] __main__ — [transport:acc1] text-send  len=2494  action=data  ms=51
+2026-03-24 05:22:17 [DEBUG] __main__ — [transport:acc1] got nack ms=18..50
+2026-03-24 05:22:17 [DEBUG] __main__ — [transport:acc1] retransmit ms=18
+2026-03-24 05:22:17 [DEBUG] __main__ — [transport:acc1] retransmit ms=19
+2026-03-24 05:22:17 [DEBUG] __main__ — [transport:acc1] retransmit ms=20
+2026-03-24 05:22:17 [DEBUG] __main__ — [transport:acc1] retransmit ms=21
+2026-03-24 05:22:17 [DEBUG] __main__ — [transport:acc1] retransmit ms=22
+2026-03-24 05:22:17 [DEBUG] __main__ — [transport:acc1] retransmit capped at 5/nack
+2026-03-24 05:22:18 [DEBUG] __main__ — [66d40fbb] local EOF
+2026-03-24 05:22:18 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=65  action=close  ms=29
+2026-03-24 05:22:18 [INFO] __main__ — DONE data.phantom.app:443 [66d40fbb] | ↑1726B/1f (0.1 КБ/с)  ↓0B/0f (0.0 КБ/с)  29.6s
+2026-03-24 05:22:19 [INFO] __main__ — SOCKS5 → data.phantom.app:443
+2026-03-24 05:22:19 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=91  action=connect  ms=52
+2026-03-24 05:22:20 [DEBUG] __main__ — tunnel api.github.com:443 [772da484]  no ok in 4s, retrying connect
+2026-03-24 05:22:20 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=89  action=connect  ms=53
+2026-03-24 05:22:21 [DEBUG] __main__ — tunnel data.phantom.app:443 [c43ff6b4]  no ok in 2s, retrying connect
+2026-03-24 05:22:21 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=91  action=connect  ms=54
+2026-03-24 05:22:23 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 05:22:23 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 05:22:24 [DEBUG] __main__ — tunnel data.phantom.app:443 [c43ff6b4]  no ok in 3s, retrying connect
+2026-03-24 05:22:24 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=91  action=connect  ms=55
+2026-03-24 05:22:24 [DEBUG] __main__ — [transport:acc1] got nack ms=18..54
+2026-03-24 05:22:24 [DEBUG] __main__ — [transport:acc1] retransmit ms=18
+2026-03-24 05:22:24 [DEBUG] __main__ — [transport:acc1] retransmit ms=19
+2026-03-24 05:22:24 [DEBUG] __main__ — [transport:acc1] retransmit ms=20
+2026-03-24 05:22:24 [DEBUG] __main__ — [transport:acc1] retransmit ms=21
+2026-03-24 05:22:24 [DEBUG] __main__ — [transport:acc1] retransmit ms=22
+2026-03-24 05:22:24 [DEBUG] __main__ — [transport:acc1] retransmit capped at 5/nack
+2026-03-24 05:22:25 [INFO] __main__ — tunnel api.github.com:443 [772da484]  TIMEOUT
+2026-03-24 05:22:28 [DEBUG] __main__ — tunnel data.phantom.app:443 [c43ff6b4]  no ok in 4s, retrying connect
+2026-03-24 05:22:28 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=91  action=connect  ms=56
+2026-03-24 05:22:28 [DEBUG] __main__ — [transport:acc1] got nack ms=18..55
+2026-03-24 05:22:28 [DEBUG] __main__ — [transport:acc1] retransmit ms=18
+2026-03-24 05:22:28 [DEBUG] __main__ — [transport:acc1] retransmit ms=19
+2026-03-24 05:22:28 [DEBUG] __main__ — [transport:acc1] retransmit ms=20
+2026-03-24 05:22:28 [DEBUG] __main__ — [transport:acc1] retransmit ms=21
+2026-03-24 05:22:28 [DEBUG] __main__ — [transport:acc1] retransmit ms=22
+2026-03-24 05:22:28 [DEBUG] __main__ — [transport:acc1] retransmit capped at 5/nack
+2026-03-24 05:22:28 [DEBUG] __main__ — [8a5f90f0] local EOF
+2026-03-24 05:22:28 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=65  action=close  ms=30
+2026-03-24 05:22:28 [INFO] __main__ — DONE data.phantom.app:443 [8a5f90f0] | ↑1758B/1f (0.1 КБ/с)  ↓0B/0f (0.0 КБ/с)  29.6s
+2026-03-24 05:22:29 [INFO] __main__ — SOCKS5 → data.phantom.app:443
+2026-03-24 05:22:29 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=91  action=connect  ms=31
+2026-03-24 05:22:31 [DEBUG] __main__ — tunnel data.phantom.app:443 [100da21c]  no ok in 2s, retrying connect
+2026-03-24 05:22:31 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=91  action=connect  ms=32
+2026-03-24 05:22:33 [INFO] __main__ — tunnel data.phantom.app:443 [c43ff6b4]  TIMEOUT
+2026-03-24 05:22:33 [INFO] __main__ — SOCKS5 → data.phantom.app:443
+2026-03-24 05:22:33 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=91  action=connect  ms=57
+2026-03-24 05:22:33 [DEBUG] __main__ — [transport:acc1] got nack ms=18..56
+2026-03-24 05:22:33 [DEBUG] __main__ — [transport:acc1] retransmit ms=18
+2026-03-24 05:22:33 [DEBUG] __main__ — [transport:acc1] retransmit ms=19
+2026-03-24 05:22:33 [DEBUG] __main__ — [transport:acc1] retransmit ms=20
+2026-03-24 05:22:33 [DEBUG] __main__ — [transport:acc1] retransmit ms=21
+2026-03-24 05:22:33 [DEBUG] __main__ — [transport:acc1] retransmit ms=22
+2026-03-24 05:22:33 [DEBUG] __main__ — [transport:acc1] retransmit capped at 5/nack
+2026-03-24 05:22:34 [DEBUG] __main__ — tunnel data.phantom.app:443 [100da21c]  no ok in 3s, retrying connect
+2026-03-24 05:22:34 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=91  action=connect  ms=33
+2026-03-24 05:22:35 [DEBUG] __main__ — tunnel data.phantom.app:443 [6484fb82]  no ok in 2s, retrying connect
+2026-03-24 05:22:35 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=91  action=connect  ms=58
+2026-03-24 05:22:38 [DEBUG] __main__ — tunnel data.phantom.app:443 [100da21c]  no ok in 4s, retrying connect
+2026-03-24 05:22:38 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=91  action=connect  ms=34
+2026-03-24 05:22:38 [DEBUG] __main__ — tunnel data.phantom.app:443 [6484fb82]  no ok in 3s, retrying connect
+2026-03-24 05:22:38 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=91  action=connect  ms=59
+2026-03-24 05:22:38 [DEBUG] __main__ — [transport:acc1] got nack ms=18..58
+2026-03-24 05:22:38 [DEBUG] __main__ — [transport:acc1] retransmit ms=18
+2026-03-24 05:22:38 [DEBUG] __main__ — [transport:acc1] retransmit ms=19
+2026-03-24 05:22:38 [DEBUG] __main__ — [transport:acc1] retransmit ms=20
+2026-03-24 05:22:38 [DEBUG] __main__ — [transport:acc1] retransmit ms=21
+2026-03-24 05:22:38 [DEBUG] __main__ — [transport:acc1] retransmit ms=22
+2026-03-24 05:22:38 [DEBUG] __main__ — [transport:acc1] retransmit capped at 5/nack
+2026-03-24 05:22:39 [INFO] __main__ — SOCKS5 → 188.40.167.82:443
+2026-03-24 05:22:39 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=88  action=connect  ms=35
+2026-03-24 05:22:41 [DEBUG] __main__ — tunnel 188.40.167.82:443 [7dd44924]  no ok in 2s, retrying connect
+2026-03-24 05:22:41 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=88  action=connect  ms=36
+2026-03-24 05:22:42 [DEBUG] __main__ — tunnel data.phantom.app:443 [6484fb82]  no ok in 4s, retrying connect
+2026-03-24 05:22:42 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=91  action=connect  ms=60
+2026-03-24 05:22:42 [WARNING] __main__ — [acdfd7db] reorder stall: seq=160 missing for 30s, buf=11 frames — closing
+2026-03-24 05:22:42 [DEBUG] __main__ — [transport:acc1] got nack ms=18..59
+2026-03-24 05:22:42 [DEBUG] __main__ — [transport:acc1] retransmit ms=18
+2026-03-24 05:22:42 [DEBUG] __main__ — [transport:acc1] retransmit ms=19
+2026-03-24 05:22:42 [DEBUG] __main__ — [transport:acc1] retransmit ms=20
+2026-03-24 05:22:42 [DEBUG] __main__ — [transport:acc1] retransmit ms=21
+2026-03-24 05:22:42 [DEBUG] __main__ — [transport:acc1] retransmit ms=22
+2026-03-24 05:22:42 [DEBUG] __main__ — [transport:acc1] retransmit capped at 5/nack
+2026-03-24 05:22:43 [INFO] __main__ — tunnel data.phantom.app:443 [100da21c]  TIMEOUT
+2026-03-24 05:22:43 [INFO] __main__ — SOCKS5 → data.phantom.app:443
+2026-03-24 05:22:43 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=91  action=connect  ms=61
+2026-03-24 05:22:44 [DEBUG] __main__ — tunnel 188.40.167.82:443 [7dd44924]  no ok in 3s, retrying connect
+2026-03-24 05:22:44 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=88  action=connect  ms=37
+2026-03-24 05:22:45 [DEBUG] __main__ — tunnel data.phantom.app:443 [1ba15a89]  no ok in 2s, retrying connect
+2026-03-24 05:22:45 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=91  action=connect  ms=62
+2026-03-24 05:22:47 [DEBUG] __main__ — [3003a5da] local EOF
+2026-03-24 05:22:47 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=65  action=close  ms=38
+2026-03-24 05:22:47 [INFO] __main__ — tunnel data.phantom.app:443 [6484fb82]  TIMEOUT
+2026-03-24 05:22:47 [INFO] __main__ — DONE api.github.com:443 [3003a5da] | ↑1820B/1f (0.1 КБ/с)  ↓0B/0f (0.0 КБ/с)  30.0s
+2026-03-24 05:22:48 [INFO] __main__ — SOCKS5 → data.phantom.app:443
+2026-03-24 05:22:48 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=91  action=connect  ms=39
+2026-03-24 05:22:48 [DEBUG] __main__ — tunnel data.phantom.app:443 [1ba15a89]  no ok in 3s, retrying connect
+2026-03-24 05:22:48 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=91  action=connect  ms=63
+2026-03-24 05:22:48 [DEBUG] __main__ — tunnel 188.40.167.82:443 [7dd44924]  no ok in 4s, retrying connect
+2026-03-24 05:22:48 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=88  action=connect  ms=40
+2026-03-24 05:22:48 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 05:22:48 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 05:22:50 [DEBUG] __main__ — tunnel data.phantom.app:443 [8b09f979]  no ok in 2s, retrying connect
+2026-03-24 05:22:50 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=91  action=connect  ms=41
+2026-03-24 05:22:52 [DEBUG] __main__ — tunnel data.phantom.app:443 [1ba15a89]  no ok in 4s, retrying connect
+2026-03-24 05:22:52 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=91  action=connect  ms=64
+2026-03-24 05:22:52 [DEBUG] __main__ — [transport:acc1] got nack ms=18..63
+2026-03-24 05:22:52 [DEBUG] __main__ — [transport:acc1] retransmit ms=18
+2026-03-24 05:22:52 [DEBUG] __main__ — [transport:acc1] retransmit ms=19
+2026-03-24 05:22:52 [DEBUG] __main__ — [transport:acc1] retransmit ms=20
+2026-03-24 05:22:52 [DEBUG] __main__ — [transport:acc1] retransmit ms=21
+2026-03-24 05:22:52 [DEBUG] __main__ — [transport:acc1] retransmit ms=22
+2026-03-24 05:22:52 [DEBUG] __main__ — [transport:acc1] retransmit capped at 5/nack
+2026-03-24 05:22:53 [DEBUG] __main__ — tunnel data.phantom.app:443 [8b09f979]  no ok in 3s, retrying connect
+2026-03-24 05:22:53 [DEBUG] __main__ — [transport:acc2] ctrl-send  len=91  action=connect  ms=42
+2026-03-24 05:22:53 [INFO] __main__ — tunnel 188.40.167.82:443 [7dd44924]  TIMEOUT
+2026-03-24 05:22:56 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x74fed341dd20>
+2026-03-24 05:22:56 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x74fed3468160>

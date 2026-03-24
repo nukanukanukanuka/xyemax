@@ -1,0 +1,231 @@
+2026-03-24 11:07:49 [INFO] __main__ — SOCKS5 запущен  127.0.0.1:1080  transports=2
+2026-03-24 11:07:50 [INFO] __main__ — Авторизован [acc1], chatId=0 (self-chat)
+2026-03-24 11:07:50 [INFO] __main__ — Авторизован [acc2], chatId=0 (self-chat)
+2026-03-24 11:07:57 [INFO] __main__ — SOCKS5 → 81.19.72.32:443
+2026-03-24 11:07:57 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=85  action=connect  ms=0
+2026-03-24 11:07:57 [DEBUG] __main__ — [transport:acc1] text-recv  action=ok  id=1d844451
+2026-03-24 11:07:57 [DEBUG] __main__ — [1d844451] <- ok
+2026-03-24 11:07:57 [INFO] __main__ — tunnel 81.19.72.32:443 [1d844451]  открыт за ~305 мс
+2026-03-24 11:07:57 [DEBUG] __main__ — [1d844451] -> #1  517B  seq=0
+2026-03-24 11:07:57 [DEBUG] __main__ — [transport:acc1] text-send  len=757  action=data  ms=1
+2026-03-24 11:07:59 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2992632675  action=data
+2026-03-24 11:07:59 [DEBUG] __main__ — [1d844451] <- data #1  3740B  seq=0
+2026-03-24 11:07:59 [DEBUG] __main__ — [1d844451] -> #2  93B  seq=1
+2026-03-24 11:07:59 [DEBUG] __main__ — [transport:acc2] text-send  len=189  action=data  ms=0
+2026-03-24 11:08:00 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=1d844451
+2026-03-24 11:08:00 [DEBUG] __main__ — [1d844451] <- data #2  120B  seq=1
+2026-03-24 11:08:00 [DEBUG] __main__ — [1d844451] -> #3  253B  seq=2
+2026-03-24 11:08:00 [DEBUG] __main__ — [transport:acc1] text-send  len=405  action=data  ms=2
+2026-03-24 11:08:00 [DEBUG] __main__ — [transport:acc1] text-recv  action=data  id=1d844451
+2026-03-24 11:08:00 [DEBUG] __main__ — [1d844451] <- data #3  200B  seq=24
+2026-03-24 11:08:01 [DEBUG] __main__ — [transport:acc2] text-recv  action=data  id=1d844451
+2026-03-24 11:08:01 [DEBUG] __main__ — [1d844451] <- data #4  383B  seq=11
+2026-03-24 11:08:01 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2991410043  action=data
+2026-03-24 11:08:01 [DEBUG] __main__ — [1d844451] <- data #5  4000B  seq=2
+2026-03-24 11:08:01 [DEBUG] __main__ — [transport:acc2] file-recv  fileId=2986023813  action=data
+2026-03-24 11:08:01 [DEBUG] __main__ — [1d844451] <- data #6  4000B  seq=3
+2026-03-24 11:08:02 [DEBUG] __main__ — [transport:acc2] file-recv  fileId=2998488097  action=data
+2026-03-24 11:08:02 [DEBUG] __main__ — [1d844451] <- data #7  1859B  seq=5
+2026-03-24 11:08:02 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2993277288  action=data
+2026-03-24 11:08:02 [DEBUG] __main__ — [1d844451] <- data #8  4000B  seq=4
+2026-03-24 11:08:02 [DEBUG] __main__ — [transport:acc2] file-recv  fileId=2992757851  action=data
+2026-03-24 11:08:02 [DEBUG] __main__ — [1d844451] <- data #9  4000B  seq=7
+2026-03-24 11:08:02 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2994967213  action=data
+2026-03-24 11:08:02 [DEBUG] __main__ — [1d844451] <- data #10  2896B  seq=6
+2026-03-24 11:08:03 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2993119985  action=data
+2026-03-24 11:08:03 [DEBUG] __main__ — [1d844451] <- data #11  4000B  seq=8
+2026-03-24 11:08:03 [DEBUG] __main__ — [transport:acc2] file-recv  fileId=2991561691  action=data
+2026-03-24 11:08:03 [DEBUG] __main__ — [1d844451] <- data #12  4000B  seq=9
+2026-03-24 11:08:04 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2985671545  action=data
+2026-03-24 11:08:04 [DEBUG] __main__ — [1d844451] <- data #13  4000B  seq=10
+2026-03-24 11:08:04 [DEBUG] __main__ — [transport:acc2] file-recv  fileId=2989969587  action=data
+2026-03-24 11:08:04 [DEBUG] __main__ — [1d844451] <- data #14  4000B  seq=13
+2026-03-24 11:08:04 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2993845779  action=data
+2026-03-24 11:08:04 [DEBUG] __main__ — [1d844451] <- data #15  4000B  seq=12
+2026-03-24 11:08:04 [DEBUG] __main__ — [transport:acc2] file-recv  fileId=2992690219  action=data
+2026-03-24 11:08:04 [DEBUG] __main__ — [1d844451] <- data #16  4000B  seq=15
+2026-03-24 11:08:05 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2990380927  action=data
+2026-03-24 11:08:05 [DEBUG] __main__ — [1d844451] <- data #17  1681B  seq=14
+2026-03-24 11:08:05 [DEBUG] __main__ — [transport:acc2] file-recv  fileId=2985377424  action=data
+2026-03-24 11:08:05 [DEBUG] __main__ — [1d844451] <- data #18  4000B  seq=17
+2026-03-24 11:08:05 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2991937255  action=data
+2026-03-24 11:08:05 [DEBUG] __main__ — [1d844451] <- data #19  4000B  seq=16
+2026-03-24 11:08:06 [DEBUG] __main__ — [transport:acc2] file-recv  fileId=2997975816  action=data
+2026-03-24 11:08:06 [DEBUG] __main__ — [1d844451] <- data #20  4000B  seq=19
+2026-03-24 11:08:06 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2998050361  action=data
+2026-03-24 11:08:06 [DEBUG] __main__ — [1d844451] <- data #21  4000B  seq=18
+2026-03-24 11:08:06 [DEBUG] __main__ — [transport:acc2] file-recv  fileId=2986079600  action=data
+2026-03-24 11:08:06 [DEBUG] __main__ — [1d844451] <- data #22  4000B  seq=21
+2026-03-24 11:08:11 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2989040713  action=data
+2026-03-24 11:08:11 [DEBUG] __main__ — [1d844451] <- data #23  4000B  seq=20
+2026-03-24 11:08:11 [DEBUG] __main__ — [transport:acc2] file-recv  fileId=2996084689  action=data
+2026-03-24 11:08:11 [DEBUG] __main__ — [1d844451] <- data #24  4000B  seq=23
+2026-03-24 11:08:11 [DEBUG] __main__ — [transport:acc2] file-recv  fileId=2986282440  action=data
+2026-03-24 11:08:11 [DEBUG] __main__ — [1d844451] <- data #25  4000B  seq=31
+2026-03-24 11:08:11 [DEBUG] __main__ — [transport:acc2] file-recv  fileId=2998124624  action=data
+2026-03-24 11:08:11 [DEBUG] __main__ — [1d844451] <- data #26  4000B  seq=29
+2026-03-24 11:08:11 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2986025093  action=data
+2026-03-24 11:08:11 [DEBUG] __main__ — [1d844451] <- data #27  4000B  seq=22
+2026-03-24 11:08:11 [DEBUG] __main__ — [transport:acc2] file-recv  fileId=2990528821  action=data
+2026-03-24 11:08:11 [DEBUG] __main__ — [1d844451] <- data #28  4000B  seq=25
+2026-03-24 11:08:11 [DEBUG] __main__ — [transport:acc2] file-recv  fileId=2985239444  action=data
+2026-03-24 11:08:11 [DEBUG] __main__ — [1d844451] <- data #29  4000B  seq=27
+2026-03-24 11:08:11 [DEBUG] __main__ — [transport:acc2] file-recv  fileId=2985378948  action=data
+2026-03-24 11:08:11 [DEBUG] __main__ — [1d844451] <- data #30  4000B  seq=33
+2026-03-24 11:08:11 [DEBUG] __main__ — [transport:acc2] file-recv  fileId=2988836832  action=data
+2026-03-24 11:08:11 [DEBUG] __main__ — [1d844451] <- data #31  4000B  seq=35
+2026-03-24 11:08:11 [DEBUG] __main__ — [transport:acc2] file-recv  fileId=2985862837  action=data
+2026-03-24 11:08:11 [DEBUG] __main__ — [1d844451] <- data #32  4000B  seq=37
+2026-03-24 11:08:11 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2990467767  action=data
+2026-03-24 11:08:11 [DEBUG] __main__ — [1d844451] <- data #33  4000B  seq=26
+2026-03-24 11:08:12 [DEBUG] __main__ — [transport:acc2] file-recv  fileId=2993494526  action=data
+2026-03-24 11:08:12 [DEBUG] __main__ — [1d844451] <- data #34  4000B  seq=39
+2026-03-24 11:08:12 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2995491799  action=data
+2026-03-24 11:08:12 [DEBUG] __main__ — [1d844451] <- data #35  4000B  seq=28
+2026-03-24 11:08:13 [DEBUG] __main__ — [transport:acc2] file-recv  fileId=2989624933  action=data
+2026-03-24 11:08:13 [DEBUG] __main__ — [1d844451] <- data #36  1037B  seq=41
+2026-03-24 11:08:13 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2997925664  action=data
+2026-03-24 11:08:13 [DEBUG] __main__ — [1d844451] <- data #37  4000B  seq=30
+2026-03-24 11:08:13 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2990667622  action=data
+2026-03-24 11:08:13 [DEBUG] __main__ — [1d844451] <- data #38  4000B  seq=32
+2026-03-24 11:08:14 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2985354652  action=data
+2026-03-24 11:08:14 [DEBUG] __main__ — [1d844451] <- data #39  4000B  seq=34
+2026-03-24 11:08:14 [DEBUG] __main__ — [transport:acc1] keepalive sent
+2026-03-24 11:08:14 [DEBUG] __main__ — [transport:acc2] keepalive sent
+2026-03-24 11:08:15 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2992335103  action=data
+2026-03-24 11:08:15 [DEBUG] __main__ — [1d844451] <- data #40  4000B  seq=36
+2026-03-24 11:08:15 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2992043157  action=data
+2026-03-24 11:08:15 [DEBUG] __main__ — [1d844451] <- data #41  4000B  seq=38
+2026-03-24 11:08:16 [DEBUG] __main__ — [transport:acc1] file-recv  fileId=2991680831  action=data
+2026-03-24 11:08:16 [DEBUG] __main__ — [1d844451] <- data #42  4000B  seq=40
+2026-03-24 11:08:16 [DEBUG] __main__ — [1d844451] -> #4  31B  seq=3
+2026-03-24 11:08:16 [DEBUG] __main__ — [transport:acc2] text-send  len=109  action=data  ms=1
+2026-03-24 11:08:16 [DEBUG] __main__ — [1d844451] local EOF
+2026-03-24 11:08:16 [DEBUG] __main__ — [transport:acc1] ctrl-send  len=64  action=close  ms=3
+2026-03-24 11:08:17 [INFO] __main__ — DONE 81.19.72.32:443 [1d844451] | ↑894B/4f (0.0 КБ/с)  ↓147916B/42f (7.4 КБ/с)  19.5s
+2026-03-24 11:08:21 [ERROR] asyncio — Fatal error on SSL transport
+protocol: <asyncio.sslproto.SSLProtocol object at 0x732135357c10>
+transport: <_SelectorSocketTransport closing fd=12>
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 924, in write
+    n = self._sock.send(data)
+OSError: [Errno 9] Bad file descriptor
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/sslproto.py", line 690, in _process_write_backlog
+    self._transport.write(chunk)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 930, in write
+    self._fatal_error(exc, 'Fatal write error on socket transport')
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 725, in _fatal_error
+    self._force_close(exc)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 737, in _force_close
+    self._loop.call_soon(self._call_connection_lost, exc)
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 753, in call_soon
+    self._check_closed()
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 515, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+2026-03-24 11:08:21 [ERROR] asyncio — Fatal error on SSL transport
+protocol: <asyncio.sslproto.SSLProtocol object at 0x7321353c8a00>
+transport: <_SelectorSocketTransport closing fd=13>
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 924, in write
+    n = self._sock.send(data)
+OSError: [Errno 9] Bad file descriptor
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/sslproto.py", line 690, in _process_write_backlog
+    self._transport.write(chunk)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 930, in write
+    self._fatal_error(exc, 'Fatal write error on socket transport')
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 725, in _fatal_error
+    self._force_close(exc)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 737, in _force_close
+    self._loop.call_soon(self._call_connection_lost, exc)
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 753, in call_soon
+    self._check_closed()
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 515, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+2026-03-24 11:08:21 [ERROR] asyncio — Fatal error on SSL transport
+protocol: <asyncio.sslproto.SSLProtocol object at 0x7321353c91e0>
+transport: <_SelectorSocketTransport closing fd=14>
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 924, in write
+    n = self._sock.send(data)
+OSError: [Errno 9] Bad file descriptor
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/sslproto.py", line 690, in _process_write_backlog
+    self._transport.write(chunk)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 930, in write
+    self._fatal_error(exc, 'Fatal write error on socket transport')
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 725, in _fatal_error
+    self._force_close(exc)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 737, in _force_close
+    self._loop.call_soon(self._call_connection_lost, exc)
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 753, in call_soon
+    self._check_closed()
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 515, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+2026-03-24 11:08:21 [ERROR] asyncio — Fatal error on SSL transport
+protocol: <asyncio.sslproto.SSLProtocol object at 0x7321353c94b0>
+transport: <_SelectorSocketTransport closing fd=15>
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 924, in write
+    n = self._sock.send(data)
+OSError: [Errno 9] Bad file descriptor
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/sslproto.py", line 690, in _process_write_backlog
+    self._transport.write(chunk)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 930, in write
+    self._fatal_error(exc, 'Fatal write error on socket transport')
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 725, in _fatal_error
+    self._force_close(exc)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 737, in _force_close
+    self._loop.call_soon(self._call_connection_lost, exc)
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 753, in call_soon
+    self._check_closed()
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 515, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+2026-03-24 11:08:21 [ERROR] asyncio — Unclosed connector
+connections: ['[(<aiohttp.client_proto.ResponseHandler object at 0x7321356ed4e0>, 125899.287619234)]']
+connector: <aiohttp.connector.TCPConnector object at 0x7321356e34f0>
+2026-03-24 11:08:21 [ERROR] asyncio — Unclosed connector
+connections: ['[(<aiohttp.client_proto.ResponseHandler object at 0x732135381660>, 125894.382655248), (<aiohttp.client_proto.ResponseHandler object at 0x732135380f40>, 125894.446399943), (<aiohttp.client_proto.ResponseHandler object at 0x7321353814e0>, 125894.589587256), (<aiohttp.client_proto.ResponseHandler object at 0x732135381300>, 125896.042609028)]']
+connector: <aiohttp.connector.TCPConnector object at 0x732135355b40>
+2026-03-24 11:08:21 [ERROR] asyncio — Fatal error on SSL transport
+protocol: <asyncio.sslproto.SSLProtocol object at 0x732135357fd0>
+transport: <_SelectorSocketTransport closing fd=11>
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 924, in write
+    n = self._sock.send(data)
+OSError: [Errno 9] Bad file descriptor
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/sslproto.py", line 690, in _process_write_backlog
+    self._transport.write(chunk)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 930, in write
+    self._fatal_error(exc, 'Fatal write error on socket transport')
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 725, in _fatal_error
+    self._force_close(exc)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 737, in _force_close
+    self._loop.call_soon(self._call_connection_lost, exc)
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 753, in call_soon
+    self._check_closed()
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 515, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed

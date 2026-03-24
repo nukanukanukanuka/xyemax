@@ -1,0 +1,12 @@
+2026-03-23 23:14:31 [INFO] __main__ — MAX Proxy SERVER запущен  viewer_id=240876353  api=https://telegram.mooner.pro/api/max/status  poll=30s
+2026-03-23 23:14:31 [INFO] __main__ — Восстановлено 1 сессий из sessions.json
+2026-03-23 23:14:31 [INFO] __main__ — [proxy:Андрей] WS подключение (chat_id=1400511)
+2026-03-23 23:14:32 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-23 23:14:32 [INFO] __main__ — Авторизован [server], chatId=1400511
+2026-03-23 23:14:57 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-23 23:15:02 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-23 23:15:22 [DEBUG] __main__ — [transport:server] keepalive sent
+2026-03-23 23:15:32 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-23 23:15:40 [INFO] __main__ — [proxy:Андрей] остановлен
+2026-03-23 23:15:40 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7c004ec3d990>

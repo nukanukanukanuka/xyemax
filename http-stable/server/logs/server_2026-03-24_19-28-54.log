@@ -1,0 +1,208 @@
+2026-03-24 19:28:54 [INFO] __main__ — Восстановлено 1 сессий
+2026-03-24 19:28:54 [INFO] __main__ — [proxy:self-chat] WS подключение (chat_id=0)
+2026-03-24 19:28:54 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 19:28:55 [INFO] __main__ — Авторизован [server:acc1], chatId=0
+2026-03-24 19:29:07 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2992487063 size=226
+2026-03-24 19:29:07 [INFO] __main__ — BATCH recv  id=3af0d12e7328  reqs=1
+2026-03-24 19:29:08 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:29:08 [INFO] __main__ — BATCH done  id=3af0d12e7328  reqs=1  payload=0КБ  file=0КБ  0.4s  0.0 КБ/с
+2026-03-24 19:29:09 [DEBUG] __main__ — [transport:acc1] published response fileId=3002060545 size=195
+2026-03-24 19:29:14 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2995361459 size=226
+2026-03-24 19:29:14 [INFO] __main__ — BATCH recv  id=20b068648f8c  reqs=1
+2026-03-24 19:29:14 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:29:14 [INFO] __main__ — BATCH done  id=20b068648f8c  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:29:15 [DEBUG] __main__ — [transport:acc1] published response fileId=3001387369 size=194
+2026-03-24 19:29:19 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2995577795 size=226
+2026-03-24 19:29:19 [INFO] __main__ — BATCH recv  id=0db9c04bb84d  reqs=1
+2026-03-24 19:29:20 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:29:20 [INFO] __main__ — BATCH done  id=0db9c04bb84d  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:29:20 [DEBUG] __main__ — [transport:acc1] published response fileId=2990008940 size=194
+2026-03-24 19:29:24 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 19:29:25 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2990843769 size=226
+2026-03-24 19:29:25 [INFO] __main__ — BATCH recv  id=01b785b1ab83  reqs=1
+2026-03-24 19:29:25 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:29:25 [INFO] __main__ — BATCH done  id=01b785b1ab83  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:29:25 [DEBUG] __main__ — [transport:acc1] published response fileId=3003013249 size=195
+2026-03-24 19:29:30 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3001932479 size=226
+2026-03-24 19:29:30 [INFO] __main__ — BATCH recv  id=4eda89bedaa3  reqs=1
+2026-03-24 19:29:30 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:29:30 [INFO] __main__ — BATCH done  id=4eda89bedaa3  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:29:31 [DEBUG] __main__ — [transport:acc1] published response fileId=3001388137 size=194
+2026-03-24 19:29:36 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2995635261 size=226
+2026-03-24 19:29:36 [INFO] __main__ — BATCH recv  id=3b42bdb097fe  reqs=1
+2026-03-24 19:29:36 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:29:36 [INFO] __main__ — BATCH done  id=3b42bdb097fe  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:29:37 [DEBUG] __main__ — [transport:acc1] published response fileId=3003271908 size=195
+2026-03-24 19:29:41 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2997549250 size=226
+2026-03-24 19:29:41 [INFO] __main__ — BATCH recv  id=b088a9735d19  reqs=1
+2026-03-24 19:29:41 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:29:41 [INFO] __main__ — BATCH done  id=b088a9735d19  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:29:42 [DEBUG] __main__ — [transport:acc1] published response fileId=2990482848 size=191
+2026-03-24 19:29:47 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2997366856 size=226
+2026-03-24 19:29:47 [INFO] __main__ — BATCH recv  id=5cd9169e4754  reqs=1
+2026-03-24 19:29:47 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:29:47 [INFO] __main__ — BATCH done  id=5cd9169e4754  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:29:48 [DEBUG] __main__ — [transport:acc1] published response fileId=2999209958 size=191
+2026-03-24 19:29:52 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2998849753 size=226
+2026-03-24 19:29:52 [INFO] __main__ — BATCH recv  id=32a572b76c46  reqs=1
+2026-03-24 19:29:52 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:29:52 [INFO] __main__ — BATCH done  id=32a572b76c46  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:29:53 [DEBUG] __main__ — [transport:acc1] published response fileId=2999678571 size=193
+2026-03-24 19:29:55 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 19:29:58 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2999083354 size=226
+2026-03-24 19:29:58 [INFO] __main__ — BATCH recv  id=f010a20227c5  reqs=1
+2026-03-24 19:29:58 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:29:58 [INFO] __main__ — BATCH done  id=f010a20227c5  reqs=1  payload=0КБ  file=0КБ  0.1s  0.1 КБ/с
+2026-03-24 19:29:58 [DEBUG] __main__ — [transport:acc1] published response fileId=2989458716 size=191
+2026-03-24 19:30:03 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2996674879 size=226
+2026-03-24 19:30:03 [INFO] __main__ — BATCH recv  id=75a2356970a6  reqs=1
+2026-03-24 19:30:03 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:30:03 [INFO] __main__ — BATCH done  id=75a2356970a6  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:30:04 [DEBUG] __main__ — [transport:acc1] published response fileId=2995940783 size=195
+2026-03-24 19:30:09 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2986724497 size=226
+2026-03-24 19:30:09 [INFO] __main__ — BATCH recv  id=f1ac03bfc8d9  reqs=1
+2026-03-24 19:30:09 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:30:09 [INFO] __main__ — BATCH done  id=f1ac03bfc8d9  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:30:09 [DEBUG] __main__ — [transport:acc1] published response fileId=2998028182 size=194
+2026-03-24 19:30:14 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2999181294 size=226
+2026-03-24 19:30:14 [INFO] __main__ — BATCH recv  id=af37cf9d5dba  reqs=1
+2026-03-24 19:30:14 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:30:14 [INFO] __main__ — BATCH done  id=af37cf9d5dba  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:30:15 [DEBUG] __main__ — [transport:acc1] published response fileId=3004350326 size=195
+2026-03-24 19:30:20 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3002064641 size=226
+2026-03-24 19:30:20 [INFO] __main__ — BATCH recv  id=4f1f8af09791  reqs=1
+2026-03-24 19:30:20 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:30:20 [INFO] __main__ — BATCH done  id=4f1f8af09791  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:30:20 [DEBUG] __main__ — [transport:acc1] published response fileId=2987171283 size=194
+2026-03-24 19:30:25 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2999821604 size=226
+2026-03-24 19:30:25 [INFO] __main__ — BATCH recv  id=7960d0e559d1  reqs=1
+2026-03-24 19:30:25 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:30:25 [INFO] __main__ — BATCH done  id=7960d0e559d1  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:30:25 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 19:30:26 [DEBUG] __main__ — [transport:acc1] published response fileId=2997453607 size=195
+2026-03-24 19:30:30 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3003382293 size=226
+2026-03-24 19:30:30 [INFO] __main__ — BATCH recv  id=6eeb8f79f53b  reqs=1
+2026-03-24 19:30:30 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:30:30 [INFO] __main__ — BATCH done  id=6eeb8f79f53b  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:30:31 [DEBUG] __main__ — [transport:acc1] published response fileId=2993156112 size=192
+2026-03-24 19:30:35 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2993771756 size=226
+2026-03-24 19:30:35 [INFO] __main__ — BATCH recv  id=e525e3260fc6  reqs=1
+2026-03-24 19:30:35 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:30:35 [INFO] __main__ — BATCH done  id=e525e3260fc6  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:30:36 [DEBUG] __main__ — [transport:acc1] published response fileId=2995476906 size=193
+2026-03-24 19:30:40 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2997621247 size=226
+2026-03-24 19:30:40 [INFO] __main__ — BATCH recv  id=40617971e098  reqs=1
+2026-03-24 19:30:40 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:30:40 [INFO] __main__ — BATCH done  id=40617971e098  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:30:41 [DEBUG] __main__ — [transport:acc1] published response fileId=3000571916 size=194
+2026-03-24 19:30:45 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3000994311 size=226
+2026-03-24 19:30:45 [INFO] __main__ — BATCH recv  id=6c928ce49541  reqs=1
+2026-03-24 19:30:45 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:30:45 [INFO] __main__ — BATCH done  id=6c928ce49541  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:30:46 [DEBUG] __main__ — [transport:acc1] published response fileId=3003514545 size=193
+2026-03-24 19:30:50 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3004393763 size=226
+2026-03-24 19:30:50 [INFO] __main__ — BATCH recv  id=1e37100e4fcb  reqs=1
+2026-03-24 19:30:50 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:30:50 [INFO] __main__ — BATCH done  id=1e37100e4fcb  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:30:51 [DEBUG] __main__ — [transport:acc1] published response fileId=2998310348 size=194
+2026-03-24 19:30:55 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3005672029 size=226
+2026-03-24 19:30:55 [INFO] __main__ — BATCH recv  id=a538b39c2d24  reqs=1
+2026-03-24 19:30:55 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:30:55 [INFO] __main__ — BATCH done  id=a538b39c2d24  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:30:55 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 19:30:56 [DEBUG] __main__ — [transport:acc1] published response fileId=2998435313 size=194
+2026-03-24 19:31:00 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3000870821 size=226
+2026-03-24 19:31:00 [INFO] __main__ — BATCH recv  id=6814b1d05429  reqs=1
+2026-03-24 19:31:00 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:31:00 [INFO] __main__ — BATCH done  id=6814b1d05429  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:31:01 [DEBUG] __main__ — [transport:acc1] published response fileId=2996667262 size=191
+2026-03-24 19:31:05 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2999125583 size=226
+2026-03-24 19:31:05 [INFO] __main__ — BATCH recv  id=4d902a05c7a6  reqs=1
+2026-03-24 19:31:05 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:31:05 [INFO] __main__ — BATCH done  id=4d902a05c7a6  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:31:06 [DEBUG] __main__ — [transport:acc1] published response fileId=3002181616 size=194
+2026-03-24 19:31:10 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2995206046 size=226
+2026-03-24 19:31:10 [INFO] __main__ — BATCH recv  id=66c395e7aefc  reqs=1
+2026-03-24 19:31:10 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:31:10 [INFO] __main__ — BATCH done  id=66c395e7aefc  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:31:11 [DEBUG] __main__ — [transport:acc1] published response fileId=3001330754 size=194
+2026-03-24 19:31:15 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3003077359 size=226
+2026-03-24 19:31:15 [INFO] __main__ — BATCH recv  id=9af90f527dfc  reqs=1
+2026-03-24 19:31:16 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:31:16 [INFO] __main__ — BATCH done  id=9af90f527dfc  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:31:16 [DEBUG] __main__ — [transport:acc1] published response fileId=2995675736 size=193
+2026-03-24 19:31:21 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2987867744 size=226
+2026-03-24 19:31:21 [INFO] __main__ — BATCH recv  id=7501df35248a  reqs=1
+2026-03-24 19:31:21 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:31:21 [INFO] __main__ — BATCH done  id=7501df35248a  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:31:22 [DEBUG] __main__ — [transport:acc1] published response fileId=3004354934 size=195
+2026-03-24 19:31:26 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 19:31:27 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2996523201 size=226
+2026-03-24 19:31:27 [INFO] __main__ — BATCH recv  id=b7db5e44641d  reqs=1
+2026-03-24 19:31:27 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:31:27 [INFO] __main__ — BATCH done  id=b7db5e44641d  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:31:27 [DEBUG] __main__ — [transport:acc1] published response fileId=3005366450 size=193
+2026-03-24 19:31:32 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3001387854 size=226
+2026-03-24 19:31:32 [INFO] __main__ — BATCH recv  id=c62afbb7630f  reqs=1
+2026-03-24 19:31:33 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:31:33 [INFO] __main__ — BATCH done  id=c62afbb7630f  reqs=1  payload=0КБ  file=0КБ  0.2s  0.1 КБ/с
+2026-03-24 19:31:33 [DEBUG] __main__ — [transport:acc1] published response fileId=3002656837 size=193
+2026-03-24 19:31:38 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2990491808 size=226
+2026-03-24 19:31:38 [INFO] __main__ — BATCH recv  id=9e0901c798cd  reqs=1
+2026-03-24 19:31:38 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:31:38 [INFO] __main__ — BATCH done  id=9e0901c798cd  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:31:39 [DEBUG] __main__ — [transport:acc1] published response fileId=2999054552 size=194
+2026-03-24 19:31:43 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2998795230 size=226
+2026-03-24 19:31:43 [INFO] __main__ — BATCH recv  id=d91149c56804  reqs=1
+2026-03-24 19:31:44 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:31:44 [INFO] __main__ — BATCH done  id=d91149c56804  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:31:44 [DEBUG] __main__ — [transport:acc1] published response fileId=3001942207 size=194
+2026-03-24 19:31:50 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2994665112 size=226
+2026-03-24 19:31:50 [INFO] __main__ — BATCH recv  id=4859d38e1555  reqs=1
+2026-03-24 19:31:50 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:31:50 [INFO] __main__ — BATCH done  id=4859d38e1555  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:31:51 [DEBUG] __main__ — [transport:acc1] published response fileId=3001334850 size=193
+2026-03-24 19:31:55 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3000754438 size=226
+2026-03-24 19:31:55 [INFO] __main__ — BATCH recv  id=a4d6da1010db  reqs=1
+2026-03-24 19:31:55 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:31:55 [INFO] __main__ — BATCH done  id=a4d6da1010db  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:31:56 [DEBUG] __main__ — [transport:acc1] published response fileId=2997259482 size=193
+2026-03-24 19:31:56 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-24 19:32:00 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2995682625 size=226
+2026-03-24 19:32:00 [INFO] __main__ — BATCH recv  id=846f51423a74  reqs=1
+2026-03-24 19:32:00 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:32:00 [INFO] __main__ — BATCH done  id=846f51423a74  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:32:01 [DEBUG] __main__ — [transport:acc1] published response fileId=2990493344 size=194
+2026-03-24 19:32:06 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3005676893 size=226
+2026-03-24 19:32:06 [INFO] __main__ — BATCH recv  id=a53ecda74fd2  reqs=1
+2026-03-24 19:32:06 [DEBUG] __main__ — [fetcher] GET https://2ip.ru/ → 200 15B
+2026-03-24 19:32:06 [INFO] __main__ — BATCH done  id=a53ecda74fd2  reqs=1  payload=0КБ  file=0КБ  0.1s  0.2 КБ/с
+2026-03-24 19:32:06 [DEBUG] __main__ — [transport:acc1] published response fileId=3003635945 size=195
+2026-03-24 19:32:22 [INFO] __main__ — [proxy:self-chat] остановлен
+2026-03-24 19:32:22 [ERROR] asyncio — Unclosed connector
+connections: ['[(<aiohttp.client_proto.ResponseHandler object at 0x721a0d575720>, 156129.241868134)]', '[(<aiohttp.client_proto.ResponseHandler object at 0x721a0d5754e0>, 156129.582641824)]']
+connector: <aiohttp.connector.TCPConnector object at 0x721a0d9b0670>
+2026-03-24 19:32:22 [ERROR] asyncio — Fatal error on SSL transport
+protocol: <asyncio.sslproto.SSLProtocol object at 0x721a0d54f370>
+transport: <_SelectorSocketTransport closing fd=9>
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 924, in write
+    n = self._sock.send(data)
+OSError: [Errno 9] Bad file descriptor
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/sslproto.py", line 690, in _process_write_backlog
+    self._transport.write(chunk)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 930, in write
+    self._fatal_error(exc, 'Fatal write error on socket transport')
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 725, in _fatal_error
+    self._force_close(exc)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 737, in _force_close
+    self._loop.call_soon(self._call_connection_lost, exc)
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 753, in call_soon
+    self._check_closed()
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 515, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed

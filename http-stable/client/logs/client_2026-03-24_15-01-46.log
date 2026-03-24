@@ -1,0 +1,36 @@
+2026-03-24 15:01:48 [DEBUG] __main__ — [tunnel] CONNECT lenta.ru:443 (MITM)
+2026-03-24 15:01:48 [INFO] __main__ — Авторизован [client:acc1], chatId=0
+2026-03-24 15:01:48 [DEBUG] __main__ — [batch] flush batch_id=02cce1b3312d reqs=1 size=162
+2026-03-24 15:01:48 [INFO] __main__ — BATCH sent  id=02cce1b3312d  reqs=1  0КБ  urls=['https://lenta.ru/']
+2026-03-24 15:01:49 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2987154057  size=162
+2026-03-24 15:01:53 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2994940147 size=190081
+2026-03-24 15:01:53 [INFO] __main__ — BATCH recv  id=02cce1b3312d  reqs=1
+2026-03-24 15:03:12 [DEBUG] __main__ — [tunnel] CONNECT lenta.ru:443 (MITM)
+2026-03-24 15:03:12 [DEBUG] __main__ — [batch] flush batch_id=3bf2f0476681 reqs=1 size=162
+2026-03-24 15:03:12 [INFO] __main__ — BATCH sent  id=3bf2f0476681  reqs=1  0КБ  urls=['https://lenta.ru/']
+2026-03-24 15:03:12 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2998518028  size=162
+2026-03-24 15:03:17 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2993202725 size=190025
+2026-03-24 15:03:17 [INFO] __main__ — BATCH recv  id=3bf2f0476681  reqs=1
+2026-03-24 15:03:29 [DEBUG] __main__ — [tunnel] CONNECT 2ip.ru:443 (MITM)
+2026-03-24 15:03:29 [DEBUG] __main__ — [batch] flush batch_id=11b8453c6637 reqs=1 size=161
+2026-03-24 15:03:29 [INFO] __main__ — BATCH sent  id=11b8453c6637  reqs=1  0КБ  urls=['https://2ip.ru/']
+2026-03-24 15:03:30 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2998630263  size=161
+2026-03-24 15:03:32 [DEBUG] __main__ — [transport:acc1] recv_file fileId=2997016536 size=241
+2026-03-24 15:03:32 [INFO] __main__ — BATCH recv  id=11b8453c6637  reqs=1
+2026-03-24 15:04:43 [DEBUG] __main__ — [tunnel] CONNECT safebrowsing.brave.com:443 (MITM)
+2026-03-24 15:04:43 [DEBUG] __main__ — [tunnel] TLS handshake failed safebrowsing.brave.com: [SSL: SSLV3_ALERT_CERTIFICATE_UNKNOWN] sslv3 alert certificate unknown (_ssl.c:1007)
+2026-03-24 15:07:29 [DEBUG] __main__ — [tunnel] CONNECT 2ip.ru:443 (MITM)
+2026-03-24 15:07:29 [DEBUG] __main__ — [batch] flush batch_id=fa6b059a0405 reqs=1 size=160
+2026-03-24 15:07:29 [INFO] __main__ — BATCH sent  id=fa6b059a0405  reqs=1  0КБ  urls=['https://2ip.ru/']
+2026-03-24 15:07:30 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2993269919  size=160
+2026-03-24 15:07:35 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3002036330 size=241
+2026-03-24 15:07:35 [INFO] __main__ — BATCH recv  id=fa6b059a0405  reqs=1
+2026-03-24 15:07:42 [DEBUG] __main__ — [tunnel] CONNECT lenta.ru:443 (MITM)
+2026-03-24 15:07:42 [DEBUG] __main__ — [batch] flush batch_id=a40a6765199e reqs=1 size=162
+2026-03-24 15:07:42 [INFO] __main__ — BATCH sent  id=a40a6765199e  reqs=1  0КБ  urls=['https://lenta.ru/']
+2026-03-24 15:07:43 [DEBUG] __main__ — [transport:acc1] upload ok  fileId=2996687720  size=162
+2026-03-24 15:07:56 [ERROR] __main__ — WS разрыв: no close frame received or sent. Reconnect in 5s...
+2026-03-24 15:08:02 [INFO] __main__ — Авторизован [client:acc1], chatId=0
+2026-03-24 15:08:11 [ERROR] __main__ — [transport:acc1] op88 timeout fileId=3001513749
+2026-03-24 15:10:46 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7c20569b5d50>

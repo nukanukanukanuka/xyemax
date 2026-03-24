@@ -1,0 +1,10 @@
+2026-03-23 23:18:45 [INFO] __main__ — SOCKS5 запущен  127.0.0.1:1080  chat_id=0
+2026-03-23 23:18:46 [INFO] __main__ — Авторизован, chatId=0 (self-chat)
+2026-03-23 23:18:49 [INFO] __main__ — SOCKS5 → 188.40.167.82:443
+2026-03-23 23:18:49 [DEBUG] __main__ — [transport] batch flush  frames=1  total=77B
+2026-03-23 23:18:50 [DEBUG] __main__ — [transport] upload ok  fileId=2983631840  size=77
+2026-03-23 23:19:09 [INFO] __main__ — tunnel 188.40.167.82:443 [d8ecce98]  TIMEOUT
+2026-03-23 23:19:10 [DEBUG] __main__ — [transport] keepalive sent
+2026-03-23 23:19:17 [ERROR] asyncio — Unclosed connector
+connections: ['[(<aiohttp.client_proto.ResponseHandler object at 0x7d7b4b933c40>, 83333.252755147)]']
+connector: <aiohttp.connector.TCPConnector object at 0x7d7b4bd674f0>

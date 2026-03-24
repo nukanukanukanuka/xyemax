@@ -1,0 +1,7 @@
+2026-03-24 14:49:02 [INFO] __main__ — Авторизован [client:acc1], chatId=0
+2026-03-24 14:49:07 [DEBUG] __main__ — [tunnel] CONNECT lenta.ru:443 (MITM)
+2026-03-24 14:49:07 [DEBUG] __main__ — [tunnel] TLS handshake failed lenta.ru: do_handshake_on_connect should not be specified for non-blocking sockets
+2026-03-24 14:49:10 [DEBUG] __main__ — [tunnel] CONNECT lenta.ru:443 (MITM)
+2026-03-24 14:49:10 [DEBUG] __main__ — [tunnel] TLS handshake failed lenta.ru: do_handshake_on_connect should not be specified for non-blocking sockets
+2026-03-24 14:49:18 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x79ddee7645e0>
