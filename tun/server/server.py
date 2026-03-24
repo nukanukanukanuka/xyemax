@@ -445,7 +445,7 @@ class MaxTransport:
 
     async def connect(self):
         async with websockets.connect(
-            _WS_URL, additional_headers=_WS_HEADERS,
+            _WS_URL, extra_headers=_WS_HEADERS,
             ping_interval=20, ping_timeout=30, close_timeout=5,
         ) as ws:
             self.ws = ws
@@ -454,8 +454,8 @@ class MaxTransport:
             self._http = aiohttp.ClientSession(connector=connector)
             recv_task      = asyncio.create_task(self._recv_loop())
             keepalive_task = asyncio.create_task(self._keepalive())
-            send_task      = asyncio.create_task(self._send_worker())
             await self._handshake()
+            send_task      = asyncio.create_task(self._send_worker())
             try:
                 await recv_task
             finally:
@@ -495,12 +495,11 @@ class TunForwarder:
 
     async def _on_packets_from_client(self, data: bytes):
         """Получили батч от клиента — пишем пакеты в tun."""
-        raw   = _unpack(data)
-        pkts  = _decode_packets(raw)
+        pkts  = _decode_packets(data)
         if not pkts:
             return
-        log.debug(f"[tun] ← клиент: {len(pkts)} pkts  raw={len(raw)}B")
-        log.info(f"BATCH TUN←  pkts={len(pkts)}  {len(raw)//1024}КБ")
+        log.debug(f"[tun] ← клиент: {len(pkts)} pkts  raw={len(data)}B")
+        log.info(f"BATCH TUN←  pkts={len(pkts)}  {len(data)//1024}КБ")
         loop = asyncio.get_event_loop()
         for pkt in pkts:
             try:
@@ -515,9 +514,6 @@ class TunForwarder:
             try:
                 pkt = await loop.run_in_executor(None, os.read, self.fd, TUN_MTU + 4)
             except OSError as e:
-                if e.errno == 11:  # EAGAIN — нет данных, это нормально
-                    await asyncio.sleep(0.01)
-                    continue
                 log.error(f"[tun] read error: {e}")
                 await asyncio.sleep(0.1)
                 continue

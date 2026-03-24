@@ -425,7 +425,7 @@ class MaxTransport:
 
     async def connect(self):
         async with websockets.connect(
-            _WS_URL, additional_headers=_WS_HEADERS,
+            _WS_URL, extra_headers=_WS_HEADERS,
             ping_interval=20, ping_timeout=30, close_timeout=5,
         ) as ws:
             self.ws = ws
@@ -433,8 +433,8 @@ class MaxTransport:
             self._http = aiohttp.ClientSession(connector=connector)
             recv_task      = asyncio.create_task(self._recv_loop())
             keepalive_task = asyncio.create_task(self._keepalive())
-            send_task      = asyncio.create_task(self._send_worker())
             await self._handshake()
+            send_task      = asyncio.create_task(self._send_worker())
             try:
                 await recv_task
             finally:
@@ -576,9 +576,6 @@ class TunManager:
             try:
                 pkt = await loop.run_in_executor(None, os.read, self.fd, TUN_MTU + 4)
             except OSError as e:
-                if e.errno == 11:  # EAGAIN — нет данных, это нормально
-                    await asyncio.sleep(0.01)
-                    continue
                 log.error(f"[tun] read error: {e}")
                 await asyncio.sleep(0.1)
                 continue
@@ -617,14 +614,13 @@ class TunManager:
     # ── Приём ответов от сервера → запись в TUN ───────────────────────────────
 
     async def _on_response(self, data: bytes):
-        raw   = _unpack(data)
-        pkts  = self._decode(raw)
+        pkts  = self._decode(data)
         if not pkts:
             return
         self._pkts_recv  += len(pkts)
-        self._bytes_recv += len(raw)
-        log.debug(f"[tun] ← {len(pkts)} pkts  raw={len(raw)}B")
-        log.info(f"BATCH TUN←  pkts={len(pkts)}  {len(raw)//1024}КБ")
+        self._bytes_recv += len(data)
+        log.debug(f"[tun] ← {len(pkts)} pkts  raw={len(data)}B")
+        log.info(f"BATCH TUN←  pkts={len(pkts)}  {len(data)//1024}КБ")
         loop = asyncio.get_event_loop()
         for pkt in pkts:
             try:
