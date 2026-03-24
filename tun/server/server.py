@@ -97,6 +97,11 @@ TUN_MTU   = int(_cfg.get("TUN_MTU", "1400"))
 
 UPLOAD_MIN_INTERVAL = float(_cfg.get("UPLOAD_MIN_INTERVAL", "0.3"))
 
+# Батчинг
+BATCH_WINDOW_MS = int(_cfg.get("BATCH_WINDOW_MS", "80"))
+BATCH_MAX_KB    = int(_cfg.get("BATCH_MAX_KB", "4096"))
+BATCH_MAX_BYTES = BATCH_MAX_KB * 1024
+
 STATUS_URL    = "https://telegram.mooner.pro/api/max/status"
 SESSIONS_FILE = Path("sessions.json")
 POLL_INTERVAL = 30
@@ -486,8 +491,7 @@ class TunForwarder:
         self._pending_bytes = 0
         self._flush_task: asyncio.Task | None = None
         self._lock = asyncio.Lock()
-        # Батч окно для ответных пакетов (меньше чем у клиента — быстрее ответ)
-        self._resp_window_ms = 300
+        self._resp_window_ms = BATCH_WINDOW_MS
 
     def attach(self, transport: MaxTransport):
         self.transport = transport
@@ -528,7 +532,7 @@ class TunForwarder:
                 if self._flush_task is None or self._flush_task.done():
                     self._flush_task = asyncio.create_task(
                         self._flush_after(self._resp_window_ms / 1000.0))
-                if self._pending_bytes >= 4 * 1024 * 1024:
+                if self._pending_bytes >= BATCH_MAX_BYTES:
                     if self._flush_task and not self._flush_task.done():
                         self._flush_task.cancel()
                     await self._flush_now()

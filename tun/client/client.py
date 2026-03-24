@@ -96,7 +96,8 @@ DEFAULT_ROUTE    = _cfg.get("DEFAULT_ROUTE", "0") == "1"
 
 # Батчинг
 BATCH_WINDOW_MS  = int(_cfg.get("BATCH_WINDOW_MS",  "80"))
-BATCH_MAX_BYTES  = int(_cfg.get("BATCH_MAX_BYTES",  str(4 * 1024 * 1024)))
+BATCH_MAX_KB     = int(_cfg.get("BATCH_MAX_KB",  "4096"))
+BATCH_MAX_BYTES  = BATCH_MAX_KB * 1024
 RESPONSE_TIMEOUT = float(_cfg.get("RESPONSE_TIMEOUT", "30"))
 UPLOAD_MIN_INTERVAL = float(_cfg.get("UPLOAD_MIN_INTERVAL", "0.3"))
 
