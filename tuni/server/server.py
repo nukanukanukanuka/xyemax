@@ -552,11 +552,13 @@ class TunForwarder:
     """
     Получает батч IP-пакетов от клиента → пишет в tun (Linux делает NAT).
     Читает ответные пакеты из tun → накапливает → шлёт клиенту обратно.
+    Для исходящего потока использует все живые транспорты round-robin.
     """
     def __init__(self, tun_fd: int):
         self.fd = tun_fd
-        # transport привязывается после создания
-        self.transport: MaxTransport | None = None
+        self._transports: dict[str, MaxTransport] = {}
+        self._rr_labels: list[str] = []
+        self._rr_index = 0
         self._pending: list[bytes] = []
         self._pending_bytes = 0
         self._flush_task: asyncio.Task | None = None
@@ -564,8 +566,41 @@ class TunForwarder:
         self._resp_window_ms = BATCH_WINDOW_MS
 
     def attach(self, transport: MaxTransport):
-        self.transport = transport
+        self._transports[transport.label] = transport
+        if transport.label not in self._rr_labels:
+            self._rr_labels.append(transport.label)
         transport.on_batch_request = self._on_packets_from_client
+        log.info(f"[tun] attach {transport.label}; active={list(self._transports)}")
+
+    def detach(self, transport: MaxTransport):
+        cur = self._transports.get(transport.label)
+        if cur is transport:
+            self._transports.pop(transport.label, None)
+            self._rr_labels = [label for label in self._rr_labels if label != transport.label]
+            if self._rr_index >= len(self._rr_labels):
+                self._rr_index = 0
+            log.info(f"[tun] detach {transport.label}; active={list(self._transports)}")
+
+    def _pick_transport(self) -> MaxTransport | None:
+        if not self._rr_labels:
+            return None
+
+        total = len(self._rr_labels)
+        for offset in range(total):
+            idx = (self._rr_index + offset) % total
+            label = self._rr_labels[idx]
+            transport = self._transports.get(label)
+            if transport is None:
+                continue
+            ws = getattr(transport, "ws", None)
+            http = getattr(transport, "_http", None)
+            if ws is None or getattr(ws, "closed", False):
+                continue
+            if http is None or getattr(http, "closed", True):
+                continue
+            self._rr_index = (idx + 1) % total
+            return transport
+        return None
 
     async def _on_packets_from_client(self, data: bytes):
         """Получили батч от клиента — пишем пакеты в tun."""
@@ -613,16 +648,19 @@ class TunForwarder:
             await self._flush_now()
 
     async def _flush_now(self):
-        if not self._pending or not self.transport:
+        transport = self._pick_transport()
+        if not self._pending or transport is None:
+            if self._pending and transport is None:
+                log.warning(f"[tun] нет живого транспорта для отправки {len(self._pending)} pkts")
             return
         pkts = self._pending[:]
         self._pending.clear()
         self._pending_bytes = 0
         raw    = _encode_packets(pkts)
         packed = _pack(raw)
-        log.debug(f"[tun] → клиент: {len(pkts)} pkts  raw={len(raw)}B  packed={len(packed)}B")
-        log.info(f"BATCH TUN→  pkts={len(pkts)}  {len(raw)//1024}КБ  packed={len(packed)//1024}КБ")
-        await self.transport.send_file(packed)
+        log.debug(f"[tun] → клиент: {len(pkts)} pkts  raw={len(raw)}B  packed={len(packed)}B via={transport.label}")
+        log.info(f"BATCH TUN→  pkts={len(pkts)}  {len(raw)//1024}КБ  packed={len(packed)//1024}КБ  via={transport.label}")
+        await transport.send_file(packed)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -703,12 +741,16 @@ class SessionManager:
                     delay = 5
                 except asyncio.CancelledError:
                     log.info(f"[proxy:{name}] {acc['label']} остановлен")
+                    self._forwarder.detach(transport)
                     return
                 except Exception as e:
                     log.error(f"[proxy:{name}] {acc['label']} разрыв: {e!r}. "
                               f"Reconnect in {delay}s...")
+                    self._forwarder.detach(transport)
                     await asyncio.sleep(delay)
                     delay = min(delay * 2, 60)
+                else:
+                    self._forwarder.detach(transport)
 
         await asyncio.gather(*[_run_one(acc) for acc in ACCOUNTS])
 
