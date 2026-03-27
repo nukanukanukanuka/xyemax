@@ -566,7 +566,7 @@ class MaxTransport:
                         return
                     payload = await resp.read()
             except Exception as e:
-                log.error(f"[transport:{self.label}] download error: {e}")
+                log.error(f"[transport:{self.label}] download error: {e}", exc_info=True)
                 return
         data = _unpack(_jpeg_unwrap(payload))
         log.debug(f"[transport:{self.label}] recv_file fileId={file_id} size={len(data)}")
@@ -886,13 +886,13 @@ async def _poll_loop(http: aiohttp.ClientSession, manager: SessionManager):
         except asyncio.CancelledError:
             raise
         except OSError as e:
-            if e.errno == 101:  # Network is unreachable — tun10 ещё не готов
+            if e.errno == 101:
                 log.warning(f"[poll] сеть недоступна (tun10?), повтор через 5s: {e}")
                 await asyncio.sleep(5)
                 continue
-            log.error(f"[poll] ошибка: {e}")
+            log.error(f"[poll] ошибка: {e}", exc_info=True)
         except Exception as e:
-            log.error(f"[poll] ошибка: {e}")
+            log.error(f"[poll] ошибка: {e}", exc_info=True)
         await asyncio.sleep(POLL_INTERVAL)
 
 
