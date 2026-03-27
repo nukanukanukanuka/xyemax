@@ -243,35 +243,58 @@ def _jpeg_unwrap(blob: bytes) -> bytes:
 # ══════════════════════════════════════════════════════════════════════════════
 
 class BoundTCPConnector(aiohttp.TCPConnector):
-    """Привязывает все HTTP соединения к конкретному сетевому интерфейсу через SO_BINDTODEVICE."""
+    """Привязывает все HTTP соединения к tun10 через SO_BINDTODEVICE."""
     def __init__(self, iface: str, **kwargs):
         super().__init__(**kwargs)
         self._iface = iface.encode()
 
-    async def _wrap_create_connection(self, protocol_factory, host, port, **kwargs):
+    async def _wrap_create_connection(
+        self, *args,
+        addr_infos,
+        req,
+        timeout,
+        client_error=Exception,
+        **kwargs
+    ):
+        import ssl as _ssl
         loop = asyncio.get_event_loop()
-        infos = await loop.getaddrinfo(host, port, type=socket.SOCK_STREAM)
-        if not infos:
-            raise OSError(f"getaddrinfo failed for {host}")
-        af, socktype, proto, canonname, sockaddr = infos[0]
-        sock = socket.socket(af, socktype, proto)
-        try:
-            sock.setsockopt(socket.SOL_SOCKET, socket.SO_BINDTODEVICE, self._iface)
-            sock.setblocking(False)
-            await loop.sock_connect(sock, sockaddr)
-        except Exception:
-            sock.close()
-            raise
-        ssl = kwargs.pop("ssl", None)
-        if ssl:
-            import ssl as _ssl
-            ctx = _ssl.create_default_context()
-            ctx.check_hostname = False
-            ctx.verify_mode = _ssl.CERT_NONE
-            return await loop.create_connection(
-                protocol_factory, sock=sock, ssl=ctx, server_hostname=host
-            )
-        return await loop.create_connection(protocol_factory, sock=sock)
+        last_exc = None
+
+        for af, socktype, proto, canonname, sockaddr in addr_infos:
+            sock = socket.socket(af, socktype, proto)
+            try:
+                sock.setsockopt(socket.SOL_SOCKET, socket.SO_BINDTODEVICE, self._iface)
+                sock.setblocking(False)
+                await loop.sock_connect(sock, sockaddr)
+            except Exception as e:
+                sock.close()
+                last_exc = e
+                continue
+
+            # SSL контекст
+            ssl_val = req.ssl if hasattr(req, "ssl") else None
+            if ssl_val is not False and ssl_val is not None:
+                ctx = _ssl.create_default_context()
+                ctx.check_hostname = False
+                ctx.verify_mode = _ssl.CERT_NONE
+                try:
+                    return await loop.create_connection(
+                        args[0], sock=sock, ssl=ctx,
+                        server_hostname=req.url.host
+                    )
+                except Exception as e:
+                    sock.close()
+                    last_exc = e
+                    continue
+            else:
+                try:
+                    return await loop.create_connection(args[0], sock=sock)
+                except Exception as e:
+                    sock.close()
+                    last_exc = e
+                    continue
+
+        raise last_exc or OSError(f"Could not connect via {self._iface.decode()}")
 
 
 def _make_connector(**kwargs) -> aiohttp.TCPConnector:
