@@ -264,19 +264,20 @@ class BoundTCPConnector(aiohttp.TCPConnector):
             raise
         ssl = kwargs.pop("ssl", None)
         if ssl:
-            # Если host — это IP-адрес, сертификат будет на домен → отключаем проверку hostname
+            import ssl as _ssl
+            # Если host — IP-адрес, сертификат выдан на домен → отключаем проверку
             try:
                 socket.inet_aton(host)
                 is_ip = True
             except OSError:
                 is_ip = False
             if is_ip:
-                import ssl as _ssl
                 ctx = _ssl.create_default_context()
                 ctx.check_hostname = False
                 ctx.verify_mode = _ssl.CERT_NONE
+                # server_hostname обязателен даже при CERT_NONE
                 return await loop.create_connection(
-                    protocol_factory, sock=sock, ssl=ctx
+                    protocol_factory, sock=sock, ssl=ctx, server_hostname=host
                 )
             return await loop.create_connection(
                 protocol_factory, sock=sock, ssl=ssl, server_hostname=host
