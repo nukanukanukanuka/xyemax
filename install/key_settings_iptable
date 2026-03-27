@@ -1,0 +1,23 @@
+# Маршрутизация клиентского трафика через tun10
+ip rule add from 10.0.1.0/30 table 100
+ip route add default via 198.18.0.1 dev tun10 table 100
+
+# NAT
+iptables -t nat -A POSTROUTING -s 10.0.1.0/30 -o tun10 -j MASQUERADE
+
+# FORWARD
+iptables -I FORWARD -i tun1 -o tun10 -j ACCEPT
+iptables -I FORWARD -i tun10 -o tun1 -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+tun10: flags=4305<UP,POINTOPOINT,RUNNING,NOARP,MULTICAST>  mtu 1500
+        inet 198.18.0.1  netmask 255.254.0.0  destination 198.18.0.1
+        inet6 fe80::628d:6855:baa8:ca84  prefixlen 64  scopeid 0x20<link>
+        unspec 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00  txqueuelen 500  (UNSPEC)
+        RX packets 1447  bytes 683716 (683.7 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 1586  bytes 249213 (249.2 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions
+
+
+
+tun2socks -device tun10 -proxy socks5://wqdathyk:wc1068jclf77@104.253.112.30:6308
