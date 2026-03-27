@@ -248,12 +248,28 @@ class BoundTCPConnector(aiohttp.TCPConnector):
         super().__init__(**kwargs)
         self._iface = iface.encode()
 
-    async def _wrap_create_connection(self, *args, **kwargs):
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.setsockopt(socket.SOL_SOCKET, socket.SO_BINDTODEVICE, self._iface)
-        sock.setblocking(False)
-        kwargs["sock"] = sock
-        return await super()._wrap_create_connection(*args, **kwargs)
+    async def _wrap_create_connection(self, protocol_factory, host, port, **kwargs):
+        # Резолвим хост вручную
+        loop = asyncio.get_event_loop()
+        infos = await loop.getaddrinfo(host, port, type=socket.SOCK_STREAM)
+        if not infos:
+            raise OSError(f"getaddrinfo failed for {host}")
+        af, socktype, proto, canonname, sockaddr = infos[0]
+        sock = socket.socket(af, socktype, proto)
+        try:
+            sock.setsockopt(socket.SOL_SOCKET, socket.SO_BINDTODEVICE, self._iface)
+            sock.setblocking(False)
+            await loop.sock_connect(sock, sockaddr)
+        except Exception:
+            sock.close()
+            raise
+        # Передаём уже подключённый сокет — без host/port
+        ssl = kwargs.pop("ssl", None)
+        if ssl:
+            return await loop.create_connection(
+                protocol_factory, sock=sock, ssl=ssl, server_hostname=host
+            )
+        return await loop.create_connection(protocol_factory, sock=sock)
 
 
 def _make_connector(**kwargs) -> aiohttp.TCPConnector:
