@@ -82,6 +82,9 @@ After=network.target
 [Service]
 Type=simple
 ExecStartPre=/bin/sh -c '\\
+    pkill -f "tun2socks.*{iface}" 2>/dev/null || true; \\
+    sleep 1; \\
+    ip link delete {iface} 2>/dev/null || true; \\
     ip tuntap add mode tun dev {iface} 2>/dev/null || true; \\
     ip addr add {ip}/{mask} dev {iface} 2>/dev/null || true; \\
     ip link set dev {iface} up'
