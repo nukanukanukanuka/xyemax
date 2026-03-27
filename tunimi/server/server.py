@@ -249,7 +249,6 @@ class BoundTCPConnector(aiohttp.TCPConnector):
         self._iface = iface.encode()
 
     async def _wrap_create_connection(self, protocol_factory, host, port, **kwargs):
-        # Резолвим хост вручную
         loop = asyncio.get_event_loop()
         infos = await loop.getaddrinfo(host, port, type=socket.SOCK_STREAM)
         if not infos:
@@ -263,9 +262,22 @@ class BoundTCPConnector(aiohttp.TCPConnector):
         except Exception:
             sock.close()
             raise
-        # Передаём уже подключённый сокет — без host/port
         ssl = kwargs.pop("ssl", None)
         if ssl:
+            # Если host — это IP-адрес, сертификат будет на домен → отключаем проверку hostname
+            try:
+                socket.inet_aton(host)
+                is_ip = True
+            except OSError:
+                is_ip = False
+            if is_ip:
+                import ssl as _ssl
+                ctx = _ssl.create_default_context()
+                ctx.check_hostname = False
+                ctx.verify_mode = _ssl.CERT_NONE
+                return await loop.create_connection(
+                    protocol_factory, sock=sock, ssl=ctx
+                )
             return await loop.create_connection(
                 protocol_factory, sock=sock, ssl=ssl, server_hostname=host
             )
@@ -848,6 +860,8 @@ async def main():
 
 
 async def _poll_loop(http: aiohttp.ClientSession, manager: SessionManager):
+    # Небольшая задержка — дать tun10 время полностью подняться
+    await asyncio.sleep(3)
     while True:
         try:
             async with http.get(STATUS_URL,
@@ -858,6 +872,12 @@ async def _poll_loop(http: aiohttp.ClientSession, manager: SessionManager):
                 await manager.sync(links)
         except asyncio.CancelledError:
             raise
+        except OSError as e:
+            if e.errno == 101:  # Network is unreachable — tun10 ещё не готов
+                log.warning(f"[poll] сеть недоступна (tun10?), повтор через 5s: {e}")
+                await asyncio.sleep(5)
+                continue
+            log.error(f"[poll] ошибка: {e}")
         except Exception as e:
             log.error(f"[poll] ошибка: {e}")
         await asyncio.sleep(POLL_INTERVAL)
