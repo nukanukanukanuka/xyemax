@@ -35,6 +35,7 @@ import fcntl
 import json
 import logging
 import os
+import socket
 import struct
 import subprocess
 import sys
@@ -90,10 +91,11 @@ ACCOUNTS     = _load_accounts(_cfg)
 VIEWER_ID    = ACCOUNTS[0]["viewer_id"]
 SELF_CHAT_ID = 0
 
-TUN_NAME  = _cfg.get("TUN_NAME", "tun0")
-TUN_ADDR  = _cfg.get("TUN_ADDR", "10.0.0.2")
-TUN_PEER  = _cfg.get("TUN_PEER", "10.0.0.1")
-TUN_MTU   = int(_cfg.get("TUN_MTU", "1400"))
+TUN_NAME       = _cfg.get("TUN_NAME", "tun0")
+TUN_ADDR       = _cfg.get("TUN_ADDR", "10.0.0.2")
+TUN_PEER       = _cfg.get("TUN_PEER", "10.0.0.1")
+TUN_MTU        = int(_cfg.get("TUN_MTU", "1400"))
+TUN_BIND_IFACE = _cfg.get("TUN_BIND_IFACE", "")  # интерфейс для HTTP трафика скрипта (tun10)
 
 UPLOAD_MIN_INTERVAL = float(_cfg.get("UPLOAD_MIN_INTERVAL", "0.3"))
 
@@ -237,19 +239,45 @@ def _jpeg_unwrap(blob: bytes) -> bytes:
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# PROXY CONNECTOR — подключение HTTP трафика скрипта через SOCKS5 прокси
+# BOUND CONNECTOR — привязка HTTP трафика скрипта к tun10
 # ══════════════════════════════════════════════════════════════════════════════
 
-def _make_connector(**kwargs) -> aiohttp.TCPConnector:
-    """Создать connector через SOCKS5 прокси если SOCKS5_PROXY задан."""
-    proxy = _cfg.get("SOCKS5_PROXY", "")
-    if proxy:
+class BoundTCPConnector(aiohttp.TCPConnector):
+    """Привязывает все HTTP соединения к конкретному сетевому интерфейсу через SO_BINDTODEVICE."""
+    def __init__(self, iface: str, **kwargs):
+        super().__init__(**kwargs)
+        self._iface = iface.encode()
+
+    async def _wrap_create_connection(self, protocol_factory, host, port, **kwargs):
+        loop = asyncio.get_event_loop()
+        infos = await loop.getaddrinfo(host, port, type=socket.SOCK_STREAM)
+        if not infos:
+            raise OSError(f"getaddrinfo failed for {host}")
+        af, socktype, proto, canonname, sockaddr = infos[0]
+        sock = socket.socket(af, socktype, proto)
         try:
-            from aiohttp_socks import ProxyConnector
-            log.info(f"[net] HTTP трафик скрипта идёт через прокси: {proxy}")
-            return ProxyConnector.from_url(proxy, **kwargs)
-        except ImportError:
-            log.error("[net] aiohttp_socks не установлен: pip install aiohttp-socks")
+            sock.setsockopt(socket.SOL_SOCKET, socket.SO_BINDTODEVICE, self._iface)
+            sock.setblocking(False)
+            await loop.sock_connect(sock, sockaddr)
+        except Exception:
+            sock.close()
+            raise
+        ssl = kwargs.pop("ssl", None)
+        if ssl:
+            import ssl as _ssl
+            ctx = _ssl.create_default_context()
+            ctx.check_hostname = False
+            ctx.verify_mode = _ssl.CERT_NONE
+            return await loop.create_connection(
+                protocol_factory, sock=sock, ssl=ctx, server_hostname=host
+            )
+        return await loop.create_connection(protocol_factory, sock=sock)
+
+
+def _make_connector(**kwargs) -> aiohttp.TCPConnector:
+    if TUN_BIND_IFACE:
+        log.info(f"[net] HTTP трафик скрипта привязан к интерфейсу: {TUN_BIND_IFACE}")
+        return BoundTCPConnector(TUN_BIND_IFACE, **kwargs)
     return aiohttp.TCPConnector(**kwargs)
 
 
