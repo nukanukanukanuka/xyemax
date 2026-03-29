@@ -463,6 +463,7 @@ class MaxTransport:
                 return
             self._last_upload_time = loop.time()
             log.debug(f"[transport:{self.label}] upload ok fileId={file_id} size={len(file_body)}")
+            _console(f"↑ {self.label}  {len(file_body)/1024:,.1f} КБ")
         try:
             await asyncio.wait_for(fut136, timeout=20.0)
         except asyncio.TimeoutError:
@@ -570,6 +571,7 @@ class MaxTransport:
                 return
         data = _unpack(_jpeg_unwrap(payload))
         log.debug(f"[transport:{self.label}] recv_file fileId={file_id} size={len(data)}")
+        _console(f"↓ {self.label}  {len(data)/1024:,.1f} КБ")
         if self.on_batch_request:
             asyncio.create_task(self.on_batch_request(data))
 
