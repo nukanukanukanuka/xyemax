@@ -296,7 +296,7 @@ class MaxTransport:
         self._op88_sem = asyncio.Semaphore(4)
         self.on_batch_response: callable = None
         self.on_disconnect: callable = None
-        self._last_upload_time: float = 0.0
+        self._last_activity_time: float = 0.0
 
     def _next_seq(self):
         s = self.seq; self.seq += 1; return s
@@ -367,7 +367,7 @@ class MaxTransport:
                 self._once.pop(f"op136_{file_id}", None)
                 log.error(f"[transport:{self.label}] upload failed {resp.status}: {body}")
                 return
-            self._last_upload_time = loop.time()
+            self._last_activity_time = loop.time()
             log.debug(f"[transport:{self.label}] upload ok fileId={file_id} size={len(file_body)}")
             _console(f"↑ {self.label}  {len(file_body)/1024:,.1f} КБ")
         try:
@@ -474,6 +474,7 @@ class MaxTransport:
                 log.error(f"[transport:{self.label}] download error: {e}")
                 return
         data = _unpack(_jpeg_unwrap(payload))
+        self._last_activity_time = asyncio.get_event_loop().time()
         log.debug(f"[transport:{self.label}] recv_file fileId={file_id} size={len(data)}")
         _console(f"↓ {self.label}  {len(data)/1024:,.1f} КБ")
         if self.on_batch_response:
@@ -561,7 +562,7 @@ class MultiTransport:
         best_wait = float("inf")
         for i in alive:
             t    = self._transports[i]
-            wait = max(0.0, t._last_upload_time + UPLOAD_MIN_INTERVAL - now)
+            wait = max(0.0, t._last_activity_time + UPLOAD_MIN_INTERVAL - now)
             if wait < best_wait:
                 best_wait = wait
                 best_idx  = i
