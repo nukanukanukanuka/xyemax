@@ -570,7 +570,6 @@ class MultiTransport:
             await asyncio.sleep(best_wait)
 
         await self._transports[best_idx].send_file(file_body)
-        await self._transports[idx].send_file(file_body)
 
     async def _run_one(self, idx: int):
         t = self._transports[idx]
