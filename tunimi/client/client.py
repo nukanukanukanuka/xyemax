@@ -685,7 +685,6 @@ class TunManager:
         self._pkts_sent  += len(pkts)
         self._bytes_sent += len(raw)
         log.debug(f"[tun] → {len(pkts)} pkts  raw={len(raw)}B  packed={len(packed)}B")
-        log.info(f"BATCH TUN→  pkts={len(pkts)}  {len(raw)//1024}КБ  packed={len(packed)//1024}КБ")
         await self.transport.send_file(packed)
 
     # ── Приём ответов от сервера → запись в TUN ───────────────────────────────
@@ -697,7 +696,6 @@ class TunManager:
         self._pkts_recv  += len(pkts)
         self._bytes_recv += len(data)
         log.debug(f"[tun] ← {len(pkts)} pkts  raw={len(data)}B")
-        log.info(f"BATCH TUN←  pkts={len(pkts)}  {len(data)//1024}КБ")
         loop = asyncio.get_event_loop()
         for pkt in pkts:
             try:

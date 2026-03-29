@@ -678,7 +678,6 @@ class TunForwarder:
         if not pkts:
             return
         log.debug(f"[tun] ← клиент: {len(pkts)} pkts  raw={len(data)}B")
-        log.info(f"BATCH TUN←  pkts={len(pkts)}  {len(data)//1024}КБ")
         loop = asyncio.get_event_loop()
         for pkt in pkts:
             try:
@@ -729,7 +728,6 @@ class TunForwarder:
         raw    = _encode_packets(pkts)
         packed = _pack(raw)
         log.debug(f"[tun] → клиент: {len(pkts)} pkts  raw={len(raw)}B  packed={len(packed)}B via={transport.label}")
-        log.info(f"BATCH TUN→  pkts={len(pkts)}  {len(raw)//1024}КБ  packed={len(packed)//1024}КБ  via={transport.label}")
         await transport.send_file(packed)
 
 
