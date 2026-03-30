@@ -683,68 +683,69 @@ class MultiTransport:
         return _cb
 
     async def send_file(self, file_body: bytes):
-        async with self._lock:
-            alive = [i for i in range(len(self._transports)) if i in self._alive]
-        if not alive:
-            log.error("[multi] нет живых транспортов, пакеты дропаются")
-            return
-
         loop = asyncio.get_event_loop()
+        best_idx = None
 
         while True:
-            now  = loop.time()
+            now = loop.time()
+            async with self._lock:
+                alive = [i for i in range(len(self._transports)) if i in self._alive]
+                if not alive:
+                    log.error("[multi] нет живых транспортов, пакеты дропаются")
+                    return
 
-            # Шаг 1: фильтруем по UPLOAD_MIN_INTERVAL и _upload_busy
-            waits = {}
-            for i in alive:
-                t = self._transports[i]
-                if t._upload_busy:
-                    waits[i] = UPLOAD_MIN_INTERVAL  # считаем занятым
+                # Шаг 1: считаем wait с учётом busy — всё под локом, нет гонки
+                waits = {}
+                for i in alive:
+                    t = self._transports[i]
+                    if t._upload_busy:
+                        waits[i] = UPLOAD_MIN_INTERVAL
+                    else:
+                        waits[i] = max(0.0, t._last_activity_time + UPLOAD_MIN_INTERVAL - now)
+
+                min_wait = min(waits.values())
+                if min_wait > 0:
+                    min_wait_val = min_wait
                 else:
-                    waits[i] = max(0.0, t._last_activity_time + UPLOAD_MIN_INTERVAL - now)
+                    # Шаг 2: кандидаты — у кого wait == 0
+                    ready = [i for i in alive if waits[i] == 0.0]
 
-            min_wait = min(waits.values())
+                    # Шаг 3: приоритет 1 — минимальный recv_count
+                    min_recv = min(self._transports[i]._recv_count for i in ready)
+                    p1 = [i for i in ready if self._transports[i]._recv_count == min_recv]
 
-            # Если все заняты — ждём самого раннего
-            if min_wait > 0:
-                log.debug(f"[multi] все аккаунты заняты, ждём {min_wait:.3f}s")
-                await asyncio.sleep(min_wait)
+                    # Шаг 4: приоритет 2 — последнее событие "recv"
+                    p2 = [i for i in p1 if self._transports[i]._last_event == "recv"]
+                    candidates = p2 if p2 else p1
+
+                    # Tiebreaker — round-robin
+                    self._rr_idx = (self._rr_idx + 1) % len(candidates)
+                    best_idx = candidates[self._rr_idx % len(candidates)]
+                    best_t   = self._transports[best_idx]
+
+                    # Резервируем атомарно под локом
+                    best_t._upload_busy = True
+
+                    stats = {self._transports[i].label: {
+                        "recv_count": self._transports[i]._recv_count,
+                        "last_event": self._transports[i]._last_event,
+                        "wait": f"{waits[i]:.3f}s",
+                        "busy": self._transports[i]._upload_busy,
+                    } for i in alive}
+                    log.debug(
+                        f"[multi] выбор: {best_t.label} "
+                        f"(recv_count={best_t._recv_count}, last_event={best_t._last_event}) "
+                        f"| ready={[self._transports[i].label for i in ready]} "
+                        f"| p1={[self._transports[i].label for i in p1]} "
+                        f"| p2={[self._transports[i].label for i in p2]} "
+                        f"| stats={stats}"
+                    )
+                    min_wait_val = 0
+
+            if min_wait_val > 0:
+                log.debug(f"[multi] все аккаунты заняты, ждём {min_wait_val:.3f}s")
+                await asyncio.sleep(min_wait_val)
                 continue
-
-            # Шаг 2: кандидаты — у кого таймер истёк и не занят
-            ready = [i for i in alive if waits[i] == 0.0]
-
-            # Шаг 3: приоритет 1 — минимальный recv_count за 5 минут
-            min_recv = min(self._transports[i]._recv_count for i in ready)
-            p1 = [i for i in ready if self._transports[i]._recv_count == min_recv]
-
-            # Шаг 4: приоритет 2 — последнее событие "recv"
-            p2 = [i for i in p1 if self._transports[i]._last_event == "recv"]
-            candidates = p2 if p2 else p1
-
-            # Tiebreaker — round-robin среди финальных кандидатов
-            self._rr_idx = (self._rr_idx + 1) % len(candidates)
-            best_idx = candidates[self._rr_idx % len(candidates)]
-            best_t   = self._transports[best_idx]
-
-            # Резервируем аккаунт ДО начала upload чтобы избежать гонки
-            best_t._upload_busy = True
-
-            # Лог выбора
-            stats = {self._transports[i].label: {
-                "recv_count": self._transports[i]._recv_count,
-                "last_event": self._transports[i]._last_event,
-                "wait": f"{waits[i]:.3f}s",
-                "busy": self._transports[i]._upload_busy,
-            } for i in alive}
-            log.debug(
-                f"[multi] выбор: {best_t.label} "
-                f"(recv_count={best_t._recv_count}, last_event={best_t._last_event}) "
-                f"| ready={[self._transports[i].label for i in ready]} "
-                f"| p1={[self._transports[i].label for i in p1]} "
-                f"| p2={[self._transports[i].label for i in p2]} "
-                f"| stats={stats}"
-            )
             break
 
         try:

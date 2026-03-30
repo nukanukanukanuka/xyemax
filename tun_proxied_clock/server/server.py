@@ -659,6 +659,59 @@ class TunForwarder:
             self._transports.pop(transport.label, None)
             log.info(f"[tun] detach {transport.label}; active={list(self._transports)}")
 
+    def _pick_transport_and_reserve(self) -> tuple:
+        """Атомарно выбирает транспорт и резервирует его (busy=True). Возвращает (transport, wait)."""
+        now = asyncio.get_event_loop().time()
+
+        live = []
+        for transport in self._transports.values():
+            ws   = getattr(transport, "ws", None)
+            http = getattr(transport, "_http", None)
+            if ws is None or getattr(ws, "closed", False): continue
+            if http is None or getattr(http, "closed", True): continue
+            live.append(transport)
+
+        if not live:
+            return None, 0.0
+
+        waits = {}
+        for t in live:
+            if t._upload_busy:
+                waits[t.label] = UPLOAD_MIN_INTERVAL
+            else:
+                waits[t.label] = max(0.0, t._last_activity_time + UPLOAD_MIN_INTERVAL - now)
+
+        min_wait = min(waits.values())
+        if min_wait > 0:
+            return None, min_wait
+
+        ready = [t for t in live if waits[t.label] == 0.0]
+
+        min_recv = min(t._recv_count for t in ready)
+        p1 = [t for t in ready if t._recv_count == min_recv]
+        p2 = [t for t in p1 if t._last_event == "recv"]
+        candidates = p2 if p2 else p1
+        best = candidates[0]
+
+        # Резервируем атомарно
+        best._upload_busy = True
+
+        stats = {t.label: {
+            "recv_count": t._recv_count,
+            "last_event": t._last_event,
+            "wait": f"{waits[t.label]:.3f}s",
+            "busy": t._upload_busy,
+        } for t in live}
+        log.debug(
+            f"[tun] выбор: {best.label} "
+            f"(recv_count={best._recv_count}, last_event={best._last_event}) "
+            f"| ready={[t.label for t in ready]} "
+            f"| p1={[t.label for t in p1]} "
+            f"| p2={[t.label for t in p2]} "
+            f"| stats={stats}"
+        )
+        return best, 0.0
+
     def _pick_transport(self) -> tuple:
         """Возвращает (транспорт, wait) по приоритетам."""
         now = asyncio.get_event_loop().time()
@@ -770,15 +823,18 @@ class TunForwarder:
                 pkts = self._pending[:]
                 self._pending.clear()
                 self._pending_bytes = 0
-            transport, wait = self._pick_transport()
-            if transport is None:
-                log.warning(f"[tun] нет живого транспорта, дропаем {len(pkts)} pkts")
-                continue
+
             raw    = _encode_packets(pkts)
             packed = _pack(raw)
-            if wait > 0:
-                await asyncio.sleep(wait)
-            transport._upload_busy = True
+
+            # Ждём свободный аккаунт — атомарно выбираем и резервируем под локом
+            while True:
+                transport, wait = self._pick_transport_and_reserve()
+                if transport is not None:
+                    break
+                log.debug(f"[tun] все аккаунты заняты, ждём {wait:.3f}s")
+                await asyncio.sleep(wait if wait > 0 else 0.05)
+
             log.debug(f"[tun] → клиент: {len(pkts)} pkts  raw={len(raw)}B  packed={len(packed)}B via={transport.label}")
             try:
                 await transport.send_file(packed)
