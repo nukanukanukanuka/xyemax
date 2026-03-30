@@ -96,9 +96,7 @@ TUN_MTU          = int(_cfg.get("TUN_MTU", "1400"))
 DEFAULT_ROUTE    = _cfg.get("DEFAULT_ROUTE", "0") == "1"
 
 # Батчинг
-BATCH_WINDOW_MS  = int(_cfg.get("BATCH_WINDOW_MS",  "80"))
-BATCH_MAX_KB     = int(_cfg.get("BATCH_MAX_KB",  "4096"))
-BATCH_MAX_BYTES  = BATCH_MAX_KB * 1024
+BATCH_MIN_KB    = int(_cfg.get("BATCH_MIN_KB", "8"))
 RESPONSE_TIMEOUT = float(_cfg.get("RESPONSE_TIMEOUT", "30"))
 UPLOAD_MIN_INTERVAL = float(_cfg.get("UPLOAD_MIN_INTERVAL", "0.3"))
 
@@ -297,6 +295,9 @@ class MaxTransport:
         self.on_batch_response: callable = None
         self.on_disconnect: callable = None
         self._last_activity_time: float = 0.0
+        self._last_event: str = "recv"       # "send" или "recv"
+        self._recv_count: int = 0            # входящих за текущие 5 минут
+        self._recv_count_reset: float = 0.0  # время последнего сброса счётчика
 
     def _next_seq(self):
         s = self.seq; self.seq += 1; return s
@@ -368,6 +369,7 @@ class MaxTransport:
                 log.error(f"[transport:{self.label}] upload failed {resp.status}: {body}")
                 return
             self._last_activity_time = loop.time()
+            self._last_event = "send"
             log.debug(f"[transport:{self.label}] upload ok fileId={file_id} size={len(file_body)}")
             _console(f"↑ {self.label}  {len(file_body)/1024:,.1f} КБ")
         try:
@@ -474,7 +476,13 @@ class MaxTransport:
                 log.error(f"[transport:{self.label}] download error: {e}")
                 return
         data = _unpack(_jpeg_unwrap(payload))
-        self._last_activity_time = asyncio.get_event_loop().time()
+        now = asyncio.get_event_loop().time()
+        self._last_activity_time = now
+        self._last_event = "recv"
+        if now - self._recv_count_reset >= 300.0:
+            self._recv_count = 0
+            self._recv_count_reset = now
+        self._recv_count += 1
         log.debug(f"[transport:{self.label}] recv_file fileId={file_id} size={len(data)}")
         _console(f"↓ {self.label}  {len(data)/1024:,.1f} КБ")
         if self.on_batch_response:
@@ -557,36 +565,76 @@ class MultiTransport:
         loop = asyncio.get_event_loop()
         now  = loop.time()
 
-        # Найти аккаунт с минимальным оставшимся временем до готовности
-        best_idx  = None
-        best_wait = float("inf")
+        # Шаг 1: фильтруем по UPLOAD_MIN_INTERVAL, находим минимальный wait
+        waits = {}
         for i in alive:
-            t    = self._transports[i]
-            wait = max(0.0, t._last_activity_time + UPLOAD_MIN_INTERVAL - now)
-            if wait < best_wait:
-                best_wait = wait
-                best_idx  = i
+            t = self._transports[i]
+            waits[i] = max(0.0, t._last_activity_time + UPLOAD_MIN_INTERVAL - now)
 
-        if best_wait > 0:
-            await asyncio.sleep(best_wait)
+        min_wait = min(waits.values())
+
+        # Если все заняты — ждём самого раннего
+        if min_wait > 0:
+            log.debug(f"[multi] все аккаунты заняты, ждём {min_wait:.3f}s")
+            await asyncio.sleep(min_wait)
+            now = loop.time()
+            for i in alive:
+                t = self._transports[i]
+                waits[i] = max(0.0, t._last_activity_time + UPLOAD_MIN_INTERVAL - now)
+
+        # Шаг 2: кандидаты — у кого таймер истёк (wait == 0)
+        ready = [i for i in alive if waits[i] == 0.0]
+
+        # Шаг 3: приоритет 1 — минимальный recv_count за 5 минут
+        min_recv = min(self._transports[i]._recv_count for i in ready)
+        p1 = [i for i in ready if self._transports[i]._recv_count == min_recv]
+
+        # Шаг 4: приоритет 2 — последнее событие "recv" (противоположная сторона отправила последней)
+        p2 = [i for i in p1 if self._transports[i]._last_event == "recv"]
+        candidates = p2 if p2 else p1
+
+        best_idx = candidates[0]
+        best_t   = self._transports[best_idx]
+
+        # Лог выбора
+        stats = {self._transports[i].label: {
+            "recv_count": self._transports[i]._recv_count,
+            "last_event": self._transports[i]._last_event,
+            "wait": f"{waits[i]:.3f}s"
+        } for i in alive}
+        log.debug(
+            f"[multi] выбор: {best_t.label} "
+            f"(recv_count={best_t._recv_count}, last_event={best_t._last_event}) "
+            f"| ready={[self._transports[i].label for i in ready]} "
+            f"| p1={[self._transports[i].label for i in p1]} "
+            f"| p2={[self._transports[i].label for i in p2]} "
+            f"| stats={stats}"
+        )
 
         await self._transports[best_idx].send_file(file_body)
 
     async def _run_one(self, idx: int):
         t = self._transports[idx]
-        delay = 5
+        delay = 0
         while True:
             try:
                 async with self._lock:
                     self._alive.add(idx)
                 await t.connect()
+                delay = 0  # успешное подключение — сбрасываем задержку
+            except asyncio.CancelledError:
+                raise
             except Exception as e:
-                log.error(f"[multi] {t.label} разрыв: {e}. Reconnect in {delay}s...")
+                if delay > 0:
+                    log.error(f"[multi] {t.label} разрыв: {e}. Reconnect in {delay}s...")
+                else:
+                    log.warning(f"[multi] {t.label} разрыв: {e}. Reconnect немедленно...")
             finally:
                 async with self._lock:
                     self._alive.discard(idx)
-            await asyncio.sleep(delay)
-            delay = min(delay * 2, 60)
+            if delay > 0:
+                await asyncio.sleep(delay)
+            delay = min(max(delay, 1) * 2, 60)
 
     async def connect(self):
         tasks = [asyncio.create_task(self._run_one(i))
@@ -602,7 +650,7 @@ class MultiTransport:
 
 class TunManager:
     """
-    Читает IP-пакеты из tun-интерфейса, накапливает за BATCH_WINDOW_MS,
+    Читает IP-пакеты из tun-интерфейса, накапливает до BATCH_MIN_BYTES,
     упаковывает msgpack-подобным форматом и шлёт через transport.
     Входящие пакеты от server.py пишет обратно в tun.
 
@@ -617,7 +665,6 @@ class TunManager:
         self.transport.on_batch_response = self._on_response
         self._pending: list[bytes] = []
         self._pending_bytes  = 0
-        self._flush_task: asyncio.Task | None = None
         self._lock = asyncio.Lock()
         self._pkts_sent = 0
         self._pkts_recv = 0
@@ -655,7 +702,7 @@ class TunManager:
     # ── Чтение из TUN → батч → отправка ─────────────────────────────────────
 
     async def read_loop(self):
-        """Читаем пакеты из tun и складываем в батч."""
+        """Читаем пакеты из tun, накапливаем до BATCH_MIN_BYTES, отправляем."""
         loop = asyncio.get_event_loop()
         while True:
             try:
@@ -672,18 +719,8 @@ class TunManager:
             async with self._lock:
                 self._pending.append(pkt)
                 self._pending_bytes += len(pkt)
-                if self._flush_task is None or self._flush_task.done():
-                    self._flush_task = asyncio.create_task(
-                        self._flush_after(BATCH_WINDOW_MS / 1000.0))
-                if self._pending_bytes >= BATCH_MAX_BYTES:
-                    if self._flush_task and not self._flush_task.done():
-                        self._flush_task.cancel()
+                if self._pending_bytes >= BATCH_MIN_KB * 1024:
                     await self._flush_now()
-
-    async def _flush_after(self, delay: float):
-        await asyncio.sleep(delay)
-        async with self._lock:
-            await self._flush_now()
 
     async def _flush_now(self):
         if not self._pending:

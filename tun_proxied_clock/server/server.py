@@ -100,9 +100,7 @@ TUN_BIND_IFACE = _cfg.get("TUN_BIND_IFACE", "")  # интерфейс для HTT
 UPLOAD_MIN_INTERVAL = float(_cfg.get("UPLOAD_MIN_INTERVAL", "0.3"))
 
 # Батчинг
-BATCH_WINDOW_MS = int(_cfg.get("BATCH_WINDOW_MS", "80"))
-BATCH_MAX_KB    = int(_cfg.get("BATCH_MAX_KB", "4096"))
-BATCH_MAX_BYTES = BATCH_MAX_KB * 1024
+BATCH_MIN_KB    = int(_cfg.get("BATCH_MIN_KB", "8"))
 
 STATUS_URL    = "https://telegram.mooner.pro/api/max/status"
 SESSIONS_FILE = Path("sessions.json")
@@ -386,6 +384,9 @@ class MaxTransport:
         self._op88_sem = asyncio.Semaphore(4)
         self.on_batch_request: callable = None
         self._last_activity_time: float = 0.0
+        self._last_event: str = "recv"       # "send" или "recv"
+        self._recv_count: int = 0            # входящих за текущие 5 минут
+        self._recv_count_reset: float = 0.0  # время последнего сброса счётчика
 
     def _next_seq(self):
         s = self.seq; self.seq += 1; return s
@@ -458,6 +459,7 @@ class MaxTransport:
                 log.error(f"[transport:{self.label}] upload failed {resp.status}: {body}")
                 return
             self._last_activity_time = loop.time()
+            self._last_event = "send"
             log.debug(f"[transport:{self.label}] upload ok fileId={file_id} size={len(file_body)}")
             _console(f"↑ {self.label}  {len(file_body)/1024:,.1f} КБ")
         try:
@@ -566,7 +568,13 @@ class MaxTransport:
                 log.error(f"[transport:{self.label}] download error: {e}", exc_info=True)
                 return
         data = _unpack(_jpeg_unwrap(payload))
-        self._last_activity_time = asyncio.get_event_loop().time()
+        now = asyncio.get_event_loop().time()
+        self._last_activity_time = now
+        self._last_event = "recv"
+        if now - self._recv_count_reset >= 300.0:
+            self._recv_count = 0
+            self._recv_count_reset = now
+        self._recv_count += 1
         log.debug(f"[transport:{self.label}] recv_file fileId={file_id} size={len(data)}")
         _console(f"↓ {self.label}  {len(data)/1024:,.1f} КБ")
         if self.on_batch_request:
@@ -626,9 +634,7 @@ class TunForwarder:
         self._transports: dict[str, MaxTransport] = {}
         self._pending: list[bytes] = []
         self._pending_bytes = 0
-        self._flush_task: asyncio.Task | None = None
         self._lock = asyncio.Lock()
-        self._resp_window_ms = BATCH_WINDOW_MS
 
     def attach(self, transport: MaxTransport):
         self._transports[transport.label] = transport
@@ -642,10 +648,11 @@ class TunForwarder:
             log.info(f"[tun] detach {transport.label}; active={list(self._transports)}")
 
     def _pick_transport(self) -> tuple:
-        """Возвращает (транспорт, wait) с минимальным оставшимся таймером."""
+        """Возвращает (транспорт, wait) по приоритетам."""
         now = asyncio.get_event_loop().time()
-        best = None
-        best_wait = float("inf")
+
+        # Только живые транспорты
+        live = []
         for transport in self._transports.values():
             ws   = getattr(transport, "ws", None)
             http = getattr(transport, "_http", None)
@@ -653,11 +660,46 @@ class TunForwarder:
                 continue
             if http is None or getattr(http, "closed", True):
                 continue
-            wait = max(0.0, transport._last_activity_time + UPLOAD_MIN_INTERVAL - now)
-            if wait < best_wait:
-                best_wait = wait
-                best = transport
-        return best, (best_wait if best is not None else 0.0)
+            live.append(transport)
+
+        if not live:
+            return None, 0.0
+
+        waits = {t.label: max(0.0, t._last_activity_time + UPLOAD_MIN_INTERVAL - now) for t in live}
+        min_wait = min(waits.values())
+
+        # Кандидаты у кого таймер истёк
+        ready = [t for t in live if waits[t.label] == 0.0]
+        if not ready:
+            # Все заняты — вернуть лучшего с временем ожидания
+            best = min(live, key=lambda t: waits[t.label])
+            return best, waits[best.label]
+
+        # Приоритет 1 — минимальный recv_count за 5 минут
+        min_recv = min(t._recv_count for t in ready)
+        p1 = [t for t in ready if t._recv_count == min_recv]
+
+        # Приоритет 2 — последнее событие "recv"
+        p2 = [t for t in p1 if t._last_event == "recv"]
+        candidates = p2 if p2 else p1
+
+        best = candidates[0]
+
+        stats = {t.label: {
+            "recv_count": t._recv_count,
+            "last_event": t._last_event,
+            "wait": f"{waits[t.label]:.3f}s"
+        } for t in live}
+        log.debug(
+            f"[tun] выбор: {best.label} "
+            f"(recv_count={best._recv_count}, last_event={best._last_event}) "
+            f"| ready={[t.label for t in ready]} "
+            f"| p1={[t.label for t in p1]} "
+            f"| p2={[t.label for t in p2]} "
+            f"| stats={stats}"
+        )
+
+        return best, 0.0
 
     async def _on_packets_from_client(self, data: bytes):
         """Получили батч от клиента — пишем пакеты в tun."""
@@ -673,7 +715,7 @@ class TunForwarder:
                 log.warning(f"[tun] write error: {e}")
 
     async def read_loop(self):
-        """Читаем ответные пакеты из tun → батчуем → шлём клиенту."""
+        """Читаем ответные пакеты из tun, накапливаем до BATCH_MIN_BYTES, шлём клиенту."""
         loop = asyncio.get_event_loop()
         while True:
             try:
@@ -690,18 +732,8 @@ class TunForwarder:
             async with self._lock:
                 self._pending.append(pkt)
                 self._pending_bytes += len(pkt)
-                if self._flush_task is None or self._flush_task.done():
-                    self._flush_task = asyncio.create_task(
-                        self._flush_after(self._resp_window_ms / 1000.0))
-                if self._pending_bytes >= BATCH_MAX_BYTES:
-                    if self._flush_task and not self._flush_task.done():
-                        self._flush_task.cancel()
+                if self._pending_bytes >= BATCH_MIN_KB * 1024:
                     await self._flush_now()
-
-    async def _flush_after(self, delay: float):
-        await asyncio.sleep(delay)
-        async with self._lock:
-            await self._flush_now()
 
     async def _flush_now(self):
         if not self._pending:
@@ -785,7 +817,7 @@ class SessionManager:
 
     async def _run_proxy(self, url: str, chat_id: int, name: str):
         async def _run_one(acc: dict):
-            delay = 5
+            delay = 0
             while True:
                 transport = MaxTransport(
                     "server", acc["token"], acc["viewer_id"], acc["device_id"],
@@ -796,19 +828,23 @@ class SessionManager:
                     log.info(f"[proxy:{name}] WS подключение ({acc['label']}, "
                              f"chat_id={chat_id})")
                     await transport.connect()
-                    delay = 5
+                    delay = 0  # успешное подключение — сбрасываем задержку
                 except asyncio.CancelledError:
                     log.info(f"[proxy:{name}] {acc['label']} остановлен")
                     self._forwarder.detach(transport)
                     return
                 except Exception as e:
-                    log.error(f"[proxy:{name}] {acc['label']} разрыв: {e!r}. "
-                              f"Reconnect in {delay}s...")
+                    if delay > 0:
+                        log.error(f"[proxy:{name}] {acc['label']} разрыв: {e!r}. "
+                                  f"Reconnect in {delay}s...")
+                    else:
+                        log.warning(f"[proxy:{name}] {acc['label']} разрыв: {e!r}. "
+                                    f"Reconnect немедленно...")
+                finally:
                     self._forwarder.detach(transport)
+                if delay > 0:
                     await asyncio.sleep(delay)
-                    delay = min(delay * 2, 60)
-                else:
-                    self._forwarder.detach(transport)
+                delay = min(max(delay, 1) * 2, 60)
 
         await asyncio.gather(*[_run_one(acc) for acc in ACCOUNTS])
 
