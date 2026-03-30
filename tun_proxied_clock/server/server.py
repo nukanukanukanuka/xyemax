@@ -707,8 +707,44 @@ class TunForwarder:
             live.append(transport)
         return live
 
+    def _rank_transports(self, ready: list, now: float):
+        """Ранжирует аккаунты по среднему месту в 3 приоритетах. Возвращает лучший транспорт."""
+        n = len(ready)
+
+        # Приоритет 1: меньше recv_count — лучше
+        order1 = sorted(range(n), key=lambda j: ready[j]._recv_count)
+        rank1  = [0] * n
+        for place, j in enumerate(order1):
+            rank1[j] = place + 1
+
+        # Приоритет 2: больше remaining — лучше
+        order2 = sorted(range(n), key=lambda j: -self._rate_limit_remaining(ready[j], now))
+        rank2  = [0] * n
+        for place, j in enumerate(order2):
+            rank2[j] = place + 1
+
+        # Приоритет 3: last_event=="recv" лучше
+        order3 = sorted(range(n), key=lambda j: 0 if ready[j]._last_event == "recv" else 1)
+        rank3  = [0] * n
+        for place, j in enumerate(order3):
+            rank3[j] = place + 1
+
+        scores = [(rank1[j] + rank2[j] + rank3[j]) / 3.0 for j in range(n)]
+        best_j = min(range(n), key=lambda j: scores[j])
+
+        score_info = {ready[j].label: {
+            "recv_count": ready[j]._recv_count,
+            "remaining":  self._rate_limit_remaining(ready[j], now),
+            "last_event": ready[j]._last_event,
+            "r1": rank1[j], "r2": rank2[j], "r3": rank3[j],
+            "score": f"{scores[j]:.2f}",
+        } for j in range(n)}
+        log.debug(f"[tun] ранжирование: {score_info}")
+
+        return ready[best_j]
+
     def _pick_transport_and_reserve(self) -> tuple:
-        """Атомарно выбирает транспорт по приоритетам и резервирует (busy=True)."""
+        """Атомарно выбирает транспорт по рейтингу и резервирует (busy=True)."""
         now  = asyncio.get_event_loop().time()
         live = self._get_live()
         if not live:
@@ -722,19 +758,7 @@ class TunForwarder:
         if not ready:
             return None, 0.05
 
-        # Приоритет 1: минимальный recv_count
-        min_recv = min(t._recv_count for t in ready)
-        p1 = [t for t in ready if t._recv_count == min_recv]
-
-        # Приоритет 2: максимальный остаток лимита
-        max_rem = max(self._rate_limit_remaining(t, now) for t in p1)
-        p2 = [t for t in p1 if self._rate_limit_remaining(t, now) == max_rem]
-
-        # Приоритет 3: последнее событие "recv"
-        p3 = [t for t in p2 if t._last_event == "recv"]
-        candidates = p3 if p3 else p2
-        best = candidates[0]
-
+        best = self._rank_transports(ready, now)
         best._upload_busy = True
 
         stats = {t.label: {
@@ -748,10 +772,6 @@ class TunForwarder:
             f"(recv_count={best._recv_count}, "
             f"remaining={self._rate_limit_remaining(best, now) + 1}, "
             f"last_event={best._last_event}) "
-            f"| ready={[t.label for t in ready]} "
-            f"| p1={[t.label for t in p1]} "
-            f"| p2={[t.label for t in p2]} "
-            f"| p3={[t.label for t in p3]} "
             f"| stats={stats}"
         )
         return best, 0.0

@@ -722,6 +722,46 @@ class MultiTransport:
             t._sent_times.popleft()
         return RATE_LIMIT_COUNT - len(t._sent_times)
 
+    def _rank_transports(self, ready: list, now: float) -> int:
+        """Ранжирует аккаунты по среднему месту в 3 приоритетах. Возвращает idx победителя."""
+        ts = [self._transports[i] for i in ready]
+        n  = len(ready)
+
+        # Сортируем по каждому критерию и назначаем места (1 = лучший)
+        # Приоритет 1: меньше recv_count — лучше
+        order1 = sorted(range(n), key=lambda j: ts[j]._recv_count)
+        rank1  = [0] * n
+        for place, j in enumerate(order1):
+            rank1[j] = place + 1
+
+        # Приоритет 2: больше remaining — лучше
+        order2 = sorted(range(n), key=lambda j: -self._rate_limit_remaining(ts[j], now))
+        rank2  = [0] * n
+        for place, j in enumerate(order2):
+            rank2[j] = place + 1
+
+        # Приоритет 3: last_event=="recv" лучше (0 → место 1, 1 → место n)
+        order3 = sorted(range(n), key=lambda j: 0 if ts[j]._last_event == "recv" else 1)
+        rank3  = [0] * n
+        for place, j in enumerate(order3):
+            rank3[j] = place + 1
+
+        # Среднее место — победитель с минимальным значением
+        scores = [(rank1[j] + rank2[j] + rank3[j]) / 3.0 for j in range(n)]
+        best_j = min(range(n), key=lambda j: scores[j])
+
+        # Лог
+        score_info = {ts[j].label: {
+            "recv_count": ts[j]._recv_count,
+            "remaining":  self._rate_limit_remaining(ts[j], now),
+            "last_event": ts[j]._last_event,
+            "r1": rank1[j], "r2": rank2[j], "r3": rank3[j],
+            "score": f"{scores[j]:.2f}",
+        } for j in range(n)}
+        log.debug(f"[multi] ранжирование: {score_info}")
+
+        return ready[best_j]
+
     async def send_file(self, file_body: bytes):
         loop = asyncio.get_event_loop()
         best_idx = None
@@ -740,26 +780,10 @@ class MultiTransport:
                          and self._rate_limit_remaining(self._transports[i], now) > 0]
 
                 if not ready:
-                    min_wait_val = 0.05  # нет свободных — подождём немного
+                    min_wait_val = 0.05
                 else:
-                    # Приоритет 1: минимальный recv_count (меньше входящих = чаще использовать)
-                    min_recv = min(self._transports[i]._recv_count for i in ready)
-                    p1 = [i for i in ready if self._transports[i]._recv_count == min_recv]
-
-                    # Приоритет 2: максимальный остаток лимита
-                    max_remaining = max(self._rate_limit_remaining(self._transports[i], now) for i in p1)
-                    p2 = [i for i in p1 if self._rate_limit_remaining(self._transports[i], now) == max_remaining]
-
-                    # Приоритет 3: последнее событие "recv"
-                    p3 = [i for i in p2 if self._transports[i]._last_event == "recv"]
-                    candidates = p3 if p3 else p2
-
-                    # Tiebreaker — round-robin
-                    self._rr_idx = (self._rr_idx + 1) % len(candidates)
-                    best_idx = candidates[self._rr_idx % len(candidates)]
+                    best_idx = self._rank_transports(ready, now)
                     best_t   = self._transports[best_idx]
-
-                    # Резервируем атомарно под локом
                     best_t._upload_busy = True
 
                     stats = {self._transports[i].label: {
@@ -773,10 +797,6 @@ class MultiTransport:
                         f"(recv_count={best_t._recv_count}, "
                         f"remaining={self._rate_limit_remaining(best_t, now) + 1}, "
                         f"last_event={best_t._last_event}) "
-                        f"| ready={[self._transports[i].label for i in ready]} "
-                        f"| p1={[self._transports[i].label for i in p1]} "
-                        f"| p2={[self._transports[i].label for i in p2]} "
-                        f"| p3={[self._transports[i].label for i in p3]} "
                         f"| stats={stats}"
                     )
                     min_wait_val = 0
