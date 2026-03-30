@@ -398,7 +398,7 @@ class MaxTransport:
         self._recent_outgoing_file_ids: set[int] = set()
         self._seen_file_ids: set[int] = set()
         self._seen_file_ids_order = deque(maxlen=4096)
-        self._op88_sem = asyncio.Semaphore(4)
+        self._op88_sem = asyncio.Semaphore(1)
         self.on_batch_response: callable = None
         self.on_disconnect: callable = None
         self._last_activity_time: float = 0.0
@@ -530,13 +530,20 @@ class MaxTransport:
                 f = self._once.pop("op19"); f.done() or f.set_result(pl); continue
             if cmd == 1 and op == 87  and "op87" in self._once:
                 f = self._once.pop("op87"); f.done() or f.set_result(pl); continue
-            if cmd == 1 and op == 88:
+            if op == 88:
                 fid = pl.get("fileId") or pl.get("id")
                 key = f"op88_{fid}" if fid and f"op88_{fid}" in self._once else None
                 if key is None:
                     key = next((k for k in list(self._once) if k.startswith("op88_")), None)
                 if key:
-                    f = self._once.pop(key); f.done() or f.set_result(pl); continue
+                    f = self._once.pop(key)
+                    if cmd == 3:
+                        # cmd=3 — ошибка от сервера (файл не найден и т.п.)
+                        log.warning(f"[transport:{self.label}] op88 error cmd=3 fileId={fid}: {pl}")
+                        f.done() or f.set_exception(Exception(f"op88 error: {pl}"))
+                    else:
+                        f.done() or f.set_result(pl)
+                    continue
             if cmd == 0 and op == 136:
                 fid = pl.get("fileId") or pl.get("id")
                 key = f"op136_{int(fid)}" if fid is not None else None
@@ -582,6 +589,9 @@ class MaxTransport:
             except asyncio.TimeoutError:
                 self._once.pop(key, None)
                 log.error(f"[transport:{self.label}] op88 timeout fileId={file_id}")
+                return
+            except Exception as e:
+                log.warning(f"[transport:{self.label}] op88 failed fileId={file_id}: {e}")
                 return
             url = pl.get("url")
             if not url: return
