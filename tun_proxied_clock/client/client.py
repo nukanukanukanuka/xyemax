@@ -4,7 +4,7 @@ client.py — TUN-туннель через MAX файловый канал.
 
 Архитектура:
   Создаёт виртуальный сетевой интерфейс tun0.
-  Читает IP-пакеты из tun0, накапливает за окно BATCH_WINDOW_MS,
+  Читает IP-пакеты из tun0, накапливает до BATCH_MIN_KB КБ,
   упаковывает в один файл и шлёт на server.py.
   server.py инжектирует пакеты в сеть (NAT), собирает ответные пакеты
   и шлёт обратно одним файлом.
@@ -96,6 +96,7 @@ TUN_MTU          = int(_cfg.get("TUN_MTU", "1400"))
 DEFAULT_ROUTE    = _cfg.get("DEFAULT_ROUTE", "0") == "1"
 
 # Батчинг
+BATCH_WINDOW_MS = int(_cfg.get("BATCH_WINDOW_MS", "200"))
 BATCH_MIN_KB    = int(_cfg.get("BATCH_MIN_KB", "8"))
 RESPONSE_TIMEOUT = float(_cfg.get("RESPONSE_TIMEOUT", "30"))
 UPLOAD_MIN_INTERVAL = float(_cfg.get("UPLOAD_MIN_INTERVAL", "0.3"))
@@ -665,6 +666,7 @@ class TunManager:
         self.transport.on_batch_response = self._on_response
         self._pending: list[bytes] = []
         self._pending_bytes  = 0
+        self._flush_task: asyncio.Task | None = None
         self._lock = asyncio.Lock()
         self._pkts_sent = 0
         self._pkts_recv = 0
@@ -702,7 +704,7 @@ class TunManager:
     # ── Чтение из TUN → батч → отправка ─────────────────────────────────────
 
     async def read_loop(self):
-        """Читаем пакеты из tun, накапливаем до BATCH_MIN_BYTES, отправляем."""
+        """Читаем пакеты из tun — отправляем по BATCH_MIN_KB или по таймауту BATCH_WINDOW_MS."""
         loop = asyncio.get_event_loop()
         while True:
             try:
@@ -719,8 +721,18 @@ class TunManager:
             async with self._lock:
                 self._pending.append(pkt)
                 self._pending_bytes += len(pkt)
+                if self._flush_task is None or self._flush_task.done():
+                    self._flush_task = asyncio.create_task(
+                        self._flush_after(BATCH_WINDOW_MS / 1000.0))
                 if self._pending_bytes >= BATCH_MIN_KB * 1024:
+                    if self._flush_task and not self._flush_task.done():
+                        self._flush_task.cancel()
                     await self._flush_now()
+
+    async def _flush_after(self, delay: float):
+        await asyncio.sleep(delay)
+        async with self._lock:
+            await self._flush_now()
 
     async def _flush_now(self):
         if not self._pending:
@@ -778,7 +790,7 @@ async def main():
     _console(f"MAX TUN клиент  аккаунтов: {len(ACCOUNTS)}")
     _console(f"Интерфейс: {TUN_NAME}  {TUN_ADDR} ↔ {TUN_PEER}  MTU={TUN_MTU}")
     _console(f"DEFAULT_ROUTE={'да' if DEFAULT_ROUTE else 'нет'}")
-    _console(f"Батч окно: {BATCH_WINDOW_MS}мс  макс: {BATCH_MAX_BYTES//1024}КБ")
+    _console(f"Батч мин: {BATCH_MIN_KB}КБ")
     _console(f"Лог: {LOG_FILE}")
     _console("=" * 55)
 

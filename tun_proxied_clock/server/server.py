@@ -100,6 +100,7 @@ TUN_BIND_IFACE = _cfg.get("TUN_BIND_IFACE", "")  # интерфейс для HTT
 UPLOAD_MIN_INTERVAL = float(_cfg.get("UPLOAD_MIN_INTERVAL", "0.3"))
 
 # Батчинг
+BATCH_WINDOW_MS = int(_cfg.get("BATCH_WINDOW_MS", "200"))
 BATCH_MIN_KB    = int(_cfg.get("BATCH_MIN_KB", "8"))
 
 STATUS_URL    = "https://telegram.mooner.pro/api/max/status"
@@ -634,6 +635,7 @@ class TunForwarder:
         self._transports: dict[str, MaxTransport] = {}
         self._pending: list[bytes] = []
         self._pending_bytes = 0
+        self._flush_task: asyncio.Task | None = None
         self._lock = asyncio.Lock()
 
     def attach(self, transport: MaxTransport):
@@ -715,7 +717,7 @@ class TunForwarder:
                 log.warning(f"[tun] write error: {e}")
 
     async def read_loop(self):
-        """Читаем ответные пакеты из tun, накапливаем до BATCH_MIN_BYTES, шлём клиенту."""
+        """Читаем ответные пакеты из tun — отправляем по BATCH_MIN_KB или по таймауту BATCH_WINDOW_MS."""
         loop = asyncio.get_event_loop()
         while True:
             try:
@@ -732,8 +734,18 @@ class TunForwarder:
             async with self._lock:
                 self._pending.append(pkt)
                 self._pending_bytes += len(pkt)
+                if self._flush_task is None or self._flush_task.done():
+                    self._flush_task = asyncio.create_task(
+                        self._flush_after(BATCH_WINDOW_MS / 1000.0))
                 if self._pending_bytes >= BATCH_MIN_KB * 1024:
+                    if self._flush_task and not self._flush_task.done():
+                        self._flush_task.cancel()
                     await self._flush_now()
+
+    async def _flush_after(self, delay: float):
+        await asyncio.sleep(delay)
+        async with self._lock:
+            await self._flush_now()
 
     async def _flush_now(self):
         if not self._pending:
