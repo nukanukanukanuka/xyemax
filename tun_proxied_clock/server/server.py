@@ -390,7 +390,9 @@ class MaxTransport:
         self._recv_count: int = 0            # входящих за текущие 5 минут
         self._recv_count_reset: float = 0.0  # время последнего сброса счётчика
         self._upload_busy: bool = False      # идёт ли сейчас upload
-        self._sent_times: deque = deque()    # времена отправок за последние RATE_LIMIT_WINDOW_10MINS сек
+        # Token bucket для rate limiting
+        self._tokens:    float = float(RATE_LIMIT_COUNT)
+        self._tokens_ts: float = 0.0
         # Статистика для dashboard
         self._pkts_sent_total:  int = 0
         self._pkts_recv_total:  int = 0
@@ -474,7 +476,6 @@ class MaxTransport:
             now = loop.time()
             self._last_activity_time = now
             self._last_event = "send"
-            self._sent_times.append(now)
             self._pkts_sent_total  += 1
             self._bytes_sent_total += len(file_body)
             self._speed_bytes      += len(file_body)
@@ -639,7 +640,8 @@ class MaxTransport:
             self._last_event       = "recv"
             self._last_activity_time = 0.0
             self._upload_busy      = False
-            self._sent_times.clear()
+            self._tokens    = float(RATE_LIMIT_COUNT)
+            self._tokens_ts = asyncio.get_event_loop().time()
             self._speed_bytes = 0
             self._speed_ts    = 0.0
             connector = _make_connector(limit=32, limit_per_host=8, keepalive_timeout=30)
@@ -690,12 +692,18 @@ class TunForwarder:
             self._transports.pop(transport.label, None)
             log.info(f"[tun] detach {transport.label}; active={list(self._transports)}")
 
-    def _rate_limit_remaining(self, t, now: float) -> int:
-        """Сколько файлов осталось в лимите за последние RATE_LIMIT_WINDOW_10MINS секунд."""
-        cutoff = now - RATE_LIMIT_WINDOW_10MINS
-        while t._sent_times and t._sent_times[0] < cutoff:
-            t._sent_times.popleft()
-        return RATE_LIMIT_COUNT - len(t._sent_times)
+    def _rate_limit_remaining(self, t, now: float) -> float:
+        """Token bucket: восстанавливаем токены со скоростью RATE_LIMIT_COUNT/RATE_LIMIT_WINDOW_10MINS."""
+        rate = RATE_LIMIT_COUNT / RATE_LIMIT_WINDOW_10MINS
+        if t._tokens_ts > 0:
+            elapsed = now - t._tokens_ts
+            t._tokens = min(float(RATE_LIMIT_COUNT), t._tokens + elapsed * rate)
+        t._tokens_ts = now
+        return t._tokens
+
+    def _consume_token(self, t):
+        """Потребляем один токен при отправке."""
+        t._tokens = max(0.0, t._tokens - 1.0)
 
     def _get_live(self) -> list:
         live = []
@@ -760,6 +768,7 @@ class TunForwarder:
 
         best = self._rank_transports(ready, now)
         best._upload_busy = True
+        self._consume_token(best)
 
         stats = {t.label: {
             "recv_count": t._recv_count,
@@ -1036,10 +1045,7 @@ async def _dashboard_loop(forwarder: "TunForwarder"):
                 t._speed_bytes = 0
                 speed_ts[lbl]  = now_ts
 
-            cutoff = now_ev - RATE_LIMIT_WINDOW_10MINS
-            while t._sent_times and t._sent_times[0] < cutoff:
-                t._sent_times.popleft()
-            remaining = RATE_LIMIT_COUNT - len(t._sent_times)
+            remaining = int(t._tokens)
 
             busy_mark = "●" if t._upload_busy else " "
             line = (
