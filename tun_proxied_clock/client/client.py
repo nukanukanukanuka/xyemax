@@ -98,9 +98,12 @@ DEFAULT_ROUTE    = _cfg.get("DEFAULT_ROUTE", "0") == "1"
 HTTP_IFACE       = _cfg.get("HTTP_IFACE", "")  # интерфейс для HTTP трафика скрипта (upload/download)
 
 # Батчинг
-BATCH_WINDOW_MS = int(_cfg.get("BATCH_WINDOW_MS", "200"))
+BATCH_WINDOW_MS = int(_cfg.get("BATCH_WINDOW_MS", "500"))
 RESPONSE_TIMEOUT = float(_cfg.get("RESPONSE_TIMEOUT", "30"))
-UPLOAD_MIN_INTERVAL = float(_cfg.get("UPLOAD_MIN_INTERVAL", "0.3"))
+
+# Rate limit: максимум RATE_LIMIT_COUNT файлов за RATE_LIMIT_WINDOW_10MINS секунд на аккаунт
+RATE_LIMIT_COUNT  = int(_cfg.get("RATE_LIMIT_COUNT", "100"))
+RATE_LIMIT_WINDOW_10MINS = float(_cfg.get("RATE_LIMIT_WINDOW_10MINS", "600"))  # 10 минут
 
 _LOGS_DIR = Path("logs")
 _LOGS_DIR.mkdir(exist_ok=True)
@@ -406,6 +409,14 @@ class MaxTransport:
         self._recv_count: int = 0            # входящих за текущие 5 минут
         self._recv_count_reset: float = 0.0  # время последнего сброса счётчика
         self._upload_busy: bool = False      # идёт ли сейчас upload
+        self._sent_times: deque = deque()    # времена отправок за последние RATE_LIMIT_WINDOW_10MINS сек
+        # Статистика для dashboard
+        self._pkts_sent_total:  int = 0
+        self._pkts_recv_total:  int = 0
+        self._bytes_sent_total: int = 0
+        self._bytes_recv_total: int = 0
+        self._speed_bytes:      int = 0      # байт за последнюю секунду
+        self._speed_ts:       float = 0.0    # начало текущей секунды
 
     def _next_seq(self):
         s = self.seq; self.seq += 1; return s
@@ -478,10 +489,14 @@ class MaxTransport:
                 log.error(f"[transport:{self.label}] upload failed {resp.status}: {body}")
                 self._upload_busy = False
                 return
-            self._last_activity_time = loop.time()
+            now = loop.time()
+            self._last_activity_time = now
             self._last_event = "send"
+            self._sent_times.append(now)
+            self._pkts_sent_total  += 1
+            self._bytes_sent_total += len(file_body)
+            self._speed_bytes      += len(file_body)
             log.debug(f"[transport:{self.label}] upload ok fileId={file_id} size={len(file_body)}")
-            _console(f"↑ {self.label}  {len(file_body)/1024:,.1f} КБ")
         try:
             await asyncio.wait_for(fut136, timeout=20.0)
         except asyncio.TimeoutError:
@@ -612,8 +627,10 @@ class MaxTransport:
             self._recv_count = 0
             self._recv_count_reset = now
         self._recv_count += 1
+        self._pkts_recv_total  += 1
+        self._bytes_recv_total += len(data)
+        self._speed_bytes      += len(data)
         log.debug(f"[transport:{self.label}] recv_file fileId={file_id} size={len(data)}")
-        _console(f"↓ {self.label}  {len(data)/1024:,.1f} КБ")
         if self.on_batch_response:
             asyncio.create_task(self.on_batch_response(data))
 
@@ -647,6 +664,9 @@ class MaxTransport:
             self._last_event       = "recv"
             self._last_activity_time = 0.0
             self._upload_busy      = False
+            self._sent_times.clear()
+            self._speed_bytes = 0
+            self._speed_ts    = 0.0
             connector = _make_http_connector(limit_per_host=4, keepalive_timeout=30)
             self._http = aiohttp.ClientSession(connector=connector)
             recv_task      = asyncio.create_task(self._recv_loop())
@@ -695,6 +715,13 @@ class MultiTransport:
                 await self.on_disconnect()
         return _cb
 
+    def _rate_limit_remaining(self, t, now: float) -> int:
+        """Сколько файлов осталось в лимите за последние RATE_LIMIT_WINDOW_10MINS секунд."""
+        cutoff = now - RATE_LIMIT_WINDOW_10MINS
+        while t._sent_times and t._sent_times[0] < cutoff:
+            t._sent_times.popleft()
+        return RATE_LIMIT_COUNT - len(t._sent_times)
+
     async def send_file(self, file_body: bytes):
         loop = asyncio.get_event_loop()
         best_idx = None
@@ -707,29 +734,25 @@ class MultiTransport:
                     log.error("[multi] нет живых транспортов, пакеты дропаются")
                     return
 
-                # Шаг 1: считаем wait с учётом busy — всё под локом, нет гонки
-                waits = {}
-                for i in alive:
-                    t = self._transports[i]
-                    if t._upload_busy:
-                        waits[i] = UPLOAD_MIN_INTERVAL
-                    else:
-                        waits[i] = max(0.0, t._last_activity_time + UPLOAD_MIN_INTERVAL - now)
+                # Фильтр: не занятые и не исчерпавшие лимит
+                ready = [i for i in alive
+                         if not self._transports[i]._upload_busy
+                         and self._rate_limit_remaining(self._transports[i], now) > 0]
 
-                min_wait = min(waits.values())
-                if min_wait > 0:
-                    min_wait_val = min_wait
+                if not ready:
+                    min_wait_val = 0.05  # нет свободных — подождём немного
                 else:
-                    # Шаг 2: кандидаты — у кого wait == 0
-                    ready = [i for i in alive if waits[i] == 0.0]
-
-                    # Шаг 3: приоритет 1 — минимальный recv_count
+                    # Приоритет 1: минимальный recv_count (меньше входящих = чаще использовать)
                     min_recv = min(self._transports[i]._recv_count for i in ready)
                     p1 = [i for i in ready if self._transports[i]._recv_count == min_recv]
 
-                    # Шаг 4: приоритет 2 — последнее событие "recv"
-                    p2 = [i for i in p1 if self._transports[i]._last_event == "recv"]
-                    candidates = p2 if p2 else p1
+                    # Приоритет 2: максимальный остаток лимита
+                    max_remaining = max(self._rate_limit_remaining(self._transports[i], now) for i in p1)
+                    p2 = [i for i in p1 if self._rate_limit_remaining(self._transports[i], now) == max_remaining]
+
+                    # Приоритет 3: последнее событие "recv"
+                    p3 = [i for i in p2 if self._transports[i]._last_event == "recv"]
+                    candidates = p3 if p3 else p2
 
                     # Tiebreaker — round-robin
                     self._rr_idx = (self._rr_idx + 1) % len(candidates)
@@ -741,22 +764,25 @@ class MultiTransport:
 
                     stats = {self._transports[i].label: {
                         "recv_count": self._transports[i]._recv_count,
+                        "remaining":  self._rate_limit_remaining(self._transports[i], now),
                         "last_event": self._transports[i]._last_event,
-                        "wait": f"{waits[i]:.3f}s",
-                        "busy": self._transports[i]._upload_busy,
+                        "busy":       self._transports[i]._upload_busy,
                     } for i in alive}
                     log.debug(
                         f"[multi] выбор: {best_t.label} "
-                        f"(recv_count={best_t._recv_count}, last_event={best_t._last_event}) "
+                        f"(recv_count={best_t._recv_count}, "
+                        f"remaining={self._rate_limit_remaining(best_t, now) + 1}, "
+                        f"last_event={best_t._last_event}) "
                         f"| ready={[self._transports[i].label for i in ready]} "
                         f"| p1={[self._transports[i].label for i in p1]} "
                         f"| p2={[self._transports[i].label for i in p2]} "
+                        f"| p3={[self._transports[i].label for i in p3]} "
                         f"| stats={stats}"
                     )
                     min_wait_val = 0
 
             if min_wait_val > 0:
-                log.debug(f"[multi] все аккаунты заняты, ждём {min_wait_val:.3f}s")
+                log.debug(f"[multi] все аккаунты заняты или лимит исчерпан, ждём {min_wait_val:.3f}s")
                 await asyncio.sleep(min_wait_val)
                 continue
             break
@@ -916,18 +942,61 @@ class TunManager:
             except OSError as e:
                 log.warning(f"[tun] write error: {e}")
 
-    # ── Статистика ────────────────────────────────────────────────────────────
+    # ── Статистика / Dashboard ───────────────────────────────────────────────
 
     async def stats_loop(self):
+        """Живой dashboard — обновляет строки на месте через ANSI escape."""
+        transports = self.transport._transports
+        n = len(transports)
+        # Резервируем n строк
+        print("\n" * n, end="", flush=True)
+        speed_window: dict[int, float] = {}  # idx -> байт за текущую секунду
+        speed_ts:     dict[int, float] = {}
+        speed_kbps:   dict[int, float] = {}  # idx -> кбит/с (сглаженная)
+
+        now_ts = time.time()
+        for i in range(n):
+            speed_window[i] = 0.0
+            speed_ts[i]     = now_ts
+            speed_kbps[i]   = 0.0
+
         while True:
-            await asyncio.sleep(60)
-            elapsed = time.time() - self._t0
-            log.info(
-                f"[tun] stats: "
-                f"sent={self._pkts_sent}pkts/{self._bytes_sent//1024}КБ  "
-                f"recv={self._pkts_recv}pkts/{self._bytes_recv//1024}КБ  "
-                f"uptime={elapsed:.0f}s"
-            )
+            await asyncio.sleep(0.5)
+            now_ts = time.time()
+            now_ev = asyncio.get_event_loop().time()
+
+            lines = []
+            for i, t in enumerate(transports):
+                # Скорость: байт накоплено за последние 0.5с → кбит/с
+                elapsed = now_ts - speed_ts[i]
+                if elapsed >= 0.5:
+                    instant = (t._speed_bytes * 8 / 1000) / elapsed  # кбит/с
+                    # EMA сглаживание
+                    speed_kbps[i] = speed_kbps[i] * 0.4 + instant * 0.6
+                    t._speed_bytes = 0
+                    speed_ts[i]    = now_ts
+
+                # Остаток лимита
+                cutoff = now_ev - RATE_LIMIT_WINDOW_10MINS
+                while t._sent_times and t._sent_times[0] < cutoff:
+                    t._sent_times.popleft()
+                remaining = RATE_LIMIT_COUNT - len(t._sent_times)
+
+                busy_mark = "●" if t._upload_busy else " "
+                line = (
+                    f"  {busy_mark} {t.label:<6} "
+                    f"↓{t._pkts_recv_total:>5}  "
+                    f"↑{t._pkts_sent_total:>5}  "
+                    f"{speed_kbps[i]:>7.1f} кбит/с  "
+                    f"лимит: {remaining:>3}/{RATE_LIMIT_COUNT}"
+                )
+                lines.append(line)
+
+            # Перемещаемся вверх на n строк и перезаписываем
+            print(f"[{n}A", end="", flush=False)
+            for line in lines:
+                print(f"[2K{line}", flush=False)
+            sys.stdout.flush()
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -943,7 +1012,7 @@ async def main():
     _console(f"MAX TUN клиент  аккаунтов: {len(ACCOUNTS)}")
     _console(f"Интерфейс: {TUN_NAME}  {TUN_ADDR} ↔ {TUN_PEER}  MTU={TUN_MTU}")
     _console(f"DEFAULT_ROUTE={'да' if DEFAULT_ROUTE else 'нет'}")
-    _console(f"Батч окно: {BATCH_WINDOW_MS}мс")
+    _console(f"Батч окно: {BATCH_WINDOW_MS}мс  лимит: {RATE_LIMIT_COUNT} файлов/{int(RATE_LIMIT_WINDOW_10MINS//60)}мин")
     _console(f"Лог: {LOG_FILE}")
     _console("=" * 55)
 

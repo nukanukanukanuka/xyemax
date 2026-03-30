@@ -97,10 +97,12 @@ TUN_PEER       = _cfg.get("TUN_PEER", "10.0.0.1")
 TUN_MTU        = int(_cfg.get("TUN_MTU", "1400"))
 TUN_BIND_IFACE = _cfg.get("TUN_BIND_IFACE", "")  # интерфейс для HTTP трафика скрипта (tun10)
 
-UPLOAD_MIN_INTERVAL = float(_cfg.get("UPLOAD_MIN_INTERVAL", "0.3"))
-
 # Батчинг
-BATCH_WINDOW_MS = int(_cfg.get("BATCH_WINDOW_MS", "200"))
+BATCH_WINDOW_MS = int(_cfg.get("BATCH_WINDOW_MS", "500"))
+
+# Rate limit: максимум RATE_LIMIT_COUNT файлов за RATE_LIMIT_WINDOW_10MINS секунд на аккаунт
+RATE_LIMIT_COUNT  = int(_cfg.get("RATE_LIMIT_COUNT", "100"))
+RATE_LIMIT_WINDOW_10MINS = float(_cfg.get("RATE_LIMIT_WINDOW_10MINS", "600"))  # 10 минут
 
 STATUS_URL    = "https://telegram.mooner.pro/api/max/status"
 SESSIONS_FILE = Path("sessions.json")
@@ -388,6 +390,14 @@ class MaxTransport:
         self._recv_count: int = 0            # входящих за текущие 5 минут
         self._recv_count_reset: float = 0.0  # время последнего сброса счётчика
         self._upload_busy: bool = False      # идёт ли сейчас upload
+        self._sent_times: deque = deque()    # времена отправок за последние RATE_LIMIT_WINDOW_10MINS сек
+        # Статистика для dashboard
+        self._pkts_sent_total:  int = 0
+        self._pkts_recv_total:  int = 0
+        self._bytes_sent_total: int = 0
+        self._bytes_recv_total: int = 0
+        self._speed_bytes:      int = 0
+        self._speed_ts:       float = 0.0
 
     def _next_seq(self):
         s = self.seq; self.seq += 1; return s
@@ -461,10 +471,14 @@ class MaxTransport:
                 log.error(f"[transport:{self.label}] upload failed {resp.status}: {body}")
                 self._upload_busy = False
                 return
-            self._last_activity_time = loop.time()
+            now = loop.time()
+            self._last_activity_time = now
             self._last_event = "send"
+            self._sent_times.append(now)
+            self._pkts_sent_total  += 1
+            self._bytes_sent_total += len(file_body)
+            self._speed_bytes      += len(file_body)
             log.debug(f"[transport:{self.label}] upload ok fileId={file_id} size={len(file_body)}")
-            _console(f"↑ {self.label}  {len(file_body)/1024:,.1f} КБ")
         try:
             await asyncio.wait_for(fut136, timeout=20.0)
         except asyncio.TimeoutError:
@@ -588,8 +602,10 @@ class MaxTransport:
             self._recv_count = 0
             self._recv_count_reset = now
         self._recv_count += 1
+        self._pkts_recv_total  += 1
+        self._bytes_recv_total += len(data)
+        self._speed_bytes      += len(data)
         log.debug(f"[transport:{self.label}] recv_file fileId={file_id} size={len(data)}")
-        _console(f"↓ {self.label}  {len(data)/1024:,.1f} КБ")
         if self.on_batch_request:
             asyncio.create_task(self.on_batch_request(data))
 
@@ -623,6 +639,9 @@ class MaxTransport:
             self._last_event       = "recv"
             self._last_activity_time = 0.0
             self._upload_busy      = False
+            self._sent_times.clear()
+            self._speed_bytes = 0
+            self._speed_ts    = 0.0
             connector = _make_connector(limit=32, limit_per_host=8, keepalive_timeout=30)
             self._http = aiohttp.ClientSession(connector=connector)
             recv_task      = asyncio.create_task(self._recv_loop())
@@ -671,10 +690,14 @@ class TunForwarder:
             self._transports.pop(transport.label, None)
             log.info(f"[tun] detach {transport.label}; active={list(self._transports)}")
 
-    def _pick_transport_and_reserve(self) -> tuple:
-        """Атомарно выбирает транспорт и резервирует его (busy=True). Возвращает (transport, wait)."""
-        now = asyncio.get_event_loop().time()
+    def _rate_limit_remaining(self, t, now: float) -> int:
+        """Сколько файлов осталось в лимите за последние RATE_LIMIT_WINDOW_10MINS секунд."""
+        cutoff = now - RATE_LIMIT_WINDOW_10MINS
+        while t._sent_times and t._sent_times[0] < cutoff:
+            t._sent_times.popleft()
+        return RATE_LIMIT_COUNT - len(t._sent_times)
 
+    def _get_live(self) -> list:
         live = []
         for transport in self._transports.values():
             ws   = getattr(transport, "ws", None)
@@ -682,105 +705,60 @@ class TunForwarder:
             if ws is None or getattr(ws, "closed", False): continue
             if http is None or getattr(http, "closed", True): continue
             live.append(transport)
+        return live
 
+    def _pick_transport_and_reserve(self) -> tuple:
+        """Атомарно выбирает транспорт по приоритетам и резервирует (busy=True)."""
+        now  = asyncio.get_event_loop().time()
+        live = self._get_live()
         if not live:
             return None, 0.0
 
-        waits = {}
-        for t in live:
-            if t._upload_busy:
-                waits[t.label] = UPLOAD_MIN_INTERVAL
-            else:
-                waits[t.label] = max(0.0, t._last_activity_time + UPLOAD_MIN_INTERVAL - now)
+        # Фильтр: не занятые и не исчерпавшие лимит
+        ready = [t for t in live
+                 if not t._upload_busy
+                 and self._rate_limit_remaining(t, now) > 0]
 
-        min_wait = min(waits.values())
-        if min_wait > 0:
-            return None, min_wait
+        if not ready:
+            return None, 0.05
 
-        ready = [t for t in live if waits[t.label] == 0.0]
-
+        # Приоритет 1: минимальный recv_count
         min_recv = min(t._recv_count for t in ready)
         p1 = [t for t in ready if t._recv_count == min_recv]
-        p2 = [t for t in p1 if t._last_event == "recv"]
-        candidates = p2 if p2 else p1
+
+        # Приоритет 2: максимальный остаток лимита
+        max_rem = max(self._rate_limit_remaining(t, now) for t in p1)
+        p2 = [t for t in p1 if self._rate_limit_remaining(t, now) == max_rem]
+
+        # Приоритет 3: последнее событие "recv"
+        p3 = [t for t in p2 if t._last_event == "recv"]
+        candidates = p3 if p3 else p2
         best = candidates[0]
 
-        # Резервируем атомарно
         best._upload_busy = True
 
         stats = {t.label: {
             "recv_count": t._recv_count,
+            "remaining":  self._rate_limit_remaining(t, now),
             "last_event": t._last_event,
-            "wait": f"{waits[t.label]:.3f}s",
-            "busy": t._upload_busy,
+            "busy":       t._upload_busy,
         } for t in live}
         log.debug(
             f"[tun] выбор: {best.label} "
-            f"(recv_count={best._recv_count}, last_event={best._last_event}) "
+            f"(recv_count={best._recv_count}, "
+            f"remaining={self._rate_limit_remaining(best, now) + 1}, "
+            f"last_event={best._last_event}) "
             f"| ready={[t.label for t in ready]} "
             f"| p1={[t.label for t in p1]} "
             f"| p2={[t.label for t in p2]} "
+            f"| p3={[t.label for t in p3]} "
             f"| stats={stats}"
         )
         return best, 0.0
 
     def _pick_transport(self) -> tuple:
-        """Возвращает (транспорт, wait) по приоритетам."""
-        now = asyncio.get_event_loop().time()
-
-        # Только живые транспорты
-        live = []
-        for transport in self._transports.values():
-            ws   = getattr(transport, "ws", None)
-            http = getattr(transport, "_http", None)
-            if ws is None or getattr(ws, "closed", False):
-                continue
-            if http is None or getattr(http, "closed", True):
-                continue
-            live.append(transport)
-
-        if not live:
-            return None, 0.0
-
-        waits = {}
-        for t in live:
-            if t._upload_busy:
-                waits[t.label] = UPLOAD_MIN_INTERVAL
-            else:
-                waits[t.label] = max(0.0, t._last_activity_time + UPLOAD_MIN_INTERVAL - now)
-        min_wait = min(waits.values())
-
-        # Кандидаты у кого таймер истёк и не занят
-        ready = [t for t in live if waits[t.label] == 0.0]
-        if not ready:
-            # Все заняты — вернуть лучшего с временем ожидания
-            best = min(live, key=lambda t: waits[t.label])
-            return best, waits[best.label]
-
-        # Приоритет 1 — минимальный recv_count за 5 минут
-        min_recv = min(t._recv_count for t in ready)
-        p1 = [t for t in ready if t._recv_count == min_recv]
-
-        # Приоритет 2 — последнее событие "recv"
-        p2 = [t for t in p1 if t._last_event == "recv"]
-        candidates = p2 if p2 else p1
-
-        best = candidates[0]
-
-        stats = {t.label: {
-            "recv_count": t._recv_count,
-            "last_event": t._last_event,
-            "wait": f"{waits[t.label]:.3f}s",
-            "busy": t._upload_busy,
-        } for t in live}
-        log.debug(
-            f"[tun] выбор: {best.label} "
-            f"(recv_count={best._recv_count}, last_event={best._last_event}) "
-            f"| ready={[t.label for t in ready]} "
-            f"| p1={[t.label for t in p1]} "
-            f"| p2={[t.label for t in p2]} "
-            f"| stats={stats}"
-        )
+        """Устарел — используется только для совместимости."""
+        return self._pick_transport_and_reserve()
 
         return best, 0.0
 
@@ -981,21 +959,84 @@ async def main():
     await manager.start()
 
     async with aiohttp.ClientSession(connector=_make_connector()) as http:
-        poll_task = asyncio.create_task(_poll_loop(http, manager))
-        read_task = asyncio.create_task(forwarder.read_loop())
-        send_task = asyncio.create_task(forwarder.send_loop())
+        poll_task  = asyncio.create_task(_poll_loop(http, manager))
+        read_task  = asyncio.create_task(forwarder.read_loop())
+        send_task  = asyncio.create_task(forwarder.send_loop())
+        dash_task  = asyncio.create_task(_dashboard_loop(forwarder))
         try:
-            await asyncio.gather(poll_task, read_task, send_task)
+            await asyncio.gather(poll_task, read_task, send_task, dash_task)
         except (KeyboardInterrupt, asyncio.CancelledError):
             pass
         finally:
             poll_task.cancel()
             read_task.cancel()
             send_task.cancel()
+            dash_task.cancel()
             subprocess.run(["ip", "link", "set", TUN_NAME, "down"],
                            capture_output=True)
             os.close(tun_fd)
             _console("Завершено.")
+
+
+async def _dashboard_loop(forwarder: "TunForwarder"):
+    """Живой dashboard — обновляет строки на месте через ANSI escape."""
+    import sys as _sys
+    await asyncio.sleep(1.0)  # дать время аккаунтам подключиться
+    transports_ref = forwarder._transports  # dict label->transport
+    speed_ts:   dict[str, float] = {}
+    speed_kbps: dict[str, float] = {}
+
+    n = 0
+    printed = False
+
+    while True:
+        await asyncio.sleep(0.5)
+        now_ts = time.time()
+        now_ev = asyncio.get_event_loop().time()
+
+        transports = list(transports_ref.values())
+        if not transports:
+            continue
+
+        if len(transports) != n:
+            n = len(transports)
+            print("\n" * n, end="", flush=True)
+            printed = True
+            for t in transports:
+                speed_ts[t.label]   = now_ts
+                speed_kbps[t.label] = 0.0
+
+        lines = []
+        for t in transports:
+            lbl = t.label
+            elapsed = now_ts - speed_ts.get(lbl, now_ts)
+            if elapsed >= 0.5:
+                instant = (t._speed_bytes * 8 / 1000) / elapsed
+                speed_kbps[lbl] = speed_kbps.get(lbl, 0.0) * 0.4 + instant * 0.6
+                t._speed_bytes = 0
+                speed_ts[lbl]  = now_ts
+
+            cutoff = now_ev - RATE_LIMIT_WINDOW_10MINS
+            while t._sent_times and t._sent_times[0] < cutoff:
+                t._sent_times.popleft()
+            remaining = RATE_LIMIT_COUNT - len(t._sent_times)
+
+            busy_mark = "●" if t._upload_busy else " "
+            line = (
+                f"  {busy_mark} {lbl:<6} "
+                f"↓{t._pkts_recv_total:>5}  "
+                f"↑{t._pkts_sent_total:>5}  "
+                f"{speed_kbps[lbl]:>7.1f} кбит/с  "
+                f"лимит: {remaining:>3}/{RATE_LIMIT_COUNT}"
+            )
+            lines.append(line)
+
+        if printed:
+            _sys.stdout.write("\033[" + str(n) + "A")
+        for line in lines:
+            _sys.stdout.write("\033[2K" + line + "\n")
+        _sys.stdout.flush()
+        printed = True
 
 
 async def _poll_loop(http: aiohttp.ClientSession, manager: SessionManager):
