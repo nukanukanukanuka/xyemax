@@ -458,6 +458,7 @@ class MaxTransport:
                     await asyncio.sleep(2.0 * (attempt + 1))
         if slot is None:
             log.error(f"[transport:{self.label}] upload slot timeout, dropping")
+            self._upload_busy = False
             return
         info    = slot["info"][0]
         up_url  = info["url"]
@@ -475,6 +476,7 @@ class MaxTransport:
                 body = await resp.text()
                 self._once.pop(f"op136_{file_id}", None)
                 log.error(f"[transport:{self.label}] upload failed {resp.status}: {body}")
+                self._upload_busy = False
                 return
             self._last_activity_time = loop.time()
             self._last_event = "send"
@@ -484,6 +486,7 @@ class MaxTransport:
             await asyncio.wait_for(fut136, timeout=20.0)
         except asyncio.TimeoutError:
             self._once.pop(f"op136_{file_id}", None)
+        self._upload_busy = False
         self._recent_outgoing_file_ids.add(file_id)
         await self._send_raw(64, {
             "chatId": self.chat_id,
@@ -748,10 +751,7 @@ class MultiTransport:
                 continue
             break
 
-        try:
-            await self._transports[best_idx].send_file(file_body)
-        finally:
-            self._transports[best_idx]._upload_busy = False
+        await self._transports[best_idx].send_file(file_body)
 
     async def _run_one(self, idx: int):
         t = self._transports[idx]
