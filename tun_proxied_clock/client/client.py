@@ -44,6 +44,7 @@ import zlib
 from collections import deque
 from pathlib import Path
 
+import socket
 import aiohttp
 import websockets
 
@@ -94,6 +95,7 @@ TUN_ADDR         = _cfg.get("TUN_ADDR",  "10.0.0.1")
 TUN_PEER         = _cfg.get("TUN_PEER",  "10.0.0.2")
 TUN_MTU          = int(_cfg.get("TUN_MTU", "1400"))
 DEFAULT_ROUTE    = _cfg.get("DEFAULT_ROUTE", "0") == "1"
+HTTP_IFACE       = _cfg.get("HTTP_IFACE", "")  # интерфейс для HTTP трафика скрипта (upload/download)
 
 # Батчинг
 BATCH_WINDOW_MS = int(_cfg.get("BATCH_WINDOW_MS", "200"))
@@ -189,6 +191,12 @@ def tun_setup(name: str, addr: str, peer: str, mtu: int, default_route: bool):
                 cmds.append(["ip", "route", "add", dns, "via", gw, "dev", dev])
                 log.debug(f"[tun] защита DNS {dns} через {gw} dev {dev}")
 
+            # Защищаем всю CDN подсеть Max напрямую
+            cdn_subnets = ["155.212.204.0/24", "155.212.0.0/16"]
+            for subnet in cdn_subnets:
+                cmds.append(["ip", "route", "add", subnet, "via", gw, "dev", dev])
+                log.debug(f"[tun] защита CDN подсети {subnet} через {gw} dev {dev}")
+
             # Добавляем маршруты для WS хостов (только IPv4) через реальный интерфейс
             for host in _WS_HOSTS:
                 try:
@@ -221,6 +229,8 @@ def tun_teardown(name: str, default_route: bool):
         import socket as _socket
         for dns in ["127.0.0.53", "8.8.8.8", "1.1.1.1"]:
             subprocess.run(["ip", "route", "del", dns], capture_output=True)
+        for subnet in ["155.212.204.0/24", "155.212.0.0/16"]:
+            subprocess.run(["ip", "route", "del", subnet], capture_output=True)
         for host in _WS_HOSTS:
             try:
                 ips = set(i[4][0] for i in _socket.getaddrinfo(host, 443)
@@ -233,6 +243,56 @@ def tun_teardown(name: str, default_route: bool):
 # ══════════════════════════════════════════════════════════════════════════════
 # HELPERS
 # ══════════════════════════════════════════════════════════════════════════════
+
+# ══════════════════════════════════════════════════════════════════════════════
+# HTTP CONNECTOR — привязка HTTP трафика к конкретному интерфейсу
+# ══════════════════════════════════════════════════════════════════════════════
+
+class BoundTCPConnector(aiohttp.TCPConnector):
+    """Привязывает HTTP соединения к интерфейсу через SO_BINDTODEVICE."""
+    def __init__(self, iface: str, **kwargs):
+        super().__init__(**kwargs)
+        self._iface = iface.encode()
+
+    async def _wrap_create_connection(self, *args, addr_infos, req, timeout, client_error=Exception, **kwargs):
+        import ssl as _ssl
+        loop = asyncio.get_event_loop()
+        connect_timeout = timeout.sock_connect if timeout and timeout.sock_connect else 30.0
+        last_exc = None
+        for af, socktype, proto, canonname, sockaddr in addr_infos:
+            sock = socket.socket(af, socktype, proto)
+            try:
+                sock.setsockopt(socket.SOL_SOCKET, socket.SO_BINDTODEVICE, self._iface)
+                sock.setblocking(False)
+                await asyncio.wait_for(loop.sock_connect(sock, sockaddr), timeout=connect_timeout)
+            except Exception as e:
+                sock.close()
+                last_exc = e
+                continue
+            ssl_val = req.ssl if hasattr(req, "ssl") else None
+            if ssl_val is not False and ssl_val is not None:
+                ctx = _ssl.create_default_context()
+                ctx.check_hostname = False
+                ctx.verify_mode = _ssl.CERT_NONE
+                try:
+                    return await loop.create_connection(args[0], sock=sock, ssl=ctx, server_hostname=req.url.host)
+                except Exception as e:
+                    sock.close(); last_exc = e; continue
+            else:
+                try:
+                    return await loop.create_connection(args[0], sock=sock)
+                except Exception as e:
+                    sock.close(); last_exc = e; continue
+        raise last_exc or OSError(f"Could not connect via {self._iface.decode()}")
+
+
+def _make_http_connector(**kwargs) -> aiohttp.TCPConnector:
+    """Создать HTTP connector — с привязкой к интерфейсу если HTTP_IFACE задан."""
+    if HTTP_IFACE:
+        log.info(f"[net] HTTP трафик скрипта привязан к интерфейсу: {HTTP_IFACE}")
+        return BoundTCPConnector(HTTP_IFACE, **kwargs)
+    return aiohttp.TCPConnector(**kwargs)
+
 
 _WS_URL = "wss://ws-api.oneme.ru/websocket"
 _WS_HEADERS = {
@@ -460,6 +520,7 @@ class MaxTransport:
             try: frame = json.loads(raw)
             except Exception: continue
             op, cmd, pl = frame.get("opcode"), frame.get("cmd"), frame.get("payload", {})
+            log.debug(f"[transport:{self.label}] ws msg op={op} cmd={cmd}")
             if cmd == 1 and op == 6   and "op6"  in self._once:
                 f = self._once.pop("op6");  f.done() or f.set_result(pl); continue
             if cmd == 1 and op == 19  and "op19" in self._once:
@@ -484,17 +545,24 @@ class MaxTransport:
                     and isinstance(pl, dict) and "message" in pl):
                 msg      = pl.get("message", {})
                 attaches = msg.get("attaches", [])
+                log.debug(f"[transport:{self.label}] msg op={op} attaches={len(attaches)}")
                 if not attaches: continue
                 attach   = attaches[0]
-                if attach.get("_type") != "FILE": continue
+                if attach.get("_type") != "FILE":
+                    log.debug(f"[transport:{self.label}] skip non-FILE attach type={attach.get('_type')}")
+                    continue
                 file_id  = attach.get("fileId") or attach.get("id")
                 msg_id   = msg.get("msgId") or msg.get("id") or ""
                 if not file_id: continue
                 file_id = int(file_id)
                 if file_id in self._recent_outgoing_file_ids:
+                    log.debug(f"[transport:{self.label}] skip own fileId={file_id}")
                     self._recent_outgoing_file_ids.discard(file_id)
                     continue
-                if file_id in self._seen_file_ids: continue
+                if file_id in self._seen_file_ids:
+                    log.debug(f"[transport:{self.label}] skip seen fileId={file_id}")
+                    continue
+                log.debug(f"[transport:{self.label}] incoming fileId={file_id} msgId={msg_id}")
                 self._mark_seen_file(file_id)
                 asyncio.create_task(self._recv_file(file_id, str(msg_id),
                                                     pl.get("chatId", self.chat_id)))
@@ -521,7 +589,7 @@ class MaxTransport:
                         return
                     payload = await resp.read()
             except Exception as e:
-                log.error(f"[transport:{self.label}] download error: {e}")
+                log.error(f"[transport:{self.label}] download error: {e}", exc_info=True)
                 return
         data = _unpack(_jpeg_unwrap(payload))
         now = asyncio.get_event_loop().time()
@@ -551,12 +619,21 @@ class MaxTransport:
                 break
 
     async def connect(self):
+        # Сброс счётчиков при каждом переподключении
+        self._recv_count = 0
+        self._recv_count_reset = asyncio.get_event_loop().time()
+        self._last_event = "recv"
         async with websockets.connect(
             _WS_URL, additional_headers=_WS_HEADERS,
             ping_interval=20, ping_timeout=30, close_timeout=5,
         ) as ws:
             self.ws = ws
-            connector = aiohttp.TCPConnector(limit_per_host=4, keepalive_timeout=30)
+            # Сбрасываем статистику при каждом переподключении
+            self._recv_count       = 0
+            self._recv_count_reset = asyncio.get_event_loop().time()
+            self._last_event       = "recv"
+            self._last_activity_time = 0.0
+            connector = _make_http_connector(limit_per_host=4, keepalive_timeout=30)
             self._http = aiohttp.ClientSession(connector=connector)
             recv_task      = asyncio.create_task(self._recv_loop())
             keepalive_task = asyncio.create_task(self._keepalive())

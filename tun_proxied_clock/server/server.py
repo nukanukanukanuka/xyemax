@@ -596,11 +596,20 @@ class MaxTransport:
                 break
 
     async def connect(self):
+        # Сброс счётчиков при каждом переподключении
+        self._recv_count = 0
+        self._recv_count_reset = asyncio.get_event_loop().time()
+        self._last_event = "recv"
         async with websockets.connect(
             _WS_URL, additional_headers=_WS_HEADERS,
             ping_interval=20, ping_timeout=30, close_timeout=5,
         ) as ws:
             self.ws = ws
+            # Сбрасываем статистику при каждом переподключении
+            self._recv_count       = 0
+            self._recv_count_reset = asyncio.get_event_loop().time()
+            self._last_event       = "recv"
+            self._last_activity_time = 0.0
             connector = _make_connector(limit=32, limit_per_host=8, keepalive_timeout=30)
             self._http = aiohttp.ClientSession(connector=connector)
             recv_task      = asyncio.create_task(self._recv_loop())
