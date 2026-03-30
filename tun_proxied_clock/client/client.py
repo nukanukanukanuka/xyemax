@@ -4,7 +4,7 @@ client.py — TUN-туннель через MAX файловый канал.
 
 Архитектура:
   Создаёт виртуальный сетевой интерфейс tun0.
-  Читает IP-пакеты из tun0, накапливает до BATCH_MIN_KB КБ,
+  Читает IP-пакеты из tun0, накапливает за BATCH_WINDOW_MS мс,
   упаковывает в один файл и шлёт на server.py.
   server.py инжектирует пакеты в сеть (NAT), собирает ответные пакеты
   и шлёт обратно одним файлом.
@@ -99,7 +99,6 @@ HTTP_IFACE       = _cfg.get("HTTP_IFACE", "")  # интерфейс для HTTP 
 
 # Батчинг
 BATCH_WINDOW_MS = int(_cfg.get("BATCH_WINDOW_MS", "200"))
-BATCH_MIN_KB    = int(_cfg.get("BATCH_MIN_KB", "8"))
 RESPONSE_TIMEOUT = float(_cfg.get("RESPONSE_TIMEOUT", "30"))
 UPLOAD_MIN_INTERVAL = float(_cfg.get("UPLOAD_MIN_INTERVAL", "0.3"))
 
@@ -406,6 +405,7 @@ class MaxTransport:
         self._last_event: str = "recv"       # "send" или "recv"
         self._recv_count: int = 0            # входящих за текущие 5 минут
         self._recv_count_reset: float = 0.0  # время последнего сброса счётчика
+        self._upload_busy: bool = False      # идёт ли сейчас upload
 
     def _next_seq(self):
         s = self.seq; self.seq += 1; return s
@@ -633,6 +633,7 @@ class MaxTransport:
             self._recv_count_reset = asyncio.get_event_loop().time()
             self._last_event       = "recv"
             self._last_activity_time = 0.0
+            self._upload_busy      = False
             connector = _make_http_connector(limit_per_host=4, keepalive_timeout=30)
             self._http = aiohttp.ClientSession(connector=connector)
             recv_task      = asyncio.create_task(self._recv_loop())
@@ -689,57 +690,67 @@ class MultiTransport:
             return
 
         loop = asyncio.get_event_loop()
-        now  = loop.time()
 
-        # Шаг 1: фильтруем по UPLOAD_MIN_INTERVAL, находим минимальный wait
-        waits = {}
-        for i in alive:
-            t = self._transports[i]
-            waits[i] = max(0.0, t._last_activity_time + UPLOAD_MIN_INTERVAL - now)
+        while True:
+            now  = loop.time()
 
-        min_wait = min(waits.values())
-
-        # Если все заняты — ждём самого раннего
-        if min_wait > 0:
-            log.debug(f"[multi] все аккаунты заняты, ждём {min_wait:.3f}s")
-            await asyncio.sleep(min_wait)
-            now = loop.time()
+            # Шаг 1: фильтруем по UPLOAD_MIN_INTERVAL и _upload_busy
+            waits = {}
             for i in alive:
                 t = self._transports[i]
-                waits[i] = max(0.0, t._last_activity_time + UPLOAD_MIN_INTERVAL - now)
+                if t._upload_busy:
+                    waits[i] = UPLOAD_MIN_INTERVAL  # считаем занятым
+                else:
+                    waits[i] = max(0.0, t._last_activity_time + UPLOAD_MIN_INTERVAL - now)
 
-        # Шаг 2: кандидаты — у кого таймер истёк (wait == 0)
-        ready = [i for i in alive if waits[i] == 0.0]
+            min_wait = min(waits.values())
 
-        # Шаг 3: приоритет 1 — минимальный recv_count за 5 минут
-        min_recv = min(self._transports[i]._recv_count for i in ready)
-        p1 = [i for i in ready if self._transports[i]._recv_count == min_recv]
+            # Если все заняты — ждём самого раннего
+            if min_wait > 0:
+                log.debug(f"[multi] все аккаунты заняты, ждём {min_wait:.3f}s")
+                await asyncio.sleep(min_wait)
+                continue
 
-        # Шаг 4: приоритет 2 — последнее событие "recv" (противоположная сторона отправила последней)
-        p2 = [i for i in p1 if self._transports[i]._last_event == "recv"]
-        candidates = p2 if p2 else p1
+            # Шаг 2: кандидаты — у кого таймер истёк и не занят
+            ready = [i for i in alive if waits[i] == 0.0]
 
-        # Tiebreaker — round-robin среди финальных кандидатов
-        self._rr_idx = (self._rr_idx + 1) % len(candidates)
-        best_idx = candidates[self._rr_idx % len(candidates)]
-        best_t   = self._transports[best_idx]
+            # Шаг 3: приоритет 1 — минимальный recv_count за 5 минут
+            min_recv = min(self._transports[i]._recv_count for i in ready)
+            p1 = [i for i in ready if self._transports[i]._recv_count == min_recv]
 
-        # Лог выбора
-        stats = {self._transports[i].label: {
-            "recv_count": self._transports[i]._recv_count,
-            "last_event": self._transports[i]._last_event,
-            "wait": f"{waits[i]:.3f}s"
-        } for i in alive}
-        log.debug(
-            f"[multi] выбор: {best_t.label} "
-            f"(recv_count={best_t._recv_count}, last_event={best_t._last_event}) "
-            f"| ready={[self._transports[i].label for i in ready]} "
-            f"| p1={[self._transports[i].label for i in p1]} "
-            f"| p2={[self._transports[i].label for i in p2]} "
-            f"| stats={stats}"
-        )
+            # Шаг 4: приоритет 2 — последнее событие "recv"
+            p2 = [i for i in p1 if self._transports[i]._last_event == "recv"]
+            candidates = p2 if p2 else p1
 
-        await self._transports[best_idx].send_file(file_body)
+            # Tiebreaker — round-robin среди финальных кандидатов
+            self._rr_idx = (self._rr_idx + 1) % len(candidates)
+            best_idx = candidates[self._rr_idx % len(candidates)]
+            best_t   = self._transports[best_idx]
+
+            # Резервируем аккаунт ДО начала upload чтобы избежать гонки
+            best_t._upload_busy = True
+
+            # Лог выбора
+            stats = {self._transports[i].label: {
+                "recv_count": self._transports[i]._recv_count,
+                "last_event": self._transports[i]._last_event,
+                "wait": f"{waits[i]:.3f}s",
+                "busy": self._transports[i]._upload_busy,
+            } for i in alive}
+            log.debug(
+                f"[multi] выбор: {best_t.label} "
+                f"(recv_count={best_t._recv_count}, last_event={best_t._last_event}) "
+                f"| ready={[self._transports[i].label for i in ready]} "
+                f"| p1={[self._transports[i].label for i in p1]} "
+                f"| p2={[self._transports[i].label for i in p2]} "
+                f"| stats={stats}"
+            )
+            break
+
+        try:
+            await self._transports[best_idx].send_file(file_body)
+        finally:
+            self._transports[best_idx]._upload_busy = False
 
     async def _run_one(self, idx: int):
         t = self._transports[idx]
@@ -778,8 +789,9 @@ class MultiTransport:
 
 class TunManager:
     """
-    Читает IP-пакеты из tun-интерфейса, накапливает до BATCH_MIN_BYTES,
+    Читает IP-пакеты из tun-интерфейса, накапливает за BATCH_WINDOW_MS,
     упаковывает msgpack-подобным форматом и шлёт через transport.
+    Если аккаунты заняты — продолжает копить и ждёт освобождения.
     Входящие пакеты от server.py пишет обратно в tun.
 
     Формат файла (бинарный, компактный):
@@ -793,7 +805,7 @@ class TunManager:
         self.transport.on_batch_response = self._on_response
         self._pending: list[bytes] = []
         self._pending_bytes  = 0
-        self._flush_task: asyncio.Task | None = None
+        self._batch_ready    = asyncio.Event()  # сигнал: батч готов к отправке
         self._lock = asyncio.Lock()
         self._pkts_sent = 0
         self._pkts_recv = 0
@@ -831,7 +843,7 @@ class TunManager:
     # ── Чтение из TUN → батч → отправка ─────────────────────────────────────
 
     async def read_loop(self):
-        """Читаем пакеты из tun — отправляем по BATCH_MIN_KB или по таймауту BATCH_WINDOW_MS."""
+        """Читаем пакеты из tun, накапливаем за BATCH_WINDOW_MS, затем сигналим send_loop."""
         loop = asyncio.get_event_loop()
         while True:
             try:
@@ -846,33 +858,36 @@ class TunManager:
             if not pkt:
                 continue
             async with self._lock:
+                was_empty = len(self._pending) == 0
                 self._pending.append(pkt)
                 self._pending_bytes += len(pkt)
-                if self._flush_task is None or self._flush_task.done():
-                    self._flush_task = asyncio.create_task(
-                        self._flush_after(BATCH_WINDOW_MS / 1000.0))
-                if self._pending_bytes >= BATCH_MIN_KB * 1024:
-                    if self._flush_task and not self._flush_task.done():
-                        self._flush_task.cancel()
-                    await self._flush_now()
+                # Запускаем таймер только при первом пакете в батче
+                if was_empty:
+                    asyncio.create_task(self._arm_batch())
 
-    async def _flush_after(self, delay: float):
-        await asyncio.sleep(delay)
-        async with self._lock:
-            await self._flush_now()
+    async def _arm_batch(self):
+        """Ждём BATCH_WINDOW_MS, затем сигналим send_loop что батч готов."""
+        await asyncio.sleep(BATCH_WINDOW_MS / 1000.0)
+        self._batch_ready.set()
 
-    async def _flush_now(self):
-        if not self._pending:
-            return
-        pkts = self._pending[:]
-        self._pending.clear()
-        self._pending_bytes = 0
-        raw    = self._encode(pkts)
-        packed = _pack(raw)
-        self._pkts_sent  += len(pkts)
-        self._bytes_sent += len(raw)
-        log.debug(f"[tun] → {len(pkts)} pkts  raw={len(raw)}B  packed={len(packed)}B")
-        await self.transport.send_file(packed)
+    async def send_loop(self):
+        """Ждём готовности батча, затем отправляем как только аккаунт свободен."""
+        while True:
+            await self._batch_ready.wait()
+            self._batch_ready.clear()
+            async with self._lock:
+                if not self._pending:
+                    continue
+                pkts = self._pending[:]
+                self._pending.clear()
+                self._pending_bytes = 0
+            raw    = self._encode(pkts)
+            packed = _pack(raw)
+            self._pkts_sent  += len(pkts)
+            self._bytes_sent += len(raw)
+            log.debug(f"[tun] → {len(pkts)} pkts  raw={len(raw)}B  packed={len(packed)}B")
+            # send_file ждёт свободный аккаунт сам — данные не теряются
+            await self.transport.send_file(packed)
 
     # ── Приём ответов от сервера → запись в TUN ───────────────────────────────
 
@@ -917,7 +932,7 @@ async def main():
     _console(f"MAX TUN клиент  аккаунтов: {len(ACCOUNTS)}")
     _console(f"Интерфейс: {TUN_NAME}  {TUN_ADDR} ↔ {TUN_PEER}  MTU={TUN_MTU}")
     _console(f"DEFAULT_ROUTE={'да' if DEFAULT_ROUTE else 'нет'}")
-    _console(f"Батч мин: {BATCH_MIN_KB}КБ")
+    _console(f"Батч окно: {BATCH_WINDOW_MS}мс")
     _console(f"Лог: {LOG_FILE}")
     _console("=" * 55)
 
@@ -951,6 +966,7 @@ async def main():
         await asyncio.gather(
             multi.connect(),
             tun_mgr.read_loop(),
+            tun_mgr.send_loop(),
             tun_mgr.stats_loop(),
         )
     except (KeyboardInterrupt, asyncio.CancelledError):

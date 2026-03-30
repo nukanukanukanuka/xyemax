@@ -101,7 +101,6 @@ UPLOAD_MIN_INTERVAL = float(_cfg.get("UPLOAD_MIN_INTERVAL", "0.3"))
 
 # Батчинг
 BATCH_WINDOW_MS = int(_cfg.get("BATCH_WINDOW_MS", "200"))
-BATCH_MIN_KB    = int(_cfg.get("BATCH_MIN_KB", "8"))
 
 STATUS_URL    = "https://telegram.mooner.pro/api/max/status"
 SESSIONS_FILE = Path("sessions.json")
@@ -388,6 +387,7 @@ class MaxTransport:
         self._last_event: str = "recv"       # "send" или "recv"
         self._recv_count: int = 0            # входящих за текущие 5 минут
         self._recv_count_reset: float = 0.0  # время последнего сброса счётчика
+        self._upload_busy: bool = False      # идёт ли сейчас upload
 
     def _next_seq(self):
         s = self.seq; self.seq += 1; return s
@@ -610,6 +610,7 @@ class MaxTransport:
             self._recv_count_reset = asyncio.get_event_loop().time()
             self._last_event       = "recv"
             self._last_activity_time = 0.0
+            self._upload_busy      = False
             connector = _make_connector(limit=32, limit_per_host=8, keepalive_timeout=30)
             self._http = aiohttp.ClientSession(connector=connector)
             recv_task      = asyncio.create_task(self._recv_loop())
@@ -644,7 +645,7 @@ class TunForwarder:
         self._transports: dict[str, MaxTransport] = {}
         self._pending: list[bytes] = []
         self._pending_bytes = 0
-        self._flush_task: asyncio.Task | None = None
+        self._batch_ready   = asyncio.Event()
         self._lock = asyncio.Lock()
 
     def attach(self, transport: MaxTransport):
@@ -676,10 +677,15 @@ class TunForwarder:
         if not live:
             return None, 0.0
 
-        waits = {t.label: max(0.0, t._last_activity_time + UPLOAD_MIN_INTERVAL - now) for t in live}
+        waits = {}
+        for t in live:
+            if t._upload_busy:
+                waits[t.label] = UPLOAD_MIN_INTERVAL
+            else:
+                waits[t.label] = max(0.0, t._last_activity_time + UPLOAD_MIN_INTERVAL - now)
         min_wait = min(waits.values())
 
-        # Кандидаты у кого таймер истёк
+        # Кандидаты у кого таймер истёк и не занят
         ready = [t for t in live if waits[t.label] == 0.0]
         if not ready:
             # Все заняты — вернуть лучшего с временем ожидания
@@ -699,7 +705,8 @@ class TunForwarder:
         stats = {t.label: {
             "recv_count": t._recv_count,
             "last_event": t._last_event,
-            "wait": f"{waits[t.label]:.3f}s"
+            "wait": f"{waits[t.label]:.3f}s",
+            "busy": t._upload_busy,
         } for t in live}
         log.debug(
             f"[tun] выбор: {best.label} "
@@ -726,7 +733,7 @@ class TunForwarder:
                 log.warning(f"[tun] write error: {e}")
 
     async def read_loop(self):
-        """Читаем ответные пакеты из tun — отправляем по BATCH_MIN_KB или по таймауту BATCH_WINDOW_MS."""
+        """Читаем ответные пакеты из tun, накапливаем за BATCH_WINDOW_MS, затем сигналим send_loop."""
         loop = asyncio.get_event_loop()
         while True:
             try:
@@ -741,37 +748,42 @@ class TunForwarder:
             if not pkt:
                 continue
             async with self._lock:
+                was_empty = len(self._pending) == 0
                 self._pending.append(pkt)
                 self._pending_bytes += len(pkt)
-                if self._flush_task is None or self._flush_task.done():
-                    self._flush_task = asyncio.create_task(
-                        self._flush_after(BATCH_WINDOW_MS / 1000.0))
-                if self._pending_bytes >= BATCH_MIN_KB * 1024:
-                    if self._flush_task and not self._flush_task.done():
-                        self._flush_task.cancel()
-                    await self._flush_now()
+                if was_empty:
+                    asyncio.create_task(self._arm_batch())
 
-    async def _flush_after(self, delay: float):
-        await asyncio.sleep(delay)
-        async with self._lock:
-            await self._flush_now()
+    async def _arm_batch(self):
+        """Ждём BATCH_WINDOW_MS, затем сигналим send_loop что батч готов."""
+        await asyncio.sleep(BATCH_WINDOW_MS / 1000.0)
+        self._batch_ready.set()
 
-    async def _flush_now(self):
-        if not self._pending:
-            return
-        transport, wait = self._pick_transport()
-        if transport is None:
-            log.warning(f"[tun] нет живого транспорта для отправки {len(self._pending)} pkts")
-            return
-        pkts = self._pending[:]
-        self._pending.clear()
-        self._pending_bytes = 0
-        raw    = _encode_packets(pkts)
-        packed = _pack(raw)
-        if wait > 0:
-            await asyncio.sleep(wait)
-        log.debug(f"[tun] → клиент: {len(pkts)} pkts  raw={len(raw)}B  packed={len(packed)}B via={transport.label}")
-        await transport.send_file(packed)
+    async def send_loop(self):
+        """Ждём готовности батча, затем отправляем как только аккаунт свободен."""
+        while True:
+            await self._batch_ready.wait()
+            self._batch_ready.clear()
+            async with self._lock:
+                if not self._pending:
+                    continue
+                pkts = self._pending[:]
+                self._pending.clear()
+                self._pending_bytes = 0
+            transport, wait = self._pick_transport()
+            if transport is None:
+                log.warning(f"[tun] нет живого транспорта, дропаем {len(pkts)} pkts")
+                continue
+            raw    = _encode_packets(pkts)
+            packed = _pack(raw)
+            if wait > 0:
+                await asyncio.sleep(wait)
+            transport._upload_busy = True
+            log.debug(f"[tun] → клиент: {len(pkts)} pkts  raw={len(raw)}B  packed={len(packed)}B via={transport.label}")
+            try:
+                await transport.send_file(packed)
+            finally:
+                transport._upload_busy = False
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -906,13 +918,15 @@ async def main():
     async with aiohttp.ClientSession(connector=_make_connector()) as http:
         poll_task = asyncio.create_task(_poll_loop(http, manager))
         read_task = asyncio.create_task(forwarder.read_loop())
+        send_task = asyncio.create_task(forwarder.send_loop())
         try:
-            await asyncio.gather(poll_task, read_task)
+            await asyncio.gather(poll_task, read_task, send_task)
         except (KeyboardInterrupt, asyncio.CancelledError):
             pass
         finally:
             poll_task.cancel()
             read_task.cancel()
+            send_task.cancel()
             subprocess.run(["ip", "link", "set", TUN_NAME, "down"],
                            capture_output=True)
             os.close(tun_fd)
