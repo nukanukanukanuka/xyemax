@@ -153,6 +153,24 @@ def tun_open(name: str) -> int:
     fcntl.ioctl(fd, TUNSETIFF, ifr)
     return fd
 
+# Хосты WebSocket которые должны идти через реальный интерфейс, а не через тоннель
+_WS_HOSTS = ["ws-api.oneme.ru", "fu.oneme.ru", "telegram.mooner.pro"]
+
+
+def _get_real_gateway() -> tuple[str, str] | tuple[None, None]:
+    """Возвращает (gateway, iface) текущего дефолтного маршрута."""
+    r = subprocess.run(["ip", "route", "show", "default"], capture_output=True, text=True)
+    for line in r.stdout.splitlines():
+        parts = line.split()
+        try:
+            gw  = parts[parts.index("via") + 1]
+            dev = parts[parts.index("dev") + 1]
+            return gw, dev
+        except (ValueError, IndexError):
+            continue
+    return None, None
+
+
 def tun_setup(name: str, addr: str, peer: str, mtu: int, default_route: bool):
     """Поднять интерфейс и настроить маршруты."""
     cmds = [
@@ -160,14 +178,32 @@ def tun_setup(name: str, addr: str, peer: str, mtu: int, default_route: bool):
         ["ip", "addr", "add", f"{addr}/30", "dev", name],
     ]
     if default_route:
-        # Сохраняем текущий дефолтный маршрут чтобы WS-трафик не зациклился
-        result = subprocess.run(
-            ["ip", "route", "get", "1.1.1.1"],
-            capture_output=True, text=True)
-        # Направляем весь трафик через туннель
+        gw, dev = _get_real_gateway()
+        if gw is None:
+            log.warning("[tun] не удалось определить реальный шлюз, DEFAULT_ROUTE может не работать")
+        else:
+            import socket as _socket
+
+            # Защищаем DNS (systemd-resolved и публичные)
+            for dns in ["127.0.0.53", "8.8.8.8", "1.1.1.1"]:
+                cmds.append(["ip", "route", "add", dns, "via", gw, "dev", dev])
+                log.debug(f"[tun] защита DNS {dns} через {gw} dev {dev}")
+
+            # Добавляем маршруты для WS хостов (только IPv4) через реальный интерфейс
+            for host in _WS_HOSTS:
+                try:
+                    ips = set(i[4][0] for i in _socket.getaddrinfo(host, 443)
+                              if i[0] == _socket.AF_INET)
+                    for ip in ips:
+                        cmds.append(["ip", "route", "add", ip, "via", gw, "dev", dev])
+                        log.debug(f"[tun] защита WS хоста {host} ({ip}) через {gw} dev {dev}")
+                except Exception as e:
+                    log.warning(f"[tun] не удалось резолвить {host}: {e}")
+
+        # Направляем весь остальной трафик через туннель
         cmds += [
-            ["ip", "route", "add", "0.0.0.0/1",   "dev", name],
-            ["ip", "route", "add", "128.0.0.0/1",  "dev", name],
+            ["ip", "route", "add", "0.0.0.0/1",  "dev", name],
+            ["ip", "route", "add", "128.0.0.0/1", "dev", name],
         ]
     for cmd in cmds:
         r = subprocess.run(cmd, capture_output=True, text=True)
@@ -182,6 +218,17 @@ def tun_teardown(name: str, default_route: bool):
     if default_route:
         subprocess.run(["ip", "route", "del", "0.0.0.0/1"],  capture_output=True)
         subprocess.run(["ip", "route", "del", "128.0.0.0/1"], capture_output=True)
+        import socket as _socket
+        for dns in ["127.0.0.53", "8.8.8.8", "1.1.1.1"]:
+            subprocess.run(["ip", "route", "del", dns], capture_output=True)
+        for host in _WS_HOSTS:
+            try:
+                ips = set(i[4][0] for i in _socket.getaddrinfo(host, 443)
+                          if i[0] == _socket.AF_INET)
+                for ip in ips:
+                    subprocess.run(["ip", "route", "del", ip], capture_output=True)
+            except Exception:
+                pass
 
 # ══════════════════════════════════════════════════════════════════════════════
 # HELPERS
@@ -533,6 +580,7 @@ class MultiTransport:
     def __init__(self, transports: list):
         self._transports = transports
         self._alive: set[int] = set()
+        self._rr_idx = 0
         self._lock = asyncio.Lock()
         self.on_batch_response: callable = None
         self.on_disconnect: callable = None
@@ -594,7 +642,9 @@ class MultiTransport:
         p2 = [i for i in p1 if self._transports[i]._last_event == "recv"]
         candidates = p2 if p2 else p1
 
-        best_idx = candidates[0]
+        # Tiebreaker — round-robin среди финальных кандидатов
+        self._rr_idx = (self._rr_idx + 1) % len(candidates)
+        best_idx = candidates[self._rr_idx % len(candidates)]
         best_t   = self._transports[best_idx]
 
         # Лог выбора
