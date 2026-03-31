@@ -1022,9 +1022,9 @@ class TunManager:
                 lines.append(line)
 
             # Перемещаемся вверх на n строк и перезаписываем
-            print(f"[{n}A", end="", flush=False)
+            sys.stdout.write("\033[" + str(n) + "A")
             for line in lines:
-                print(f"[2K{line}", flush=False)
+                sys.stdout.write("\033[2K" + line + "\n")
             sys.stdout.flush()
 
 
