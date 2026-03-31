@@ -40,7 +40,9 @@ import struct
 import subprocess
 import sys
 import time
-import zlib
+import zstandard as _zstd
+_zstd_cctx = _zstd.ZstdCompressor(level=1)
+_zstd_dctx = _zstd.ZstdDecompressor()
 from collections import deque
 from pathlib import Path
 
@@ -163,12 +165,14 @@ IFF_TUN   = 0x0001
 IFF_NO_PI = 0x1000
 
 def _pack(data: bytes) -> bytes:
-    c = zlib.compress(data, level=1)
-    return (b"\x01" + c) if len(c) < len(data) else (b"\x00" + data)
+    c = _zstd_cctx.compress(data)
+    return (b"\x02" + c) if len(c) < len(data) else (b"\x00" + data)
 
 def _unpack(payload: bytes) -> bytes:
     if not payload: return b""
-    return zlib.decompress(payload[1:]) if payload[0] == 1 else payload[1:]
+    if payload[0] == 0x02: return _zstd_dctx.decompress(payload[1:])
+    if payload[0] == 0x01: import zlib; return zlib.decompress(payload[1:])
+    return payload[1:]
 
 
 _JPEG_TEMPLATE = base64.b64decode(
