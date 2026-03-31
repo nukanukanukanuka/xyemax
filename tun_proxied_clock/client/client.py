@@ -726,37 +726,43 @@ class MultiTransport:
         t._sent_times.append(now)
 
     def _rank_transports(self, ready: list, now: float) -> int:
-        """Ранжирует аккаунты по среднему месту в 3 приоритетах. Возвращает idx победителя."""
+        """Ранжирует аккаунты по среднему месту в 3 приоритетах.
+        Аккаунты с одинаковым значением получают одинаковое среднее место (tied rank).
+        Возвращает idx победителя."""
         ts = [self._transports[i] for i in ready]
         n  = len(ready)
 
-        # Сортируем по каждому критерию и назначаем места (1 = лучший)
+        def tied_ranks(values):
+            """Назначает одинаковое место аккаунтам с одинаковым значением."""
+            sorted_vals = sorted(set(values))
+            val_to_rank = {}
+            for rank, val in enumerate(sorted_vals, 1):
+                val_to_rank[val] = rank
+            return [val_to_rank[v] for v in values]
+
         # Приоритет 1: меньше recv_count — лучше
-        order1 = sorted(range(n), key=lambda j: ts[j]._recv_count)
-        rank1  = [0] * n
-        for place, j in enumerate(order1):
-            rank1[j] = place + 1
+        rank1 = tied_ranks([ts[j]._recv_count for j in range(n)])
 
-        # Приоритет 2: больше remaining — лучше
-        order2 = sorted(range(n), key=lambda j: -self._rate_limit_remaining(ts[j], now))
-        rank2  = [0] * n
-        for place, j in enumerate(order2):
-            rank2[j] = place + 1
+        # Приоритет 2: больше remaining — лучше (инвертируем)
+        remainings = [self._rate_limit_remaining(ts[j], now) for j in range(n)]
+        rank2 = tied_ranks([-r for r in remainings])  # минус чтобы больше = лучше место
 
-        # Приоритет 3: last_event=="recv" лучше (0 → место 1, 1 → место n)
-        order3 = sorted(range(n), key=lambda j: 0 if ts[j]._last_event == "recv" else 1)
-        rank3  = [0] * n
-        for place, j in enumerate(order3):
-            rank3[j] = place + 1
+        # Приоритет 3: last_event=="recv" лучше
+        rank3 = tied_ranks([0 if ts[j]._last_event == "recv" else 1 for j in range(n)])
 
         # Среднее место — победитель с минимальным значением
         scores = [(rank1[j] + rank2[j] + rank3[j]) / 3.0 for j in range(n)]
-        best_j = min(range(n), key=lambda j: scores[j])
+        min_score = min(scores)
+
+        # Среди победителей с одинаковым score — round-robin
+        winners = [j for j in range(n) if scores[j] == min_score]
+        self._rr_idx = (self._rr_idx + 1) % len(winners)
+        best_j = winners[self._rr_idx % len(winners)]
 
         # Лог
         score_info = {ts[j].label: {
             "recv_count": ts[j]._recv_count,
-            "remaining":  self._rate_limit_remaining(ts[j], now),
+            "remaining":  remainings[j],
             "last_event": ts[j]._last_event,
             "r1": rank1[j], "r2": rank2[j], "r3": rank3[j],
             "score": f"{scores[j]:.2f}",

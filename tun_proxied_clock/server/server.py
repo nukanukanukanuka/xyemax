@@ -711,33 +711,39 @@ class TunForwarder:
         return live
 
     def _rank_transports(self, ready: list, now: float):
-        """Ранжирует аккаунты по среднему месту в 3 приоритетах. Возвращает лучший транспорт."""
+        """Ранжирует аккаунты по среднему месту в 3 приоритетах.
+        Аккаунты с одинаковым значением получают одинаковое место (tied rank).
+        Возвращает лучший транспорт."""
         n = len(ready)
 
+        def tied_ranks(values):
+            sorted_vals = sorted(set(values))
+            val_to_rank = {val: rank for rank, val in enumerate(sorted_vals, 1)}
+            return [val_to_rank[v] for v in values]
+
         # Приоритет 1: меньше recv_count — лучше
-        order1 = sorted(range(n), key=lambda j: ready[j]._recv_count)
-        rank1  = [0] * n
-        for place, j in enumerate(order1):
-            rank1[j] = place + 1
+        rank1 = tied_ranks([ready[j]._recv_count for j in range(n)])
 
         # Приоритет 2: больше remaining — лучше
-        order2 = sorted(range(n), key=lambda j: -self._rate_limit_remaining(ready[j], now))
-        rank2  = [0] * n
-        for place, j in enumerate(order2):
-            rank2[j] = place + 1
+        remainings = [self._rate_limit_remaining(ready[j], now) for j in range(n)]
+        rank2 = tied_ranks([-r for r in remainings])
 
         # Приоритет 3: last_event=="recv" лучше
-        order3 = sorted(range(n), key=lambda j: 0 if ready[j]._last_event == "recv" else 1)
-        rank3  = [0] * n
-        for place, j in enumerate(order3):
-            rank3[j] = place + 1
+        rank3 = tied_ranks([0 if ready[j]._last_event == "recv" else 1 for j in range(n)])
 
         scores = [(rank1[j] + rank2[j] + rank3[j]) / 3.0 for j in range(n)]
-        best_j = min(range(n), key=lambda j: scores[j])
+        min_score = min(scores)
+
+        # Среди победителей с одинаковым score — round-robin
+        winners = [j for j in range(n) if scores[j] == min_score]
+        if not hasattr(self, '_rr_idx'):
+            self._rr_idx = 0
+        self._rr_idx = (self._rr_idx + 1) % len(winners)
+        best_j = winners[self._rr_idx % len(winners)]
 
         score_info = {ready[j].label: {
             "recv_count": ready[j]._recv_count,
-            "remaining":  self._rate_limit_remaining(ready[j], now),
+            "remaining":  remainings[j],
             "last_event": ready[j]._last_event,
             "r1": rank1[j], "r2": rank2[j], "r3": rank3[j],
             "score": f"{scores[j]:.2f}",
