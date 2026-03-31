@@ -390,6 +390,8 @@ class MaxTransport:
         self._recv_count: int = 0            # входящих за текущие 5 минут
         self._recv_count_reset: float = 0.0  # время последнего сброса счётчика
         self._upload_busy: bool = False      # идёт ли сейчас upload
+        self._prefetched_slot: dict | None = None
+        self._prefetch_task: asyncio.Task | None = None
         self._sent_times: deque = deque()    # времена отправок за скользящее окно
         # Статистика для dashboard
         self._pkts_sent_total:  int = 0
@@ -420,6 +422,23 @@ class MaxTransport:
         self._seen_file_ids.add(file_id)
         self._seen_file_ids_order.append(file_id)
 
+    async def prefetch_slot(self):
+        """Предзапрашиваем op87 слот заранее."""
+        if self._prefetched_slot is not None:
+            return
+        loop = asyncio.get_event_loop()
+        fut87 = loop.create_future()
+        self._once["op87"] = fut87
+        try:
+            await self._send_raw(87, {"count": 1})
+            slot = await asyncio.wait_for(fut87, timeout=10.0)
+            self._prefetched_slot = slot
+            log.debug(f"[transport:{self.label}] op87 prefetched fileId={slot['info'][0]['fileId']}")
+        except Exception as e:
+            self._once.pop("op87", None)
+            self._prefetched_slot = None
+            log.warning(f"[transport:{self.label}] op87 prefetch failed: {e}")
+
     async def send_file(self, file_body: bytes):
         await self._send_queue.put(file_body)
 
@@ -436,18 +455,25 @@ class MaxTransport:
         http = self._http
         loop = asyncio.get_event_loop()
         slot = None
-        for attempt in range(3):
-            fut87 = loop.create_future()
-            self._once["op87"] = fut87
-            await self._send_raw(87, {"count": 1})
-            try:
-                slot = await asyncio.wait_for(fut87, timeout=10.0)
-                break
-            except asyncio.TimeoutError:
-                self._once.pop("op87", None)
-                log.warning(f"[transport:{self.label}] op87 timeout attempt={attempt+1}/3")
-                if attempt < 2:
-                    await asyncio.sleep(2.0 * (attempt + 1))
+
+        if self._prefetched_slot is not None:
+            slot = self._prefetched_slot
+            self._prefetched_slot = None
+            log.debug(f"[transport:{self.label}] op87 using prefetched slot")
+
+        if slot is None:
+            for attempt in range(3):
+                fut87 = loop.create_future()
+                self._once["op87"] = fut87
+                await self._send_raw(87, {"count": 1})
+                try:
+                    slot = await asyncio.wait_for(fut87, timeout=10.0)
+                    break
+                except asyncio.TimeoutError:
+                    self._once.pop("op87", None)
+                    log.warning(f"[transport:{self.label}] op87 timeout attempt={attempt+1}/3")
+                    if attempt < 2:
+                        await asyncio.sleep(2.0 * (attempt + 1))
         if slot is None:
             log.error(f"[transport:{self.label}] upload slot timeout, dropping")
             self._upload_busy = False
@@ -638,6 +664,10 @@ class MaxTransport:
             self._last_event       = "recv"
             self._last_activity_time = 0.0
             self._upload_busy      = False
+            self._prefetched_slot  = None
+            if self._prefetch_task and not self._prefetch_task.done():
+                self._prefetch_task.cancel()
+            self._prefetch_task    = None
             self._speed_bytes = 0
             self._speed_ts    = 0.0
             connector = _make_connector(limit=32, limit_per_host=8, keepalive_timeout=30)
@@ -769,6 +799,7 @@ class TunForwarder:
         best = self._rank_transports(ready, now)
         best._upload_busy = True
         self._consume_token(best, now)
+        best._prefetch_task = asyncio.create_task(best.prefetch_slot())
 
         stats = {t.label: {
             "recv_count": t._recv_count,
