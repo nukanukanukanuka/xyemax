@@ -40,9 +40,7 @@ import subprocess
 import sys
 import time
 import uuid
-import zstandard as _zstd
-_zstd_cctx = _zstd.ZstdCompressor(level=1)
-_zstd_dctx = _zstd.ZstdDecompressor()
+import zlib
 from collections import deque
 from pathlib import Path
 
@@ -308,13 +306,12 @@ _WS_HEADERS = {
 }
 
 def _pack(data: bytes) -> bytes:
-    c = _zstd_cctx.compress(data)
-    return (b"\x02" + c) if len(c) < len(data) else (b"\x00" + data)
+    c = zlib.compress(data, level=1)
+    return (b"\x01" + c) if len(c) < len(data) else (b"\x00" + data)
 
 def _unpack(payload: bytes) -> bytes:
     if not payload: return b""
-    if payload[0] == 0x02: return _zstd_dctx.decompress(payload[1:])
-    if payload[0] == 0x01: import zlib; return zlib.decompress(payload[1:])
+    if payload[0] == 0x01: return zlib.decompress(payload[1:])
     return payload[1:]
 
 
