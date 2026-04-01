@@ -115,7 +115,8 @@ LOG_FILE = _LOGS_DIR / f"client_{time.strftime('%Y-%m-%d_%H-%M-%S')}.log"
 
 class _SpeedFilter(logging.Filter):
     def filter(self, record):
-        return "BATCH" in record.getMessage() or "TUN" in record.getMessage()
+        msg = record.getMessage()
+        return "BATCH" in msg or "TUN" in msg or "[sync]" in msg
 
 def _setup_logging():
     root = logging.getLogger()
@@ -320,6 +321,34 @@ _JPEG_TEMPLATE = base64.b64decode(
 )
 _JPEG_MAGIC = b"MXVPNJ1"
 _JPEG_CHUNK = 60000
+
+# ══════════════════════════════════════════════════════════════════════════════
+# SYNC-ПАКЕТЫ — синхронизация живых аккаунтов между клиентом и сервером
+# ══════════════════════════════════════════════════════════════════════════════
+
+_SYNC_MARKER = b"\xFF"   # первый байт пакета, обозначающий SYNC
+SYNC_INTERVAL = 15.0     # секунды между отправками синхронизации
+
+def _encode_sync(viewer_ids: list[int]) -> bytes:
+    """Создать SYNC-пакет: маркер + JSON со списком живых viewer_id."""
+    payload = json.dumps({"type": "sync", "viewer_ids": viewer_ids},
+                         separators=(",", ":")).encode()
+    return _SYNC_MARKER + payload
+
+def _decode_sync(pkt: bytes) -> list[int] | None:
+    """Вернуть список viewer_id из SYNC-пакета или None если это не SYNC."""
+    if not pkt or pkt[0:1] != _SYNC_MARKER:
+        return None
+    try:
+        data = json.loads(pkt[1:])
+        if data.get("type") == "sync":
+            return [int(v) for v in data.get("viewer_ids", [])]
+    except Exception:
+        pass
+    return None
+
+def _is_sync_pkt(pkt: bytes) -> bool:
+    return bool(pkt) and pkt[0:1] == _SYNC_MARKER
 
 
 def _jpeg_wrap(payload: bytes) -> bytes:
@@ -681,9 +710,14 @@ class MaxTransport:
                 await self._send_queue.put(None)
                 try: await asyncio.wait_for(send_task, timeout=5)
                 except Exception: send_task.cancel()
-                if self._http and not self._http.closed:
-                    await self._http.close()
-                self._http = None
+                if self._http:
+                    try:
+                        if not self._http.closed:
+                            await self._http.close()
+                    except Exception as _e:
+                        log.debug(f"[transport:{self.label}] http close error: {_e}")
+                    finally:
+                        self._http = None
                 if self.on_disconnect:
                     asyncio.create_task(self.on_disconnect())
 
@@ -696,6 +730,9 @@ class MultiTransport:
         self._lock = asyncio.Lock()
         self.on_batch_response: callable = None
         self.on_disconnect: callable = None
+        # Синхронизация: viewer_id аккаунтов, которые живы на стороне сервера
+        self._peer_alive_ids: set[int] | None = None  # None = неизвестно (до первого SYNC)
+        self._peer_alive_lock = asyncio.Lock()
         for i, t in enumerate(transports):
             t.on_batch_response = self._make_recv_cb(i)
             t.on_disconnect     = self._make_disc_cb(i)
@@ -716,6 +753,49 @@ class MultiTransport:
                 log.warning(f"[multi] {self._transports[idx].label} разрыв №{self._transports[idx]._disconnects}, "
                              f"живых: {len(self._alive)}/{len(self._transports)}")
         return _cb
+
+    async def apply_peer_sync(self, viewer_ids: list[int]):
+        """Обновить список живых аккаунтов на стороне сервера (получен через SYNC-пакет)."""
+        async with self._peer_alive_lock:
+            new_set = set(viewer_ids)
+            first_sync = self._peer_alive_ids is None
+            if first_sync:
+                self._peer_alive_ids = new_set
+                # Сопоставляем с нашими аккаунтами по viewer_id
+                our_ids    = {t.viewer_id: t.label for t in self._transports}
+                matched    = [our_ids[v] for v in new_set if v in our_ids]
+                unmatched  = [v for v in new_set if v not in our_ids]
+                log.info(
+                    f"[sync] ← сервер: первый SYNC получен  "
+                    f"живых на сервере: {sorted(new_set)}  "
+                    f"совпадающих у нас: {matched}"
+                    + (f"  неизвестных: {unmatched}" if unmatched else "")
+                )
+            elif self._peer_alive_ids != new_set:
+                added   = new_set - self._peer_alive_ids
+                removed = self._peer_alive_ids - new_set
+                self._peer_alive_ids = new_set
+                our_ids = {t.viewer_id: t.label for t in self._transports}
+                if removed:
+                    labels = [our_ids.get(v, f"vid={v}") for v in sorted(removed)]
+                    log.info(f"[sync] ← сервер: аккаунты ОТКЛЮЧИЛИСЬ → {labels}  (viewer_ids={sorted(removed)})")
+                if added:
+                    labels = [our_ids.get(v, f"vid={v}") for v in sorted(added)]
+                    log.info(f"[sync] ← сервер: аккаунты ПОЯВИЛИСЬ  → {labels}  (viewer_ids={sorted(added)})")
+                log.info(f"[sync] ← сервер: итого живых={sorted(new_set)}")
+            else:
+                log.debug(f"[sync] ← сервер: без изменений  живых={sorted(new_set)}")
+
+    def _peer_allows(self, transport) -> bool:
+        """Проверить, что сервер считает этот аккаунт живым (по viewer_id)."""
+        if self._peer_alive_ids is None:
+            # Ещё не получили ни одного SYNC от сервера — разрешаем всем
+            return True
+        return transport.viewer_id in self._peer_alive_ids
+
+    def get_my_alive_viewer_ids(self) -> list[int]:
+        """Вернуть viewer_id всех аккаунтов, которые сейчас в _alive."""
+        return [self._transports[i].viewer_id for i in sorted(self._alive)]
 
     def _rate_limit_remaining(self, t, now: float) -> int:
         """Скользящее окно: убираем отправки старше RATE_LIMIT_WINDOW_10MINS секунд."""
@@ -786,10 +866,11 @@ class MultiTransport:
                     log.error("[multi] нет живых транспортов, пакеты дропаются")
                     return
 
-                # Фильтр: не занятые и не исчерпавшие лимит
+                # Фильтр: не занятые, не исчерпавшие лимит, и разрешены сервером
                 ready = [i for i in alive
                          if not self._transports[i]._upload_busy
-                         and self._rate_limit_remaining(self._transports[i], now) > 0]
+                         and self._rate_limit_remaining(self._transports[i], now) > 0
+                         and self._peer_allows(self._transports[i])]
 
                 if not ready:
                     min_wait_val = 0.05
@@ -827,18 +908,25 @@ class MultiTransport:
         t = self._transports[idx]
         delay = 0
         while True:
+            connect_start = asyncio.get_event_loop().time()
             try:
                 async with self._lock:
                     self._alive.add(idx)
                 await t.connect()
-                delay = 0  # успешное подключение — сбрасываем задержку
+                # connect() вернулся без исключения — нормальный разрыв WS
+                log.warning(f"[multi] {t.label} WS закрыт нормально. Reconnect немедленно...")
+                delay = 0
             except asyncio.CancelledError:
                 raise
             except Exception as e:
+                uptime = asyncio.get_event_loop().time() - connect_start
+                # Если соединение работало долго — сбрасываем backoff
+                if uptime >= 60.0:
+                    delay = 0
                 if delay > 0:
-                    log.error(f"[multi] {t.label} разрыв: {e}. Reconnect in {delay}s...")
+                    log.error(f"[multi] {t.label} разрыв ({type(e).__name__}: {e}). Reconnect in {delay}s...")
                 else:
-                    log.warning(f"[multi] {t.label} разрыв: {e}. Reconnect немедленно...")
+                    log.warning(f"[multi] {t.label} разрыв ({type(e).__name__}: {e}). Reconnect немедленно...")
             finally:
                 async with self._lock:
                     self._alive.discard(idx)
@@ -963,18 +1051,53 @@ class TunManager:
             # send_file ждёт свободный аккаунт сам — данные не теряются
             await self.transport.send_file(packed)
 
+    async def sync_loop(self):
+        """Периодически отправляет SYNC-пакет серверу со списком живых аккаунтов."""
+        await asyncio.sleep(2.0)  # небольшая задержка при старте
+        _last_sent_ids: list[int] = []
+        _first = True
+        while True:
+            try:
+                alive_ids = self.transport.get_my_alive_viewer_ids()
+                sync_pkt  = _encode_sync(alive_ids)
+                raw    = self._encode([sync_pkt])
+                packed = _pack(raw)
+                if _first:
+                    log.info(f"[sync] → сервер: первая отправка  живых у нас: {alive_ids}")
+                    _first = False
+                elif alive_ids != _last_sent_ids:
+                    log.info(f"[sync] → сервер: состав изменился  {_last_sent_ids} → {alive_ids}")
+                else:
+                    log.debug(f"[sync] → сервер: без изменений  живых={alive_ids}")
+                _last_sent_ids = alive_ids
+                await self.transport.send_file(packed)
+            except Exception as e:
+                log.warning(f"[sync] ошибка отправки: {e}")
+            await asyncio.sleep(SYNC_INTERVAL)
+
     # ── Приём ответов от сервера → запись в TUN ───────────────────────────────
 
     async def _on_response(self, data: bytes):
         pkts  = self._decode(data)
         if not pkts:
             return
-        self._pkts_recv  += len(pkts)
+        ip_pkts = []
+        for pkt in pkts:
+            viewer_ids = _decode_sync(pkt)
+            if viewer_ids is not None:
+                # SYNC-пакет от сервера: обновляем список живых аккаунтов на той стороне
+                log.debug(f"[sync] ← сервер: получен пакет viewer_ids={viewer_ids}")
+                asyncio.create_task(self.transport.apply_peer_sync(viewer_ids))
+                continue
+            ip_pkts.append(pkt)
+        if not ip_pkts:
+            return
+        self._pkts_recv  += len(ip_pkts)
         self._bytes_recv += len(data)
         self._files_recv += 1
-        log.debug(f"[tun] ← {len(pkts)} pkts  raw={len(data)}B")
+        log.debug(f"[tun] ← {len(ip_pkts)} pkts  raw={len(data)}B")
         loop = asyncio.get_event_loop()
-        for pkt in pkts:
+        for pkt in ip_pkts:
             try:
                 await loop.run_in_executor(None, os.write, self.fd, pkt)
             except OSError as e:
@@ -1119,6 +1242,7 @@ async def main():
             multi.connect(),
             tun_mgr.read_loop(),
             tun_mgr.send_loop(),
+            tun_mgr.sync_loop(),
             tun_mgr.stats_loop(),
         )
     except (KeyboardInterrupt, asyncio.CancelledError):

@@ -118,7 +118,8 @@ LOG_FILE = _LOGS_DIR / f"server_{time.strftime('%Y-%m-%d_%H-%M-%S')}.log"
 
 class _SpeedFilter(logging.Filter):
     def filter(self, record):
-        return "BATCH" in record.getMessage() or "TUN" in record.getMessage()
+        msg = record.getMessage()
+        return "BATCH" in msg or "TUN" in msg or "[sync]" in msg
 
 def _setup_logging():
     root = logging.getLogger()
@@ -177,6 +178,34 @@ _JPEG_TEMPLATE = base64.b64decode(
 )
 _JPEG_MAGIC = b"MXVPNJ1"
 _JPEG_CHUNK = 60000
+
+# ══════════════════════════════════════════════════════════════════════════════
+# SYNC-ПАКЕТЫ — синхронизация живых аккаунтов между клиентом и сервером
+# ══════════════════════════════════════════════════════════════════════════════
+
+_SYNC_MARKER = b"\xFF"   # первый байт пакета, обозначающий SYNC
+SYNC_INTERVAL = 15.0     # секунды между отправками синхронизации
+
+def _encode_sync(viewer_ids: list[int]) -> bytes:
+    """Создать SYNC-пакет: маркер + JSON со списком живых viewer_id."""
+    payload = json.dumps({"type": "sync", "viewer_ids": viewer_ids},
+                         separators=(",", ":")).encode()
+    return _SYNC_MARKER + payload
+
+def _decode_sync(pkt: bytes) -> list[int] | None:
+    """Вернуть список viewer_id из SYNC-пакета или None если это не SYNC."""
+    if not pkt or pkt[0:1] != _SYNC_MARKER:
+        return None
+    try:
+        data = json.loads(pkt[1:])
+        if data.get("type") == "sync":
+            return [int(v) for v in data.get("viewer_ids", [])]
+    except Exception:
+        pass
+    return None
+
+def _is_sync_pkt(pkt: bytes) -> bool:
+    return bool(pkt) and pkt[0:1] == _SYNC_MARKER
 
 
 def _jpeg_wrap(payload: bytes) -> bytes:
@@ -683,6 +712,9 @@ class TunForwarder:
         self._pending_bytes = 0
         self._batch_ready   = asyncio.Event()
         self._lock = asyncio.Lock()
+        # Синхронизация: viewer_id аккаунтов, которые живы на стороне клиента
+        self._peer_alive_ids: set[int] | None = None  # None = неизвестно (до первого SYNC)
+        self._peer_alive_lock = asyncio.Lock()
 
     def attach(self, transport: MaxTransport):
         self._transports[transport.label] = transport
@@ -694,6 +726,47 @@ class TunForwarder:
         if cur is transport:
             self._transports.pop(transport.label, None)
             log.info(f"[tun] detach {transport.label}; active={list(self._transports)}")
+
+    async def apply_peer_sync(self, viewer_ids: list[int]):
+        """Обновить список живых аккаунтов на стороне клиента (получен через SYNC-пакет)."""
+        async with self._peer_alive_lock:
+            new_set = set(viewer_ids)
+            first_sync = self._peer_alive_ids is None
+            if first_sync:
+                self._peer_alive_ids = new_set
+                our_ids   = {t.viewer_id: t.label for t in self._transports.values()}
+                matched   = [our_ids[v] for v in new_set if v in our_ids]
+                unmatched = [v for v in new_set if v not in our_ids]
+                log.info(
+                    f"[sync] ← клиент: первый SYNC получен  "
+                    f"живых у клиента: {sorted(new_set)}  "
+                    f"совпадающих у нас: {matched}"
+                    + (f"  неизвестных: {unmatched}" if unmatched else "")
+                )
+            elif self._peer_alive_ids != new_set:
+                added   = new_set - self._peer_alive_ids
+                removed = self._peer_alive_ids - new_set
+                self._peer_alive_ids = new_set
+                our_ids = {t.viewer_id: t.label for t in self._transports.values()}
+                if removed:
+                    labels = [our_ids.get(v, f"vid={v}") for v in sorted(removed)]
+                    log.info(f"[sync] ← клиент: аккаунты ОТКЛЮЧИЛИСЬ → {labels}  (viewer_ids={sorted(removed)})")
+                if added:
+                    labels = [our_ids.get(v, f"vid={v}") for v in sorted(added)]
+                    log.info(f"[sync] ← клиент: аккаунты ПОЯВИЛИСЬ  → {labels}  (viewer_ids={sorted(added)})")
+                log.info(f"[sync] ← клиент: итого живых={sorted(new_set)}")
+            else:
+                log.debug(f"[sync] ← клиент: без изменений  живых={sorted(new_set)}")
+
+    def _peer_allows(self, transport: MaxTransport) -> bool:
+        """Проверить, что клиент считает этот аккаунт живым (по viewer_id)."""
+        if self._peer_alive_ids is None:
+            return True  # ещё не получили ни одного SYNC — разрешаем всем
+        return transport.viewer_id in self._peer_alive_ids
+
+    def get_my_alive_viewer_ids(self) -> list[int]:
+        """Вернуть viewer_id всех активных (подключённых) транспортов."""
+        return [t.viewer_id for t in self._get_live()]
 
     def _rate_limit_remaining(self, t, now: float) -> int:
         """Скользящее окно: убираем отправки старше RATE_LIMIT_WINDOW_10MINS секунд."""
@@ -765,10 +838,11 @@ class TunForwarder:
         if not live:
             return None, 0.0
 
-        # Фильтр: не занятые и не исчерпавшие лимит
+        # Фильтр: не занятые, не исчерпавшие лимит, и разрешены клиентом
         ready = [t for t in live
                  if not t._upload_busy
-                 and self._rate_limit_remaining(t, now) > 0]
+                 and self._rate_limit_remaining(t, now) > 0
+                 and self._peer_allows(t)]
 
         if not ready:
             return None, 0.05
@@ -799,17 +873,58 @@ class TunForwarder:
         return best, 0.0
 
     async def _on_packets_from_client(self, data: bytes):
-        """Получили батч от клиента — пишем пакеты в tun."""
+        """Получили батч от клиента — разбираем SYNC-пакеты и IP-пакеты."""
         pkts  = _decode_packets(data)
         if not pkts:
             return
-        log.debug(f"[tun] ← клиент: {len(pkts)} pkts  raw={len(data)}B")
-        loop = asyncio.get_event_loop()
+        ip_pkts = []
         for pkt in pkts:
+            viewer_ids = _decode_sync(pkt)
+            if viewer_ids is not None:
+                # SYNC-пакет от клиента: обновляем список живых аккаунтов
+                log.debug(f"[sync] ← клиент: получен пакет viewer_ids={viewer_ids}")
+                asyncio.create_task(self.apply_peer_sync(viewer_ids))
+                continue
+            ip_pkts.append(pkt)
+        if not ip_pkts:
+            return
+        log.debug(f"[tun] ← клиент: {len(ip_pkts)} pkts  raw={len(data)}B")
+        loop = asyncio.get_event_loop()
+        for pkt in ip_pkts:
             try:
                 await loop.run_in_executor(None, os.write, self.fd, pkt)
             except OSError as e:
                 log.warning(f"[tun] write error: {e}")
+
+    async def sync_loop(self):
+        """Периодически отправляет SYNC-пакет клиенту со списком живых аккаунтов."""
+        await asyncio.sleep(2.0)  # небольшая задержка при старте
+        _last_sent_ids: list[int] = []
+        _first = True
+        while True:
+            try:
+                alive_ids = self.get_my_alive_viewer_ids()
+                sync_pkt  = _encode_sync(alive_ids)
+                raw    = _encode_packets([sync_pkt])
+                packed = _pack(raw)
+                if _first:
+                    log.info(f"[sync] → клиент: первая отправка  живых у нас: {alive_ids}")
+                    _first = False
+                elif alive_ids != _last_sent_ids:
+                    log.info(f"[sync] → клиент: состав изменился  {_last_sent_ids} → {alive_ids}")
+                else:
+                    log.debug(f"[sync] → клиент: без изменений  живых={alive_ids}")
+                _last_sent_ids = alive_ids
+                # Отправляем через первый не-busy живой транспорт
+                live = self._get_live()
+                if live:
+                    t = next((x for x in live if not x._upload_busy), live[0])
+                    await t.send_file(packed)
+                else:
+                    log.debug("[sync] → клиент: нет живых транспортов, пропуск")
+            except Exception as e:
+                log.warning(f"[sync] ошибка отправки: {e}")
+            await asyncio.sleep(SYNC_INTERVAL)
 
     async def read_loop(self):
         """Читаем ответные пакеты из tun, накапливаем за BATCH_WINDOW_MS, затем сигналим send_loop."""
@@ -1007,7 +1122,8 @@ async def main():
         send_task  = asyncio.create_task(forwarder.send_loop())
         dash_task  = asyncio.create_task(_dashboard_loop(forwarder))
         try:
-            await asyncio.gather(poll_task, read_task, send_task, dash_task)
+            await asyncio.gather(poll_task, read_task, send_task, dash_task,
+                                 asyncio.create_task(forwarder.sync_loop()))
         except (KeyboardInterrupt, asyncio.CancelledError):
             pass
         finally:
