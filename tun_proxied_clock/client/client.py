@@ -681,14 +681,9 @@ class MaxTransport:
                 await self._send_queue.put(None)
                 try: await asyncio.wait_for(send_task, timeout=5)
                 except Exception: send_task.cancel()
-                if self._http:
-                    try:
-                        if not self._http.closed:
-                            await self._http.close()
-                    except Exception as _e:
-                        log.debug(f"[transport:{self.label}] http close error: {_e}")
-                    finally:
-                        self._http = None
+                if self._http and not self._http.closed:
+                    await self._http.close()
+                self._http = None
                 if self.on_disconnect:
                     asyncio.create_task(self.on_disconnect())
 
@@ -832,25 +827,18 @@ class MultiTransport:
         t = self._transports[idx]
         delay = 0
         while True:
-            connect_start = asyncio.get_event_loop().time()
             try:
                 async with self._lock:
                     self._alive.add(idx)
                 await t.connect()
-                # connect() вернулся без исключения — нормальный разрыв WS
-                log.warning(f"[multi] {t.label} WS закрыт нормально. Reconnect немедленно...")
-                delay = 0
+                delay = 0  # успешное подключение — сбрасываем задержку
             except asyncio.CancelledError:
                 raise
             except Exception as e:
-                uptime = asyncio.get_event_loop().time() - connect_start
-                # Если соединение работало долго — сбрасываем backoff
-                if uptime >= 60.0:
-                    delay = 0
                 if delay > 0:
-                    log.error(f"[multi] {t.label} разрыв ({type(e).__name__}: {e}). Reconnect in {delay}s...")
+                    log.error(f"[multi] {t.label} разрыв: {e}. Reconnect in {delay}s...")
                 else:
-                    log.warning(f"[multi] {t.label} разрыв ({type(e).__name__}: {e}). Reconnect немедленно...")
+                    log.warning(f"[multi] {t.label} разрыв: {e}. Reconnect немедленно...")
             finally:
                 async with self._lock:
                     self._alive.discard(idx)
