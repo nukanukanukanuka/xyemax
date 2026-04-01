@@ -326,7 +326,6 @@ _JPEG_CHUNK = 60000
 # ══════════════════════════════════════════════════════════════════════════════
 
 _SYNC_MARKER = b"\xFF"   # первый байт пакета, обозначающий SYNC
-SYNC_INTERVAL = 15.0     # секунды между отправками синхронизации
 
 def _encode_sync(viewer_ids: list[int]) -> bytes:
     """Создать SYNC-пакет: маркер + JSON со списком живых viewer_id."""
@@ -433,6 +432,10 @@ class MaxTransport:
         self._op88_sem = asyncio.Semaphore(1)
         self.on_batch_response: callable = None
         self.on_disconnect: callable = None
+        self.on_first_upload: callable = None  # вызывается после первого успешного upload (реконнект завершён)
+        self._upload_confirmed = False  # стал True после первого upload в этой сессии
+        self.on_file_failed: callable | None = None  # вызывается с потерянными файлами при разрыве
+        self._current_file: bytes | None = None  # файл который сейчас в _upload_and_publish
         self._last_activity_time: float = 0.0
         self._last_event: str = "recv"       # "send" или "recv"
         self._recv_count: int = 0            # входящих за текущие 5 минут
@@ -477,10 +480,13 @@ class MaxTransport:
         while True:
             file_body = await self._send_queue.get()
             if file_body is None: break
+            self._current_file = file_body
             try:
                 await self._upload_and_publish(file_body)
             except Exception as e:
                 log.error(f"[transport:{self.label}] send_worker error: {e}", exc_info=True)
+            finally:
+                self._current_file = None
 
     async def _upload_and_publish(self, file_body: bytes):
         http = self._http
@@ -526,6 +532,10 @@ class MaxTransport:
                 self._bytes_sent_total += len(file_body)
                 self._speed_bytes      += len(file_body)
                 log.debug(f"[transport:{self.label}] upload ok fileId={file_id} size={len(file_body)}")
+                if not self._upload_confirmed:
+                    self._upload_confirmed = True
+                    if self.on_first_upload:
+                        asyncio.create_task(self.on_first_upload())
             try:
                 await asyncio.wait_for(fut136, timeout=20.0)
             except asyncio.TimeoutError:
@@ -694,6 +704,7 @@ class MaxTransport:
             self._last_event       = "recv"
             self._last_activity_time = 0.0
             self._upload_busy      = False
+            self._upload_confirmed = False  # сбрасываем при реконнекте
             self._speed_bytes = 0
             self._speed_ts    = 0.0
             connector = _make_http_connector(limit_per_host=4, keepalive_timeout=30)
@@ -709,6 +720,18 @@ class MaxTransport:
                 await self._send_queue.put(None)
                 try: await asyncio.wait_for(send_task, timeout=5)
                 except Exception: send_task.cancel()
+                # Собираем потерянные файлы: in-flight + оставшиеся в очереди
+                lost = []
+                if self._current_file is not None:
+                    lost.append(self._current_file)
+                    self._current_file = None
+                while not self._send_queue.empty():
+                    item = self._send_queue.get_nowait()
+                    if item is not None:
+                        lost.append(item)
+                if lost and self.on_file_failed:
+                    log.warning(f"[transport:{self.label}] потеряно {len(lost)} файлов — возвращаем в очередь")
+                    asyncio.create_task(self.on_file_failed(lost))
                 if self._http:
                     try:
                         if not self._http.closed:
@@ -725,6 +748,8 @@ class MultiTransport:
     def __init__(self, transports: list):
         self._transports = transports
         self._alive: set[int] = set()
+        self._sync_needed = asyncio.Event()  # сигнал для sync_loop
+        self._retry_queue: asyncio.Queue = asyncio.Queue()  # потерянные файлы на переотправку
         self._rr_idx = 0
         self._lock = asyncio.Lock()
         self.on_batch_response: callable = None
@@ -735,6 +760,8 @@ class MultiTransport:
         for i, t in enumerate(transports):
             t.on_batch_response = self._make_recv_cb(i)
             t.on_disconnect     = self._make_disc_cb(i)
+            t.on_first_upload   = self._make_first_upload_cb(i)
+            t.on_file_failed    = self._make_file_failed_cb()
 
     def _make_recv_cb(self, idx: int):
         async def _cb(data: bytes):
@@ -742,15 +769,29 @@ class MultiTransport:
                 await self.on_batch_response(data)
         return _cb
 
+    def _make_file_failed_cb(self):
+        async def _cb(files: list[bytes]):
+            """Возвращаем потерянные файлы в retry-очередь для переотправки."""
+            for f in files:
+                await self._retry_queue.put(f)
+        return _cb
+
+    def _make_first_upload_cb(self, idx: int):
+        async def _cb():
+            # Первый успешный upload после реконнекта — соединение восстановлено
+            async with self._lock:
+                log.info(f"[multi] {self._transports[idx].label} восстановлен (первый upload OK)")
+            self._sync_needed.set()
+        return _cb
+
     def _make_disc_cb(self, idx: int):
         async def _cb():
-            # Только считаем разрывы — удаление из _alive делает _run_one в finally.
-            # Если делать discard здесь тоже, возникает гонка: транспорт уже
-            # переподключился и снова в _alive, а delayed callback удаляет его снова.
             self._transports[idx]._disconnects += 1
             async with self._lock:
                 log.warning(f"[multi] {self._transports[idx].label} разрыв №{self._transports[idx]._disconnects}, "
                              f"живых: {len(self._alive)}/{len(self._transports)}")
+            # Разрыв — немедленно шлём синк серверу
+            self._sync_needed.set()
         return _cb
 
     async def apply_peer_sync(self, viewer_ids: list[int]):
@@ -933,10 +974,21 @@ class MultiTransport:
                 await asyncio.sleep(delay)
             delay = min(max(delay, 1) * 2, 60)
 
+    async def _retry_worker(self):
+        """Переотправляет потерянные файлы через активные аккаунты."""
+        while True:
+            file_body = await self._retry_queue.get()
+            try:
+                log.info(f"[multi] retry: переотправляем файл {len(file_body)}B")
+                await self.send_file(file_body)
+            except Exception as e:
+                log.error(f"[multi] retry: ошибка переотправки: {e}")
+
     async def connect(self):
         tasks = [asyncio.create_task(self._run_one(i))
                  for i in range(len(self._transports))]
-        _console(f"[multi] запущено {len(tasks)} транспортов: "
+        tasks.append(asyncio.create_task(self._retry_worker()))
+        _console(f"[multi] запущено {len(tasks) - 1} транспортов: "
                  f"{[t.label for t in self._transports]}")
         await asyncio.gather(*tasks)
 
@@ -1051,11 +1103,18 @@ class TunManager:
             await self.transport.send_file(packed)
 
     async def sync_loop(self):
-        """Периодически отправляет SYNC-пакет серверу со списком живых аккаунтов."""
+        """Отправляет SYNC-пакет серверу при разрыве или восстановлении аккаунта."""
         await asyncio.sleep(2.0)  # небольшая задержка при старте
         _last_sent_ids: list[int] = []
         _first = True
+        # Сигналим сразу при старте чтобы отправить первый синк
+        self.transport._sync_needed.set()
         while True:
+            # Ждём сигнала (разрыв или восстановление)
+            await self.transport._sync_needed.wait()
+            self.transport._sync_needed.clear()
+            # Небольшая пауза чтобы _alive успел обновиться
+            await asyncio.sleep(0.3)
             try:
                 alive_ids = self.transport.get_my_alive_viewer_ids()
                 sync_pkt  = _encode_sync(alive_ids)
@@ -1072,7 +1131,6 @@ class TunManager:
                 await self.transport.send_file(packed)
             except Exception as e:
                 log.warning(f"[sync] ошибка отправки: {e}")
-            await asyncio.sleep(SYNC_INTERVAL)
 
     # ── Приём ответов от сервера → запись в TUN ───────────────────────────────
 
