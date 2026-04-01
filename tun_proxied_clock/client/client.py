@@ -418,6 +418,7 @@ class MaxTransport:
         self._bytes_recv_total: int = 0
         self._speed_bytes:      int = 0      # байт за последнюю секунду
         self._speed_ts:       float = 0.0    # начало текущей секунды
+        self._disconnects:    int = 0        # количество разрывов сокета
 
     def _next_seq(self):
         s = self.seq; self.seq += 1; return s
@@ -457,62 +458,61 @@ class MaxTransport:
         http = self._http
         loop = asyncio.get_event_loop()
         slot = None
-
-        for attempt in range(3):
-                fut87 = loop.create_future()
-                self._once["op87"] = fut87
-                await self._send_raw(87, {"count": 1})
-                try:
-                    slot = await asyncio.wait_for(fut87, timeout=10.0)
-                    break
-                except asyncio.TimeoutError:
-                    self._once.pop("op87", None)
-                    log.warning(f"[transport:{self.label}] op87 timeout attempt={attempt+1}/3")
-                    if attempt < 2:
-                        await asyncio.sleep(2.0 * (attempt + 1))
-        if slot is None:
-            log.error(f"[transport:{self.label}] upload slot timeout, dropping")
-            self._upload_busy = False
-            return
-        info    = slot["info"][0]
-        up_url  = info["url"]
-        file_id = int(info["fileId"])
-        fut136  = loop.create_future()
-        self._once[f"op136_{file_id}"] = fut136
-        await self._send_raw(65, {"chatId": self.chat_id, "type": "FILE"})
-        jpeg_body = _jpeg_wrap(file_body)
-        form = aiohttp.FormData()
-        form.add_field("file", jpeg_body, filename="tun.jpg",
-                       content_type="image/jpeg")
-        log.debug(f"[transport:{self.label}] jpeg-wrap raw={len(file_body)} jpeg={len(jpeg_body)}")
-        async with http.post(up_url, data=form) as resp:
-            if resp.status != 200:
-                body = await resp.text()
-                self._once.pop(f"op136_{file_id}", None)
-                log.error(f"[transport:{self.label}] upload failed {resp.status}: {body}")
-                self._upload_busy = False
-                return
-            now = loop.time()
-            self._last_activity_time = now
-            self._last_event = "send"
-            self._pkts_sent_total  += 1
-            self._bytes_sent_total += len(file_body)
-            self._speed_bytes      += len(file_body)
-            log.debug(f"[transport:{self.label}] upload ok fileId={file_id} size={len(file_body)}")
         try:
-            await asyncio.wait_for(fut136, timeout=20.0)
-        except asyncio.TimeoutError:
-            self._once.pop(f"op136_{file_id}", None)
-        self._upload_busy = False
-        self._recent_outgoing_file_ids.add(file_id)
-        await self._send_raw(64, {
-            "chatId": self.chat_id,
-            "message": {
-                "cid": -int(time.time() * 1000),
-                "attaches": [{"_type": "FILE", "fileId": file_id}],
-            },
-            "notify": True,
-        })
+            for attempt in range(3):
+                    fut87 = loop.create_future()
+                    self._once["op87"] = fut87
+                    await self._send_raw(87, {"count": 1})
+                    try:
+                        slot = await asyncio.wait_for(fut87, timeout=10.0)
+                        break
+                    except asyncio.TimeoutError:
+                        self._once.pop("op87", None)
+                        log.warning(f"[transport:{self.label}] op87 timeout attempt={attempt+1}/3")
+                        if attempt < 2:
+                            await asyncio.sleep(2.0 * (attempt + 1))
+            if slot is None:
+                log.error(f"[transport:{self.label}] upload slot timeout, dropping")
+                return
+            info    = slot["info"][0]
+            up_url  = info["url"]
+            file_id = int(info["fileId"])
+            fut136  = loop.create_future()
+            self._once[f"op136_{file_id}"] = fut136
+            await self._send_raw(65, {"chatId": self.chat_id, "type": "FILE"})
+            jpeg_body = _jpeg_wrap(file_body)
+            form = aiohttp.FormData()
+            form.add_field("file", jpeg_body, filename="tun.jpg",
+                           content_type="image/jpeg")
+            log.debug(f"[transport:{self.label}] jpeg-wrap raw={len(file_body)} jpeg={len(jpeg_body)}")
+            async with http.post(up_url, data=form) as resp:
+                if resp.status != 200:
+                    body = await resp.text()
+                    self._once.pop(f"op136_{file_id}", None)
+                    log.error(f"[transport:{self.label}] upload failed {resp.status}: {body}")
+                    return
+                now = loop.time()
+                self._last_activity_time = now
+                self._last_event = "send"
+                self._pkts_sent_total  += 1
+                self._bytes_sent_total += len(file_body)
+                self._speed_bytes      += len(file_body)
+                log.debug(f"[transport:{self.label}] upload ok fileId={file_id} size={len(file_body)}")
+            try:
+                await asyncio.wait_for(fut136, timeout=20.0)
+            except asyncio.TimeoutError:
+                self._once.pop(f"op136_{file_id}", None)
+            self._recent_outgoing_file_ids.add(file_id)
+            await self._send_raw(64, {
+                "chatId": self.chat_id,
+                "message": {
+                    "cid": -int(time.time() * 1000),
+                    "attaches": [{"_type": "FILE", "fileId": file_id}],
+                },
+                "notify": True,
+            })
+        finally:
+            self._upload_busy = False
 
     async def _handshake(self):
         await self._send_raw(6, {
@@ -708,12 +708,13 @@ class MultiTransport:
 
     def _make_disc_cb(self, idx: int):
         async def _cb():
+            # Только считаем разрывы — удаление из _alive делает _run_one в finally.
+            # Если делать discard здесь тоже, возникает гонка: транспорт уже
+            # переподключился и снова в _alive, а delayed callback удаляет его снова.
+            self._transports[idx]._disconnects += 1
             async with self._lock:
-                self._alive.discard(idx)
-                log.warning(f"[multi] {self._transports[idx].label} отвалился, "
+                log.warning(f"[multi] {self._transports[idx].label} разрыв №{self._transports[idx]._disconnects}, "
                              f"живых: {len(self._alive)}/{len(self._transports)}")
-            if not self._alive and self.on_disconnect:
-                await self.on_disconnect()
         return _cb
 
     def _rate_limit_remaining(self, t, now: float) -> int:
@@ -881,6 +882,8 @@ class TunManager:
         self._pkts_recv = 0
         self._bytes_sent = 0
         self._bytes_recv = 0
+        self._files_sent = 0   # количество отправленных файлов
+        self._files_recv = 0   # количество полученных файлов
         self._t0 = time.time()
 
     # ── Encode / Decode ───────────────────────────────────────────────────────
@@ -955,6 +958,7 @@ class TunManager:
             packed = _pack(raw)
             self._pkts_sent  += len(pkts)
             self._bytes_sent += len(raw)
+            self._files_sent += 1
             log.debug(f"[tun] → {len(pkts)} pkts  raw={len(raw)}B  packed={len(packed)}B")
             # send_file ждёт свободный аккаунт сам — данные не теряются
             await self.transport.send_file(packed)
@@ -967,6 +971,7 @@ class TunManager:
             return
         self._pkts_recv  += len(pkts)
         self._bytes_recv += len(data)
+        self._files_recv += 1
         log.debug(f"[tun] ← {len(pkts)} pkts  raw={len(data)}B")
         loop = asyncio.get_event_loop()
         for pkt in pkts:
@@ -981,52 +986,86 @@ class TunManager:
         """Живой dashboard — обновляет строки на месте через ANSI escape."""
         transports = self.transport._transports
         n = len(transports)
-        # Резервируем n строк
-        print("\n" * n, end="", flush=True)
-        speed_window: dict[int, float] = {}  # idx -> байт за текущую секунду
-        speed_ts:     dict[int, float] = {}
-        speed_kbps:   dict[int, float] = {}  # idx -> кбит/с (сглаженная)
+        # Строк: 1 заголовок + n аккаунтов + 1 итого
+        total_lines = n + 2
+        sys.stdout.write("\n" * total_lines)
+        speed_ts:   dict[int, float] = {}
+        speed_kbps: dict[int, float] = {}
 
         now_ts = time.time()
         for i in range(n):
-            speed_window[i] = 0.0
-            speed_ts[i]     = now_ts
-            speed_kbps[i]   = 0.0
+            speed_ts[i]   = now_ts
+            speed_kbps[i] = 0.0
 
         while True:
             await asyncio.sleep(0.5)
             now_ts = time.time()
             now_ev = asyncio.get_event_loop().time()
 
+            # ── Uptime ────────────────────────────────────────────────────────
+            uptime_sec = int(now_ts - self._t0)
+            h, rem = divmod(uptime_sec, 3600)
+            m, s   = divmod(rem, 60)
+            uptime_str = f"{h:02d}:{m:02d}:{s:02d}"
+
+            # ── Суммарные счётчики по TunManager ─────────────────────────────
+            total_pkts_sent = self._pkts_sent
+            total_pkts_recv = self._pkts_recv
+            total_files_sent = self._files_sent
+            total_files_recv = self._files_recv
+            total_mb_sent   = self._bytes_sent / 1_048_576
+            total_mb_recv   = self._bytes_recv / 1_048_576
+            total_disc      = sum(t._disconnects for t in transports)
+
             lines = []
+
+            # ── Заголовок ─────────────────────────────────────────────────────
+            header = (
+                f"  uptime: {uptime_str}  "
+                f"файлы ↓{total_files_recv} ↑{total_files_sent}  "
+                f"трафик ↓{total_mb_recv:.1f}МБ ↑{total_mb_sent:.1f}МБ  "
+                f"разрывов: {total_disc}"
+            )
+            lines.append(header)
+
+            # ── Строка на каждый аккаунт ──────────────────────────────────────
             for i, t in enumerate(transports):
-                # Скорость: байт накоплено за последние 0.5с → кбит/с
                 elapsed = now_ts - speed_ts[i]
                 if elapsed >= 0.5:
-                    instant = (t._speed_bytes * 8 / 1000) / elapsed  # кбит/с
-                    # EMA сглаживание
+                    instant = (t._speed_bytes * 8 / 1000) / elapsed
                     speed_kbps[i] = speed_kbps[i] * 0.4 + instant * 0.6
                     t._speed_bytes = 0
                     speed_ts[i]    = now_ts
 
-                # Остаток лимита
                 cutoff = now_ev - RATE_LIMIT_WINDOW_10MINS
                 while t._sent_times and t._sent_times[0] < cutoff:
                     t._sent_times.popleft()
                 remaining = RATE_LIMIT_COUNT - len(t._sent_times)
 
+                mb_sent = t._bytes_sent_total / 1_048_576
+                mb_recv = t._bytes_recv_total / 1_048_576
                 busy_mark = "●" if t._upload_busy else " "
+                disc_str  = f"  разр:{t._disconnects}" if t._disconnects > 0 else ""
                 line = (
                     f"  {busy_mark} {t.label:<6} "
-                    f"↓{t._pkts_recv_total:>5}  "
-                    f"↑{t._pkts_sent_total:>5}  "
+                    f"↓{t._pkts_recv_total:>5} файл  "
+                    f"↑{t._pkts_sent_total:>5} файл  "
+                    f"↓{mb_recv:>5.1f}МБ ↑{mb_sent:>5.1f}МБ  "
                     f"{speed_kbps[i]:>7.1f} кбит/с  "
                     f"лимит: {remaining:>3}/{RATE_LIMIT_COUNT}"
+                    f"{disc_str}"
                 )
                 lines.append(line)
 
-            # Перемещаемся вверх на n строк и перезаписываем
-            sys.stdout.write("\033[" + str(n) + "A")
+            # ── Итого ─────────────────────────────────────────────────────────
+            total_remaining = sum(RATE_LIMIT_COUNT - len([x for x in t._sent_times
+                                  if x > now_ev - RATE_LIMIT_WINDOW_10MINS])
+                                  for t in transports)
+            capacity_pct = total_remaining * 100 // (n * RATE_LIMIT_COUNT)
+            lines.append(f"  лимит суммарно: {total_remaining}/{n * RATE_LIMIT_COUNT} ({capacity_pct}%)")
+
+            # ── Перезаписываем на месте ───────────────────────────────────────
+            sys.stdout.write("\033[" + str(total_lines) + "A")
             for line in lines:
                 sys.stdout.write("\033[2K" + line + "\n")
             sys.stdout.flush()

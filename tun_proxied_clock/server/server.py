@@ -438,64 +438,63 @@ class MaxTransport:
         http = self._http
         loop = asyncio.get_event_loop()
         slot = None
-
-        for attempt in range(3):
-                fut87 = loop.create_future()
-                self._once["op87"] = fut87
-                await self._send_raw(87, {"count": 1})
-                try:
-                    slot = await asyncio.wait_for(fut87, timeout=10.0)
-                    break
-                except asyncio.TimeoutError:
-                    self._once.pop("op87", None)
-                    log.warning(f"[transport:{self.label}] op87 timeout attempt={attempt+1}/3")
-                    if attempt < 2:
-                        await asyncio.sleep(2.0 * (attempt + 1))
-        if slot is None:
-            log.error(f"[transport:{self.label}] upload slot timeout, dropping")
-            self._upload_busy = False
-            return
-        info    = slot["info"][0]
-        up_url  = info["url"]
-        file_id = int(info["fileId"])
-        fut136  = loop.create_future()
-        self._once[f"op136_{file_id}"] = fut136
-        await self._send_raw(65, {"chatId": self.chat_id, "type": "FILE"})
-        jpeg_body = _jpeg_wrap(file_body)
-        form = aiohttp.FormData()
-        form.add_field("file", jpeg_body, filename="tun_resp.jpg",
-                       content_type="image/jpeg")
-        log.debug(f"[transport:{self.label}] jpeg-wrap raw={len(file_body)} jpeg={len(jpeg_body)}")
-        log.debug(f"[transport:{self.label}] upload url={up_url}")
-        async with http.post(up_url, data=form) as resp:
-            if resp.status != 200:
-                body = await resp.text()
-                self._once.pop(f"op136_{file_id}", None)
-                log.error(f"[transport:{self.label}] upload failed {resp.status}: {body}")
-                self._upload_busy = False
-                return
-            now = loop.time()
-            self._last_activity_time = now
-            self._last_event = "send"
-            self._pkts_sent_total  += 1
-            self._bytes_sent_total += len(file_body)
-            self._speed_bytes      += len(file_body)
-            log.debug(f"[transport:{self.label}] upload ok fileId={file_id} size={len(file_body)}")
         try:
-            await asyncio.wait_for(fut136, timeout=20.0)
-        except asyncio.TimeoutError:
-            self._once.pop(f"op136_{file_id}", None)
-        self._upload_busy = False
-        self._recent_outgoing_file_ids.add(file_id)
-        await self._send_raw(64, {
-            "chatId": self.chat_id,
-            "message": {
-                "cid": -int(time.time() * 1000),
-                "attaches": [{"_type": "FILE", "fileId": file_id}],
-            },
-            "notify": True,
-        })
-        log.debug(f"[transport:{self.label}] published fileId={file_id} size={len(file_body)}")
+            for attempt in range(3):
+                    fut87 = loop.create_future()
+                    self._once["op87"] = fut87
+                    await self._send_raw(87, {"count": 1})
+                    try:
+                        slot = await asyncio.wait_for(fut87, timeout=10.0)
+                        break
+                    except asyncio.TimeoutError:
+                        self._once.pop("op87", None)
+                        log.warning(f"[transport:{self.label}] op87 timeout attempt={attempt+1}/3")
+                        if attempt < 2:
+                            await asyncio.sleep(2.0 * (attempt + 1))
+            if slot is None:
+                log.error(f"[transport:{self.label}] upload slot timeout, dropping")
+                return
+            info    = slot["info"][0]
+            up_url  = info["url"]
+            file_id = int(info["fileId"])
+            fut136  = loop.create_future()
+            self._once[f"op136_{file_id}"] = fut136
+            await self._send_raw(65, {"chatId": self.chat_id, "type": "FILE"})
+            jpeg_body = _jpeg_wrap(file_body)
+            form = aiohttp.FormData()
+            form.add_field("file", jpeg_body, filename="tun_resp.jpg",
+                           content_type="image/jpeg")
+            log.debug(f"[transport:{self.label}] jpeg-wrap raw={len(file_body)} jpeg={len(jpeg_body)}")
+            log.debug(f"[transport:{self.label}] upload url={up_url}")
+            async with http.post(up_url, data=form) as resp:
+                if resp.status != 200:
+                    body = await resp.text()
+                    self._once.pop(f"op136_{file_id}", None)
+                    log.error(f"[transport:{self.label}] upload failed {resp.status}: {body}")
+                    return
+                now = loop.time()
+                self._last_activity_time = now
+                self._last_event = "send"
+                self._pkts_sent_total  += 1
+                self._bytes_sent_total += len(file_body)
+                self._speed_bytes      += len(file_body)
+                log.debug(f"[transport:{self.label}] upload ok fileId={file_id} size={len(file_body)}")
+            try:
+                await asyncio.wait_for(fut136, timeout=20.0)
+            except asyncio.TimeoutError:
+                self._once.pop(f"op136_{file_id}", None)
+            self._recent_outgoing_file_ids.add(file_id)
+            await self._send_raw(64, {
+                "chatId": self.chat_id,
+                "message": {
+                    "cid": -int(time.time() * 1000),
+                    "attaches": [{"_type": "FILE", "fileId": file_id}],
+                },
+                "notify": True,
+            })
+            log.debug(f"[transport:{self.label}] published fileId={file_id} size={len(file_body)}")
+        finally:
+            self._upload_busy = False
 
     async def _handshake(self):
         await self._send_raw(6, {
@@ -932,15 +931,14 @@ class SessionManager:
                     chat_id, label=acc["label"],
                 )
                 self._forwarder.attach(transport)
+                connect_start = asyncio.get_event_loop().time()
                 try:
                     log.info(f"[proxy:{name}] WS подключение ({acc['label']}, "
                              f"chat_id={chat_id})")
                     await transport.connect()
-                    delay = 0  # успешное подключение — сбрасываем задержку
                 except asyncio.CancelledError:
                     log.info(f"[proxy:{name}] {acc['label']} остановлен")
-                    self._forwarder.detach(transport)
-                    return
+                    raise
                 except Exception as e:
                     if delay > 0:
                         log.error(f"[proxy:{name}] {acc['label']} разрыв: {e!r}. "
@@ -950,9 +948,17 @@ class SessionManager:
                                     f"Reconnect немедленно...")
                 finally:
                     self._forwarder.detach(transport)
+                # Сбрасываем backoff если соединение продержалось >60с
+                # (connect() всегда бросает RuntimeError при завершении recv_loop)
+                uptime = asyncio.get_event_loop().time() - connect_start
+                if uptime >= 60.0:
+                    delay = 0
+                elif delay == 0:
+                    delay = 1
+                else:
+                    delay = min(delay * 2, 60)
                 if delay > 0:
                     await asyncio.sleep(delay)
-                delay = min(max(delay, 1) * 2, 60)
 
         await asyncio.gather(*[_run_one(acc) for acc in ACCOUNTS])
 
