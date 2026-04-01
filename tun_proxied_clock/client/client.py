@@ -115,8 +115,7 @@ LOG_FILE = _LOGS_DIR / f"client_{time.strftime('%Y-%m-%d_%H-%M-%S')}.log"
 
 class _SpeedFilter(logging.Filter):
     def filter(self, record):
-        msg = record.getMessage()
-        return "BATCH" in msg or "TUN" in msg or "[sync]" in msg
+        return "BATCH" in record.getMessage() or "TUN" in record.getMessage()
 
 def _setup_logging():
     root = logging.getLogger()
@@ -1109,9 +1108,6 @@ class TunManager:
         """Живой dashboard — обновляет строки на месте через ANSI escape."""
         transports = self.transport._transports
         n = len(transports)
-        # Строк: 1 заголовок + n аккаунтов + 1 итого
-        total_lines = n + 2
-        sys.stdout.write("\n" * total_lines)
         speed_ts:   dict[int, float] = {}
         speed_kbps: dict[int, float] = {}
 
@@ -1119,6 +1115,10 @@ class TunManager:
         for i in range(n):
             speed_ts[i]   = now_ts
             speed_kbps[i] = 0.0
+
+        # Строк: 1 заголовок + n аккаунтов + 1 итого
+        total_lines = n + 2
+        sys.stdout.write("\n" * total_lines)
 
         while True:
             await asyncio.sleep(0.5)
@@ -1132,13 +1132,18 @@ class TunManager:
             uptime_str = f"{h:02d}:{m:02d}:{s:02d}"
 
             # ── Суммарные счётчики по TunManager ─────────────────────────────
-            total_pkts_sent = self._pkts_sent
-            total_pkts_recv = self._pkts_recv
             total_files_sent = self._files_sent
             total_files_recv = self._files_recv
             total_mb_sent   = self._bytes_sent / 1_048_576
             total_mb_recv   = self._bytes_recv / 1_048_576
             total_disc      = sum(t._disconnects for t in transports)
+
+            # ── Sync-статус от сервера ────────────────────────────────────────
+            peer_ids = self.transport._peer_alive_ids
+            if peer_ids is None:
+                sync_str = "  sync: ожидание..."
+            else:
+                sync_str = f"  sync↔: {len(peer_ids)} акк"
 
             lines = []
 
@@ -1148,6 +1153,7 @@ class TunManager:
                 f"файлы ↓{total_files_recv} ↑{total_files_sent}  "
                 f"трафик ↓{total_mb_recv:.1f}МБ ↑{total_mb_sent:.1f}МБ  "
                 f"разрывов: {total_disc}"
+                f"{sync_str}"
             )
             lines.append(header)
 
@@ -1169,6 +1175,11 @@ class TunManager:
                 mb_recv = t._bytes_recv_total / 1_048_576
                 busy_mark = "●" if t._upload_busy else " "
                 disc_str  = f"  разр:{t._disconnects}" if t._disconnects > 0 else ""
+                # Пометка: заблокирован ли аккаунт по sync от сервера
+                if peer_ids is not None and t.viewer_id not in peer_ids:
+                    peer_mark = " ✗srv"
+                else:
+                    peer_mark = ""
                 line = (
                     f"  {busy_mark} {t.label:<6} "
                     f"↓{t._pkts_recv_total:>5} файл  "
@@ -1176,7 +1187,7 @@ class TunManager:
                     f"↓{mb_recv:>5.1f}МБ ↑{mb_sent:>5.1f}МБ  "
                     f"{speed_kbps[i]:>7.1f} кбит/с  "
                     f"лимит: {remaining:>3}/{RATE_LIMIT_COUNT}"
-                    f"{disc_str}"
+                    f"{disc_str}{peer_mark}"
                 )
                 lines.append(line)
 
@@ -1187,7 +1198,7 @@ class TunManager:
             capacity_pct = total_remaining * 100 // (n * RATE_LIMIT_COUNT)
             lines.append(f"  лимит суммарно: {total_remaining}/{n * RATE_LIMIT_COUNT} ({capacity_pct}%)")
 
-            # ── Перезаписываем на месте ───────────────────────────────────────
+            # ── Перезаписываем на месте (фиксированное число строк) ───────────
             sys.stdout.write("\033[" + str(total_lines) + "A")
             for line in lines:
                 sys.stdout.write("\033[2K" + line + "\n")

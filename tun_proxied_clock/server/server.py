@@ -118,8 +118,7 @@ LOG_FILE = _LOGS_DIR / f"server_{time.strftime('%Y-%m-%d_%H-%M-%S')}.log"
 
 class _SpeedFilter(logging.Filter):
     def filter(self, record):
-        msg = record.getMessage()
-        return "BATCH" in msg or "TUN" in msg or "[sync]" in msg
+        return "BATCH" in record.getMessage() or "TUN" in record.getMessage()
 
 def _setup_logging():
     root = logging.getLogger()
@@ -1145,8 +1144,14 @@ async def _dashboard_loop(forwarder: "TunForwarder"):
     speed_ts:   dict[str, float] = {}
     speed_kbps: dict[str, float] = {}
 
-    n = 0
-    printed = False
+    # Число строк фиксируется по числу аккаунтов в ACCOUNTS (известно заранее)
+    # Заголовок (1) + аккаунты (len(ACCOUNTS)) = total_lines
+    total_lines = len(ACCOUNTS) + 1
+    _sys.stdout.write("\n" * total_lines)
+    now_ts = time.time()
+    for acc in ACCOUNTS:
+        speed_ts[acc["label"]]   = now_ts
+        speed_kbps[acc["label"]] = 0.0
 
     while True:
         await asyncio.sleep(0.5)
@@ -1154,20 +1159,38 @@ async def _dashboard_loop(forwarder: "TunForwarder"):
         now_ev = asyncio.get_event_loop().time()
 
         transports = list(transports_ref.values())
-        if not transports:
-            continue
-
-        if len(transports) != n:
-            n = len(transports)
-            print("\n" * n, end="", flush=True)
-            printed = True
-            for t in transports:
+        # Инициализируем скорость для новых транспортов
+        for t in transports:
+            if t.label not in speed_ts:
                 speed_ts[t.label]   = now_ts
                 speed_kbps[t.label] = 0.0
 
+        # ── Sync-статус от клиента ────────────────────────────────────────────
+        peer_ids = forwarder._peer_alive_ids
+        if peer_ids is None:
+            sync_str = "  sync: ожидание..."
+        else:
+            sync_str = f"  sync↔: {len(peer_ids)} акк"
+
         lines = []
-        for t in transports:
-            lbl = t.label
+
+        # ── Заголовок ─────────────────────────────────────────────────────────
+        n_alive = len(transports)
+        lines.append(
+            f"  транспортов: {n_alive}/{len(ACCOUNTS)}"
+            f"{sync_str}"
+        )
+
+        # ── Строка на каждый аккаунт из ACCOUNTS (фиксированный порядок) ──────
+        transport_map = {t.label: t for t in transports}
+        for acc in ACCOUNTS:
+            lbl = acc["label"]
+            t   = transport_map.get(lbl)
+            if t is None:
+                # Аккаунт ещё не подключён / в переподключении
+                lines.append(f"    {lbl:<6} переподключение...")
+                continue
+
             elapsed = now_ts - speed_ts.get(lbl, now_ts)
             if elapsed >= 0.5:
                 instant = (t._speed_bytes * 8 / 1000) / elapsed
@@ -1181,21 +1204,26 @@ async def _dashboard_loop(forwarder: "TunForwarder"):
             remaining = RATE_LIMIT_COUNT - len(t._sent_times)
 
             busy_mark = "●" if t._upload_busy else " "
+            # Пометка: заблокирован ли аккаунт по sync от клиента
+            if peer_ids is not None and t.viewer_id not in peer_ids:
+                peer_mark = " ✗cli"
+            else:
+                peer_mark = ""
             line = (
                 f"  {busy_mark} {lbl:<6} "
                 f"↓{t._pkts_recv_total:>5}  "
                 f"↑{t._pkts_sent_total:>5}  "
                 f"{speed_kbps[lbl]:>7.1f} кбит/с  "
                 f"лимит: {remaining:>3}/{RATE_LIMIT_COUNT}"
+                f"{peer_mark}"
             )
             lines.append(line)
 
-        if printed:
-            _sys.stdout.write("\033[" + str(n) + "A")
+        # ── Перезаписываем на месте (фиксированное число строк) ───────────────
+        _sys.stdout.write("\033[" + str(total_lines) + "A")
         for line in lines:
             _sys.stdout.write("\033[2K" + line + "\n")
         _sys.stdout.flush()
-        printed = True
 
 
 async def _poll_loop(http: aiohttp.ClientSession, manager: SessionManager):
