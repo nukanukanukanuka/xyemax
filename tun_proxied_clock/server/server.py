@@ -655,9 +655,14 @@ class MaxTransport:
                 await self._send_queue.put(None)
                 try: await asyncio.wait_for(send_task, timeout=5)
                 except Exception: send_task.cancel()
-                if self._http and not self._http.closed:
-                    await self._http.close()
-                self._http = None
+                if self._http:
+                    try:
+                        if not self._http.closed:
+                            await self._http.close()
+                    except Exception as _e:
+                        log.debug(f"[transport:{self.label}] http close error: {_e}")
+                    finally:
+                        self._http = None
             raise RuntimeError("recv_loop завершился")
 
 
