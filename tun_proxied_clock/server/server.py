@@ -743,6 +743,7 @@ class TunForwarder:
         self._sync_needed = asyncio.Event()  # сигнал для sync_loop
         self._retry_queue: asyncio.Queue = asyncio.Queue()  # потерянные файлы на переотправку
         self._disc_counts: dict[str, int] = {}  # количество разрывов по label
+        self._saved_sent_times: dict = {}  # сохранённые _sent_times при реконнекте
         self._t0: float = time.time()  # время старта
         self._files_sent: int = 0  # файлов отправлено клиенту
         self._files_recv: int = 0  # файлов получено от клиента
@@ -754,6 +755,9 @@ class TunForwarder:
         transport.on_batch_request = self._on_packets_from_client
         transport.on_first_upload  = self._make_first_upload_cb(transport.label)
         transport.on_file_failed   = self._make_file_failed_cb()
+        # Восстанавливаем _sent_times при реконнекте — лимит не сбрасывается
+        if transport.label in self._saved_sent_times:
+            transport._sent_times = self._saved_sent_times.pop(transport.label)
         log.info(f"[tun] attach {transport.label}; active={list(self._transports)}")
 
     def detach(self, transport: MaxTransport):
@@ -761,6 +765,8 @@ class TunForwarder:
         if cur is transport:
             self._transports.pop(transport.label, None)
             self._disc_counts[transport.label] = self._disc_counts.get(transport.label, 0) + 1
+            # Сохраняем _sent_times — лимит не должен сбрасываться при реконнекте
+            self._saved_sent_times[transport.label] = transport._sent_times
             log.info(f"[tun] detach {transport.label}; active={list(self._transports)}")
             # Разрыв — немедленно шлём синк клиенту
             self._sync_needed.set()
@@ -1251,7 +1257,7 @@ async def _dashboard_loop(forwarder: "TunForwarder"):
         # ── Заголовок ─────────────────────────────────────────────────────────
         header = (
             f"  uptime: {uptime_str}  "
-            f"файлы ↓{forwarder._files_recv} ↑{forwarder._files_sent}  "
+            f"вх.файлы: {forwarder._files_recv}  исх.файлы: {forwarder._files_sent}  "
             f"трафик ↓{total_mb_recv:.1f}МБ ↑{total_mb_sent:.1f}МБ  "
             f"разрывов: {total_disc}  "
             f"транспортов: {n_alive}/{n}"
@@ -1266,7 +1272,7 @@ async def _dashboard_loop(forwarder: "TunForwarder"):
             if t is None or not t.is_ready:
                 disc = forwarder._disc_counts.get(lbl, 0)
                 disc_str = f"  разр:{disc}" if disc > 0 else ""
-                lines.append(f"    {lbl:<6} переподключение...{disc_str}")
+                lines.append(f"  {"●" if disc > 0 else " "} {lbl:<6} {"переподключение...":<54}{disc_str}")
                 continue
 
             elapsed = now_ts - speed_ts.get(lbl, now_ts)
@@ -1292,8 +1298,8 @@ async def _dashboard_loop(forwarder: "TunForwarder"):
                 peer_mark = ""
             line = (
                 f"  {busy_mark} {lbl:<6} "
-                f"↓{t._pkts_recv_total:>5} файл  "
-                f"↑{t._pkts_sent_total:>5} файл  "
+                f"↓{t._pkts_recv_total:>5} вх  "
+                f"↑{t._pkts_sent_total:>5} исх  "
                 f"↓{mb_recv:>5.1f}МБ ↑{mb_sent:>5.1f}МБ  "
                 f"{speed_kbps.get(lbl, 0.0):>7.1f} кбит/с  "
                 f"лимит: {remaining:>3}/{RATE_LIMIT_COUNT}"
