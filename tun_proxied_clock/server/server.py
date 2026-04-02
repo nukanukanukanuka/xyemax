@@ -514,6 +514,8 @@ class MaxTransport:
                 self._pkts_sent_total  += 1
                 self._bytes_sent_total += len(file_body)
                 self._speed_bytes      += len(file_body)
+                if self.on_stats_send:
+                    self.on_stats_send(len(file_body))
                 log.debug(f"[transport:{self.label}] upload ok fileId={file_id} size={len(file_body)}")
                 if not self._upload_confirmed:
                     self._upload_confirmed = True
