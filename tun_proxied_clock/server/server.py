@@ -1184,6 +1184,16 @@ class SessionManager:
         async def _run_one(acc: dict):
             delay = 0
             while True:
+                # Если SYNC от клиента уже получен и этот аккаунт отсутствует в нём —
+                # не реконнектимся, ждём пока клиент снова включит его в список живых.
+                while True:
+                    ids = self._forwarder._peer_alive_ids
+                    if ids is None or acc["viewer_id"] in ids:
+                        break
+                    log.info(f"[proxy:{name}] {acc['label']} (viewer_id={acc['viewer_id']}) "
+                             f"не в SYNC от клиента — пропускаем реконнект, ждём 10s...")
+                    await asyncio.sleep(10)
+
                 transport = MaxTransport(
                     "server", acc["token"], acc["viewer_id"], acc["device_id"],
                     chat_id, label=acc["label"],

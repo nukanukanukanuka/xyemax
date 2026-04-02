@@ -990,6 +990,16 @@ class MultiTransport:
         t = self._transports[idx]
         delay = 0
         while True:
+            # Если SYNC от сервера уже получен и этот аккаунт отсутствует в нём —
+            # не реконнектимся, ждём пока сервер снова включит его в список живых.
+            while True:
+                ids = self._peer_alive_ids
+                if ids is None or t.viewer_id in ids:
+                    break
+                log.info(f"[multi] {t.label} (viewer_id={t.viewer_id}) "
+                         f"не в SYNC от сервера — пропускаем реконнект, ждём 10s...")
+                await asyncio.sleep(10)
+
             connect_start = asyncio.get_event_loop().time()
             try:
                 async with self._lock:
