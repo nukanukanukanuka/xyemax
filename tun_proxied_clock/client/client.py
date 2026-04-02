@@ -1348,30 +1348,36 @@ async def main():
     multi   = MultiTransport(transports)
     tun_mgr = TunManager(tun_fd, multi)
 
+    gather_task = asyncio.gather(
+        multi.connect(),
+        tun_mgr.read_loop(),
+        tun_mgr.send_loop(),
+        tun_mgr.sync_loop(),
+        tun_mgr.stats_loop(),
+    )
     try:
-        await asyncio.gather(
-            multi.connect(),
-            tun_mgr.read_loop(),
-            tun_mgr.send_loop(),
-            tun_mgr.sync_loop(),
-            tun_mgr.stats_loop(),
-        )
+        await gather_task
     except (KeyboardInterrupt, asyncio.CancelledError):
         pass
     finally:
+        gather_task.cancel()
+        try:
+            await asyncio.shield(asyncio.sleep(0))  # дать loop один тик
+        except Exception:
+            pass
+
+        # Очищаем историю пока WS ещё живы (is_ready == True значит соединение активно)
         _console("Завершение, очищаем историю чатов...")
-        # Удаление сообщений уже происходит по мере прочтения (_delete_message).
-        # Здесь выполняем финальную очистку чата (op54) на всех живых аккаунтах.
-        clear_tasks = [
-            t._clear_history()
-            for t in transports
-            if t.ws is not None and not t.ws.closed
-        ]
-        if clear_tasks:
+        alive = [t for t in transports if t.is_ready and t.ws is not None]
+        if alive:
             try:
-                await asyncio.wait_for(asyncio.gather(*clear_tasks, return_exceptions=True), timeout=5.0)
+                await asyncio.wait_for(
+                    asyncio.gather(*[t._clear_history() for t in alive], return_exceptions=True),
+                    timeout=5.0,
+                )
             except Exception:
                 pass
+
         _console("Завершение, убираем маршруты...")
         tun_teardown(TUN_NAME, DEFAULT_ROUTE)
         os.close(tun_fd)

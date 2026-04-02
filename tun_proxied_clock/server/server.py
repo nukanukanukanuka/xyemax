@@ -1260,9 +1260,11 @@ async def main():
         send_task   = asyncio.create_task(forwarder.send_loop())
         retry_task  = asyncio.create_task(forwarder.retry_worker())
         dash_task   = asyncio.create_task(_dashboard_loop(forwarder))
+        sync_task = asyncio.create_task(forwarder.sync_loop())
+        gather_task = asyncio.gather(
+            poll_task, read_task, send_task, retry_task, dash_task, sync_task)
         try:
-            await asyncio.gather(poll_task, read_task, send_task, retry_task, dash_task,
-                                 asyncio.create_task(forwarder.sync_loop()))
+            await gather_task
         except (KeyboardInterrupt, asyncio.CancelledError):
             pass
         finally:
@@ -1271,17 +1273,26 @@ async def main():
             send_task.cancel()
             retry_task.cancel()
             dash_task.cancel()
+            sync_task.cancel()
+            gather_task.cancel()
+            try:
+                await asyncio.shield(asyncio.sleep(0))
+            except Exception:
+                pass
+
+            # Очищаем историю пока WS ещё живы
             _console("Завершение, очищаем историю чатов...")
-            clear_tasks = [
-                t._clear_history()
-                for t in forwarder._transports.values()
-                if t.ws is not None and not t.ws.closed
-            ]
-            if clear_tasks:
+            alive = [t for t in forwarder._transports.values()
+                     if t.is_ready and t.ws is not None]
+            if alive:
                 try:
-                    await asyncio.wait_for(asyncio.gather(*clear_tasks, return_exceptions=True), timeout=5.0)
+                    await asyncio.wait_for(
+                        asyncio.gather(*[t._clear_history() for t in alive], return_exceptions=True),
+                        timeout=5.0,
+                    )
                 except Exception:
                     pass
+
             subprocess.run(["ip", "link", "set", TUN_NAME, "down"],
                            capture_output=True)
             os.close(tun_fd)
