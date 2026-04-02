@@ -423,6 +423,7 @@ class MaxTransport:
         self.chat_id   = chat_id
         self.seq       = 0
         self.ws        = None
+        self.is_ready  = False  # True после успешного handshake
         self._once: dict[str, asyncio.Future] = {}
         self._send_queue: asyncio.Queue = asyncio.Queue()
         self._http: aiohttp.ClientSession | None = None
@@ -712,10 +713,12 @@ class MaxTransport:
             recv_task      = asyncio.create_task(self._recv_loop())
             keepalive_task = asyncio.create_task(self._keepalive())
             await self._handshake()
+            self.is_ready = True
             send_task      = asyncio.create_task(self._send_worker())
             try:
                 await recv_task
             finally:
+                self.is_ready = False
                 keepalive_task.cancel()
                 await self._send_queue.put(None)
                 try: await asyncio.wait_for(send_task, timeout=5)
@@ -908,7 +911,8 @@ class MultiTransport:
 
                 # Фильтр: не занятые, не исчерпавшие лимит, и разрешены сервером
                 ready = [i for i in alive
-                         if not self._transports[i]._upload_busy
+                         if self._transports[i].is_ready
+                         and not self._transports[i]._upload_busy
                          and self._rate_limit_remaining(self._transports[i], now) > 0
                          and self._peer_allows(self._transports[i])]
 

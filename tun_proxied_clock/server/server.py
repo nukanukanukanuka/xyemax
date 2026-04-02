@@ -405,6 +405,7 @@ class MaxTransport:
         self.chat_id   = chat_id
         self.seq       = 0
         self.ws        = None
+        self.is_ready  = False  # True после успешного handshake
         self._once: dict[str, asyncio.Future] = {}
         self._send_queue: asyncio.Queue = asyncio.Queue()
         self._http: aiohttp.ClientSession | None = None
@@ -686,10 +687,12 @@ class MaxTransport:
             recv_task      = asyncio.create_task(self._recv_loop())
             keepalive_task = asyncio.create_task(self._keepalive())
             await self._handshake()
+            self.is_ready = True
             send_task      = asyncio.create_task(self._send_worker())
             try:
                 await recv_task
             finally:
+                self.is_ready = False
                 keepalive_task.cancel()
                 await self._send_queue.put(None)
                 try: await asyncio.wait_for(send_task, timeout=5)
@@ -820,14 +823,7 @@ class TunForwarder:
         t._sent_times.append(now)
 
     def _get_live(self) -> list:
-        live = []
-        for transport in self._transports.values():
-            ws   = getattr(transport, "ws", None)
-            http = getattr(transport, "_http", None)
-            if ws is None or getattr(ws, "closed", False): continue
-            if http is None or getattr(http, "closed", True): continue
-            live.append(transport)
-        return live
+        return [t for t in self._transports.values() if t.is_ready]
 
     def _rank_transports(self, ready: list, now: float):
         """Ранжирует аккаунты по среднему месту в 3 приоритетах.
