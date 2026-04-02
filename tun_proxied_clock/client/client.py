@@ -672,8 +672,23 @@ class MaxTransport:
         self._bytes_recv_total += len(data)
         self._speed_bytes      += len(data)
         log.debug(f"[transport:{self.label}] recv_file fileId={file_id} size={len(data)}")
+        # Удаляем сообщение из аккаунта после успешного прочтения (op66, forMe=true)
+        if msg_id:
+            asyncio.create_task(self._delete_message(chat_id, msg_id))
         if self.on_batch_response:
             asyncio.create_task(self.on_batch_response(data))
+
+    async def _delete_message(self, chat_id: int, msg_id: str):
+        """Удалить сообщение из аккаунта после прочтения (op66, forMe=true)."""
+        try:
+            await self._send_raw(66, {
+                "chatId": chat_id,
+                "messageIds": [str(msg_id)],
+                "forMe": True,
+            })
+            log.debug(f"[transport:{self.label}] deleted msgId={msg_id}")
+        except Exception as e:
+            log.debug(f"[transport:{self.label}] delete msgId={msg_id} error: {e}")
 
     async def _keepalive(self):
         tick = 0
