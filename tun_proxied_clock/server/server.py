@@ -835,6 +835,7 @@ class TunForwarder:
     def _consume_token(self, t, now: float):
         """Записываем время отправки в скользящее окно."""
         t._sent_times.append(now)
+        log.debug(f"[tun] consumeToken {t.label}: sent_times size={len(t._sent_times)}")
 
     def _get_live(self) -> list:
         return [t for t in self._transports.values() if t.is_ready]
@@ -916,12 +917,6 @@ class TunForwarder:
         )
         return best, 0.0
 
-    def _pick_transport(self) -> tuple:
-        """Устарел — используется только для совместимости."""
-        return self._pick_transport_and_reserve()
-
-        return best, 0.0
-
     async def _on_packets_from_client(self, data: bytes):
         """Получили батч от клиента — разбираем SYNC-пакеты и IP-пакеты."""
         pkts  = _decode_packets(data)
@@ -975,8 +970,11 @@ class TunForwarder:
                 _last_sent_ids = alive_ids
                 live = self._get_live()
                 if live:
-                    t = next((x for x in live if not x._upload_busy), live[0])
-                    await t.send_file(packed)
+                    # Используем _pick_transport_and_reserve чтобы токен потреблялся
+                    transport, _ = self._pick_transport_and_reserve()
+                    if transport is None:
+                        transport = next((x for x in live if not x._upload_busy), live[0])
+                    await transport.send_file(packed)
                 else:
                     log.debug("[sync] → клиент: нет живых транспортов, пропуск")
             except Exception as e:
