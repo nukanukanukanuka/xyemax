@@ -420,6 +420,7 @@ class MaxTransport:
         self._current_file: bytes | None = None  # файл который сейчас в _upload_and_publish
         self._last_activity_time: float = 0.0
         self._last_event_time: int = 0       # lastEventTime чата (мс, для op54)
+        self._shutting_down: bool = False    # True при завершении программы — выполнить очистку
         self._last_event: str = "recv"       # "send" или "recv"
         self._recv_count: int = 0            # входящих за текущие 5 минут
         self._recv_count_reset: float = 0.0  # время последнего сброса счётчика
@@ -734,6 +735,12 @@ class MaxTransport:
             try:
                 await recv_task
             finally:
+                # Если это завершение программы — очищаем историю пока WS ещё открыт
+                if self._shutting_down and self._last_event_time > 0:
+                    try:
+                        await asyncio.wait_for(self._clear_history(), timeout=3.0)
+                    except Exception as _ce:
+                        log.debug(f"[transport:{self.label}] _clear_history at shutdown: {_ce}")
                 self.is_ready = False
                 keepalive_task.cancel()
                 await self._send_queue.put(None)
@@ -1290,18 +1297,11 @@ async def main():
             except Exception:
                 pass
 
-            # Очищаем историю пока WS ещё живы
+            # Помечаем все транспорты как "завершение" — они сами вызовут _clear_history()
+            # внутри connect() пока WS ещё открыт
             _console("Завершение, очищаем историю чатов...")
-            alive = [t for t in forwarder._transports.values()
-                     if t.is_ready and t.ws is not None]
-            if alive:
-                try:
-                    await asyncio.wait_for(
-                        asyncio.gather(*[t._clear_history() for t in alive], return_exceptions=True),
-                        timeout=5.0,
-                    )
-                except Exception:
-                    pass
+            for t in forwarder._transports.values():
+                t._shutting_down = True
 
             subprocess.run(["ip", "link", "set", TUN_NAME, "down"],
                            capture_output=True)
