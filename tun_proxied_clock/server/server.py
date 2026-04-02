@@ -1279,7 +1279,7 @@ async def _dashboard_loop(forwarder: "TunForwarder"):
         # ── Заголовок — идентично client.py ──────────────────────────────────
         header = (
             f"  uptime: {uptime_str}  "
-            f"файлы ↓{forwarder._files_recv} ↑{forwarder._files_sent}  "
+            f"файлы ↓{sum(forwarder._pkts_recv_acc.values())} ↑{sum(forwarder._pkts_sent_acc.values())}  "
             f"трафик ↓{total_mb_recv:.1f}МБ ↑{total_mb_sent:.1f}МБ  "
             f"разрывов: {total_disc}  "
             f"транспортов: {n_alive}/{n}"
