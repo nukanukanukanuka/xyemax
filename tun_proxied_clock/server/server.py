@@ -98,7 +98,9 @@ TUN_MTU        = int(_cfg.get("TUN_MTU", "1400"))
 TUN_BIND_IFACE = _cfg.get("TUN_BIND_IFACE", "")  # интерфейс для HTTP трафика скрипта (tun10)
 
 # Батчинг
-BATCH_WINDOW_MS = int(_cfg.get("BATCH_WINDOW_MS", "500"))
+# None = адаптивный (зависит от числа активных аккаунтов), иначе фиксированное значение из конфига
+_batch_window_raw = _cfg.get("BATCH_WINDOW_MS")
+BATCH_WINDOW_MS: int | None = int(_batch_window_raw) if _batch_window_raw else None
 
 # Rate limit: максимум RATE_LIMIT_COUNT файлов за RATE_LIMIT_WINDOW_10MINS секунд на аккаунт
 RATE_LIMIT_COUNT  = int(_cfg.get("RATE_LIMIT_COUNT", "100"))
@@ -1076,9 +1078,22 @@ class TunForwarder:
                 if was_empty:
                     asyncio.create_task(self._arm_batch())
 
+    def _get_batch_window_ms(self) -> float:
+        """Возвращает текущее окно батча в мс.
+        Если BATCH_WINDOW_MS задан в конфиге — возвращает его.
+        Иначе адаптивно: (RATE_LIMIT_WINDOW / RATE_LIMIT_COUNT / alive_count) * 1.2 * 1000
+        """
+        if BATCH_WINDOW_MS is not None:
+            return float(BATCH_WINDOW_MS)
+        alive_count = sum(1 for t in self._transports.values() if t.is_ready)
+        if alive_count == 0:
+            alive_count = max(len(self._transports), 1)
+        secs_per_file = RATE_LIMIT_WINDOW_10MINS / RATE_LIMIT_COUNT
+        return (secs_per_file / alive_count) * 1.2 * 1000.0
+
     async def _arm_batch(self):
-        """Ждём BATCH_WINDOW_MS, затем сигналим send_loop что батч готов."""
-        await asyncio.sleep(BATCH_WINDOW_MS / 1000.0)
+        """Ждём текущее окно батча, затем сигналим send_loop что батч готов."""
+        await asyncio.sleep(self._get_batch_window_ms() / 1000.0)
         self._batch_ready.set()
 
     async def retry_worker(self):
@@ -1346,12 +1361,15 @@ async def _dashboard_loop(forwarder: "TunForwarder"):
         lines = []
 
         # ── Заголовок — идентично client.py ──────────────────────────────────
+        batch_ms = forwarder._get_batch_window_ms()
+        batch_str = f"батч: {batch_ms:.0f}мс" + ("" if BATCH_WINDOW_MS is not None else " (авт)")
         header = (
             f"  uptime: {uptime_str}  "
             f"файлы ↓{sum(forwarder._pkts_recv_acc.values())} ↑{sum(forwarder._pkts_sent_acc.values())}  "
             f"трафик ↓{total_mb_recv:.1f}МБ ↑{total_mb_sent:.1f}МБ  "
             f"разрывов: {total_disc}  "
-            f"транспортов: {n_alive}/{n}"
+            f"транспортов: {n_alive}/{n}  "
+            f"{batch_str}"
             f"{sync_str}"
         )
         lines.append(header)

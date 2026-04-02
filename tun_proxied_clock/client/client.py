@@ -98,7 +98,9 @@ DEFAULT_ROUTE    = _cfg.get("DEFAULT_ROUTE", "0") == "1"
 HTTP_IFACE       = _cfg.get("HTTP_IFACE", "")  # интерфейс для HTTP трафика скрипта (upload/download)
 
 # Батчинг
-BATCH_WINDOW_MS = int(_cfg.get("BATCH_WINDOW_MS", "500"))
+# None = адаптивный (зависит от числа активных аккаунтов), иначе фиксированное значение из конфига
+_batch_window_raw = _cfg.get("BATCH_WINDOW_MS")
+BATCH_WINDOW_MS: int | None = int(_batch_window_raw) if _batch_window_raw else None
 RESPONSE_TIMEOUT = float(_cfg.get("RESPONSE_TIMEOUT", "30"))
 
 # Rate limit: максимум RATE_LIMIT_COUNT файлов за RATE_LIMIT_WINDOW_10MINS секунд на аккаунт
@@ -438,8 +440,6 @@ class MaxTransport:
         self.on_file_failed: callable | None = None  # вызывается с потерянными файлами при разрыве
         self._current_file: bytes | None = None  # файл который сейчас в _upload_and_publish
         self._last_activity_time: float = 0.0
-        self._last_event_time: int = 0       # lastEventTime чата (мс, для op54)
-        self._shutting_down: bool = False    # True при завершении программы — выполнить очистку
         self._last_event: str = "recv"       # "send" или "recv"
         self._recv_count: int = 0            # входящих за текущие 5 минут
         self._recv_count_reset: float = 0.0  # время последнего сброса счётчика
@@ -573,10 +573,6 @@ class MaxTransport:
         })
         await self._wait_once("op19")
         await self._send_raw(48, {"chatIds": [self.chat_id]})
-        pl48 = await self._wait_once("op48", timeout=10.0)
-        chats = pl48.get("chats") if isinstance(pl48, dict) else None
-        if chats:
-            self._last_event_time = chats[0].get("lastEventTime", 0)
         await self._send_raw(75, {"chatId": self.chat_id, "subscribe": True})
         log.info(f"Авторизован [client:{self.label}], chatId={self.chat_id}")
 
@@ -611,8 +607,6 @@ class MaxTransport:
                 key = f"op136_{int(fid)}" if fid is not None else None
                 if key and key in self._once:
                     f = self._once.pop(key); f.done() or f.set_result(pl); continue
-            if cmd == 1 and op == 48 and "op48" in self._once:
-                f = self._once.pop("op48"); f.done() or f.set_result(pl); continue
             if cmd == 0 and op in (292, 48, 180, 177, 65, 130):
                 continue
             if (op == 128 and cmd == 0) or (op == 64 and cmd == 1
@@ -638,10 +632,6 @@ class MaxTransport:
                     continue
                 log.debug(f"[transport:{self.label}] incoming fileId={file_id} msgId={msg_id}")
                 self._mark_seen_file(file_id)
-                # Обновляем lastEventTime по времени сообщения
-                msg_time = msg.get("time", 0)
-                if msg_time and msg_time > self._last_event_time:
-                    self._last_event_time = msg_time
                 asyncio.create_task(self._recv_file(file_id, str(msg_id),
                                                     pl.get("chatId", self.chat_id)))
 
@@ -689,18 +679,6 @@ class MaxTransport:
             asyncio.create_task(self._delete_message(chat_id, msg_id))
         if self.on_batch_response:
             asyncio.create_task(self.on_batch_response(data))
-
-    async def _clear_history(self):
-        """Очистить историю чата для себя (op54, forAll=false)."""
-        try:
-            await self._send_raw(54, {
-                "chatId": self.chat_id,
-                "forAll": False,
-                "lastEventTime": self._last_event_time,
-            })
-            log.info(f"[transport:{self.label}] история чата очищена (lastEventTime={self._last_event_time})")
-        except Exception as e:
-            log.warning(f"[transport:{self.label}] _clear_history error: {e}")
 
     async def _delete_message(self, chat_id: int, msg_id: str):
         """Удалить сообщение из аккаунта после прочтения (op66, forMe=true)."""
@@ -757,12 +735,6 @@ class MaxTransport:
             try:
                 await recv_task
             finally:
-                # Если это завершение программы — очищаем историю пока WS ещё открыт
-                if self._shutting_down and self._last_event_time > 0:
-                    try:
-                        await asyncio.wait_for(self._clear_history(), timeout=3.0)
-                    except Exception as _ce:
-                        log.debug(f"[transport:{self.label}] _clear_history at shutdown: {_ce}")
                 self.is_ready = False
                 keepalive_task.cancel()
                 await self._send_queue.put(None)
@@ -1136,9 +1108,26 @@ class TunManager:
                 if was_empty:
                     asyncio.create_task(self._arm_batch())
 
+    def _get_batch_window_ms(self) -> float:
+        """Возвращает текущее окно батча в мс.
+        Если BATCH_WINDOW_MS задан в конфиге — возвращает его.
+        Иначе считает адаптивно: (RATE_LIMIT_WINDOW / RATE_LIMIT_COUNT / alive_count) * 1.2 * 1000
+        """
+        if BATCH_WINDOW_MS is not None:
+            return float(BATCH_WINDOW_MS)
+        alive_count = len(self.transport._alive)
+        if alive_count == 0:
+            alive_count = len(self.transport._transports)  # fallback если ещё не подключились
+        # Секунд на 1 файл для 1 аккаунта: RATE_LIMIT_WINDOW / RATE_LIMIT_COUNT
+        secs_per_file = RATE_LIMIT_WINDOW_10MINS / RATE_LIMIT_COUNT
+        # При alive_count аккаунтах можно слать файл каждые secs_per_file / alive_count секунд
+        window_secs = secs_per_file / alive_count
+        # +20% запас
+        return window_secs * 1.2 * 1000.0
+
     async def _arm_batch(self):
-        """Ждём BATCH_WINDOW_MS, затем сигналим send_loop что батч готов."""
-        await asyncio.sleep(BATCH_WINDOW_MS / 1000.0)
+        """Ждём текущее окно батча, затем сигналим send_loop что батч готов."""
+        await asyncio.sleep(self._get_batch_window_ms() / 1000.0)
         self._batch_ready.set()
 
     async def send_loop(self):
@@ -1265,11 +1254,14 @@ class TunManager:
             lines = []
 
             # ── Заголовок ─────────────────────────────────────────────────────
+            batch_ms = self._get_batch_window_ms()
+            batch_str = f"батч: {batch_ms:.0f}мс" + ("" if BATCH_WINDOW_MS is not None else " (авт)")
             header = (
                 f"  uptime: {uptime_str}  "
                 f"файлы ↓{total_files_recv} ↑{total_files_sent}  "
                 f"трафик ↓{total_mb_recv:.1f}МБ ↑{total_mb_sent:.1f}МБ  "
-                f"разрывов: {total_disc}"
+                f"разрывов: {total_disc}  "
+                f"{batch_str}"
                 f"{sync_str}"
             )
             lines.append(header)
@@ -1335,7 +1327,8 @@ async def main():
     _console(f"MAX TUN клиент  аккаунтов: {len(ACCOUNTS)}")
     _console(f"Интерфейс: {TUN_NAME}  {TUN_ADDR} ↔ {TUN_PEER}  MTU={TUN_MTU}")
     _console(f"DEFAULT_ROUTE={'да' if DEFAULT_ROUTE else 'нет'}")
-    _console(f"Батч окно: {BATCH_WINDOW_MS}мс  лимит: {RATE_LIMIT_COUNT} файлов/{int(RATE_LIMIT_WINDOW_10MINS//60)}мин")
+    _batch_mode = f"{BATCH_WINDOW_MS}мс (фикс)" if BATCH_WINDOW_MS is not None else "адаптивный"
+    _console(f"Батч окно: {_batch_mode}  лимит: {RATE_LIMIT_COUNT} файлов/{int(RATE_LIMIT_WINDOW_10MINS//60)}мин")
     _console(f"Лог: {LOG_FILE}")
     _console("=" * 55)
 
@@ -1377,18 +1370,7 @@ async def main():
     except (KeyboardInterrupt, asyncio.CancelledError):
         pass
     finally:
-        # Помечаем все транспорты как "завершение" — они сами вызовут _clear_history()
-        # внутри connect() пока WS ещё открыт, до закрытия соединения
-        _console("Завершение, очищаем историю чатов...")
-        for t in transports:
-            t._shutting_down = True
         gather_task.cancel()
-        try:
-            # Ждём пока все транспорты завершат очистку и закроются
-            await asyncio.wait_for(asyncio.shield(gather_task), timeout=6.0)
-        except Exception:
-            pass
-
         _console("Завершение, убираем маршруты...")
         tun_teardown(TUN_NAME, DEFAULT_ROUTE)
         os.close(tun_fd)
