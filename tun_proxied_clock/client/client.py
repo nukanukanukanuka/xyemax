@@ -438,6 +438,7 @@ class MaxTransport:
         self.on_file_failed: callable | None = None  # вызывается с потерянными файлами при разрыве
         self._current_file: bytes | None = None  # файл который сейчас в _upload_and_publish
         self._last_activity_time: float = 0.0
+        self._last_event_time: int = 0       # lastEventTime чата (мс, для op54)
         self._last_event: str = "recv"       # "send" или "recv"
         self._recv_count: int = 0            # входящих за текущие 5 минут
         self._recv_count_reset: float = 0.0  # время последнего сброса счётчика
@@ -571,6 +572,10 @@ class MaxTransport:
         })
         await self._wait_once("op19")
         await self._send_raw(48, {"chatIds": [self.chat_id]})
+        pl48 = await self._wait_once("op48", timeout=10.0)
+        chats = pl48.get("chats") if isinstance(pl48, dict) else None
+        if chats:
+            self._last_event_time = chats[0].get("lastEventTime", 0)
         await self._send_raw(75, {"chatId": self.chat_id, "subscribe": True})
         log.info(f"Авторизован [client:{self.label}], chatId={self.chat_id}")
 
@@ -605,6 +610,8 @@ class MaxTransport:
                 key = f"op136_{int(fid)}" if fid is not None else None
                 if key and key in self._once:
                     f = self._once.pop(key); f.done() or f.set_result(pl); continue
+            if cmd == 1 and op == 48 and "op48" in self._once:
+                f = self._once.pop("op48"); f.done() or f.set_result(pl); continue
             if cmd == 0 and op in (292, 48, 180, 177, 65, 130):
                 continue
             if (op == 128 and cmd == 0) or (op == 64 and cmd == 1
@@ -630,6 +637,10 @@ class MaxTransport:
                     continue
                 log.debug(f"[transport:{self.label}] incoming fileId={file_id} msgId={msg_id}")
                 self._mark_seen_file(file_id)
+                # Обновляем lastEventTime по времени сообщения
+                msg_time = msg.get("time", 0)
+                if msg_time and msg_time > self._last_event_time:
+                    self._last_event_time = msg_time
                 asyncio.create_task(self._recv_file(file_id, str(msg_id),
                                                     pl.get("chatId", self.chat_id)))
 
@@ -677,6 +688,18 @@ class MaxTransport:
             asyncio.create_task(self._delete_message(chat_id, msg_id))
         if self.on_batch_response:
             asyncio.create_task(self.on_batch_response(data))
+
+    async def _clear_history(self):
+        """Очистить историю чата для себя (op54, forAll=false)."""
+        try:
+            await self._send_raw(54, {
+                "chatId": self.chat_id,
+                "forAll": False,
+                "lastEventTime": self._last_event_time,
+            })
+            log.info(f"[transport:{self.label}] история чата очищена (lastEventTime={self._last_event_time})")
+        except Exception as e:
+            log.warning(f"[transport:{self.label}] _clear_history error: {e}")
 
     async def _delete_message(self, chat_id: int, msg_id: str):
         """Удалить сообщение из аккаунта после прочтения (op66, forMe=true)."""
@@ -1336,6 +1359,19 @@ async def main():
     except (KeyboardInterrupt, asyncio.CancelledError):
         pass
     finally:
+        _console("Завершение, очищаем историю чатов...")
+        # Удаление сообщений уже происходит по мере прочтения (_delete_message).
+        # Здесь выполняем финальную очистку чата (op54) на всех живых аккаунтах.
+        clear_tasks = [
+            t._clear_history()
+            for t in transports
+            if t.ws is not None and not t.ws.closed
+        ]
+        if clear_tasks:
+            try:
+                await asyncio.wait_for(asyncio.gather(*clear_tasks, return_exceptions=True), timeout=5.0)
+            except Exception:
+                pass
         _console("Завершение, убираем маршруты...")
         tun_teardown(TUN_NAME, DEFAULT_ROUTE)
         os.close(tun_fd)
