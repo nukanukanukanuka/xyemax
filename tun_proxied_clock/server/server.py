@@ -647,6 +647,8 @@ class MaxTransport:
         self._bytes_recv_total += len(data)
         self._speed_bytes      += len(data)
         log.debug(f"[transport:{self.label}] recv_file fileId={file_id} size={len(data)}")
+        if self.on_stats_recv:
+            self.on_stats_recv(len(data))
         if self.on_batch_request:
             asyncio.create_task(self.on_batch_request(data))
 
@@ -744,6 +746,12 @@ class TunForwarder:
         self._retry_queue: asyncio.Queue = asyncio.Queue()  # потерянные файлы на переотправку
         self._disc_counts: dict[str, int] = {}  # количество разрывов по label
         self._saved_sent_times: dict = {}  # сохранённые _sent_times при реконнекте
+        # Per-label накопительная статистика (переживает реконнект)
+        self._pkts_recv_acc:  dict[str, int]   = {}
+        self._pkts_sent_acc:  dict[str, int]   = {}
+        self._bytes_recv_acc: dict[str, float] = {}
+        self._bytes_sent_acc: dict[str, float] = {}
+        self._speed_bytes_acc: dict[str, int]  = {}  # байт за текущее окно скорости
         self._t0: float = time.time()  # время старта
         self._files_sent: int = 0  # файлов отправлено клиенту
         self._files_recv: int = 0  # файлов получено от клиента
@@ -758,6 +766,17 @@ class TunForwarder:
         # Восстанавливаем _sent_times при реконнекте — лимит не сбрасывается
         if transport.label in self._saved_sent_times:
             transport._sent_times = self._saved_sent_times.pop(transport.label)
+        # Инициализируем acc-счётчики если первый attach
+        lbl = transport.label
+        if lbl not in self._pkts_recv_acc:
+            self._pkts_recv_acc[lbl]   = 0
+            self._pkts_sent_acc[lbl]   = 0
+            self._bytes_recv_acc[lbl]  = 0.0
+            self._bytes_sent_acc[lbl]  = 0.0
+            self._speed_bytes_acc[lbl] = 0
+        lbl2 = transport.label
+        transport.on_stats_send = lambda n, l=lbl2: self._acc_send(l, n)
+        transport.on_stats_recv = lambda n, l=lbl2: self._acc_recv(l, n)
         log.info(f"[tun] attach {transport.label}; active={list(self._transports)}")
 
     def detach(self, transport: MaxTransport):
@@ -770,6 +789,15 @@ class TunForwarder:
             log.info(f"[tun] detach {transport.label}; active={list(self._transports)}")
             # Разрыв — немедленно шлём синк клиенту
             self._sync_needed.set()
+
+    def _acc_send(self, label: str, n: int):
+        self._pkts_sent_acc[label]   = self._pkts_sent_acc.get(label, 0) + 1
+        self._bytes_sent_acc[label]  = self._bytes_sent_acc.get(label, 0.0) + n
+        self._speed_bytes_acc[label] = self._speed_bytes_acc.get(label, 0) + n
+
+    def _acc_recv(self, label: str, n: int):
+        self._pkts_recv_acc[label]  = self._pkts_recv_acc.get(label, 0) + 1
+        self._bytes_recv_acc[label] = self._bytes_recv_acc.get(label, 0.0) + n
 
     def _make_file_failed_cb(self):
         async def _cb(files: list[bytes]):
@@ -1211,14 +1239,13 @@ async def main():
 
 
 async def _dashboard_loop(forwarder: "TunForwarder"):
-    """Живой dashboard — обновляет строки на месте через ANSI escape."""
-    await asyncio.sleep(1.0)  # дать время аккаунтам подключиться
+    """Живой dashboard — идентичен client.py stats_loop."""
+    await asyncio.sleep(1.0)
+    n = len(ACCOUNTS)
+    total_lines = n + 2  # заголовок + аккаунты + итого
+    sys.stdout.write("\n" * total_lines)
     speed_ts:   dict[str, float] = {}
     speed_kbps: dict[str, float] = {}
-    n = len(ACCOUNTS)
-    # Строк: 1 заголовок + n аккаунтов + 1 итого
-    total_lines = n + 2
-    sys.stdout.write("\n" * total_lines)
     now_ts = time.time()
     for acc in ACCOUNTS:
         speed_ts[acc["label"]]   = now_ts
@@ -1229,8 +1256,6 @@ async def _dashboard_loop(forwarder: "TunForwarder"):
         now_ts = time.time()
         now_ev = asyncio.get_event_loop().time()
 
-        transport_map = {t.label: t for t in forwarder._transports.values()}
-
         # ── Uptime ────────────────────────────────────────────────────────────
         uptime_sec = int(now_ts - forwarder._t0)
         h, rem = divmod(uptime_sec, 3600)
@@ -1238,24 +1263,21 @@ async def _dashboard_loop(forwarder: "TunForwarder"):
         uptime_str = f"{h:02d}:{m:02d}:{s:02d}"
 
         # ── Суммарные счётчики ────────────────────────────────────────────────
-        total_mb_sent  = forwarder._bytes_sent / 1_048_576
-        total_mb_recv  = forwarder._bytes_recv / 1_048_576
-        total_disc     = sum(forwarder._disc_counts.values())
-        n_alive        = sum(1 for t in forwarder._transports.values() if t.is_ready)
+        total_mb_sent = forwarder._bytes_sent / 1_048_576
+        total_mb_recv = forwarder._bytes_recv / 1_048_576
+        total_disc    = sum(forwarder._disc_counts.values())
+        n_alive       = sum(1 for t in forwarder._transports.values() if t.is_ready)
 
-        # ── Sync-статус от клиента ────────────────────────────────────────────
+        # ── Sync-статус ───────────────────────────────────────────────────────
         peer_ids = forwarder._peer_alive_ids
-        if peer_ids is None:
-            sync_str = "  sync: ожидание..."
-        else:
-            sync_str = f"  sync↔: {len(peer_ids)} акк"
+        sync_str = f"  sync↔: {len(peer_ids)} акк" if peer_ids is not None else "  sync: ожидание..."
 
         lines = []
 
-        # ── Заголовок ─────────────────────────────────────────────────────────
+        # ── Заголовок — идентично client.py ──────────────────────────────────
         header = (
             f"  uptime: {uptime_str}  "
-            f"вх.файлы: {forwarder._files_recv}  исх.файлы: {forwarder._files_sent}  "
+            f"файлы ↓{forwarder._files_recv} ↑{forwarder._files_sent}  "
             f"трафик ↓{total_mb_recv:.1f}МБ ↑{total_mb_sent:.1f}МБ  "
             f"разрывов: {total_disc}  "
             f"транспортов: {n_alive}/{n}"
@@ -1263,41 +1285,47 @@ async def _dashboard_loop(forwarder: "TunForwarder"):
         )
         lines.append(header)
 
-        # ── Строка на каждый аккаунт из ACCOUNTS (фиксированный порядок) ──────
+        # ── Строка на каждый аккаунт — читаем из стабильных acc-счётчиков ────
+        transport_map = {t.label: t for t in forwarder._transports.values()}
         for acc in ACCOUNTS:
             lbl = acc["label"]
             t   = transport_map.get(lbl)
-            if t is None or not t.is_ready:
-                disc = forwarder._disc_counts.get(lbl, 0)
-                disc_str = f"  разр:{disc}" if disc > 0 else ""
-                lines.append(f"  {"●" if disc > 0 else " "} {lbl:<6} {"переподключение...":<54}{disc_str}")
+            is_live = t is not None and t.is_ready
+            disc = forwarder._disc_counts.get(lbl, 0)
+            disc_str = f"  разр:{disc}" if disc > 0 else ""
+
+            if not is_live:
+                lines.append(f"  {'●' if disc > 0 else ' '} {lbl:<6} переподключение...{disc_str}")
                 continue
 
+            # Скорость — из speed_bytes_acc (накапливается в форвардере)
             elapsed = now_ts - speed_ts.get(lbl, now_ts)
             if elapsed >= 0.5:
-                instant = (t._speed_bytes * 8 / 1000) / elapsed
+                sb = forwarder._speed_bytes_acc.get(lbl, 0)
+                instant = (sb * 8 / 1000) / elapsed
                 speed_kbps[lbl] = speed_kbps.get(lbl, 0.0) * 0.4 + instant * 0.6
-                t._speed_bytes = 0
-                speed_ts[lbl]  = now_ts
+                forwarder._speed_bytes_acc[lbl] = 0
+                speed_ts[lbl] = now_ts
 
+            # Лимит — из _sent_times живого транспорта
             cutoff = now_ev - RATE_LIMIT_WINDOW_10MINS
             while t._sent_times and t._sent_times[0] < cutoff:
                 t._sent_times.popleft()
             remaining = RATE_LIMIT_COUNT - len(t._sent_times)
 
-            mb_sent = t._bytes_sent_total / 1_048_576
-            mb_recv = t._bytes_recv_total / 1_048_576
+            # Статистика — из стабильных acc-счётчиков (не сбрасываются при реконнекте)
+            pkts_recv = forwarder._pkts_recv_acc.get(lbl, 0)
+            pkts_sent = forwarder._pkts_sent_acc.get(lbl, 0)
+            mb_recv   = forwarder._bytes_recv_acc.get(lbl, 0.0) / 1_048_576
+            mb_sent   = forwarder._bytes_sent_acc.get(lbl, 0.0) / 1_048_576
+
             busy_mark = "●" if t._upload_busy else " "
-            disc = forwarder._disc_counts.get(lbl, 0)
-            disc_str  = f"  разр:{disc}" if disc > 0 else ""
-            if peer_ids is not None and t.viewer_id not in peer_ids:
-                peer_mark = " ✗cli"
-            else:
-                peer_mark = ""
+            peer_mark = " ✗cli" if peer_ids is not None and t.viewer_id not in peer_ids else ""
+
             line = (
                 f"  {busy_mark} {lbl:<6} "
-                f"↓{t._pkts_recv_total:>5} вх  "
-                f"↑{t._pkts_sent_total:>5} исх  "
+                f"↓{pkts_recv:>5} файл  "
+                f"↑{pkts_sent:>5} файл  "
                 f"↓{mb_recv:>5.1f}МБ ↑{mb_sent:>5.1f}МБ  "
                 f"{speed_kbps.get(lbl, 0.0):>7.1f} кбит/с  "
                 f"лимит: {remaining:>3}/{RATE_LIMIT_COUNT}"
@@ -1305,11 +1333,11 @@ async def _dashboard_loop(forwarder: "TunForwarder"):
             )
             lines.append(line)
 
-        # ── Итого ─────────────────────────────────────────────────────────────
-        live_transports = [t for t in forwarder._transports.values() if t.is_ready]
+        # ── Итого — лимит только по живым транспортам ─────────────────────────
+        live = [t for t in forwarder._transports.values() if t.is_ready]
         total_remaining = sum(
             RATE_LIMIT_COUNT - len([x for x in t._sent_times if x > now_ev - RATE_LIMIT_WINDOW_10MINS])
-            for t in live_transports
+            for t in live
         )
         capacity_pct = (total_remaining * 100 // (n * RATE_LIMIT_COUNT)) if n > 0 else 0
         lines.append(f"  лимит суммарно: {total_remaining}/{n * RATE_LIMIT_COUNT} ({capacity_pct}%)")
