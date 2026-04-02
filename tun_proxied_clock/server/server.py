@@ -431,6 +431,7 @@ class MaxTransport:
         self._bytes_recv_total: int = 0
         self._speed_bytes:      int = 0
         self._speed_ts:       float = 0.0
+        self._disconnects:    int = 0        # количество разрывов сокета
 
     def _next_seq(self):
         s = self.seq; self.seq += 1; return s
@@ -741,6 +742,12 @@ class TunForwarder:
         self._peer_alive_lock = asyncio.Lock()
         self._sync_needed = asyncio.Event()  # сигнал для sync_loop
         self._retry_queue: asyncio.Queue = asyncio.Queue()  # потерянные файлы на переотправку
+        self._disc_counts: dict[str, int] = {}  # количество разрывов по label
+        self._t0: float = time.time()  # время старта
+        self._files_sent: int = 0  # файлов отправлено клиенту
+        self._files_recv: int = 0  # файлов получено от клиента
+        self._bytes_sent: int = 0  # байт отправлено
+        self._bytes_recv: int = 0  # байт получено
 
     def attach(self, transport: MaxTransport):
         self._transports[transport.label] = transport
@@ -753,6 +760,7 @@ class TunForwarder:
         cur = self._transports.get(transport.label)
         if cur is transport:
             self._transports.pop(transport.label, None)
+            self._disc_counts[transport.label] = self._disc_counts.get(transport.label, 0) + 1
             log.info(f"[tun] detach {transport.label}; active={list(self._transports)}")
             # Разрыв — немедленно шлём синк клиенту
             self._sync_needed.set()
@@ -924,6 +932,8 @@ class TunForwarder:
             ip_pkts.append(pkt)
         if not ip_pkts:
             return
+        self._files_recv += 1
+        self._bytes_recv += len(data)
         log.debug(f"[tun] ← клиент: {len(ip_pkts)} pkts  raw={len(data)}B")
         loop = asyncio.get_event_loop()
         for pkt in ip_pkts:
@@ -1031,6 +1041,8 @@ class TunForwarder:
                 log.debug(f"[tun] все аккаунты заняты, ждём {wait:.3f}s")
                 await asyncio.sleep(wait if wait > 0 else 0.05)
 
+            self._files_sent += 1
+            self._bytes_sent += len(raw)
             log.debug(f"[tun] → клиент: {len(pkts)} pkts  raw={len(raw)}B  packed={len(packed)}B via={transport.label}")
             await transport.send_file(packed)
 
@@ -1196,16 +1208,13 @@ async def main():
 
 async def _dashboard_loop(forwarder: "TunForwarder"):
     """Живой dashboard — обновляет строки на месте через ANSI escape."""
-    import sys as _sys
     await asyncio.sleep(1.0)  # дать время аккаунтам подключиться
-    transports_ref = forwarder._transports  # dict label->transport
     speed_ts:   dict[str, float] = {}
     speed_kbps: dict[str, float] = {}
-
-    # Число строк фиксируется по числу аккаунтов в ACCOUNTS (известно заранее)
-    # Заголовок (1) + аккаунты (len(ACCOUNTS)) = total_lines
-    total_lines = len(ACCOUNTS) + 1
-    _sys.stdout.write("\n" * total_lines)
+    n = len(ACCOUNTS)
+    # Строк: 1 заголовок + n аккаунтов + 1 итого
+    total_lines = n + 2
+    sys.stdout.write("\n" * total_lines)
     now_ts = time.time()
     for acc in ACCOUNTS:
         speed_ts[acc["label"]]   = now_ts
@@ -1216,12 +1225,19 @@ async def _dashboard_loop(forwarder: "TunForwarder"):
         now_ts = time.time()
         now_ev = asyncio.get_event_loop().time()
 
-        transports = list(transports_ref.values())
-        # Инициализируем скорость для новых транспортов
-        for t in transports:
-            if t.label not in speed_ts:
-                speed_ts[t.label]   = now_ts
-                speed_kbps[t.label] = 0.0
+        transport_map = {t.label: t for t in forwarder._transports.values()}
+
+        # ── Uptime ────────────────────────────────────────────────────────────
+        uptime_sec = int(now_ts - forwarder._t0)
+        h, rem = divmod(uptime_sec, 3600)
+        m, s   = divmod(rem, 60)
+        uptime_str = f"{h:02d}:{m:02d}:{s:02d}"
+
+        # ── Суммарные счётчики ────────────────────────────────────────────────
+        total_mb_sent  = forwarder._bytes_sent / 1_048_576
+        total_mb_recv  = forwarder._bytes_recv / 1_048_576
+        total_disc     = sum(forwarder._disc_counts.values())
+        n_alive        = sum(1 for t in forwarder._transports.values() if t.is_ready)
 
         # ── Sync-статус от клиента ────────────────────────────────────────────
         peer_ids = forwarder._peer_alive_ids
@@ -1233,20 +1249,24 @@ async def _dashboard_loop(forwarder: "TunForwarder"):
         lines = []
 
         # ── Заголовок ─────────────────────────────────────────────────────────
-        n_alive = len(transports)
-        lines.append(
-            f"  транспортов: {n_alive}/{len(ACCOUNTS)}"
+        header = (
+            f"  uptime: {uptime_str}  "
+            f"файлы ↓{forwarder._files_recv} ↑{forwarder._files_sent}  "
+            f"трафик ↓{total_mb_recv:.1f}МБ ↑{total_mb_sent:.1f}МБ  "
+            f"разрывов: {total_disc}  "
+            f"транспортов: {n_alive}/{n}"
             f"{sync_str}"
         )
+        lines.append(header)
 
         # ── Строка на каждый аккаунт из ACCOUNTS (фиксированный порядок) ──────
-        transport_map = {t.label: t for t in transports}
         for acc in ACCOUNTS:
             lbl = acc["label"]
             t   = transport_map.get(lbl)
-            if t is None:
-                # Аккаунт ещё не подключён / в переподключении
-                lines.append(f"    {lbl:<6} переподключение...")
+            if t is None or not t.is_ready:
+                disc = forwarder._disc_counts.get(lbl, 0)
+                disc_str = f"  разр:{disc}" if disc > 0 else ""
+                lines.append(f"    {lbl:<6} переподключение...{disc_str}")
                 continue
 
             elapsed = now_ts - speed_ts.get(lbl, now_ts)
@@ -1261,27 +1281,40 @@ async def _dashboard_loop(forwarder: "TunForwarder"):
                 t._sent_times.popleft()
             remaining = RATE_LIMIT_COUNT - len(t._sent_times)
 
+            mb_sent = t._bytes_sent_total / 1_048_576
+            mb_recv = t._bytes_recv_total / 1_048_576
             busy_mark = "●" if t._upload_busy else " "
-            # Пометка: заблокирован ли аккаунт по sync от клиента
+            disc = forwarder._disc_counts.get(lbl, 0)
+            disc_str  = f"  разр:{disc}" if disc > 0 else ""
             if peer_ids is not None and t.viewer_id not in peer_ids:
                 peer_mark = " ✗cli"
             else:
                 peer_mark = ""
             line = (
                 f"  {busy_mark} {lbl:<6} "
-                f"↓{t._pkts_recv_total:>5}  "
-                f"↑{t._pkts_sent_total:>5}  "
-                f"{speed_kbps[lbl]:>7.1f} кбит/с  "
+                f"↓{t._pkts_recv_total:>5} файл  "
+                f"↑{t._pkts_sent_total:>5} файл  "
+                f"↓{mb_recv:>5.1f}МБ ↑{mb_sent:>5.1f}МБ  "
+                f"{speed_kbps.get(lbl, 0.0):>7.1f} кбит/с  "
                 f"лимит: {remaining:>3}/{RATE_LIMIT_COUNT}"
-                f"{peer_mark}"
+                f"{disc_str}{peer_mark}"
             )
             lines.append(line)
 
-        # ── Перезаписываем на месте (фиксированное число строк) ───────────────
-        _sys.stdout.write("\033[" + str(total_lines) + "A")
+        # ── Итого ─────────────────────────────────────────────────────────────
+        live_transports = [t for t in forwarder._transports.values() if t.is_ready]
+        total_remaining = sum(
+            RATE_LIMIT_COUNT - len([x for x in t._sent_times if x > now_ev - RATE_LIMIT_WINDOW_10MINS])
+            for t in live_transports
+        )
+        capacity_pct = (total_remaining * 100 // (n * RATE_LIMIT_COUNT)) if n > 0 else 0
+        lines.append(f"  лимит суммарно: {total_remaining}/{n * RATE_LIMIT_COUNT} ({capacity_pct}%)")
+
+        # ── Перезаписываем на месте ───────────────────────────────────────────
+        sys.stdout.write("\033[" + str(total_lines) + "A")
         for line in lines:
-            _sys.stdout.write("\033[2K" + line + "\n")
-        _sys.stdout.flush()
+            sys.stdout.write("\033[2K" + line + "\n")
+        sys.stdout.flush()
 
 
 async def _poll_loop(http: aiohttp.ClientSession, manager: SessionManager):
