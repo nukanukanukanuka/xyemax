@@ -70,16 +70,27 @@ class TUNDevice:
             self.fd = None
             raise RuntimeError(f"Не удалось создать TUN {self.name}: {e}")
 
-        # Поднимаем интерфейс (без IP, пакеты будут форвардиться)
+        # Настраиваем point-to-point интерфейс
         try:
+            # Удаляем старый адрес если есть
+            subprocess.run(
+                ["ip", "addr", "flush", "dev", self.name],
+                check=False, capture_output=True
+            )
+            # Добавляем point-to-point адрес
+            subprocess.run(
+                ["ip", "addr", "add", "198.18.0.2/32", "peer", "198.18.0.1/32", "dev", self.name],
+                check=True, capture_output=True
+            )
+            # Поднимаем интерфейс
             subprocess.run(
                 ["ip", "link", "set", "dev", self.name, "up"],
                 check=True, capture_output=True
             )
+            log.info("TUN %s настроен: 198.18.0.2 peer 198.18.0.1", self.name)
         except subprocess.CalledProcessError as e:
-            log.warning("Не удалось поднять интерфейс %s: %s", self.name, e)
+            log.warning("Не удалось настроить интерфейс %s: %s", self.name, e)
 
-        log.info("TUN %s создан на сервере", self.name)
         self.loop = asyncio.get_event_loop()
 
     def close(self) -> None:
