@@ -87,12 +87,17 @@ class TUNDevice:
                 ["ip", "link", "set", "dev", self.name, "up"],
                 check=True, capture_output=True
             )
-            # Добавляем маршрут к клиенту через TUN (для обратных пакетов)
+            # Добавляем маршрут для интернет трафика через внешний интерфейс
+            # Исключаем 198.18.0.0/15 (наши туннели) и 0.0.0.0/32 (broadcast)
             subprocess.run(
-                ["ip", "route", "add", "198.18.0.1/32", "dev", self.name],
-                check=True, capture_output=True
+                ["ip", "route", "add", "0.0.0.0/1", "dev", self._config.get("external_if", "ens6")],
+                check=False, capture_output=True
             )
-            log.info("TUN %s настроен: 198.18.0.2 peer 198.18.0.1, маршрут добавлен", self.name)
+            subprocess.run(
+                ["ip", "route", "add", "128.0.0.0/1", "dev", self._config.get("external_if", "ens6")],
+                check=False, capture_output=True
+            )
+            log.info("TUN %s настроен: 198.18.0.2 peer 198.18.0.1, маршруты добавлены", self.name)
         except subprocess.CalledProcessError as e:
             log.warning("Не удалось настроить интерфейс %s: %s", self.name, e)
 
@@ -100,11 +105,17 @@ class TUNDevice:
 
     def close(self) -> None:
         """Закрывает и удаляет TUN."""
-        # Удаляем маршрут к клиенту
-        subprocess.run(
-            ["ip", "route", "del", "198.18.0.1/32", "dev", self.name],
-            check=False, capture_output=True
-        )
+        # Удаляем маршруты для интернет трафика
+        ext_if = self._config.get("external_if")
+        if ext_if:
+            subprocess.run(
+                ["ip", "route", "del", "0.0.0.0/1", "dev", ext_if],
+                check=False, capture_output=True
+            )
+            subprocess.run(
+                ["ip", "route", "del", "128.0.0.0/1", "dev", ext_if],
+                check=False, capture_output=True
+            )
         if self.fd is not None:
             try:
                 os.close(self.fd)
@@ -123,6 +134,9 @@ class TunnelServer(asyncssh.SSHServer):
         self._conn = None
         self._tun_sessions = {}  # conn -> (tun, session)
         self._nat_rule_added = False
+        self._external_if = self._find_external_interface()
+        if self._external_if:
+            self._config["external_if"] = self._external_if
         log.debug("TunnelServer инициализирован с конфигом: %s", config)
         self._setup_nat()
 
