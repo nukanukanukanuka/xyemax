@@ -159,7 +159,7 @@ class TunnelServer(asyncssh.SSHServer):
     def tun_requested(self, unit: int | None):
         """
         Вызывается когда клиент запрашивает TUN туннель.
-        Создаём TUN интерфейс и возвращаем coroutine для форвардинга.
+        Создаём TUN интерфейс и возвращаем callable для форвардинга.
         """
         tun_name = f"tun{unit}" if unit else "tun0"
         log.info("TUN запрос от клиента: unit=%s, device=%s", unit, tun_name)
@@ -173,9 +173,20 @@ class TunnelServer(asyncssh.SSHServer):
             return False
 
         # Возвращаем callable для форвардинга пакетов
-        # Этот callable будет вызван asyncssh с session объектом
-        async def session_handler(session):
+        # Этот callable будет вызван asyncssh с (reader, writer)
+        async def session_handler(reader, writer):
             log.info("Создана SSH сессия для TUN %s", tun_name)
+
+            # Создаём простой session объект с send/recv методами
+            class SimpleSession:
+                async def send(self, data):
+                    writer.write(data)
+                    await writer.drain()
+
+                async def recv(self):
+                    return await reader.read(65536)
+
+            session = SimpleSession()
             self._tun_sessions[self._conn] = (tun, session)
             await forward_tun(tun, session)
             log.info("SSH сессия для TUN %s закрыта", tun_name)
