@@ -87,7 +87,12 @@ class TUNDevice:
                 ["ip", "link", "set", "dev", self.name, "up"],
                 check=True, capture_output=True
             )
-            log.info("TUN %s настроен: 198.18.0.2 peer 198.18.0.1", self.name)
+            # Добавляем маршрут к клиенту через TUN (для обратных пакетов)
+            subprocess.run(
+                ["ip", "route", "add", "198.18.0.1/32", "dev", self.name],
+                check=True, capture_output=True
+            )
+            log.info("TUN %s настроен: 198.18.0.2 peer 198.18.0.1, маршрут добавлен", self.name)
         except subprocess.CalledProcessError as e:
             log.warning("Не удалось настроить интерфейс %s: %s", self.name, e)
 
@@ -95,6 +100,11 @@ class TUNDevice:
 
     def close(self) -> None:
         """Закрывает и удаляет TUN."""
+        # Удаляем маршрут к клиенту
+        subprocess.run(
+            ["ip", "route", "del", "198.18.0.1/32", "dev", self.name],
+            check=False, capture_output=True
+        )
         if self.fd is not None:
             try:
                 os.close(self.fd)
