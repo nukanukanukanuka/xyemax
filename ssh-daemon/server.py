@@ -101,7 +101,77 @@ class TunnelServer(asyncssh.SSHServer):
         self._config = config
         self._conn = None
         self._tun_sessions = {}  # conn -> (tun, session)
+        self._nat_rule_added = False
         log.debug("TunnelServer инициализирован с конфигом: %s", config)
+        self._setup_nat()
+
+    def _find_external_interface(self) -> str | None:
+        """Находит внешний интерфейс с публичным IP."""
+        try:
+            result = subprocess.run(
+                ["ip", "route", "show", "0.0.0.0/0"],
+                capture_output=True, text=True, check=True
+            )
+            # Разбираем строку с дефолтным маршрутом
+            for line in result.stdout.strip().splitlines():
+                if "default via" in line:
+                    # Формат: default via X.X.X.X.X dev YYY
+                    parts = line.split()
+                    if "dev" in parts:
+                        idx = parts.index("dev")
+                        if idx + 1 < len(parts):
+                            dev = parts[idx + 1]
+                            log.info("Найден внешний интерфейс: %s", dev)
+                            return dev
+        except Exception as e:
+            log.warning("Не удалось найти внешний интерфейс: %s", e)
+        return None
+
+    def _setup_nat(self) -> None:
+        """Настраивает NAT для трафика из туннеля."""
+        ext_if = self._find_external_interface()
+        if not ext_if:
+            log.warning("Не удалось найти внешний интерфейс, NAT не настроен")
+            return
+
+        try:
+            # Проверяем существует ли правило
+            result = subprocess.run(
+                ["iptables", "-t", "nat", "-C", "POSTROUTING", "-s", "198.18.0.0/15", "-o", ext_if, "-j", "MASQUERADE"],
+                capture_output=True, text=True, check=False
+            )
+
+            if result.returncode == 0:
+                log.info("NAT правило уже существует для %s", ext_if)
+                self._nat_rule_added = True
+            else:
+                # Добавляем правило
+                subprocess.run(
+                    ["iptables", "-t", "nat", "-A", "POSTROUTING", "-s", "198.18.0.0/15", "-o", ext_if, "-j", "MASQUERADE"],
+                    check=True, capture_output=True
+                )
+                log.info("NAT правило добавлено для %s: 198.18.0.0/15 -> %s", ext_if, ext_if)
+                self._nat_rule_added = True
+        except Exception as e:
+            log.error("Ошибка настройки NAT: %s", e)
+
+    def _cleanup_nat(self) -> None:
+        """Удаляет NAT правило."""
+        if not self._nat_rule_added:
+            return
+
+        ext_if = self._find_external_interface()
+        if not ext_if:
+            return
+
+        try:
+            subprocess.run(
+                ["iptables", "-t", "nat", "-D", "POSTROUTING", "-s", "198.18.0.0/15", "-o", ext_if, "-j", "MASQUERADE"],
+                check=False, capture_output=True
+            )
+            log.info("NAT правило удалено для %s", ext_if)
+        except Exception as e:
+            log.warning("Ошибка удаления NAT правила: %s", e)
 
     def connection_made(self, conn: asyncssh.SSHServerConnection) -> None:
         self._conn = conn
@@ -288,8 +358,11 @@ async def run_server(config: dict) -> None:
 
     log.info("Запуск SSH сервера на %s:%d", listen_host, listen_port)
 
+    # Создаём и сохраняем экземпляр сервера для последующей очистки
+    tunnel_server = TunnelServer(config)
+
     def server_factory():
-        return TunnelServer(config)
+        return tunnel_server
 
     try:
         server = await asyncssh.create_server(
@@ -305,9 +378,13 @@ async def run_server(config: dict) -> None:
         log.exception("Детали ошибки:")
         sys.exit(1)
 
-    async with server:
-        log.debug("Сервер ожидает подключений...")
-        await asyncio.Future()
+    try:
+        async with server:
+            log.debug("Сервер ожидает подключений...")
+            await asyncio.Future()
+    finally:
+        # Очистка NAT при остановке
+        tunnel_server._cleanup_nat()
 
 
 def parse_args() -> argparse.Namespace:
