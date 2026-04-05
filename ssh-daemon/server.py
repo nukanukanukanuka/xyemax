@@ -134,6 +134,7 @@ class TunnelServer(asyncssh.SSHServer):
         self._conn = None
         self._tun_sessions = {}  # conn -> (tun, session)
         self._nat_rule_added = False
+        self._pending_tun_units = set()  # unit numbers waiting for configuration
         self._external_if = self._find_external_interface()
         if self._external_if:
             self._config["external_if"] = self._external_if
@@ -213,6 +214,8 @@ class TunnelServer(asyncssh.SSHServer):
         peer = conn.get_extra_info("peername")
         log.info("Подключение от %s:%s", *peer)
         log.debug("Соединение ID: %s", conn.get_extra_info("connection_id"))
+        # Запускаем задачу для мониторинга TUN устройств
+        asyncio.create_task(self._monitor_tun_devices())
 
     def connection_lost(self, exc: Exception | None) -> None:
         if self._conn:
@@ -261,44 +264,67 @@ class TunnelServer(asyncssh.SSHServer):
         log.debug("public_key_auth_supported: False")
         return False
 
-    def tun_requested(self, unit: int | None):
+    def tun_requested(self, unit: int | None) -> bool:
         """
         Вызывается когда клиент запрашивает TUN туннель.
-        Создаём TUN интерфейс и возвращаем callable для форвардинга.
+        Возвращаем True чтобы разрешить TUN запрос.
         """
         tun_name = f"tun{unit}" if unit else "tun0"
         log.info("TUN запрос от клиента: unit=%s, device=%s", unit, tun_name)
+        log.info("Разрешаю TUN запрос, asyncssh будет обрабатывать форвардинг")
+        # Запоминаем запрошенный unit для последующей настройки
+        if unit is not None:
+            self._pending_tun_units.add(unit)
+        return True
 
-        # Создаём TUN устройство
-        tun = TUNDevice(tun_name, self._external_if)
+    async def _monitor_tun_devices(self):
+        """Мониторит и настраивает новые TUN устройства."""
+        log.debug("Запускаю мониторинг TUN устройств")
+
+        # Ждем немного чтобы asyncssh создал устройство
+        await asyncio.sleep(1)
+
+        # Проверяем все запрошенные TUN устройства
+        for unit in list(self._pending_tun_units):
+            tun_name = f"tun{unit}"
+            if self._configure_tun_device(tun_name):
+                self._pending_tun_units.discard(unit)
+
+    def _configure_tun_device(self, tun_name: str) -> bool:
+        """Настраивает TUN устройство с IP адресом и поднимает его."""
         try:
-            tun.open()
-        except RuntimeError as e:
-            log.error("Не удалось создать TUN %s: %s", tun_name, e)
+            # Проверяем существует ли устройство
+            result = subprocess.run(
+                ["ip", "link", "show", tun_name],
+                capture_output=True, text=True, check=False
+            )
+            if result.returncode != 0:
+                log.debug("TUN устройство %s ещё не создано", tun_name)
+                return False
+
+            log.info("Обнаружено TUN устройство: %s", tun_name)
+
+            # Настраиваем IP адрес
+            subprocess.run(
+                ["ip", "addr", "add", "198.18.0.2/32", "peer", "198.18.0.1/32", "dev", tun_name],
+                check=True, capture_output=True
+            )
+
+            # Поднимаем интерфейс
+            subprocess.run(
+                ["ip", "link", "set", "dev", tun_name, "up"],
+                check=True, capture_output=True
+            )
+
+            log.info("TUN устройство %s настроено: 198.18.0.2 peer 198.18.0.1", tun_name)
+            return True
+
+        except subprocess.CalledProcessError as e:
+            log.warning("Не удалось настроить TUN устройство %s: %s", tun_name, e)
             return False
-
-        # Возвращаем callable для форвардинга пакетов
-        # Этот callable будет вызван asyncssh с (reader, writer)
-        async def session_handler(reader, writer):
-            log.info("Создана SSH сессия для TUN %s", tun_name)
-
-            # Создаём простой session объект с send/recv методами
-            class SimpleSession:
-                async def send(self, data):
-                    writer.write(data)
-                    await writer.drain()
-
-                async def recv(self):
-                    return await reader.read(65536)
-
-            session = SimpleSession()
-            self._tun_sessions[self._conn] = (tun, session)
-            await forward_tun(tun, session)
-            log.info("SSH сессия для TUN %s закрыта", tun_name)
-            if self._conn in self._tun_sessions:
-                del self._tun_sessions[self._conn]
-
-        return session_handler
+        except Exception as e:
+            log.error("Ошибка при настройке TUN устройства %s: %s", tun_name, e)
+            return False
 
 
 async def forward_tun(tun: TUNDevice, session) -> None:
