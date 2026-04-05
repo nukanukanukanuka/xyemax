@@ -205,12 +205,11 @@ async def forward_tun(tun: TUNDevice, session) -> None:
 
     async def read_tun_to_ssh():
         """Читает из TUN и пишет в SSH."""
+        loop = asyncio.get_event_loop()
         while True:
             try:
-                # Читаем из TUN (неблокирующе)
-                data = await asyncio.get_event_loop().sock_recv(
-                    socket.socket(fileno=tun.fd), 65536
-                )
+                # Читаем из TUN через run_in_executor (TUN не сокет!)
+                data = await loop.run_in_executor(None, os.read, tun.fd, 65536)
                 if data:
                     log.debug("TUN -> SSH: %d байт", len(data))
                     await session.send(data)
@@ -220,16 +219,15 @@ async def forward_tun(tun: TUNDevice, session) -> None:
 
     async def read_ssh_to_tun():
         """Читает из SSH и пишет в TUN."""
+        loop = asyncio.get_event_loop()
         while True:
             try:
                 data = await session.recv()
                 if not data:
                     break
                 log.debug("SSH -> TUN: %d байт", len(data))
-                # Пишем в TUN
-                await asyncio.get_event_loop().sock_sendall(
-                    socket.socket(fileno=tun.fd), data
-                )
+                # Пишем в TUN через run_in_executor
+                await loop.run_in_executor(None, os.write, tun.fd, data)
             except (OSError, ConnectionResetError, asyncio.CancelledError) as e:
                 log.debug("Чтение из SSH завершено: %s", e)
                 break
