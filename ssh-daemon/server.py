@@ -2,7 +2,7 @@
 """
 SSH TUN сервер.
 
-Принимает TUN соединения от клиентов и форвардит пакеты в сеть.
+Принимает TUN соединения от клиентов, создаёт TUN интерфейс и форвардит пакеты.
 """
 
 import asyncio
@@ -11,8 +11,18 @@ import logging
 import sys
 import os
 import argparse
+import struct
+import fcntl
+import socket
+import subprocess
 from pathlib import Path
 from datetime import datetime
+from typing import Optional
+
+# TUN константы
+IFF_TUN = 0x0001
+IFF_NO_PI = 0x1000
+TUNSETIFF = 0x400454ca
 
 # Настройка логгера с записью в файл
 log = logging.getLogger(__name__)
@@ -37,12 +47,60 @@ log.info("=== Запуск сервера ===")
 log.info("Лог файл: %s", log_file)
 
 
+class TUNDevice:
+    """TUN интерфейс на стороне сервера."""
+
+    def __init__(self, name: str):
+        self.name = name
+        self.fd = None
+        self.loop = None
+
+    def open(self) -> None:
+        """Открывает TUN устройство."""
+        try:
+            self.fd = os.open("/dev/net/tun", os.O_RDWR)
+        except OSError as e:
+            raise RuntimeError(f"Не удалось открыть /dev/net/tun: {e}")
+
+        ifr = struct.pack("16sH", f"{self.name}\x00".encode(), IFF_TUN | IFF_NO_PI)
+        try:
+            fcntl.ioctl(self.fd, TUNSETIFF, ifr)
+        except OSError as e:
+            os.close(self.fd)
+            self.fd = None
+            raise RuntimeError(f"Не удалось создать TUN {self.name}: {e}")
+
+        # Поднимаем интерфейс (без IP, пакеты будут форвардиться)
+        try:
+            subprocess.run(
+                ["ip", "link", "set", "dev", self.name, "up"],
+                check=True, capture_output=True
+            )
+        except subprocess.CalledProcessError as e:
+            log.warning("Не удалось поднять интерфейс %s: %s", self.name, e)
+
+        log.info("TUN %s создан на сервере", self.name)
+        self.loop = asyncio.get_event_loop()
+
+    def close(self) -> None:
+        """Закрывает и удаляет TUN."""
+        if self.fd is not None:
+            try:
+                os.close(self.fd)
+            except OSError:
+                pass
+            self.fd = None
+        subprocess.run(["ip", "link", "delete", self.name], check=False, capture_output=True)
+        log.debug("TUN %s закрыт", self.name)
+
+
 class TunnelServer(asyncssh.SSHServer):
     """SSH сервер с поддержкой TUN туннелирования."""
 
     def __init__(self, config: dict):
         self._config = config
         self._conn = None
+        self._tun_sessions = {}  # conn -> (tun, session)
         log.debug("TunnelServer инициализирован с конфигом: %s", config)
 
     def connection_made(self, conn: asyncssh.SSHServerConnection) -> None:
@@ -64,6 +122,12 @@ class TunnelServer(asyncssh.SSHServer):
                     log.warning("Соединение разорвано: %s", exc)
                 else:
                     log.info("Соединение закрыто")
+
+            # Закрываем TUN сессию если есть
+            if self._conn in self._tun_sessions:
+                tun, _ = self._tun_sessions[self._conn]
+                tun.close()
+                del self._tun_sessions[self._conn]
         log.debug("connection_lost вызван")
 
     def begin_auth(self, username: str) -> bool:
@@ -92,11 +156,80 @@ class TunnelServer(asyncssh.SSHServer):
         log.debug("public_key_auth_supported: False")
         return False
 
-    def tun_requested(self, unit: int | None) -> bool:
-        """Принимаем TUN запросы - asyncssh сам форвардит пакеты."""
-        log.info("TUN запрос от клиента (unit=%s)", unit)
-        log.debug("tun_requested: возвращаем True для приёма туннеля")
-        return True
+    def tun_requested(self, unit: int | None):
+        """
+        Вызывается когда клиент запрашивает TUN туннель.
+        Создаём TUN интерфейс и возвращаем coroutine для форвардинга.
+        """
+        tun_name = f"tun{unit}" if unit else "tun0"
+        log.info("TUN запрос от клиента: unit=%s, device=%s", unit, tun_name)
+
+        # Создаём TUN устройство
+        tun = TUNDevice(tun_name)
+        try:
+            tun.open()
+        except RuntimeError as e:
+            log.error("Не удалось создать TUN %s: %s", tun_name, e)
+            return False
+
+        # Возвращаем callable для форвардинга пакетов
+        # Этот callable будет вызван asyncssh с session объектом
+        async def session_handler(session):
+            log.info("Создана SSH сессия для TUN %s", tun_name)
+            self._tun_sessions[self._conn] = (tun, session)
+            await forward_tun(tun, session)
+            log.info("SSH сессия для TUN %s закрыта", tun_name)
+            if self._conn in self._tun_sessions:
+                del self._tun_sessions[self._conn]
+
+        return session_handler
+
+
+async def forward_tun(tun: TUNDevice, session) -> None:
+    """
+    Форвардит пакеты между TUN и SSH сессией.
+    Пакеты из TUN → SSH, из SSH → TUN.
+    """
+    log.info("Запускаю форвардинг TUN пакетов: %s", tun.name)
+
+    async def read_tun_to_ssh():
+        """Читает из TUN и пишет в SSH."""
+        while True:
+            try:
+                # Читаем из TUN (неблокирующе)
+                data = await asyncio.get_event_loop().sock_recv(
+                    socket.socket(fileno=tun.fd), 65536
+                )
+                if data:
+                    log.debug("TUN -> SSH: %d байт", len(data))
+                    await session.send(data)
+            except (OSError, ConnectionResetError, asyncio.CancelledError) as e:
+                log.debug("Чтение из TUN завершено: %s", e)
+                break
+
+    async def read_ssh_to_tun():
+        """Читает из SSH и пишет в TUN."""
+        while True:
+            try:
+                data = await session.recv()
+                if not data:
+                    break
+                log.debug("SSH -> TUN: %d байт", len(data))
+                # Пишем в TUN
+                await asyncio.get_event_loop().sock_sendall(
+                    socket.socket(fileno=tun.fd), data
+                )
+            except (OSError, ConnectionResetError, asyncio.CancelledError) as e:
+                log.debug("Чтение из SSH завершено: %s", e)
+                break
+
+    try:
+        await asyncio.gather(read_tun_to_ssh(), read_ssh_to_tun())
+    except Exception as e:
+        log.debug("Форвардинг TUN завершён: %s", e)
+    finally:
+        tun.close()
+        log.info("Форвардинг TUN завершён, интерфейс закрыт")
 
 
 def load_users_file(path: str) -> dict[str, str]:
