@@ -1,0 +1,645 @@
+2026-04-02 02:13:09 [DEBUG] __main__ — [tun] ip link set tun0 up mtu 8000: OK
+2026-04-02 02:13:09 [DEBUG] __main__ — [tun] ip addr add 10.0.1.1/30 dev tun0: OK
+2026-04-02 02:13:09 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-04-02 02:13:09 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-04-02 02:13:09 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-04-02 02:13:09 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-04-02 02:13:09 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-04-02 02:13:09 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-04-02 02:13:09 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-04-02 02:13:09 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-04-02 02:13:09 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-04-02 02:13:09 [DEBUG] __main__ — [transport:acc3] ws msg op=6 cmd=1
+2026-04-02 02:13:10 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc5] ws msg op=6 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc12] ws msg op=6 cmd=1
+2026-04-02 02:13:10 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc1] ws msg op=6 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc7] ws msg op=6 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc9] ws msg op=6 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc2] ws msg op=6 cmd=1
+2026-04-02 02:13:10 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc11] ws msg op=6 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc4] ws msg op=6 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc10] ws msg op=6 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc6] ws msg op=6 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc8] ws msg op=6 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc9] ws msg op=19 cmd=3
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc12] ws msg op=19 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc12] ws msg op=292 cmd=0
+2026-04-02 02:13:10 [INFO] __main__ — Авторизован [client:acc12], chatId=0
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc5] ws msg op=19 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc5] ws msg op=292 cmd=0
+2026-04-02 02:13:10 [INFO] __main__ — Авторизован [client:acc5], chatId=0
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc7] ws msg op=19 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc7] ws msg op=292 cmd=0
+2026-04-02 02:13:10 [INFO] __main__ — Авторизован [client:acc7], chatId=0
+2026-04-02 02:13:10 [DEBUG] __main__ — [tun] → 2 pkts  raw=116B  packed=105B
+2026-04-02 02:13:10 [DEBUG] __main__ — [multi] ранжирование: {'acc5': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc7': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc12': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}}
+2026-04-02 02:13:10 [DEBUG] __main__ — [multi] выбор: acc7 (recv_count=0, remaining=100, last_event=recv) | stats={'acc1': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc2': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc3': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc4': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc5': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc6': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc7': {'recv_count': 0, 'remaining': 99, 'last_event': 'recv', 'busy': True}, 'acc8': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc11': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc12': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}}
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc1] ws msg op=19 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc1] ws msg op=292 cmd=0
+2026-04-02 02:13:10 [INFO] __main__ — Авторизован [client:acc1], chatId=0
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc1] ws msg op=132 cmd=0
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc2] ws msg op=19 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc2] ws msg op=292 cmd=0
+2026-04-02 02:13:10 [INFO] __main__ — Авторизован [client:acc2], chatId=0
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc3] ws msg op=19 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc3] ws msg op=292 cmd=0
+2026-04-02 02:13:10 [INFO] __main__ — Авторизован [client:acc3], chatId=0
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc11] ws msg op=19 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc11] ws msg op=292 cmd=0
+2026-04-02 02:13:10 [INFO] __main__ — Авторизован [client:acc11], chatId=0
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc7] ws msg op=48 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc12] ws msg op=48 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc4] ws msg op=19 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc4] ws msg op=292 cmd=0
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc5] ws msg op=48 cmd=1
+2026-04-02 02:13:10 [INFO] __main__ — Авторизован [client:acc4], chatId=0
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc6] ws msg op=19 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc6] ws msg op=292 cmd=0
+2026-04-02 02:13:10 [INFO] __main__ — Авторизован [client:acc6], chatId=0
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc10] ws msg op=19 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc10] ws msg op=292 cmd=0
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc8] ws msg op=19 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc8] ws msg op=292 cmd=0
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc7] ws msg op=87 cmd=1
+2026-04-02 02:13:10 [INFO] __main__ — Авторизован [client:acc10], chatId=0
+2026-04-02 02:13:10 [INFO] __main__ — Авторизован [client:acc8], chatId=0
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc7] jpeg-wrap raw=105 jpeg=751
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc1] ws msg op=48 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc2] ws msg op=48 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc10] ws msg op=48 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc6] ws msg op=48 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc8] ws msg op=48 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc4] ws msg op=48 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc3] ws msg op=48 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc11] ws msg op=48 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc7] upload ok fileId=3081063222 size=105
+2026-04-02 02:13:10 [INFO] __main__ — [multi] acc7 восстановлен (первый upload OK)
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc7] ws msg op=136 cmd=0
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc7] ws msg op=64 cmd=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc7] msg op=64 attaches=1
+2026-04-02 02:13:10 [DEBUG] __main__ — [transport:acc7] skip own fileId=3081063222
+2026-04-02 02:13:11 [DEBUG] __main__ — [tun] → 1 pkts  raw=66B  packed=67B
+2026-04-02 02:13:11 [DEBUG] __main__ — [multi] ранжирование: {'acc1': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc2': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc3': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc4': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc5': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc6': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc7': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc8': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc10': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc11': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc12': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}}
+2026-04-02 02:13:11 [DEBUG] __main__ — [multi] выбор: acc3 (recv_count=0, remaining=100, last_event=recv) | stats={'acc1': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc2': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc3': {'recv_count': 0, 'remaining': 99, 'last_event': 'recv', 'busy': True}, 'acc4': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc5': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc6': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc7': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc8': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc11': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc12': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}}
+2026-04-02 02:13:11 [DEBUG] __main__ — [transport:acc3] ws msg op=87 cmd=1
+2026-04-02 02:13:11 [DEBUG] __main__ — [transport:acc3] jpeg-wrap raw=67 jpeg=713
+2026-04-02 02:13:11 [INFO] __main__ — [sync] → сервер: первая отправка  живых у нас: [240876353, 240002558, 150579003, 226731244, 227280244, 227041108, 233125749, 253356546, 253228382, 235522058, 254317089, 251967843]
+2026-04-02 02:13:11 [DEBUG] __main__ — [multi] ранжирование: {'acc1': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc2': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc4': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc5': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc6': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc7': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc8': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc10': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc11': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc12': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}}
+2026-04-02 02:13:11 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, remaining=100, last_event=recv) | stats={'acc1': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc2': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc3': {'recv_count': 0, 'remaining': 99, 'last_event': 'recv', 'busy': True}, 'acc4': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'recv', 'busy': True}, 'acc6': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc7': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc8': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc11': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc12': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}}
+2026-04-02 02:13:11 [DEBUG] __main__ — [transport:acc3] upload ok fileId=3071469412 size=67
+2026-04-02 02:13:11 [INFO] __main__ — [multi] acc3 восстановлен (первый upload OK)
+2026-04-02 02:13:11 [DEBUG] __main__ — [transport:acc5] ws msg op=87 cmd=1
+2026-04-02 02:13:11 [DEBUG] __main__ — [transport:acc5] jpeg-wrap raw=130 jpeg=776
+2026-04-02 02:13:11 [DEBUG] __main__ — [transport:acc3] ws msg op=136 cmd=0
+2026-04-02 02:13:11 [DEBUG] __main__ — [transport:acc5] upload ok fileId=3077529399 size=130
+2026-04-02 02:13:11 [INFO] __main__ — [multi] acc5 восстановлен (первый upload OK)
+2026-04-02 02:13:11 [DEBUG] __main__ — [sync] → сервер: без изменений  живых=[240876353, 240002558, 150579003, 226731244, 227280244, 227041108, 233125749, 253356546, 253228382, 235522058, 254317089, 251967843]
+2026-04-02 02:13:11 [DEBUG] __main__ — [multi] ранжирование: {'acc1': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc2': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc3': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc4': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc6': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc7': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc8': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc10': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc11': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc12': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}}
+2026-04-02 02:13:11 [DEBUG] __main__ — [multi] выбор: acc8 (recv_count=0, remaining=100, last_event=recv) | stats={'acc1': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc2': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc3': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc4': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': True}, 'acc6': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc7': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc8': {'recv_count': 0, 'remaining': 99, 'last_event': 'recv', 'busy': True}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc11': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc12': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}}
+2026-04-02 02:13:11 [DEBUG] __main__ — [transport:acc3] ws msg op=64 cmd=1
+2026-04-02 02:13:11 [DEBUG] __main__ — [transport:acc3] msg op=64 attaches=1
+2026-04-02 02:13:11 [DEBUG] __main__ — [transport:acc3] skip own fileId=3071469412
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc5] ws msg op=136 cmd=0
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc8] ws msg op=87 cmd=1
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc8] jpeg-wrap raw=130 jpeg=776
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc5] ws msg op=64 cmd=1
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc5] msg op=64 attaches=1
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc5] skip own fileId=3077529399
+2026-04-02 02:13:12 [DEBUG] __main__ — [sync] → сервер: без изменений  живых=[240876353, 240002558, 150579003, 226731244, 227280244, 227041108, 233125749, 253356546, 253228382, 235522058, 254317089, 251967843]
+2026-04-02 02:13:12 [DEBUG] __main__ — [multi] ранжирование: {'acc1': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc2': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc3': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc4': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc6': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc7': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc10': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc11': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc12': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}}
+2026-04-02 02:13:12 [DEBUG] __main__ — [multi] выбор: acc11 (recv_count=0, remaining=100, last_event=recv) | stats={'acc1': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc2': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc3': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc4': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc6': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc7': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc8': {'recv_count': 0, 'remaining': 99, 'last_event': 'recv', 'busy': True}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc11': {'recv_count': 0, 'remaining': 99, 'last_event': 'recv', 'busy': True}, 'acc12': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}}
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc8] upload ok fileId=3073061070 size=130
+2026-04-02 02:13:12 [INFO] __main__ — [multi] acc8 восстановлен (первый upload OK)
+2026-04-02 02:13:12 [DEBUG] __main__ — [tun] → 1 pkts  raw=66B  packed=67B
+2026-04-02 02:13:12 [DEBUG] __main__ — [multi] ранжирование: {'acc1': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc2': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc3': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc4': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc6': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc7': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc10': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc12': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}}
+2026-04-02 02:13:12 [DEBUG] __main__ — [multi] выбор: acc1 (recv_count=0, remaining=100, last_event=recv) | stats={'acc1': {'recv_count': 0, 'remaining': 99, 'last_event': 'recv', 'busy': True}, 'acc2': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc3': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc4': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc6': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc7': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc8': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': True}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc11': {'recv_count': 0, 'remaining': 99, 'last_event': 'recv', 'busy': True}, 'acc12': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}}
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc11] ws msg op=87 cmd=1
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc11] jpeg-wrap raw=130 jpeg=776
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc8] ws msg op=136 cmd=0
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc1] ws msg op=87 cmd=1
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc1] jpeg-wrap raw=67 jpeg=713
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc10] ws msg op=136 cmd=0
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc8] ws msg op=64 cmd=1
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc8] msg op=64 attaches=1
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc8] skip own fileId=3073061070
+2026-04-02 02:13:12 [DEBUG] __main__ — [sync] → сервер: без изменений  живых=[240876353, 240002558, 150579003, 226731244, 227280244, 227041108, 233125749, 253356546, 253228382, 235522058, 254317089, 251967843]
+2026-04-02 02:13:12 [DEBUG] __main__ — [multi] ранжирование: {'acc2': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc3': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc4': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc6': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc7': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc8': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc10': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc12': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}}
+2026-04-02 02:13:12 [DEBUG] __main__ — [multi] выбор: acc4 (recv_count=0, remaining=100, last_event=recv) | stats={'acc1': {'recv_count': 0, 'remaining': 99, 'last_event': 'recv', 'busy': True}, 'acc2': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc3': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc4': {'recv_count': 0, 'remaining': 99, 'last_event': 'recv', 'busy': True}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc6': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc7': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc8': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc11': {'recv_count': 0, 'remaining': 99, 'last_event': 'recv', 'busy': True}, 'acc12': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}}
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc11] upload ok fileId=3077295103 size=130
+2026-04-02 02:13:12 [INFO] __main__ — [multi] acc11 восстановлен (первый upload OK)
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc10] ws msg op=128 cmd=0
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc10] msg op=128 attaches=1
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc10] incoming fileId=3070746275 msgId=116332219111667787
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc11] ws msg op=136 cmd=0
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc1] upload ok fileId=3084224342 size=67
+2026-04-02 02:13:12 [INFO] __main__ — [multi] acc1 восстановлен (первый upload OK)
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc4] ws msg op=87 cmd=1
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc4] jpeg-wrap raw=130 jpeg=776
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc10] ws msg op=88 cmd=1
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc11] ws msg op=64 cmd=1
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc11] msg op=64 attaches=1
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc11] skip own fileId=3077295103
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc1] ws msg op=136 cmd=0
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc1] ws msg op=136 cmd=0
+2026-04-02 02:13:12 [DEBUG] __main__ — [sync] → сервер: без изменений  живых=[240876353, 240002558, 150579003, 226731244, 227280244, 227041108, 233125749, 253356546, 253228382, 235522058, 254317089, 251967843]
+2026-04-02 02:13:12 [DEBUG] __main__ — [multi] ранжирование: {'acc1': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc2': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc3': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc6': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc7': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc8': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc10': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc11': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc12': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}}
+2026-04-02 02:13:12 [DEBUG] __main__ — [multi] выбор: acc10 (recv_count=0, remaining=100, last_event=recv) | stats={'acc1': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc2': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc3': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc4': {'recv_count': 0, 'remaining': 99, 'last_event': 'recv', 'busy': True}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc6': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc7': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc8': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 0, 'remaining': 99, 'last_event': 'recv', 'busy': True}, 'acc11': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc12': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}}
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc1] ws msg op=128 cmd=0
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc1] msg op=128 attaches=1
+2026-04-02 02:13:12 [DEBUG] __main__ — [transport:acc1] incoming fileId=3074736819 msgId=116332219134276666
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc4] upload ok fileId=3078516358 size=130
+2026-04-02 02:13:13 [INFO] __main__ — [multi] acc4 восстановлен (первый upload OK)
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc10] recv_file fileId=3070746275 size=120
+2026-04-02 02:13:13 [DEBUG] __main__ — [tun] ← 2 pkts  raw=120B
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc10] ws msg op=87 cmd=1
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc10] jpeg-wrap raw=130 jpeg=776
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc1] ws msg op=64 cmd=1
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc1] msg op=64 attaches=1
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc1] skip own fileId=3084224342
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc1] ws msg op=88 cmd=1
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc4] ws msg op=136 cmd=0
+2026-04-02 02:13:13 [DEBUG] __main__ — [sync] → сервер: без изменений  живых=[240876353, 240002558, 150579003, 226731244, 227280244, 227041108, 233125749, 253356546, 253228382, 235522058, 254317089, 251967843]
+2026-04-02 02:13:13 [DEBUG] __main__ — [multi] ранжирование: {'acc1': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc2': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc3': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc4': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc6': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc7': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc8': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc11': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc12': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}}
+2026-04-02 02:13:13 [DEBUG] __main__ — [multi] выбор: acc2 (recv_count=0, remaining=100, last_event=recv) | stats={'acc1': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc2': {'recv_count': 0, 'remaining': 99, 'last_event': 'recv', 'busy': True}, 'acc3': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc4': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc6': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc7': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc8': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 1, 'remaining': 99, 'last_event': 'recv', 'busy': True}, 'acc11': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc12': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}}
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc4] ws msg op=64 cmd=1
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc4] msg op=64 attaches=1
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc4] skip own fileId=3078516358
+2026-04-02 02:13:13 [DEBUG] __main__ — [tun] → 3 pkts  raw=691B  packed=467B
+2026-04-02 02:13:13 [DEBUG] __main__ — [multi] ранжирование: {'acc1': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc3': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc4': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc6': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc7': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc8': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc11': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc12': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}}
+2026-04-02 02:13:13 [DEBUG] __main__ — [multi] выбор: acc12 (recv_count=0, remaining=100, last_event=recv) | stats={'acc1': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc2': {'recv_count': 0, 'remaining': 99, 'last_event': 'recv', 'busy': True}, 'acc3': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc4': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc6': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc7': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc8': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 1, 'remaining': 99, 'last_event': 'recv', 'busy': True}, 'acc11': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc12': {'recv_count': 0, 'remaining': 99, 'last_event': 'recv', 'busy': True}}
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc10] upload ok fileId=3074790084 size=130
+2026-04-02 02:13:13 [INFO] __main__ — [multi] acc10 восстановлен (первый upload OK)
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3074736819 size=147
+2026-04-02 02:13:13 [DEBUG] __main__ — [sync] ← сервер: получен пакет viewer_ids=[240876353, 240002558, 150579003, 226731244, 227280244, 227041108, 233125749, 253356546, 235522058, 254317089, 251967843]
+2026-04-02 02:13:13 [INFO] __main__ — [sync] ← сервер: первый SYNC получен  живых на сервере: [150579003, 226731244, 227041108, 227280244, 233125749, 235522058, 240002558, 240876353, 251967843, 253356546, 254317089]  совпадающих у нас: ['acc1', 'acc8', 'acc11', 'acc12', 'acc10', 'acc4', 'acc5', 'acc6', 'acc7', 'acc3', 'acc2']
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc2] ws msg op=87 cmd=1
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc2] jpeg-wrap raw=130 jpeg=776
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc10] ws msg op=136 cmd=0
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc12] ws msg op=87 cmd=1
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc12] jpeg-wrap raw=467 jpeg=1113
+2026-04-02 02:13:13 [DEBUG] __main__ — [sync] → сервер: без изменений  живых=[240876353, 240002558, 150579003, 226731244, 227280244, 227041108, 233125749, 253356546, 253228382, 235522058, 254317089, 251967843]
+2026-04-02 02:13:13 [DEBUG] __main__ — [multi] ранжирование: {'acc1': {'recv_count': 1, 'remaining': 99, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc3': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc4': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc6': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc7': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc8': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc10': {'recv_count': 1, 'remaining': 99, 'last_event': 'send', 'r1': 2, 'r2': 2, 'r3': 2, 'score': '2.00'}, 'acc11': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}}
+2026-04-02 02:13:13 [DEBUG] __main__ — [multi] выбор: acc6 (recv_count=0, remaining=100, last_event=recv) | stats={'acc1': {'recv_count': 1, 'remaining': 99, 'last_event': 'recv', 'busy': False}, 'acc2': {'recv_count': 0, 'remaining': 99, 'last_event': 'recv', 'busy': True}, 'acc3': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc4': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc6': {'recv_count': 0, 'remaining': 99, 'last_event': 'recv', 'busy': True}, 'acc7': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc8': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 1, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc11': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc12': {'recv_count': 0, 'remaining': 99, 'last_event': 'recv', 'busy': True}}
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc6] ws msg op=136 cmd=0
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc10] ws msg op=64 cmd=1
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc10] msg op=64 attaches=1
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc10] skip own fileId=3074790084
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc2] upload ok fileId=3077284849 size=130
+2026-04-02 02:13:13 [INFO] __main__ — [multi] acc2 восстановлен (первый upload OK)
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc6] ws msg op=128 cmd=0
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc6] msg op=128 attaches=1
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc6] incoming fileId=3086991246 msgId=116332219178227787
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc6] ws msg op=87 cmd=1
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc6] jpeg-wrap raw=130 jpeg=776
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc2] ws msg op=136 cmd=0
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc12] upload ok fileId=3070795604 size=467
+2026-04-02 02:13:13 [INFO] __main__ — [multi] acc12 восстановлен (первый upload OK)
+2026-04-02 02:13:13 [DEBUG] __main__ — [sync] → сервер: без изменений  живых=[240876353, 240002558, 150579003, 226731244, 227280244, 227041108, 233125749, 253356546, 253228382, 235522058, 254317089, 251967843]
+2026-04-02 02:13:13 [DEBUG] __main__ — [multi] ранжирование: {'acc1': {'recv_count': 1, 'remaining': 99, 'last_event': 'recv', 'r1': 2, 'r2': 1, 'r3': 1, 'score': '1.33'}, 'acc2': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}, 'acc3': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}, 'acc4': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}, 'acc7': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}, 'acc8': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}, 'acc10': {'recv_count': 1, 'remaining': 99, 'last_event': 'send', 'r1': 2, 'r2': 1, 'r3': 2, 'score': '1.67'}, 'acc11': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}}
+2026-04-02 02:13:13 [DEBUG] __main__ — [multi] выбор: acc2 (recv_count=0, remaining=99, last_event=send) | stats={'acc1': {'recv_count': 1, 'remaining': 99, 'last_event': 'recv', 'busy': False}, 'acc2': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': True}, 'acc3': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc4': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc6': {'recv_count': 0, 'remaining': 99, 'last_event': 'recv', 'busy': True}, 'acc7': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc8': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 1, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc11': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc12': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': True}}
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc6] ws msg op=88 cmd=1
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc2] ws msg op=64 cmd=1
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc2] msg op=64 attaches=1
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc2] skip own fileId=3077284849
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc12] ws msg op=136 cmd=0
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc2] ws msg op=87 cmd=1
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc2] jpeg-wrap raw=130 jpeg=776
+2026-04-02 02:13:13 [DEBUG] __main__ — [transport:acc6] upload ok fileId=3082001446 size=130
+2026-04-02 02:13:13 [INFO] __main__ — [multi] acc6 восстановлен (первый upload OK)
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc2] upload ok fileId=3076788557 size=130
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc12] ws msg op=64 cmd=1
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc12] msg op=64 attaches=1
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc12] skip own fileId=3070795604
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc6] recv_file fileId=3086991246 size=66
+2026-04-02 02:13:14 [DEBUG] __main__ — [tun] ← 1 pkts  raw=66B
+2026-04-02 02:13:14 [DEBUG] __main__ — [sync] → сервер: без изменений  живых=[240876353, 240002558, 150579003, 226731244, 227280244, 227041108, 233125749, 253356546, 253228382, 235522058, 254317089, 251967843]
+2026-04-02 02:13:14 [DEBUG] __main__ — [multi] ранжирование: {'acc1': {'recv_count': 1, 'remaining': 99, 'last_event': 'recv', 'r1': 2, 'r2': 1, 'r3': 1, 'score': '1.33'}, 'acc3': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}, 'acc4': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}, 'acc7': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}, 'acc8': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}, 'acc10': {'recv_count': 1, 'remaining': 99, 'last_event': 'send', 'r1': 2, 'r2': 1, 'r3': 2, 'score': '1.67'}, 'acc11': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}, 'acc12': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}}
+2026-04-02 02:13:14 [DEBUG] __main__ — [multi] выбор: acc4 (recv_count=0, remaining=99, last_event=send) | stats={'acc1': {'recv_count': 1, 'remaining': 99, 'last_event': 'recv', 'busy': False}, 'acc2': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': True}, 'acc3': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc4': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': True}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc6': {'recv_count': 1, 'remaining': 99, 'last_event': 'recv', 'busy': True}, 'acc7': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc8': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 1, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc11': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc12': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}}
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc1] ws msg op=136 cmd=0
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc6] ws msg op=136 cmd=0
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc2] ws msg op=136 cmd=0
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc1] ws msg op=128 cmd=0
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc1] msg op=128 attaches=1
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc1] incoming fileId=3074381751 msgId=116332219214532336
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc4] ws msg op=87 cmd=1
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc4] jpeg-wrap raw=130 jpeg=776
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc4] upload ok fileId=3069123196 size=130
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc2] ws msg op=64 cmd=1
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc2] msg op=64 attaches=1
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc2] skip own fileId=3076788557
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc4] ws msg op=136 cmd=0
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc6] ws msg op=64 cmd=1
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc6] msg op=64 attaches=1
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc6] skip own fileId=3082001446
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc1] ws msg op=88 cmd=1
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3074381751 size=147
+2026-04-02 02:13:14 [DEBUG] __main__ — [sync] ← сервер: получен пакет viewer_ids=[240876353, 240002558, 150579003, 226731244, 227280244, 227041108, 233125749, 253356546, 235522058, 254317089, 251967843]
+2026-04-02 02:13:14 [DEBUG] __main__ — [sync] ← сервер: без изменений  живых=[150579003, 226731244, 227041108, 227280244, 233125749, 235522058, 240002558, 240876353, 251967843, 253356546, 254317089]
+2026-04-02 02:13:14 [DEBUG] __main__ — [sync] → сервер: без изменений  живых=[240876353, 240002558, 150579003, 226731244, 227280244, 227041108, 233125749, 253356546, 253228382, 235522058, 254317089, 251967843]
+2026-04-02 02:13:14 [DEBUG] __main__ — [multi] ранжирование: {'acc1': {'recv_count': 2, 'remaining': 99, 'last_event': 'recv', 'r1': 3, 'r2': 1, 'r3': 1, 'score': '1.67'}, 'acc2': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc3': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}, 'acc4': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}, 'acc6': {'recv_count': 1, 'remaining': 99, 'last_event': 'recv', 'r1': 2, 'r2': 1, 'r3': 1, 'score': '1.33'}, 'acc7': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}, 'acc8': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}, 'acc10': {'recv_count': 1, 'remaining': 99, 'last_event': 'send', 'r1': 2, 'r2': 1, 'r3': 2, 'score': '1.67'}, 'acc11': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}, 'acc12': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}}
+2026-04-02 02:13:14 [DEBUG] __main__ — [multi] выбор: acc7 (recv_count=0, remaining=99, last_event=send) | stats={'acc1': {'recv_count': 2, 'remaining': 99, 'last_event': 'recv', 'busy': False}, 'acc2': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc3': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc4': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc6': {'recv_count': 1, 'remaining': 99, 'last_event': 'recv', 'busy': False}, 'acc7': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': True}, 'acc8': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 1, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc11': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc12': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}}
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc7] ws msg op=87 cmd=1
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc7] jpeg-wrap raw=130 jpeg=776
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc4] ws msg op=64 cmd=1
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc4] msg op=64 attaches=1
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc4] skip own fileId=3069123196
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc7] upload ok fileId=3068941992 size=130
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc12] ws msg op=136 cmd=0
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc7] ws msg op=136 cmd=0
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc12] ws msg op=128 cmd=0
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc12] msg op=128 attaches=1
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc12] incoming fileId=3077311701 msgId=116332219251317077
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc7] ws msg op=64 cmd=1
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc7] msg op=64 attaches=1
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc7] skip own fileId=3068941992
+2026-04-02 02:13:14 [DEBUG] __main__ — [transport:acc12] ws msg op=88 cmd=1
+2026-04-02 02:13:15 [DEBUG] __main__ — [tun] → 2 pkts  raw=108B  packed=101B
+2026-04-02 02:13:15 [DEBUG] __main__ — [multi] ранжирование: {'acc1': {'recv_count': 2, 'remaining': 99, 'last_event': 'recv', 'r1': 3, 'r2': 1, 'r3': 1, 'score': '1.67'}, 'acc2': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc3': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}, 'acc4': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}, 'acc6': {'recv_count': 1, 'remaining': 99, 'last_event': 'recv', 'r1': 2, 'r2': 1, 'r3': 1, 'score': '1.33'}, 'acc7': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc8': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}, 'acc10': {'recv_count': 1, 'remaining': 99, 'last_event': 'send', 'r1': 2, 'r2': 1, 'r3': 2, 'score': '1.67'}, 'acc11': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}, 'acc12': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}}
+2026-04-02 02:13:15 [DEBUG] __main__ — [multi] выбор: acc11 (recv_count=0, remaining=99, last_event=send) | stats={'acc1': {'recv_count': 2, 'remaining': 99, 'last_event': 'recv', 'busy': False}, 'acc2': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc3': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc4': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc6': {'recv_count': 1, 'remaining': 99, 'last_event': 'recv', 'busy': False}, 'acc7': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc8': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 1, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc11': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': True}, 'acc12': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}}
+2026-04-02 02:13:15 [DEBUG] __main__ — [transport:acc1] ws msg op=136 cmd=0
+2026-04-02 02:13:15 [DEBUG] __main__ — [transport:acc1] ws msg op=128 cmd=0
+2026-04-02 02:13:15 [DEBUG] __main__ — [transport:acc1] msg op=128 attaches=1
+2026-04-02 02:13:15 [DEBUG] __main__ — [transport:acc1] incoming fileId=3073747461 msgId=116332219273981041
+2026-04-02 02:13:15 [DEBUG] __main__ — [transport:acc11] ws msg op=87 cmd=1
+2026-04-02 02:13:15 [DEBUG] __main__ — [transport:acc11] jpeg-wrap raw=101 jpeg=747
+2026-04-02 02:13:15 [DEBUG] __main__ — [transport:acc11] upload ok fileId=3070176980 size=101
+2026-04-02 02:13:15 [DEBUG] __main__ — [transport:acc1] ws msg op=88 cmd=1
+2026-04-02 02:13:15 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3073747461 size=147
+2026-04-02 02:13:15 [DEBUG] __main__ — [sync] ← сервер: получен пакет viewer_ids=[240876353, 240002558, 150579003, 226731244, 227280244, 227041108, 233125749, 253356546, 235522058, 254317089, 251967843]
+2026-04-02 02:13:15 [DEBUG] __main__ — [sync] ← сервер: без изменений  живых=[150579003, 226731244, 227041108, 227280244, 233125749, 235522058, 240002558, 240876353, 251967843, 253356546, 254317089]
+2026-04-02 02:13:15 [DEBUG] __main__ — [transport:acc11] ws msg op=136 cmd=0
+2026-04-02 02:13:15 [DEBUG] __main__ — [transport:acc11] ws msg op=64 cmd=1
+2026-04-02 02:13:15 [DEBUG] __main__ — [transport:acc11] msg op=64 attaches=1
+2026-04-02 02:13:15 [DEBUG] __main__ — [transport:acc11] skip own fileId=3070176980
+2026-04-02 02:13:15 [DEBUG] __main__ — [transport:acc8] ws msg op=136 cmd=0
+2026-04-02 02:13:15 [DEBUG] __main__ — [transport:acc8] ws msg op=128 cmd=0
+2026-04-02 02:13:15 [DEBUG] __main__ — [transport:acc8] msg op=128 attaches=1
+2026-04-02 02:13:15 [DEBUG] __main__ — [transport:acc8] incoming fileId=3075697618 msgId=116332219317557563
+2026-04-02 02:13:15 [DEBUG] __main__ — [transport:acc8] ws msg op=88 cmd=1
+2026-04-02 02:13:16 [DEBUG] __main__ — [transport:acc1] ws msg op=136 cmd=0
+2026-04-02 02:13:16 [DEBUG] __main__ — [transport:acc1] ws msg op=128 cmd=0
+2026-04-02 02:13:16 [DEBUG] __main__ — [transport:acc1] msg op=128 attaches=1
+2026-04-02 02:13:16 [DEBUG] __main__ — [transport:acc1] incoming fileId=3077681149 msgId=116332219339990997
+2026-04-02 02:13:16 [DEBUG] __main__ — [transport:acc8] recv_file fileId=3075697618 size=4064
+2026-04-02 02:13:16 [DEBUG] __main__ — [tun] ← 6 pkts  raw=4064B
+2026-04-02 02:13:16 [DEBUG] __main__ — [transport:acc1] ws msg op=88 cmd=1
+2026-04-02 02:13:16 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3077681149 size=147
+2026-04-02 02:13:16 [DEBUG] __main__ — [sync] ← сервер: получен пакет viewer_ids=[240876353, 240002558, 150579003, 226731244, 227280244, 227041108, 233125749, 253356546, 235522058, 254317089, 251967843]
+2026-04-02 02:13:16 [DEBUG] __main__ — [sync] ← сервер: без изменений  живых=[150579003, 226731244, 227041108, 227280244, 233125749, 235522058, 240002558, 240876353, 251967843, 253356546, 254317089]
+2026-04-02 02:13:17 [DEBUG] __main__ — [tun] → 4 pkts  raw=313B  packed=218B
+2026-04-02 02:13:17 [DEBUG] __main__ — [multi] ранжирование: {'acc1': {'recv_count': 4, 'remaining': 99, 'last_event': 'recv', 'r1': 3, 'r2': 1, 'r3': 1, 'score': '1.67'}, 'acc2': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc3': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}, 'acc4': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}, 'acc6': {'recv_count': 1, 'remaining': 99, 'last_event': 'recv', 'r1': 2, 'r2': 1, 'r3': 1, 'score': '1.33'}, 'acc7': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc8': {'recv_count': 1, 'remaining': 99, 'last_event': 'recv', 'r1': 2, 'r2': 1, 'r3': 1, 'score': '1.33'}, 'acc10': {'recv_count': 1, 'remaining': 99, 'last_event': 'send', 'r1': 2, 'r2': 1, 'r3': 2, 'score': '1.67'}, 'acc11': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc12': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}}
+2026-04-02 02:13:17 [DEBUG] __main__ — [multi] выбор: acc3 (recv_count=0, remaining=99, last_event=send) | stats={'acc1': {'recv_count': 4, 'remaining': 99, 'last_event': 'recv', 'busy': False}, 'acc2': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc3': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': True}, 'acc4': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc6': {'recv_count': 1, 'remaining': 99, 'last_event': 'recv', 'busy': False}, 'acc7': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc8': {'recv_count': 1, 'remaining': 99, 'last_event': 'recv', 'busy': False}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 1, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc11': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc12': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}}
+2026-04-02 02:13:17 [DEBUG] __main__ — [transport:acc3] ws msg op=87 cmd=1
+2026-04-02 02:13:17 [DEBUG] __main__ — [transport:acc3] jpeg-wrap raw=218 jpeg=864
+2026-04-02 02:13:17 [DEBUG] __main__ — [transport:acc3] upload ok fileId=3081735778 size=218
+2026-04-02 02:13:17 [DEBUG] __main__ — [transport:acc3] ws msg op=136 cmd=0
+2026-04-02 02:13:17 [DEBUG] __main__ — [transport:acc3] ws msg op=64 cmd=1
+2026-04-02 02:13:17 [DEBUG] __main__ — [transport:acc3] msg op=64 attaches=1
+2026-04-02 02:13:17 [DEBUG] __main__ — [transport:acc3] skip own fileId=3081735778
+2026-04-02 02:13:19 [DEBUG] __main__ — [transport:acc4] ws msg op=136 cmd=0
+2026-04-02 02:13:19 [DEBUG] __main__ — [transport:acc4] ws msg op=128 cmd=0
+2026-04-02 02:13:19 [DEBUG] __main__ — [transport:acc4] msg op=128 attaches=1
+2026-04-02 02:13:19 [DEBUG] __main__ — [transport:acc4] incoming fileId=3081374009 msgId=116332219541700673
+2026-04-02 02:13:19 [DEBUG] __main__ — [transport:acc4] ws msg op=88 cmd=1
+2026-04-02 02:13:19 [DEBUG] __main__ — [transport:acc1] ws msg op=136 cmd=0
+2026-04-02 02:13:19 [DEBUG] __main__ — [transport:acc1] ws msg op=128 cmd=0
+2026-04-02 02:13:19 [DEBUG] __main__ — [transport:acc1] msg op=128 attaches=1
+2026-04-02 02:13:19 [DEBUG] __main__ — [transport:acc1] incoming fileId=3075194200 msgId=116332219564491725
+2026-04-02 02:13:19 [DEBUG] __main__ — [transport:acc4] recv_file fileId=3081374009 size=232
+2026-04-02 02:13:19 [DEBUG] __main__ — [tun] ← 2 pkts  raw=232B
+2026-04-02 02:13:19 [DEBUG] __main__ — [transport:acc1] ws msg op=88 cmd=1
+2026-04-02 02:13:19 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3075194200 size=147
+2026-04-02 02:13:19 [DEBUG] __main__ — [sync] ← сервер: получен пакет viewer_ids=[240876353, 240002558, 150579003, 226731244, 227280244, 227041108, 233125749, 253356546, 235522058, 254317089, 251967843]
+2026-04-02 02:13:19 [DEBUG] __main__ — [sync] ← сервер: без изменений  живых=[150579003, 226731244, 227041108, 227280244, 233125749, 235522058, 240002558, 240876353, 251967843, 253356546, 254317089]
+2026-04-02 02:13:19 [DEBUG] __main__ — [transport:acc1] ws msg op=136 cmd=0
+2026-04-02 02:13:19 [DEBUG] __main__ — [transport:acc1] ws msg op=128 cmd=0
+2026-04-02 02:13:19 [DEBUG] __main__ — [transport:acc1] msg op=128 attaches=1
+2026-04-02 02:13:19 [DEBUG] __main__ — [transport:acc1] incoming fileId=3068714885 msgId=116332219584366450
+2026-04-02 02:13:20 [DEBUG] __main__ — [transport:acc1] ws msg op=88 cmd=1
+2026-04-02 02:13:20 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3068714885 size=147
+2026-04-02 02:13:20 [DEBUG] __main__ — [sync] ← сервер: получен пакет viewer_ids=[240876353, 240002558, 150579003, 226731244, 227280244, 227041108, 233125749, 253356546, 235522058, 254317089, 251967843]
+2026-04-02 02:13:20 [DEBUG] __main__ — [sync] ← сервер: без изменений  живых=[150579003, 226731244, 227041108, 227280244, 233125749, 235522058, 240002558, 240876353, 251967843, 253356546, 254317089]
+2026-04-02 02:13:20 [DEBUG] __main__ — [tun] → 5 pkts  raw=527B  packed=376B
+2026-04-02 02:13:20 [DEBUG] __main__ — [multi] ранжирование: {'acc1': {'recv_count': 6, 'remaining': 99, 'last_event': 'recv', 'r1': 3, 'r2': 1, 'r3': 1, 'score': '1.67'}, 'acc2': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc3': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc4': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}, 'acc6': {'recv_count': 1, 'remaining': 99, 'last_event': 'recv', 'r1': 2, 'r2': 1, 'r3': 1, 'score': '1.33'}, 'acc7': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc8': {'recv_count': 1, 'remaining': 99, 'last_event': 'recv', 'r1': 2, 'r2': 1, 'r3': 1, 'score': '1.33'}, 'acc10': {'recv_count': 1, 'remaining': 99, 'last_event': 'send', 'r1': 2, 'r2': 1, 'r3': 2, 'score': '1.67'}, 'acc11': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc12': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}}
+2026-04-02 02:13:20 [DEBUG] __main__ — [multi] выбор: acc6 (recv_count=1, remaining=99, last_event=recv) | stats={'acc1': {'recv_count': 6, 'remaining': 99, 'last_event': 'recv', 'busy': False}, 'acc2': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc3': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc4': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc6': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'busy': True}, 'acc7': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc8': {'recv_count': 1, 'remaining': 99, 'last_event': 'recv', 'busy': False}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 1, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc11': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc12': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}}
+2026-04-02 02:13:21 [DEBUG] __main__ — [transport:acc6] ws msg op=87 cmd=1
+2026-04-02 02:13:21 [DEBUG] __main__ — [transport:acc6] jpeg-wrap raw=376 jpeg=1022
+2026-04-02 02:13:21 [DEBUG] __main__ — [transport:acc6] upload ok fileId=3078141450 size=376
+2026-04-02 02:13:21 [DEBUG] __main__ — [transport:acc6] ws msg op=136 cmd=0
+2026-04-02 02:13:21 [DEBUG] __main__ — [transport:acc6] ws msg op=64 cmd=1
+2026-04-02 02:13:21 [DEBUG] __main__ — [transport:acc6] msg op=64 attaches=1
+2026-04-02 02:13:21 [DEBUG] __main__ — [transport:acc6] skip own fileId=3078141450
+2026-04-02 02:13:23 [DEBUG] __main__ — [transport:acc7] ws msg op=136 cmd=0
+2026-04-02 02:13:23 [DEBUG] __main__ — [transport:acc7] ws msg op=128 cmd=0
+2026-04-02 02:13:23 [DEBUG] __main__ — [transport:acc7] msg op=128 attaches=1
+2026-04-02 02:13:23 [DEBUG] __main__ — [transport:acc7] incoming fileId=3078142218 msgId=116332219823701327
+2026-04-02 02:13:23 [DEBUG] __main__ — [transport:acc7] ws msg op=88 cmd=1
+2026-04-02 02:13:23 [DEBUG] __main__ — [tun] → 1 pkts  raw=54B  packed=48B
+2026-04-02 02:13:23 [DEBUG] __main__ — [multi] ранжирование: {'acc1': {'recv_count': 6, 'remaining': 99, 'last_event': 'recv', 'r1': 3, 'r2': 1, 'r3': 1, 'score': '1.67'}, 'acc2': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc3': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc4': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}, 'acc6': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'r1': 2, 'r2': 2, 'r3': 2, 'score': '2.00'}, 'acc7': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc8': {'recv_count': 1, 'remaining': 99, 'last_event': 'recv', 'r1': 2, 'r2': 1, 'r3': 1, 'score': '1.33'}, 'acc10': {'recv_count': 1, 'remaining': 99, 'last_event': 'send', 'r1': 2, 'r2': 1, 'r3': 2, 'score': '1.67'}, 'acc11': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc12': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}}
+2026-04-02 02:13:23 [DEBUG] __main__ — [multi] выбор: acc12 (recv_count=0, remaining=99, last_event=send) | stats={'acc1': {'recv_count': 6, 'remaining': 99, 'last_event': 'recv', 'busy': False}, 'acc2': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc3': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc4': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc6': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc7': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc8': {'recv_count': 1, 'remaining': 99, 'last_event': 'recv', 'busy': False}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 1, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc11': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc12': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': True}}
+2026-04-02 02:13:23 [DEBUG] __main__ — [transport:acc1] ws msg op=136 cmd=0
+2026-04-02 02:13:23 [DEBUG] __main__ — [transport:acc12] ws msg op=87 cmd=1
+2026-04-02 02:13:23 [DEBUG] __main__ — [transport:acc1] ws msg op=128 cmd=0
+2026-04-02 02:13:23 [DEBUG] __main__ — [transport:acc1] msg op=128 attaches=1
+2026-04-02 02:13:23 [DEBUG] __main__ — [transport:acc1] incoming fileId=3082422074 msgId=116332219847766957
+2026-04-02 02:13:23 [DEBUG] __main__ — [transport:acc12] jpeg-wrap raw=48 jpeg=694
+2026-04-02 02:13:23 [DEBUG] __main__ — [transport:acc7] recv_file fileId=3078142218 size=14870
+2026-04-02 02:13:23 [DEBUG] __main__ — [tun] ← 19 pkts  raw=14870B
+2026-04-02 02:13:23 [DEBUG] __main__ — [transport:acc12] upload ok fileId=3078293718 size=48
+2026-04-02 02:13:24 [DEBUG] __main__ — [transport:acc1] ws msg op=88 cmd=1
+2026-04-02 02:13:24 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3082422074 size=147
+2026-04-02 02:13:24 [DEBUG] __main__ — [sync] ← сервер: получен пакет viewer_ids=[240876353, 240002558, 150579003, 226731244, 227280244, 227041108, 233125749, 253356546, 235522058, 254317089, 251967843]
+2026-04-02 02:13:24 [DEBUG] __main__ — [sync] ← сервер: без изменений  живых=[150579003, 226731244, 227041108, 227280244, 233125749, 235522058, 240002558, 240876353, 251967843, 253356546, 254317089]
+2026-04-02 02:13:24 [DEBUG] __main__ — [transport:acc12] ws msg op=136 cmd=0
+2026-04-02 02:13:24 [DEBUG] __main__ — [transport:acc12] ws msg op=64 cmd=1
+2026-04-02 02:13:24 [DEBUG] __main__ — [transport:acc12] msg op=64 attaches=1
+2026-04-02 02:13:24 [DEBUG] __main__ — [transport:acc12] skip own fileId=3078293718
+2026-04-02 02:13:24 [DEBUG] __main__ — [tun] → 7 pkts  raw=382B  packed=170B
+2026-04-02 02:13:24 [DEBUG] __main__ — [multi] ранжирование: {'acc1': {'recv_count': 7, 'remaining': 99, 'last_event': 'recv', 'r1': 3, 'r2': 1, 'r3': 1, 'score': '1.67'}, 'acc2': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc3': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc4': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}, 'acc6': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'r1': 2, 'r2': 2, 'r3': 2, 'score': '2.00'}, 'acc7': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc8': {'recv_count': 1, 'remaining': 99, 'last_event': 'recv', 'r1': 2, 'r2': 1, 'r3': 1, 'score': '1.33'}, 'acc10': {'recv_count': 1, 'remaining': 99, 'last_event': 'send', 'r1': 2, 'r2': 1, 'r3': 2, 'score': '1.67'}, 'acc11': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc12': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}}
+2026-04-02 02:13:24 [DEBUG] __main__ — [multi] выбор: acc8 (recv_count=1, remaining=99, last_event=recv) | stats={'acc1': {'recv_count': 7, 'remaining': 99, 'last_event': 'recv', 'busy': False}, 'acc2': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc3': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc4': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc6': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc7': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc8': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'busy': True}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 1, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc11': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc12': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}}
+2026-04-02 02:13:25 [DEBUG] __main__ — [transport:acc8] ws msg op=87 cmd=1
+2026-04-02 02:13:25 [DEBUG] __main__ — [transport:acc8] jpeg-wrap raw=170 jpeg=816
+2026-04-02 02:13:25 [DEBUG] __main__ — [transport:acc8] upload ok fileId=3076465057 size=170
+2026-04-02 02:13:25 [WARNING] __main__ — [multi] acc9 разрыв (TimeoutError: ). Reconnect немедленно...
+2026-04-02 02:13:25 [DEBUG] __main__ — [transport:acc8] ws msg op=136 cmd=0
+2026-04-02 02:13:25 [DEBUG] __main__ — [transport:acc8] ws msg op=64 cmd=1
+2026-04-02 02:13:25 [DEBUG] __main__ — [transport:acc8] msg op=64 attaches=1
+2026-04-02 02:13:25 [DEBUG] __main__ — [transport:acc8] skip own fileId=3076465057
+2026-04-02 02:13:25 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-04-02 02:13:25 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7bacc4d74c40>
+2026-04-02 02:13:26 [DEBUG] __main__ — [transport:acc9] ws msg op=6 cmd=1
+2026-04-02 02:13:26 [DEBUG] __main__ — [transport:acc9] ws msg op=19 cmd=3
+2026-04-02 02:13:26 [DEBUG] __main__ — [transport:acc11] ws msg op=136 cmd=0
+2026-04-02 02:13:26 [DEBUG] __main__ — [transport:acc11] ws msg op=128 cmd=0
+2026-04-02 02:13:26 [DEBUG] __main__ — [transport:acc11] msg op=128 attaches=1
+2026-04-02 02:13:26 [DEBUG] __main__ — [transport:acc11] incoming fileId=3084169775 msgId=116332220029499281
+2026-04-02 02:13:26 [DEBUG] __main__ — [transport:acc11] ws msg op=88 cmd=1
+2026-04-02 02:13:26 [DEBUG] __main__ — [transport:acc1] ws msg op=136 cmd=0
+2026-04-02 02:13:26 [DEBUG] __main__ — [transport:acc11] recv_file fileId=3084169775 size=26186
+2026-04-02 02:13:26 [DEBUG] __main__ — [tun] ← 29 pkts  raw=26186B
+2026-04-02 02:13:27 [DEBUG] __main__ — [transport:acc1] ws msg op=128 cmd=0
+2026-04-02 02:13:27 [DEBUG] __main__ — [transport:acc1] msg op=128 attaches=1
+2026-04-02 02:13:27 [DEBUG] __main__ — [transport:acc1] incoming fileId=3073763187 msgId=116332220052473253
+2026-04-02 02:13:27 [DEBUG] __main__ — [transport:acc1] ws msg op=88 cmd=1
+2026-04-02 02:13:27 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3073763187 size=147
+2026-04-02 02:13:27 [DEBUG] __main__ — [sync] ← сервер: получен пакет viewer_ids=[240876353, 240002558, 150579003, 226731244, 227280244, 227041108, 233125749, 253356546, 235522058, 254317089, 251967843]
+2026-04-02 02:13:27 [DEBUG] __main__ — [sync] ← сервер: без изменений  живых=[150579003, 226731244, 227041108, 227280244, 233125749, 235522058, 240002558, 240876353, 251967843, 253356546, 254317089]
+2026-04-02 02:13:27 [DEBUG] __main__ — [tun] → 13 pkts  raw=706B  packed=259B
+2026-04-02 02:13:27 [DEBUG] __main__ — [multi] ранжирование: {'acc1': {'recv_count': 8, 'remaining': 99, 'last_event': 'recv', 'r1': 3, 'r2': 1, 'r3': 1, 'score': '1.67'}, 'acc2': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc3': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc4': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc5': {'recv_count': 0, 'remaining': 99, 'last_event': 'send', 'r1': 1, 'r2': 1, 'r3': 2, 'score': '1.33'}, 'acc6': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'r1': 2, 'r2': 2, 'r3': 2, 'score': '2.00'}, 'acc7': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc8': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'r1': 2, 'r2': 2, 'r3': 2, 'score': '2.00'}, 'acc10': {'recv_count': 1, 'remaining': 99, 'last_event': 'send', 'r1': 2, 'r2': 1, 'r3': 2, 'score': '1.67'}, 'acc11': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc12': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}}
+2026-04-02 02:13:27 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, remaining=99, last_event=send) | stats={'acc1': {'recv_count': 8, 'remaining': 99, 'last_event': 'recv', 'busy': False}, 'acc2': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc3': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc4': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc5': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': True}, 'acc6': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc7': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc8': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 1, 'remaining': 99, 'last_event': 'send', 'busy': False}, 'acc11': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc12': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}}
+2026-04-02 02:13:28 [DEBUG] __main__ — [transport:acc5] ws msg op=87 cmd=1
+2026-04-02 02:13:28 [DEBUG] __main__ — [transport:acc5] jpeg-wrap raw=259 jpeg=905
+2026-04-02 02:13:28 [DEBUG] __main__ — [transport:acc5] upload ok fileId=3086991758 size=259
+2026-04-02 02:13:28 [DEBUG] __main__ — [transport:acc5] ws msg op=136 cmd=0
+2026-04-02 02:13:28 [DEBUG] __main__ — [transport:acc5] ws msg op=64 cmd=1
+2026-04-02 02:13:28 [DEBUG] __main__ — [transport:acc5] msg op=64 attaches=1
+2026-04-02 02:13:28 [DEBUG] __main__ — [transport:acc5] skip own fileId=3086991758
+2026-04-02 02:13:30 [DEBUG] __main__ — [transport:acc10] ws msg op=136 cmd=0
+2026-04-02 02:13:30 [DEBUG] __main__ — [transport:acc10] ws msg op=128 cmd=0
+2026-04-02 02:13:30 [DEBUG] __main__ — [transport:acc10] msg op=128 attaches=1
+2026-04-02 02:13:30 [DEBUG] __main__ — [transport:acc10] incoming fileId=3078519018 msgId=116332220267639555
+2026-04-02 02:13:30 [DEBUG] __main__ — [transport:acc10] ws msg op=88 cmd=1
+2026-04-02 02:13:30 [DEBUG] __main__ — [transport:acc10] recv_file fileId=3078519018 size=56548
+2026-04-02 02:13:30 [DEBUG] __main__ — [tun] ← 56 pkts  raw=56548B
+2026-04-02 02:13:31 [DEBUG] __main__ — [tun] → 28 pkts  raw=1516B  packed=461B
+2026-04-02 02:13:31 [DEBUG] __main__ — [multi] ранжирование: {'acc1': {'recv_count': 8, 'remaining': 99, 'last_event': 'recv', 'r1': 4, 'r2': 1, 'r3': 1, 'score': '2.00'}, 'acc2': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc3': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc4': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc5': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc6': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'r1': 2, 'r2': 2, 'r3': 2, 'score': '2.00'}, 'acc7': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc8': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'r1': 2, 'r2': 2, 'r3': 2, 'score': '2.00'}, 'acc10': {'recv_count': 2, 'remaining': 99, 'last_event': 'recv', 'r1': 3, 'r2': 1, 'r3': 1, 'score': '1.67'}, 'acc11': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc12': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}}
+2026-04-02 02:13:31 [DEBUG] __main__ — [multi] выбор: acc3 (recv_count=0, remaining=98, last_event=send) | stats={'acc1': {'recv_count': 8, 'remaining': 99, 'last_event': 'recv', 'busy': False}, 'acc2': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc3': {'recv_count': 0, 'remaining': 97, 'last_event': 'send', 'busy': True}, 'acc4': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc5': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc6': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc7': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc8': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 2, 'remaining': 99, 'last_event': 'recv', 'busy': False}, 'acc11': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc12': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}}
+2026-04-02 02:13:31 [DEBUG] __main__ — [transport:acc3] ws msg op=87 cmd=1
+2026-04-02 02:13:31 [DEBUG] __main__ — [transport:acc3] jpeg-wrap raw=461 jpeg=1107
+2026-04-02 02:13:31 [DEBUG] __main__ — [transport:acc3] upload ok fileId=3067892776 size=461
+2026-04-02 02:13:31 [DEBUG] __main__ — [transport:acc3] ws msg op=136 cmd=0
+2026-04-02 02:13:32 [DEBUG] __main__ — [transport:acc3] ws msg op=136 cmd=0
+2026-04-02 02:13:32 [DEBUG] __main__ — [transport:acc3] ws msg op=128 cmd=0
+2026-04-02 02:13:32 [DEBUG] __main__ — [transport:acc3] msg op=128 attaches=1
+2026-04-02 02:13:32 [DEBUG] __main__ — [transport:acc3] incoming fileId=3081631375 msgId=116332220381271542
+2026-04-02 02:13:32 [DEBUG] __main__ — [transport:acc3] ws msg op=64 cmd=1
+2026-04-02 02:13:32 [DEBUG] __main__ — [transport:acc3] msg op=64 attaches=1
+2026-04-02 02:13:32 [DEBUG] __main__ — [transport:acc3] skip own fileId=3067892776
+2026-04-02 02:13:32 [DEBUG] __main__ — [transport:acc3] ws msg op=88 cmd=1
+2026-04-02 02:13:32 [DEBUG] __main__ — [transport:acc1] ws msg op=136 cmd=0
+2026-04-02 02:13:32 [DEBUG] __main__ — [transport:acc3] recv_file fileId=3081631375 size=54
+2026-04-02 02:13:32 [DEBUG] __main__ — [tun] ← 1 pkts  raw=54B
+2026-04-02 02:13:32 [DEBUG] __main__ — [transport:acc1] ws msg op=128 cmd=0
+2026-04-02 02:13:32 [DEBUG] __main__ — [transport:acc1] msg op=128 attaches=1
+2026-04-02 02:13:32 [DEBUG] __main__ — [transport:acc1] incoming fileId=3074737331 msgId=116332220409660326
+2026-04-02 02:13:32 [DEBUG] __main__ — [transport:acc1] ws msg op=88 cmd=1
+2026-04-02 02:13:32 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3074737331 size=147
+2026-04-02 02:13:32 [DEBUG] __main__ — [sync] ← сервер: получен пакет viewer_ids=[240876353, 240002558, 150579003, 226731244, 227280244, 227041108, 233125749, 253356546, 235522058, 254317089, 251967843]
+2026-04-02 02:13:32 [DEBUG] __main__ — [sync] ← сервер: без изменений  живых=[150579003, 226731244, 227041108, 227280244, 233125749, 235522058, 240002558, 240876353, 251967843, 253356546, 254317089]
+2026-04-02 02:13:33 [DEBUG] __main__ — [transport:acc1] ws msg op=136 cmd=0
+2026-04-02 02:13:33 [DEBUG] __main__ — [transport:acc1] ws msg op=128 cmd=0
+2026-04-02 02:13:33 [DEBUG] __main__ — [transport:acc1] msg op=128 attaches=1
+2026-04-02 02:13:33 [DEBUG] __main__ — [transport:acc1] incoming fileId=3080228115 msgId=116332220493014162
+2026-04-02 02:13:33 [DEBUG] __main__ — [transport:acc1] ws msg op=88 cmd=1
+2026-04-02 02:13:33 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3080228115 size=57995
+2026-04-02 02:13:33 [DEBUG] __main__ — [tun] ← 53 pkts  raw=57995B
+2026-04-02 02:13:34 [DEBUG] __main__ — [tun] → 29 pkts  raw=1609B  packed=579B
+2026-04-02 02:13:34 [DEBUG] __main__ — [multi] ранжирование: {'acc1': {'recv_count': 10, 'remaining': 99, 'last_event': 'recv', 'r1': 4, 'r2': 1, 'r3': 1, 'score': '2.00'}, 'acc2': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc3': {'recv_count': 1, 'remaining': 97, 'last_event': 'recv', 'r1': 2, 'r2': 3, 'r3': 1, 'score': '2.00'}, 'acc4': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc5': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc6': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'r1': 2, 'r2': 2, 'r3': 2, 'score': '2.00'}, 'acc7': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc8': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'r1': 2, 'r2': 2, 'r3': 2, 'score': '2.00'}, 'acc10': {'recv_count': 2, 'remaining': 99, 'last_event': 'recv', 'r1': 3, 'r2': 1, 'r3': 1, 'score': '1.67'}, 'acc11': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc12': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}}
+2026-04-02 02:13:34 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, remaining=98, last_event=send) | stats={'acc1': {'recv_count': 10, 'remaining': 99, 'last_event': 'recv', 'busy': False}, 'acc2': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc3': {'recv_count': 1, 'remaining': 97, 'last_event': 'recv', 'busy': False}, 'acc4': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc5': {'recv_count': 0, 'remaining': 97, 'last_event': 'send', 'busy': True}, 'acc6': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc7': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc8': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 2, 'remaining': 99, 'last_event': 'recv', 'busy': False}, 'acc11': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc12': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}}
+2026-04-02 02:13:34 [DEBUG] __main__ — [transport:acc5] ws msg op=87 cmd=1
+2026-04-02 02:13:34 [DEBUG] __main__ — [transport:acc5] jpeg-wrap raw=579 jpeg=1225
+2026-04-02 02:13:34 [DEBUG] __main__ — [transport:acc5] upload ok fileId=3087487069 size=579
+2026-04-02 02:13:35 [DEBUG] __main__ — [transport:acc5] ws msg op=136 cmd=0
+2026-04-02 02:13:35 [DEBUG] __main__ — [transport:acc5] ws msg op=64 cmd=1
+2026-04-02 02:13:35 [DEBUG] __main__ — [transport:acc5] msg op=64 attaches=1
+2026-04-02 02:13:35 [DEBUG] __main__ — [transport:acc5] skip own fileId=3087487069
+2026-04-02 02:13:35 [DEBUG] __main__ — [transport:acc1] ws msg op=136 cmd=0
+2026-04-02 02:13:35 [DEBUG] __main__ — [transport:acc1] ws msg op=128 cmd=0
+2026-04-02 02:13:35 [DEBUG] __main__ — [transport:acc1] msg op=128 attaches=1
+2026-04-02 02:13:35 [DEBUG] __main__ — [transport:acc1] incoming fileId=3065182016 msgId=116332220636283728
+2026-04-02 02:13:35 [DEBUG] __main__ — [tun] → 1 pkts  raw=66B  packed=67B
+2026-04-02 02:13:35 [DEBUG] __main__ — [multi] ранжирование: {'acc1': {'recv_count': 10, 'remaining': 99, 'last_event': 'recv', 'r1': 4, 'r2': 1, 'r3': 1, 'score': '2.00'}, 'acc2': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc3': {'recv_count': 1, 'remaining': 97, 'last_event': 'recv', 'r1': 2, 'r2': 3, 'r3': 1, 'score': '2.00'}, 'acc4': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc5': {'recv_count': 0, 'remaining': 97, 'last_event': 'send', 'r1': 1, 'r2': 3, 'r3': 2, 'score': '2.00'}, 'acc6': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'r1': 2, 'r2': 2, 'r3': 2, 'score': '2.00'}, 'acc7': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc8': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'r1': 2, 'r2': 2, 'r3': 2, 'score': '2.00'}, 'acc10': {'recv_count': 2, 'remaining': 99, 'last_event': 'recv', 'r1': 3, 'r2': 1, 'r3': 1, 'score': '1.67'}, 'acc11': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc12': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}}
+2026-04-02 02:13:35 [DEBUG] __main__ — [multi] выбор: acc10 (recv_count=2, remaining=99, last_event=recv) | stats={'acc1': {'recv_count': 10, 'remaining': 99, 'last_event': 'recv', 'busy': False}, 'acc2': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc3': {'recv_count': 1, 'remaining': 97, 'last_event': 'recv', 'busy': False}, 'acc4': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc5': {'recv_count': 0, 'remaining': 97, 'last_event': 'send', 'busy': False}, 'acc6': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc7': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc8': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 2, 'remaining': 98, 'last_event': 'recv', 'busy': True}, 'acc11': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc12': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}}
+2026-04-02 02:13:36 [DEBUG] __main__ — [transport:acc1] ws msg op=88 cmd=1
+2026-04-02 02:13:36 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3065182016 size=147
+2026-04-02 02:13:36 [DEBUG] __main__ — [sync] ← сервер: получен пакет viewer_ids=[240876353, 240002558, 150579003, 226731244, 227280244, 227041108, 233125749, 253356546, 235522058, 254317089, 251967843]
+2026-04-02 02:13:36 [DEBUG] __main__ — [sync] ← сервер: без изменений  живых=[150579003, 226731244, 227041108, 227280244, 233125749, 235522058, 240002558, 240876353, 251967843, 253356546, 254317089]
+2026-04-02 02:13:36 [DEBUG] __main__ — [transport:acc10] ws msg op=87 cmd=1
+2026-04-02 02:13:36 [DEBUG] __main__ — [transport:acc10] jpeg-wrap raw=67 jpeg=713
+2026-04-02 02:13:36 [DEBUG] __main__ — [transport:acc10] upload ok fileId=3075707610 size=67
+2026-04-02 02:13:36 [DEBUG] __main__ — [transport:acc10] ws msg op=136 cmd=0
+2026-04-02 02:13:36 [DEBUG] __main__ — [transport:acc10] ws msg op=64 cmd=1
+2026-04-02 02:13:36 [DEBUG] __main__ — [transport:acc10] msg op=64 attaches=1
+2026-04-02 02:13:36 [DEBUG] __main__ — [transport:acc10] skip own fileId=3075707610
+2026-04-02 02:13:37 [DEBUG] __main__ — [tun] → 1 pkts  raw=66B  packed=67B
+2026-04-02 02:13:37 [DEBUG] __main__ — [multi] ранжирование: {'acc1': {'recv_count': 11, 'remaining': 99, 'last_event': 'recv', 'r1': 4, 'r2': 1, 'r3': 1, 'score': '2.00'}, 'acc2': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}, 'acc3': {'recv_count': 1, 'remaining': 97, 'last_event': 'recv', 'r1': 2, 'r2': 3, 'r3': 1, 'score': '2.00'}, 'acc4': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc5': {'recv_count': 0, 'remaining': 97, 'last_event': 'send', 'r1': 1, 'r2': 3, 'r3': 2, 'score': '2.00'}, 'acc6': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'r1': 2, 'r2': 2, 'r3': 2, 'score': '2.00'}, 'acc7': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc8': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'r1': 2, 'r2': 2, 'r3': 2, 'score': '2.00'}, 'acc10': {'recv_count': 2, 'remaining': 98, 'last_event': 'send', 'r1': 3, 'r2': 2, 'r3': 2, 'score': '2.33'}, 'acc11': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc12': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'r1': 1, 'r2': 2, 'r3': 2, 'score': '1.67'}}
+2026-04-02 02:13:37 [DEBUG] __main__ — [multi] выбор: acc12 (recv_count=0, remaining=98, last_event=send) | stats={'acc1': {'recv_count': 11, 'remaining': 99, 'last_event': 'recv', 'busy': False}, 'acc2': {'recv_count': 0, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc3': {'recv_count': 1, 'remaining': 97, 'last_event': 'recv', 'busy': False}, 'acc4': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc5': {'recv_count': 0, 'remaining': 97, 'last_event': 'send', 'busy': False}, 'acc6': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc7': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc8': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 2, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc11': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc12': {'recv_count': 0, 'remaining': 97, 'last_event': 'send', 'busy': True}}
+2026-04-02 02:13:37 [DEBUG] __main__ — [transport:acc2] ws msg op=136 cmd=0
+2026-04-02 02:13:37 [DEBUG] __main__ — [transport:acc2] ws msg op=128 cmd=0
+2026-04-02 02:13:37 [DEBUG] __main__ — [transport:acc2] msg op=128 attaches=1
+2026-04-02 02:13:37 [DEBUG] __main__ — [transport:acc2] incoming fileId=3080916050 msgId=116332220714795833
+2026-04-02 02:13:37 [DEBUG] __main__ — [transport:acc12] ws msg op=87 cmd=1
+2026-04-02 02:13:37 [DEBUG] __main__ — [transport:acc12] jpeg-wrap raw=67 jpeg=713
+2026-04-02 02:13:37 [DEBUG] __main__ — [transport:acc12] upload ok fileId=3070178260 size=67
+2026-04-02 02:13:37 [DEBUG] __main__ — [transport:acc2] ws msg op=88 cmd=1
+2026-04-02 02:13:37 [DEBUG] __main__ — [transport:acc2] recv_file fileId=3080916050 size=290
+2026-04-02 02:13:37 [DEBUG] __main__ — [tun] ← 5 pkts  raw=290B
+2026-04-02 02:13:37 [DEBUG] __main__ — [transport:acc12] ws msg op=136 cmd=0
+2026-04-02 02:13:37 [DEBUG] __main__ — [transport:acc12] ws msg op=64 cmd=1
+2026-04-02 02:13:37 [DEBUG] __main__ — [transport:acc12] msg op=64 attaches=1
+2026-04-02 02:13:37 [DEBUG] __main__ — [transport:acc12] skip own fileId=3070178260
+2026-04-02 02:13:38 [DEBUG] __main__ — [tun] → 5 pkts  raw=799B  packed=513B
+2026-04-02 02:13:38 [DEBUG] __main__ — [multi] ранжирование: {'acc1': {'recv_count': 11, 'remaining': 99, 'last_event': 'recv', 'r1': 4, 'r2': 1, 'r3': 1, 'score': '2.00'}, 'acc2': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc3': {'recv_count': 1, 'remaining': 97, 'last_event': 'recv', 'r1': 2, 'r2': 3, 'r3': 1, 'score': '2.00'}, 'acc4': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc5': {'recv_count': 0, 'remaining': 97, 'last_event': 'send', 'r1': 1, 'r2': 3, 'r3': 2, 'score': '2.00'}, 'acc6': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'r1': 2, 'r2': 2, 'r3': 2, 'score': '2.00'}, 'acc7': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc8': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'r1': 2, 'r2': 2, 'r3': 2, 'score': '2.00'}, 'acc10': {'recv_count': 2, 'remaining': 98, 'last_event': 'send', 'r1': 3, 'r2': 2, 'r3': 2, 'score': '2.33'}, 'acc11': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc12': {'recv_count': 0, 'remaining': 97, 'last_event': 'send', 'r1': 1, 'r2': 3, 'r3': 2, 'score': '2.00'}}
+2026-04-02 02:13:38 [DEBUG] __main__ — [multi] выбор: acc4 (recv_count=1, remaining=98, last_event=recv) | stats={'acc1': {'recv_count': 11, 'remaining': 99, 'last_event': 'recv', 'busy': False}, 'acc2': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc3': {'recv_count': 1, 'remaining': 97, 'last_event': 'recv', 'busy': False}, 'acc4': {'recv_count': 1, 'remaining': 97, 'last_event': 'recv', 'busy': True}, 'acc5': {'recv_count': 0, 'remaining': 97, 'last_event': 'send', 'busy': False}, 'acc6': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc7': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc8': {'recv_count': 1, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 2, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc11': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc12': {'recv_count': 0, 'remaining': 97, 'last_event': 'send', 'busy': False}}
+2026-04-02 02:13:38 [DEBUG] __main__ — [transport:acc4] ws msg op=87 cmd=1
+2026-04-02 02:13:38 [DEBUG] __main__ — [transport:acc4] jpeg-wrap raw=513 jpeg=1159
+2026-04-02 02:13:38 [DEBUG] __main__ — [transport:acc4] upload ok fileId=3080501207 size=513
+2026-04-02 02:13:38 [DEBUG] __main__ — [transport:acc8] ws msg op=136 cmd=0
+2026-04-02 02:13:38 [DEBUG] __main__ — [transport:acc8] ws msg op=128 cmd=0
+2026-04-02 02:13:38 [DEBUG] __main__ — [transport:acc8] msg op=128 attaches=1
+2026-04-02 02:13:38 [DEBUG] __main__ — [transport:acc8] incoming fileId=3084651870 msgId=116332220793893114
+2026-04-02 02:13:38 [DEBUG] __main__ — [transport:acc4] ws msg op=136 cmd=0
+2026-04-02 02:13:38 [DEBUG] __main__ — [transport:acc8] ws msg op=88 cmd=1
+2026-04-02 02:13:38 [DEBUG] __main__ — [transport:acc8] recv_file fileId=3084651870 size=112
+2026-04-02 02:13:38 [DEBUG] __main__ — [tun] ← 2 pkts  raw=112B
+2026-04-02 02:13:38 [DEBUG] __main__ — [transport:acc4] ws msg op=64 cmd=1
+2026-04-02 02:13:38 [DEBUG] __main__ — [transport:acc4] msg op=64 attaches=1
+2026-04-02 02:13:38 [DEBUG] __main__ — [transport:acc4] skip own fileId=3080501207
+2026-04-02 02:13:39 [DEBUG] __main__ — [transport:acc6] ws msg op=136 cmd=0
+2026-04-02 02:13:39 [DEBUG] __main__ — [transport:acc6] ws msg op=128 cmd=0
+2026-04-02 02:13:39 [DEBUG] __main__ — [transport:acc6] msg op=128 attaches=1
+2026-04-02 02:13:39 [DEBUG] __main__ — [transport:acc6] incoming fileId=3073747717 msgId=116332220889914538
+2026-04-02 02:13:39 [DEBUG] __main__ — [transport:acc6] ws msg op=88 cmd=1
+2026-04-02 02:13:39 [DEBUG] __main__ — [transport:acc6] recv_file fileId=3073747717 size=4076
+2026-04-02 02:13:39 [DEBUG] __main__ — [tun] ← 6 pkts  raw=4076B
+2026-04-02 02:13:39 [DEBUG] __main__ — [transport:acc3] ws msg op=1 cmd=1
+2026-04-02 02:13:40 [DEBUG] __main__ — [transport:acc1] ws msg op=1 cmd=1
+2026-04-02 02:13:40 [DEBUG] __main__ — [transport:acc12] ws msg op=1 cmd=1
+2026-04-02 02:13:40 [DEBUG] __main__ — [transport:acc5] ws msg op=1 cmd=1
+2026-04-02 02:13:40 [DEBUG] __main__ — [transport:acc11] ws msg op=1 cmd=1
+2026-04-02 02:13:40 [DEBUG] __main__ — [transport:acc2] ws msg op=1 cmd=1
+2026-04-02 02:13:40 [DEBUG] __main__ — [transport:acc7] ws msg op=1 cmd=1
+2026-04-02 02:13:40 [DEBUG] __main__ — [transport:acc9] ws msg op=1 cmd=1
+2026-04-02 02:13:40 [DEBUG] __main__ — [transport:acc4] ws msg op=1 cmd=1
+2026-04-02 02:13:40 [DEBUG] __main__ — [transport:acc8] ws msg op=1 cmd=1
+2026-04-02 02:13:40 [DEBUG] __main__ — [transport:acc6] ws msg op=1 cmd=1
+2026-04-02 02:13:40 [DEBUG] __main__ — [transport:acc10] ws msg op=1 cmd=1
+2026-04-02 02:13:40 [DEBUG] __main__ — [tun] → 6 pkts  raw=417B  packed=279B
+2026-04-02 02:13:40 [DEBUG] __main__ — [multi] ранжирование: {'acc1': {'recv_count': 11, 'remaining': 99, 'last_event': 'recv', 'r1': 4, 'r2': 1, 'r3': 1, 'score': '2.00'}, 'acc2': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc3': {'recv_count': 1, 'remaining': 97, 'last_event': 'recv', 'r1': 2, 'r2': 3, 'r3': 1, 'score': '2.00'}, 'acc4': {'recv_count': 1, 'remaining': 97, 'last_event': 'send', 'r1': 2, 'r2': 3, 'r3': 2, 'score': '2.33'}, 'acc5': {'recv_count': 0, 'remaining': 97, 'last_event': 'send', 'r1': 1, 'r2': 3, 'r3': 2, 'score': '2.00'}, 'acc6': {'recv_count': 2, 'remaining': 98, 'last_event': 'recv', 'r1': 3, 'r2': 2, 'r3': 1, 'score': '2.00'}, 'acc7': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc8': {'recv_count': 2, 'remaining': 98, 'last_event': 'recv', 'r1': 3, 'r2': 2, 'r3': 1, 'score': '2.00'}, 'acc10': {'recv_count': 2, 'remaining': 98, 'last_event': 'send', 'r1': 3, 'r2': 2, 'r3': 2, 'score': '2.33'}, 'acc11': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc12': {'recv_count': 0, 'remaining': 97, 'last_event': 'send', 'r1': 1, 'r2': 3, 'r3': 2, 'score': '2.00'}}
+2026-04-02 02:13:40 [DEBUG] __main__ — [multi] выбор: acc11 (recv_count=1, remaining=98, last_event=recv) | stats={'acc1': {'recv_count': 11, 'remaining': 99, 'last_event': 'recv', 'busy': False}, 'acc2': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc3': {'recv_count': 1, 'remaining': 97, 'last_event': 'recv', 'busy': False}, 'acc4': {'recv_count': 1, 'remaining': 97, 'last_event': 'send', 'busy': False}, 'acc5': {'recv_count': 0, 'remaining': 97, 'last_event': 'send', 'busy': False}, 'acc6': {'recv_count': 2, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc7': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc8': {'recv_count': 2, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 2, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc11': {'recv_count': 1, 'remaining': 97, 'last_event': 'recv', 'busy': True}, 'acc12': {'recv_count': 0, 'remaining': 97, 'last_event': 'send', 'busy': False}}
+2026-04-02 02:13:41 [DEBUG] __main__ — [transport:acc11] ws msg op=87 cmd=1
+2026-04-02 02:13:41 [DEBUG] __main__ — [transport:acc11] jpeg-wrap raw=279 jpeg=925
+2026-04-02 02:13:41 [DEBUG] __main__ — [transport:acc11] upload ok fileId=3077681405 size=279
+2026-04-02 02:13:41 [ERROR] __main__ — [multi] acc9 разрыв (TimeoutError: ). Reconnect in 2s...
+2026-04-02 02:13:41 [DEBUG] __main__ — [transport:acc11] ws msg op=136 cmd=0
+2026-04-02 02:13:41 [DEBUG] __main__ — [transport:acc11] ws msg op=64 cmd=1
+2026-04-02 02:13:41 [DEBUG] __main__ — [transport:acc11] msg op=64 attaches=1
+2026-04-02 02:13:41 [DEBUG] __main__ — [transport:acc11] skip own fileId=3077681405
+2026-04-02 02:13:42 [DEBUG] __main__ — [transport:acc1] ws msg op=136 cmd=0
+2026-04-02 02:13:42 [DEBUG] __main__ — [transport:acc1] ws msg op=128 cmd=0
+2026-04-02 02:13:42 [DEBUG] __main__ — [transport:acc1] msg op=128 attaches=1
+2026-04-02 02:13:42 [DEBUG] __main__ — [transport:acc1] incoming fileId=3084225366 msgId=116332221094907047
+2026-04-02 02:13:43 [DEBUG] __main__ — [transport:acc1] ws msg op=88 cmd=1
+2026-04-02 02:13:43 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3084225366 size=286
+2026-04-02 02:13:43 [DEBUG] __main__ — [tun] ← 3 pkts  raw=286B
+2026-04-02 02:13:43 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-04-02 02:13:43 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7bacc442b9d0>
+2026-04-02 02:13:43 [DEBUG] __main__ — [transport:acc9] ws msg op=6 cmd=1
+2026-04-02 02:13:43 [DEBUG] __main__ — [transport:acc9] ws msg op=19 cmd=3
+2026-04-02 02:13:44 [DEBUG] __main__ — [tun] → 5 pkts  raw=527B  packed=382B
+2026-04-02 02:13:44 [DEBUG] __main__ — [multi] ранжирование: {'acc1': {'recv_count': 12, 'remaining': 99, 'last_event': 'recv', 'r1': 4, 'r2': 1, 'r3': 1, 'score': '2.00'}, 'acc2': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc3': {'recv_count': 1, 'remaining': 97, 'last_event': 'recv', 'r1': 2, 'r2': 3, 'r3': 1, 'score': '2.00'}, 'acc4': {'recv_count': 1, 'remaining': 97, 'last_event': 'send', 'r1': 2, 'r2': 3, 'r3': 2, 'score': '2.33'}, 'acc5': {'recv_count': 0, 'remaining': 97, 'last_event': 'send', 'r1': 1, 'r2': 3, 'r3': 2, 'score': '2.00'}, 'acc6': {'recv_count': 2, 'remaining': 98, 'last_event': 'recv', 'r1': 3, 'r2': 2, 'r3': 1, 'score': '2.00'}, 'acc7': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'r1': 2, 'r2': 2, 'r3': 1, 'score': '1.67'}, 'acc8': {'recv_count': 2, 'remaining': 98, 'last_event': 'recv', 'r1': 3, 'r2': 2, 'r3': 1, 'score': '2.00'}, 'acc10': {'recv_count': 2, 'remaining': 98, 'last_event': 'send', 'r1': 3, 'r2': 2, 'r3': 2, 'score': '2.33'}, 'acc11': {'recv_count': 1, 'remaining': 97, 'last_event': 'send', 'r1': 2, 'r2': 3, 'r3': 2, 'score': '2.33'}, 'acc12': {'recv_count': 0, 'remaining': 97, 'last_event': 'send', 'r1': 1, 'r2': 3, 'r3': 2, 'score': '2.00'}}
+2026-04-02 02:13:44 [DEBUG] __main__ — [multi] выбор: acc7 (recv_count=1, remaining=98, last_event=recv) | stats={'acc1': {'recv_count': 12, 'remaining': 99, 'last_event': 'recv', 'busy': False}, 'acc2': {'recv_count': 1, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc3': {'recv_count': 1, 'remaining': 97, 'last_event': 'recv', 'busy': False}, 'acc4': {'recv_count': 1, 'remaining': 97, 'last_event': 'send', 'busy': False}, 'acc5': {'recv_count': 0, 'remaining': 97, 'last_event': 'send', 'busy': False}, 'acc6': {'recv_count': 2, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc7': {'recv_count': 1, 'remaining': 97, 'last_event': 'recv', 'busy': True}, 'acc8': {'recv_count': 2, 'remaining': 98, 'last_event': 'recv', 'busy': False}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 2, 'remaining': 98, 'last_event': 'send', 'busy': False}, 'acc11': {'recv_count': 1, 'remaining': 97, 'last_event': 'send', 'busy': False}, 'acc12': {'recv_count': 0, 'remaining': 97, 'last_event': 'send', 'busy': False}}
+2026-04-02 02:13:44 [DEBUG] __main__ — [transport:acc7] ws msg op=87 cmd=1
+2026-04-02 02:13:44 [DEBUG] __main__ — [transport:acc7] jpeg-wrap raw=382 jpeg=1028
+2026-04-02 02:13:44 [DEBUG] __main__ — [transport:acc7] upload ok fileId=3080250680 size=382
+2026-04-02 02:13:44 [DEBUG] __main__ — [transport:acc7] ws msg op=136 cmd=0
+2026-04-02 02:13:44 [DEBUG] __main__ — [transport:acc7] ws msg op=64 cmd=1
+2026-04-02 02:13:44 [DEBUG] __main__ — [transport:acc7] msg op=64 attaches=1
+2026-04-02 02:13:44 [DEBUG] __main__ — [transport:acc7] skip own fileId=3080250680
+2026-04-02 02:13:44 [DEBUG] __main__ — [transport:acc1] ws msg op=132 cmd=0
+2026-04-02 02:13:45 [ERROR] __main__ — [transport:acc12] download error: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aiohttp/client.py", line 779, in _request
+    resp = await handler(req)
+  File "/usr/local/lib/python3.10/dist-packages/aiohttp/client.py", line 734, in _connect_and_send_request
+    conn = await self._connector.connect(
+  File "/usr/local/lib/python3.10/dist-packages/aiohttp/connector.py", line 672, in connect
+    proto = await self._create_connection(req, traces, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/aiohttp/connector.py", line 1239, in _create_connection
+    _, proto = await self._create_direct_connection(req, traces, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/aiohttp/connector.py", line 1580, in _create_direct_connection
+    transp, proto = await self._wrap_create_connection(
+  File "/var/www/html2/xyemax.test/tun_proxied_clock/client/client.py", line 280, in _wrap_create_connection
+    return await loop.create_connection(args[0], sock=sock, ssl=ctx, server_hostname=req.url.host)
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 1103, in create_connection
+    transport, protocol = await self._create_connection_transport(
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 1133, in _create_connection_transport
+    await waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/var/www/html2/xyemax.test/tun_proxied_clock/client/client.py", line 655, in _recv_file
+    async with self._http.get(url, timeout=aiohttp.ClientTimeout(total=30)) as resp:
+  File "/usr/local/lib/python3.10/dist-packages/aiohttp/client.py", line 1510, in __aenter__
+    self._resp: _RetType = await self._coro
+  File "/usr/local/lib/python3.10/dist-packages/aiohttp/client.py", line 624, in _request
+    with timer:
+  File "/usr/local/lib/python3.10/dist-packages/aiohttp/helpers.py", line 713, in __exit__
+    raise asyncio.TimeoutError from exc_val
+asyncio.exceptions.TimeoutError
+2026-04-02 02:13:46 [ERROR] asyncio — Fatal error on SSL transport
+protocol: <asyncio.sslproto.SSLProtocol object at 0x7bacc442ceb0>
+transport: <_SelectorSocketTransport closing fd=40>
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 924, in write
+    n = self._sock.send(data)
+OSError: [Errno 9] Bad file descriptor
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/sslproto.py", line 690, in _process_write_backlog
+    self._transport.write(chunk)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 930, in write
+    self._fatal_error(exc, 'Fatal write error on socket transport')
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 725, in _fatal_error
+    self._force_close(exc)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 737, in _force_close
+    self._loop.call_soon(self._call_connection_lost, exc)
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 753, in call_soon
+    self._check_closed()
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 515, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+2026-04-02 02:13:46 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7bacc4dab730>
+2026-04-02 02:13:46 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x7bacc4df6bc0>, 36213.578879982)])', 'deque([(<aiohttp.client_proto.ResponseHandler object at 0x7bacc4df7880>, 36214.345339976)])']
+connector: <__main__.BoundTCPConnector object at 0x7bacc4d496f0>
+2026-04-02 02:13:46 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x7bacc4df7ee0>, 36224.947392476)])']
+connector: <__main__.BoundTCPConnector object at 0x7bacc57d6f50>
+2026-04-02 02:13:46 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x7bacc4d6bee0>, 36219.132216587)])']
+connector: <__main__.BoundTCPConnector object at 0x7bacc4d76410>
+2026-04-02 02:13:46 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x7bacc4d6bb80>, 36216.899427956)])']
+connector: <__main__.BoundTCPConnector object at 0x7bacc4d4a9b0>
+2026-04-02 02:13:46 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x7bacc44313c0>, 36208.90177318)])', 'deque([(<aiohttp.client_proto.ResponseHandler object at 0x7bacc4df5720>, 36222.987654643)])']
+connector: <__main__.BoundTCPConnector object at 0x7bacc4d75c00>
+2026-04-02 02:13:46 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x7bacc4df5de0>, 36205.849991352)])', 'deque([(<aiohttp.client_proto.ResponseHandler object at 0x7bacc4df4f40>, 36226.141329885)])']
+connector: <__main__.BoundTCPConnector object at 0x7bacc4d4bbb0>
+2026-04-02 02:13:46 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x7bacc44317e0>, 36219.320793493)])']
+connector: <__main__.BoundTCPConnector object at 0x7bacc4d48d30>
+2026-04-02 02:13:46 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x7bacc44304c0>, 36201.599031023)])', 'deque([(<aiohttp.client_proto.ResponseHandler object at 0x7bacc4df6f80>, 36220.139894193)])']
+connector: <__main__.BoundTCPConnector object at 0x7bacc4d49f00>
+2026-04-02 02:13:46 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x7bacc4df7580>, 36212.382627852)])', 'deque([(<aiohttp.client_proto.ResponseHandler object at 0x7bacc4d6be20>, 36218.110937334)])']
+connector: <__main__.BoundTCPConnector object at 0x7bacc4d753f0>
+2026-04-02 02:13:46 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x7bacc4df5f00>, 36203.505572314)])', 'deque([(<aiohttp.client_proto.ResponseHandler object at 0x7bacc4df4340>, 36221.814333056)])']
+connector: <__main__.BoundTCPConnector object at 0x7bacc4d4b3d0>
+2026-04-02 02:13:46 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x7bacc4df4640>, 36207.005690738)])', 'deque([(<aiohttp.client_proto.ResponseHandler object at 0x7bacc4df5c00>, 36220.368202148)])']
+connector: <__main__.BoundTCPConnector object at 0x7bacc4d743d0>

@@ -1,0 +1,155 @@
+2026-04-02 02:42:20 [DEBUG] __main__ — [tun] ip link set tun0 up mtu 8000: OK
+2026-04-02 02:42:20 [DEBUG] __main__ — [tun] ip addr add 10.0.1.1/30 dev tun0: OK
+2026-04-02 02:42:21 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-04-02 02:42:21 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-04-02 02:42:21 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-04-02 02:42:21 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc9] ws msg op=6 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc5] ws msg op=6 cmd=1
+2026-04-02 02:42:21 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-04-02 02:42:21 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-04-02 02:42:21 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-04-02 02:42:21 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-04-02 02:42:21 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc2] ws msg op=6 cmd=1
+2026-04-02 02:42:21 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-04-02 02:42:21 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc6] ws msg op=6 cmd=1
+2026-04-02 02:42:21 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc3] ws msg op=6 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc9] ws msg op=19 cmd=3
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc12] ws msg op=6 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc10] ws msg op=6 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc1] ws msg op=6 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc4] ws msg op=6 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc5] ws msg op=19 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc5] ws msg op=292 cmd=0
+2026-04-02 02:42:21 [INFO] __main__ — Авторизован [client:acc5], chatId=0
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc7] ws msg op=6 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc2] ws msg op=19 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc2] ws msg op=292 cmd=0
+2026-04-02 02:42:21 [INFO] __main__ — Авторизован [client:acc2], chatId=0
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc5] ws msg op=136 cmd=0
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc8] ws msg op=6 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc11] ws msg op=6 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc6] ws msg op=19 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc6] ws msg op=292 cmd=0
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc5] ws msg op=48 cmd=1
+2026-04-02 02:42:21 [INFO] __main__ — Авторизован [client:acc6], chatId=0
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc1] ws msg op=19 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc1] ws msg op=292 cmd=0
+2026-04-02 02:42:21 [INFO] __main__ — Авторизован [client:acc1], chatId=0
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc10] ws msg op=19 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc10] ws msg op=292 cmd=0
+2026-04-02 02:42:21 [INFO] __main__ — Авторизован [client:acc10], chatId=0
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc12] ws msg op=19 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc12] ws msg op=292 cmd=0
+2026-04-02 02:42:21 [INFO] __main__ — Авторизован [client:acc12], chatId=0
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc4] ws msg op=19 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc4] ws msg op=292 cmd=0
+2026-04-02 02:42:21 [INFO] __main__ — Авторизован [client:acc4], chatId=0
+2026-04-02 02:42:21 [DEBUG] __main__ — [tun] → 1 pkts  raw=54B  packed=48B
+2026-04-02 02:42:21 [DEBUG] __main__ — [multi] ранжирование: {'acc1': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc2': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc4': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc5': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc6': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc10': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}, 'acc12': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'r1': 1, 'r2': 1, 'r3': 1, 'score': '1.00'}}
+2026-04-02 02:42:21 [DEBUG] __main__ — [multi] выбор: acc2 (recv_count=0, remaining=100, last_event=recv) | stats={'acc1': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc2': {'recv_count': 0, 'remaining': 99, 'last_event': 'recv', 'busy': True}, 'acc3': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc4': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc5': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc6': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc7': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc8': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc9': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc10': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc11': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}, 'acc12': {'recv_count': 0, 'remaining': 100, 'last_event': 'recv', 'busy': False}}
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc2] ws msg op=48 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc5] ws msg op=128 cmd=0
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc5] msg op=128 attaches=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc5] incoming fileId=3067240044 msgId=116332333741850185
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc7] ws msg op=19 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc7] ws msg op=292 cmd=0
+2026-04-02 02:42:21 [INFO] __main__ — Авторизован [client:acc7], chatId=0
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc3] ws msg op=19 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc3] ws msg op=292 cmd=0
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc6] ws msg op=48 cmd=1
+2026-04-02 02:42:21 [INFO] __main__ — Авторизован [client:acc3], chatId=0
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc12] ws msg op=48 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc10] ws msg op=48 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc1] ws msg op=48 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc11] ws msg op=19 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc11] ws msg op=292 cmd=0
+2026-04-02 02:42:21 [INFO] __main__ — Авторизован [client:acc11], chatId=0
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc8] ws msg op=19 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc8] ws msg op=292 cmd=0
+2026-04-02 02:42:21 [INFO] __main__ — Авторизован [client:acc8], chatId=0
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc4] ws msg op=48 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc5] ws msg op=88 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc2] ws msg op=87 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc2] jpeg-wrap raw=48 jpeg=694
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc7] ws msg op=48 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc3] ws msg op=48 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc11] ws msg op=48 cmd=1
+2026-04-02 02:42:21 [DEBUG] __main__ — [transport:acc8] ws msg op=48 cmd=1
+2026-04-02 02:42:22 [DEBUG] __main__ — [transport:acc5] recv_file fileId=3067240044 size=147
+2026-04-02 02:42:22 [DEBUG] __main__ — [sync] ← сервер: получен пакет viewer_ids=[240876353, 240002558, 150579003, 226731244, 227280244, 227041108, 233125749, 253356546, 235522058, 254317089, 251967843]
+2026-04-02 02:42:22 [INFO] __main__ — [sync] ← сервер: первый SYNC получен  живых на сервере: [150579003, 226731244, 227041108, 227280244, 233125749, 235522058, 240002558, 240876353, 251967843, 253356546, 254317089]  совпадающих у нас: ['acc1', 'acc8', 'acc11', 'acc12', 'acc10', 'acc4', 'acc5', 'acc6', 'acc7', 'acc3', 'acc2']
+2026-04-02 02:42:22 [DEBUG] __main__ — [transport:acc10] ws msg op=136 cmd=0
+2026-04-02 02:42:22 [DEBUG] __main__ — [transport:acc2] upload ok fileId=3078181642 size=48
+2026-04-02 02:42:22 [INFO] __main__ — [multi] acc2 восстановлен (первый upload OK)
+2026-04-02 02:42:22 [DEBUG] __main__ — [transport:acc10] ws msg op=128 cmd=0
+2026-04-02 02:42:22 [DEBUG] __main__ — [transport:acc10] msg op=128 attaches=1
+2026-04-02 02:42:22 [DEBUG] __main__ — [transport:acc10] incoming fileId=3077382279 msgId=116332333776184701
+2026-04-02 02:42:22 [DEBUG] __main__ — [transport:acc2] ws msg op=136 cmd=0
+2026-04-02 02:42:22 [DEBUG] __main__ — [transport:acc10] ws msg op=88 cmd=1
+2026-04-02 02:42:22 [DEBUG] __main__ — [transport:acc3] ws msg op=136 cmd=0
+2026-04-02 02:42:22 [DEBUG] __main__ — [transport:acc2] ws msg op=64 cmd=1
+2026-04-02 02:42:22 [DEBUG] __main__ — [transport:acc2] msg op=64 attaches=1
+2026-04-02 02:42:22 [DEBUG] __main__ — [transport:acc2] skip own fileId=3078181642
+2026-04-02 02:42:22 [DEBUG] __main__ — [transport:acc3] ws msg op=128 cmd=0
+2026-04-02 02:42:22 [DEBUG] __main__ — [transport:acc3] msg op=128 attaches=1
+2026-04-02 02:42:22 [DEBUG] __main__ — [transport:acc3] incoming fileId=3068929160 msgId=116332333796758860
+2026-04-02 02:42:22 [DEBUG] __main__ — [transport:acc10] recv_file fileId=3077382279 size=147
+2026-04-02 02:42:22 [DEBUG] __main__ — [sync] ← сервер: получен пакет viewer_ids=[240876353, 240002558, 150579003, 226731244, 227280244, 227041108, 233125749, 253356546, 235522058, 254317089, 251967843]
+2026-04-02 02:42:22 [DEBUG] __main__ — [sync] ← сервер: без изменений  живых=[150579003, 226731244, 227041108, 227280244, 233125749, 235522058, 240002558, 240876353, 251967843, 253356546, 254317089]
+2026-04-02 02:42:22 [DEBUG] __main__ — [transport:acc3] ws msg op=88 cmd=1
+2026-04-02 02:42:22 [DEBUG] __main__ — [transport:acc12] ws msg op=136 cmd=0
+2026-04-02 02:42:23 [ERROR] asyncio — Fatal error on SSL transport
+protocol: <asyncio.sslproto.SSLProtocol object at 0x7720301abb80>
+transport: <_SelectorSocketTransport closing fd=22>
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 924, in write
+    n = self._sock.send(data)
+OSError: [Errno 9] Bad file descriptor
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/sslproto.py", line 690, in _process_write_backlog
+    self._transport.write(chunk)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 930, in write
+    self._fatal_error(exc, 'Fatal write error on socket transport')
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 725, in _fatal_error
+    self._force_close(exc)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 737, in _force_close
+    self._loop.call_soon(self._call_connection_lost, exc)
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 753, in call_soon
+    self._check_closed()
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 515, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+2026-04-02 02:42:23 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x772030170be0>
+2026-04-02 02:42:23 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x7720301eca60>, 37944.108514651)])']
+connector: <__main__.BoundTCPConnector object at 0x7720301466b0>
+2026-04-02 02:42:23 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7720301471c0>
+2026-04-02 02:42:23 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x7720301ec160>, 37944.132823339)])']
+connector: <__main__.BoundTCPConnector object at 0x772030173eb0>
+2026-04-02 02:42:23 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x772030172410>
+2026-04-02 02:42:23 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x7720301ec2e0>, 37944.580438532)])']
+connector: <__main__.BoundTCPConnector object at 0x772030171390>
+2026-04-02 02:42:23 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x772030b7ec80>
+2026-04-02 02:42:23 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x772030145690>
+2026-04-02 02:42:23 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x772030145f00>
+2026-04-02 02:42:23 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x772030147c40>
+2026-04-02 02:42:23 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x772030171c00>
+2026-04-02 02:42:23 [ERROR] asyncio — Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x772030170400>

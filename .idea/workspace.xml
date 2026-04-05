@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="89c49e48-d491-47be-8f3e-4c1cedbd3465" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tun/server/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/tun/server/server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/client.conf" beforeDir="false" afterPath="$PROJECT_DIR$/tun_proxied_clock/client/client.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/server/server.conf" beforeDir="false" afterPath="$PROJECT_DIR$/tun_proxied_clock/server/server.conf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,54 +22,70 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-29_23-32-01.log" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_19-28-47.log" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_20-17-25.log" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_20-30-45.log" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_20-53-43.log" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_22-08-49.log" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_22-14-36.log" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 8.2" />
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4,
-  "fromUser": false
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4,
+  &quot;fromUser&quot;: false
+}</component>
   <component name="ProjectId" id="3BM6SMHJMUc1DO9pCipOyhWkp8i" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "/var/www/html2/xyemax.test/tun/client",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/var/www/html2/xyemax.test/telega&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/telega" />
+      <recent name="$PROJECT_DIR$/tun_proxied_clock" />
       <recent name="$PROJECT_DIR$/tun/client" />
       <recent name="$PROJECT_DIR$/tun/server" />
       <recent name="$PROJECT_DIR$/http2/server" />
-      <recent name="$PROJECT_DIR$/http2/client" />
-      <recent name="$PROJECT_DIR$/http/server" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/vk" />
+      <recent name="$PROJECT_DIR$/history" />
       <recent name="$PROJECT_DIR$/shybrid/client" />
       <recent name="$PROJECT_DIR$/shybrid/server" />
       <recent name="$PROJECT_DIR$/self/server" />
-      <recent name="$PROJECT_DIR$/self/client" />
-      <recent name="$PROJECT_DIR$/files/server" />
     </key>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-PS-253.32098.40" />
-        <option value="bundled-php-predefined-a98d8de5180a-0e0d91225499-com.jetbrains.php.sharedIndexes-PS-253.32098.40" />
+        <option value="bundled-js-predefined-d6986cc7102b-3bd3a6803838-JavaScript-PS-261.22158.283" />
+        <option value="bundled-php-predefined-a98d8de5180a-a9a4ea3ee0f4-com.jetbrains.php.sharedIndexes-PS-261.22158.283" />
       </set>
     </attachedChunks>
   </component>
@@ -78,10 +97,41 @@
       <option name="presentableId" value="Default" />
       <updated>1774286591328</updated>
       <workItem from="1774286592540" duration="48141000" />
+      <workItem from="1774717165609" duration="64000" />
+      <workItem from="1774718333062" duration="607000" />
+      <workItem from="1774740838055" duration="22325000" />
+      <workItem from="1774801720649" duration="2978000" />
+      <workItem from="1774805157677" duration="40602000" />
+      <workItem from="1774919122285" duration="2113000" />
+      <workItem from="1774929968610" duration="13315000" />
+      <workItem from="1775048007007" duration="760000" />
+      <workItem from="1775048820556" duration="39000" />
+      <workItem from="1775048895594" duration="17000" />
+      <workItem from="1775048955880" duration="13000" />
+      <workItem from="1775050386111" duration="282000" />
+      <workItem from="1775050690871" duration="143000" />
+      <workItem from="1775050858759" duration="413000" />
+      <workItem from="1775051462393" duration="468000" />
+      <workItem from="1775052719499" duration="34111000" />
+      <workItem from="1775139313115" duration="18756000" />
+      <workItem from="1775210560548" duration="40000" />
+      <workItem from="1775213134283" duration="10540000" />
+      <workItem from="1775244420371" duration="10378000" />
+      <workItem from="1775264386307" duration="348000" />
+      <workItem from="1775312387229" duration="1681000" />
+      <workItem from="1775330726260" duration="2000" />
+      <workItem from="1775333099312" duration="11000" />
+      <workItem from="1775335465661" duration="4076000" />
+      <workItem from="1775381373060" duration="10263000" />
+      <workItem from="1775409195865" duration="1259000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

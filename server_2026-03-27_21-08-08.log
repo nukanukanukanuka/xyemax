@@ -1,0 +1,88 @@
+2026-03-27 21:08:08 [DEBUG] __main__ — [tun] ip link set tun1 up mtu 1400: OK
+2026-03-27 21:08:08 [DEBUG] __main__ — [tun] ip addr add 10.0.1.2/30 dev tun1: OK
+2026-03-27 21:08:08 [DEBUG] __main__ — [tun] ip route add 10.0.1.1/32 dev tun1: OK
+2026-03-27 21:08:08 [INFO] __main__ — Восстановлено 1 сессий
+2026-03-27 21:08:08 [INFO] __main__ — [net] HTTP трафик скрипта идёт через прокси: socks5://wqdathyk:wc1068jclf77@104.253.112.30:6308
+2026-03-27 21:08:08 [INFO] __main__ — [tun] attach acc1; active=['acc1']
+2026-03-27 21:08:08 [INFO] __main__ — [proxy:self-chat] WS подключение (acc1, chat_id=0)
+2026-03-27 21:08:08 [INFO] __main__ — [tun] attach acc2; active=['acc1', 'acc2']
+2026-03-27 21:08:08 [INFO] __main__ — [proxy:self-chat] WS подключение (acc2, chat_id=0)
+2026-03-27 21:08:08 [INFO] __main__ — [tun] attach acc3; active=['acc1', 'acc2', 'acc3']
+2026-03-27 21:08:08 [INFO] __main__ — [proxy:self-chat] WS подключение (acc3, chat_id=0)
+2026-03-27 21:08:08 [INFO] __main__ — [net] HTTP трафик скрипта идёт через прокси: socks5://wqdathyk:wc1068jclf77@104.253.112.30:6308
+2026-03-27 21:08:08 [INFO] __main__ — [net] HTTP трафик скрипта идёт через прокси: socks5://wqdathyk:wc1068jclf77@104.253.112.30:6308
+2026-03-27 21:08:08 [INFO] __main__ — [net] HTTP трафик скрипта идёт через прокси: socks5://wqdathyk:wc1068jclf77@104.253.112.30:6308
+2026-03-27 21:08:08 [INFO] __main__ — Авторизован [server:acc2], chatId=0
+2026-03-27 21:08:08 [INFO] __main__ — Авторизован [server:acc1], chatId=0
+2026-03-27 21:08:08 [INFO] __main__ — Авторизован [server:acc3], chatId=0
+2026-03-27 21:08:09 [DEBUG] __main__ — [tun] → клиент: 1 pkts  raw=54B  packed=48B via=acc1
+2026-03-27 21:08:09 [INFO] __main__ — BATCH TUN→  pkts=1  0КБ  packed=0КБ  via=acc1
+2026-03-27 21:08:09 [DEBUG] __main__ — [transport:acc1] jpeg-wrap raw=48 jpeg=694
+2026-03-27 21:08:09 [DEBUG] __main__ — [transport:acc1] upload url=https://fu.oneme.ru/api/upload.do?sig=urGZoWOBKQdW4QbeFUrgzWBtr9WiEj-PpGmz7qpB5p_fhG8tAlZGef390wNEWZV9wUTCH8-3Lgy0gXGUagwj-w&expires=1774732089233&clientType=6&id=3019197841&userId=240876353
+2026-03-27 21:08:09 [DEBUG] __main__ — [transport:acc1] upload ok fileId=3019197841 size=48
+2026-03-27 21:08:09 [DEBUG] __main__ — [transport:acc1] published fileId=3019197841 size=48
+2026-03-27 21:08:11 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-27 21:08:12 [DEBUG] __main__ — [tun] → клиент: 1 pkts  raw=54B  packed=48B via=acc2
+2026-03-27 21:08:12 [INFO] __main__ — BATCH TUN→  pkts=1  0КБ  packed=0КБ  via=acc2
+2026-03-27 21:08:12 [DEBUG] __main__ — [transport:acc2] jpeg-wrap raw=48 jpeg=694
+2026-03-27 21:08:12 [DEBUG] __main__ — [transport:acc2] upload url=https://fu.oneme.ru/api/upload.do?sig=p9GbMBjYEw7wUxZpcOQHgJTr0CN_CUoTiEpJhSqBm9SD5ilMJapWtFOC59Nt2DFvJrNDDjQEUn7C_F5tqrDz1g&expires=1774732092875&clientType=6&id=3035154891&userId=240002558
+2026-03-27 21:08:13 [DEBUG] __main__ — [transport:acc2] upload ok fileId=3035154891 size=48
+2026-03-27 21:08:13 [DEBUG] __main__ — [transport:acc2] published fileId=3035154891 size=48
+2026-03-27 21:08:16 [DEBUG] __main__ — [transport:acc2] recv_file fileId=3035631893 size=66
+2026-03-27 21:08:16 [DEBUG] __main__ — [tun] ← клиент: 1 pkts  raw=66B
+2026-03-27 21:08:16 [INFO] __main__ — BATCH TUN←  pkts=1  0КБ
+2026-03-27 21:08:17 [DEBUG] __main__ — [transport:acc3] recv_file fileId=3035632149 size=66
+2026-03-27 21:08:17 [DEBUG] __main__ — [tun] ← клиент: 1 pkts  raw=66B
+2026-03-27 21:08:17 [INFO] __main__ — BATCH TUN←  pkts=1  0КБ
+2026-03-27 21:08:19 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3033081368 size=66
+2026-03-27 21:08:19 [DEBUG] __main__ — [tun] ← клиент: 1 pkts  raw=66B
+2026-03-27 21:08:19 [INFO] __main__ — BATCH TUN←  pkts=1  0КБ
+2026-03-27 21:08:19 [DEBUG] __main__ — [transport:acc2] recv_file fileId=3036260384 size=66
+2026-03-27 21:08:19 [DEBUG] __main__ — [tun] ← клиент: 1 pkts  raw=66B
+2026-03-27 21:08:19 [INFO] __main__ — BATCH TUN←  pkts=1  0КБ
+2026-03-27 21:08:20 [DEBUG] __main__ — [tun] → клиент: 1 pkts  raw=54B  packed=48B via=acc3
+2026-03-27 21:08:20 [INFO] __main__ — BATCH TUN→  pkts=1  0КБ  packed=0КБ  via=acc3
+2026-03-27 21:08:20 [DEBUG] __main__ — [transport:acc3] jpeg-wrap raw=48 jpeg=694
+2026-03-27 21:08:20 [DEBUG] __main__ — [transport:acc3] upload url=https://fu.oneme.ru/api/upload.do?sig=kQqPKrqa0GhQiabzMRT2cLPg-BXU-m2YsMsPz5PbgncAJUNlNu6y_FsFOtPsHesuliwj-Q3PbEv3n4VBjPja8Q&expires=1774732100238&clientType=6&id=3040066702&userId=150579003
+2026-03-27 21:08:20 [DEBUG] __main__ — [transport:acc3] recv_file fileId=3033424401 size=66
+2026-03-27 21:08:20 [DEBUG] __main__ — [tun] ← клиент: 1 pkts  raw=66B
+2026-03-27 21:08:20 [INFO] __main__ — BATCH TUN←  pkts=1  0КБ
+2026-03-27 21:08:20 [DEBUG] __main__ — [transport:acc3] upload ok fileId=3040066702 size=48
+2026-03-27 21:08:20 [DEBUG] __main__ — [transport:acc3] published fileId=3040066702 size=48
+2026-03-27 21:08:21 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3029429789 size=66
+2026-03-27 21:08:21 [DEBUG] __main__ — [tun] ← клиент: 1 pkts  raw=66B
+2026-03-27 21:08:21 [INFO] __main__ — BATCH TUN←  pkts=1  0КБ
+2026-03-27 21:08:23 [DEBUG] __main__ — [transport:acc2] recv_file fileId=3033081624 size=66
+2026-03-27 21:08:23 [DEBUG] __main__ — [tun] ← клиент: 1 pkts  raw=66B
+2026-03-27 21:08:23 [INFO] __main__ — BATCH TUN←  pkts=1  0КБ
+2026-03-27 21:08:27 [DEBUG] __main__ — [transport:acc3] recv_file fileId=3028493264 size=66
+2026-03-27 21:08:27 [DEBUG] __main__ — [tun] ← клиент: 1 pkts  raw=66B
+2026-03-27 21:08:27 [INFO] __main__ — BATCH TUN←  pkts=1  0КБ
+2026-03-27 21:08:34 [DEBUG] __main__ — [tun] → клиент: 1 pkts  raw=54B  packed=48B via=acc1
+2026-03-27 21:08:34 [INFO] __main__ — BATCH TUN→  pkts=1  0КБ  packed=0КБ  via=acc1
+2026-03-27 21:08:34 [DEBUG] __main__ — [transport:acc1] jpeg-wrap raw=48 jpeg=694
+2026-03-27 21:08:34 [DEBUG] __main__ — [transport:acc1] upload url=https://fu.oneme.ru/api/upload.do?sig=yYT38qzE2WtHWeYSg0H9fo6Rj_kQdWYPoBG02glV4Y9XY_7NBj4rGCvEQucMJ8QaEu7JTkZcBLkgAB8Q8DuNsA&expires=1774732114574&clientType=6&id=3040067214&userId=240876353
+2026-03-27 21:08:34 [DEBUG] __main__ — [transport:acc1] upload ok fileId=3040067214 size=48
+2026-03-27 21:08:34 [DEBUG] __main__ — [transport:acc1] published fileId=3040067214 size=48
+2026-03-27 21:08:36 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3038607895 size=66
+2026-03-27 21:08:36 [DEBUG] __main__ — [tun] ← клиент: 1 pkts  raw=66B
+2026-03-27 21:08:36 [INFO] __main__ — BATCH TUN←  pkts=1  0КБ
+2026-03-27 21:08:41 [INFO] __main__ — [poll] активных ссылок: 1
+2026-03-27 21:08:52 [DEBUG] __main__ — [transport:acc2] recv_file fileId=3036261152 size=66
+2026-03-27 21:08:52 [DEBUG] __main__ — [tun] ← клиент: 1 pkts  raw=66B
+2026-03-27 21:08:52 [INFO] __main__ — BATCH TUN←  pkts=1  0КБ
+2026-03-27 21:09:00 [INFO] __main__ — [proxy:self-chat] acc2 остановлен
+2026-03-27 21:09:00 [INFO] __main__ — [tun] detach acc2; active=['acc1', 'acc3']
+2026-03-27 21:09:00 [INFO] __main__ — [proxy:self-chat] acc3 остановлен
+2026-03-27 21:09:00 [INFO] __main__ — [tun] detach acc3; active=['acc1']
+2026-03-27 21:09:00 [INFO] __main__ — [proxy:self-chat] acc1 остановлен
+2026-03-27 21:09:00 [INFO] __main__ — [tun] detach acc1; active=[]
+2026-03-27 21:09:00 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp_socks.connector._ResponseHandler object at 0x7df32f0a2690>, 355295.241517245)])']
+connector: <aiohttp_socks.connector.ProxyConnector object at 0x7df32f0988f0>
+2026-03-27 21:09:00 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp_socks.connector._ResponseHandler object at 0x7df32f0a1970>, 355263.381265849)])', 'deque([(<aiohttp_socks.connector._ResponseHandler object at 0x7df32f0a1310>, 355270.459859108)])']
+connector: <aiohttp_socks.connector.ProxyConnector object at 0x7df32f0996a0>
+2026-03-27 21:09:00 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp_socks.connector._ResponseHandler object at 0x7df32f0a1f70>, 355277.517994235)])', 'deque([(<aiohttp_socks.connector._ResponseHandler object at 0x7df32f0a1670>, 355278.963536646)])']
+connector: <aiohttp_socks.connector.ProxyConnector object at 0x7df32f098110>

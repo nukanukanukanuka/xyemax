@@ -1,0 +1,629 @@
+2026-03-30 22:14:36 [DEBUG] __main__ — [tun] защита DNS 127.0.0.53 через 192.168.5.1 dev wlp0s20f3
+2026-03-30 22:14:36 [DEBUG] __main__ — [tun] защита DNS 8.8.8.8 через 192.168.5.1 dev wlp0s20f3
+2026-03-30 22:14:36 [DEBUG] __main__ — [tun] защита DNS 1.1.1.1 через 192.168.5.1 dev wlp0s20f3
+2026-03-30 22:14:36 [DEBUG] __main__ — [tun] защита CDN подсети 155.212.204.0/24 через 192.168.5.1 dev wlp0s20f3
+2026-03-30 22:14:36 [DEBUG] __main__ — [tun] защита CDN подсети 155.212.0.0/16 через 192.168.5.1 dev wlp0s20f3
+2026-03-30 22:14:36 [DEBUG] __main__ — [tun] защита WS хоста ws-api.oneme.ru (155.212.204.133) через 192.168.5.1 dev wlp0s20f3
+2026-03-30 22:14:36 [DEBUG] __main__ — [tun] защита WS хоста ws-api.oneme.ru (155.212.204.70) через 192.168.5.1 dev wlp0s20f3
+2026-03-30 22:14:36 [DEBUG] __main__ — [tun] защита WS хоста fu.oneme.ru (155.212.204.141) через 192.168.5.1 dev wlp0s20f3
+2026-03-30 22:14:36 [DEBUG] __main__ — [tun] защита WS хоста fu.oneme.ru (155.212.204.66) через 192.168.5.1 dev wlp0s20f3
+2026-03-30 22:14:37 [DEBUG] __main__ — [tun] защита WS хоста telegram.mooner.pro (104.21.73.28) через 192.168.5.1 dev wlp0s20f3
+2026-03-30 22:14:37 [DEBUG] __main__ — [tun] защита WS хоста telegram.mooner.pro (172.67.137.250) через 192.168.5.1 dev wlp0s20f3
+2026-03-30 22:14:37 [DEBUG] __main__ — [tun] ip link set tun0 up mtu 1400: OK
+2026-03-30 22:14:37 [DEBUG] __main__ — [tun] ip addr add 10.0.1.1/30 dev tun0: OK
+2026-03-30 22:14:37 [DEBUG] __main__ — [tun] ip route add 127.0.0.53 via 192.168.5.1 dev wlp0s20f3: OK
+2026-03-30 22:14:37 [DEBUG] __main__ — [tun] ip route add 8.8.8.8 via 192.168.5.1 dev wlp0s20f3: OK
+2026-03-30 22:14:37 [DEBUG] __main__ — [tun] ip route add 1.1.1.1 via 192.168.5.1 dev wlp0s20f3: OK
+2026-03-30 22:14:37 [DEBUG] __main__ — [tun] ip route add 155.212.204.0/24 via 192.168.5.1 dev wlp0s20f3: OK
+2026-03-30 22:14:37 [DEBUG] __main__ — [tun] ip route add 155.212.0.0/16 via 192.168.5.1 dev wlp0s20f3: OK
+2026-03-30 22:14:37 [DEBUG] __main__ — [tun] ip route add 155.212.204.133 via 192.168.5.1 dev wlp0s20f3: OK
+2026-03-30 22:14:37 [DEBUG] __main__ — [tun] ip route add 155.212.204.70 via 192.168.5.1 dev wlp0s20f3: OK
+2026-03-30 22:14:37 [DEBUG] __main__ — [tun] ip route add 155.212.204.141 via 192.168.5.1 dev wlp0s20f3: OK
+2026-03-30 22:14:37 [DEBUG] __main__ — [tun] ip route add 155.212.204.66 via 192.168.5.1 dev wlp0s20f3: OK
+2026-03-30 22:14:37 [DEBUG] __main__ — [tun] ip route add 104.21.73.28 via 192.168.5.1 dev wlp0s20f3: OK
+2026-03-30 22:14:37 [DEBUG] __main__ — [tun] ip route add 172.67.137.250 via 192.168.5.1 dev wlp0s20f3: OK
+2026-03-30 22:14:37 [DEBUG] __main__ — [tun] ip route add 0.0.0.0/1 dev tun0: OK
+2026-03-30 22:14:37 [DEBUG] __main__ — [tun] ip route add 128.0.0.0/1 dev tun0: OK
+2026-03-30 22:14:37 [DEBUG] __main__ — [tun] → 1 pkts  raw=54B  packed=48B
+2026-03-30 22:14:37 [DEBUG] __main__ — [multi] выбор: acc2 (recv_count=0, last_event=recv) | ready=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | p1=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | p2=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | stats={'acc1': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc3': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}}
+2026-03-30 22:14:37 [DEBUG] __main__ — [tun] → 1 pkts  raw=58B  packed=59B
+2026-03-30 22:14:37 [DEBUG] __main__ — [multi] выбор: acc3 (recv_count=0, last_event=recv) | ready=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | p1=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | p2=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | stats={'acc1': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc4': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}}
+2026-03-30 22:14:37 [DEBUG] __main__ — [tun] → 2 pkts  raw=389B  packed=340B
+2026-03-30 22:14:37 [DEBUG] __main__ — [multi] выбор: acc4 (recv_count=0, last_event=recv) | ready=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | p1=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | p2=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | stats={'acc1': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}}
+2026-03-30 22:14:37 [DEBUG] __main__ — [tun] → 1 pkts  raw=235B  packed=236B
+2026-03-30 22:14:37 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | p1=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | p2=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | stats={'acc1': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}}
+2026-03-30 22:14:37 [DEBUG] __main__ — [tun] → 1 pkts  raw=58B  packed=59B
+2026-03-30 22:14:37 [DEBUG] __main__ — [multi] выбор: acc6 (recv_count=0, last_event=recv) | ready=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | p1=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | p2=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | stats={'acc1': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}}
+2026-03-30 22:14:37 [DEBUG] __main__ — [tun] → 1 pkts  raw=1286B  packed=1287B
+2026-03-30 22:14:37 [DEBUG] __main__ — [multi] выбор: acc1 (recv_count=0, last_event=recv) | ready=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | p1=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | p2=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | stats={'acc1': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc2': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}}
+2026-03-30 22:14:37 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc6] ws msg op=6 cmd=1
+2026-03-30 22:14:38 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-03-30 22:14:38 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc4] ws msg op=6 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc2] ws msg op=6 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [tun] → 1 pkts  raw=66B  packed=67B
+2026-03-30 22:14:38 [DEBUG] __main__ — [multi] выбор: acc2 (recv_count=0, last_event=recv) | ready=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | p1=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | p2=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | stats={'acc1': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc3': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}}
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc6] ws msg op=19 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc6] ws msg op=292 cmd=0
+2026-03-30 22:14:38 [INFO] __main__ — Авторизован [client:acc6], chatId=0
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc6] ws msg op=48 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc4] ws msg op=19 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc4] ws msg op=292 cmd=0
+2026-03-30 22:14:38 [INFO] __main__ — Авторизован [client:acc4], chatId=0
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc6] ws msg op=87 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc6] jpeg-wrap raw=59 jpeg=705
+2026-03-30 22:14:38 [DEBUG] __main__ — [tun] → 1 pkts  raw=508B  packed=498B
+2026-03-30 22:14:38 [DEBUG] __main__ — [multi] выбор: acc3 (recv_count=0, last_event=recv) | ready=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | p1=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | p2=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | stats={'acc1': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc4': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}}
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc4] ws msg op=48 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc2] ws msg op=19 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc2] ws msg op=292 cmd=0
+2026-03-30 22:14:38 [INFO] __main__ — Авторизован [client:acc2], chatId=0
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc4] ws msg op=87 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc4] jpeg-wrap raw=340 jpeg=986
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc2] ws msg op=48 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc2] ws msg op=87 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc2] jpeg-wrap raw=48 jpeg=694
+2026-03-30 22:14:38 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc3] ws msg op=6 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc6] upload ok fileId=3059068387 size=59
+2026-03-30 22:14:38 [DEBUG] __main__ — [tun] → 2 pkts  raw=1818B  packed=1819B
+2026-03-30 22:14:38 [DEBUG] __main__ — [multi] выбор: acc4 (recv_count=0, last_event=recv) | ready=['acc1', 'acc2', 'acc3', 'acc4', 'acc5'] | p1=['acc1', 'acc2', 'acc3', 'acc4', 'acc5'] | p2=['acc1', 'acc2', 'acc3', 'acc4', 'acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.991s', 'busy': False}}
+2026-03-30 22:14:38 [DEBUG] __main__ — [tun] → 1 pkts  raw=247B  packed=248B
+2026-03-30 22:14:38 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc1', 'acc2', 'acc3', 'acc4', 'acc5'] | p1=['acc1', 'acc2', 'acc3', 'acc4', 'acc5'] | p2=['acc1', 'acc2', 'acc3', 'acc4', 'acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.966s', 'busy': False}}
+2026-03-30 22:14:38 [DEBUG] __main__ — [tun] → 1 pkts  raw=175B  packed=176B
+2026-03-30 22:14:38 [DEBUG] __main__ — [multi] выбор: acc1 (recv_count=0, last_event=recv) | ready=['acc1', 'acc2', 'acc3', 'acc4', 'acc5'] | p1=['acc1', 'acc2', 'acc3', 'acc4', 'acc5'] | p2=['acc1', 'acc2', 'acc3', 'acc4', 'acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc2': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.966s', 'busy': False}}
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc2] upload ok fileId=3061469705 size=48
+2026-03-30 22:14:38 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-03-30 22:14:38 [DEBUG] __main__ — [tun] → 1 pkts  raw=58B  packed=59B
+2026-03-30 22:14:38 [DEBUG] __main__ — [multi] выбор: acc3 (recv_count=0, last_event=recv) | ready=['acc1', 'acc3', 'acc4', 'acc5'] | p1=['acc1', 'acc3', 'acc4', 'acc5'] | p2=['acc1', 'acc3', 'acc4', 'acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.992s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc4': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.943s', 'busy': False}}
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc4] upload ok fileId=3047862776 size=340
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] ws msg op=6 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [tun] → 1 pkts  raw=391B  packed=392B
+2026-03-30 22:14:38 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc1', 'acc3', 'acc5'] | p1=['acc1', 'acc3', 'acc5'] | p2=['acc1', 'acc3', 'acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.969s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.978s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.921s', 'busy': False}}
+2026-03-30 22:14:38 [DEBUG] __main__ — [tun] → 1 pkts  raw=499B  packed=486B
+2026-03-30 22:14:38 [DEBUG] __main__ — [multi] выбор: acc1 (recv_count=0, last_event=recv) | ready=['acc1', 'acc3', 'acc5'] | p1=['acc1', 'acc3', 'acc5'] | p2=['acc1', 'acc3', 'acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.969s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.978s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.920s', 'busy': False}}
+2026-03-30 22:14:38 [DEBUG] __main__ — [tun] → 1 pkts  raw=223B  packed=224B
+2026-03-30 22:14:38 [DEBUG] __main__ — [multi] выбор: acc3 (recv_count=0, last_event=recv) | ready=['acc1', 'acc3', 'acc5'] | p1=['acc1', 'acc3', 'acc5'] | p2=['acc1', 'acc3', 'acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.968s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.977s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.920s', 'busy': False}}
+2026-03-30 22:14:38 [DEBUG] __main__ — [tun] → 1 pkts  raw=560B  packed=551B
+2026-03-30 22:14:38 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc1', 'acc3', 'acc5'] | p1=['acc1', 'acc3', 'acc5'] | p2=['acc1', 'acc3', 'acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.968s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.977s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.919s', 'busy': False}}
+2026-03-30 22:14:38 [DEBUG] __main__ — [tun] → 1 pkts  raw=227B  packed=228B
+2026-03-30 22:14:38 [DEBUG] __main__ — [multi] выбор: acc1 (recv_count=0, last_event=recv) | ready=['acc1', 'acc3', 'acc5'] | p1=['acc1', 'acc3', 'acc5'] | p2=['acc1', 'acc3', 'acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.967s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.976s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.919s', 'busy': False}}
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] ws msg op=19 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] ws msg op=292 cmd=0
+2026-03-30 22:14:38 [INFO] __main__ — Авторизован [client:acc1], chatId=0
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] ws msg op=48 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] ws msg op=87 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] jpeg-wrap raw=1287 jpeg=1933
+2026-03-30 22:14:38 [DEBUG] __main__ — [tun] → 1 pkts  raw=484B  packed=468B
+2026-03-30 22:14:38 [DEBUG] __main__ — [multi] выбор: acc3 (recv_count=0, last_event=recv) | ready=['acc1', 'acc3', 'acc5'] | p1=['acc1', 'acc3', 'acc5'] | p2=['acc1', 'acc3', 'acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.903s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.912s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.855s', 'busy': False}}
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc6] ws msg op=136 cmd=0
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc2] ws msg op=136 cmd=0
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc6] ws msg op=64 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc6] msg op=64 attaches=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc6] skip own fileId=3059068387
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc2] ws msg op=64 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc2] msg op=64 attaches=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc2] skip own fileId=3061469705
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc2] ws msg op=87 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] upload ok fileId=3056693927 size=1287
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc2] jpeg-wrap raw=67 jpeg=713
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc2] upload ok fileId=3057214192 size=67
+2026-03-30 22:14:38 [DEBUG] __main__ — [tun] → 1 pkts  raw=367B  packed=347B
+2026-03-30 22:14:38 [DEBUG] __main__ — [multi] выбор: acc3 (recv_count=0, last_event=recv) | ready=['acc3', 'acc5'] | p1=['acc3', 'acc5'] | p2=['acc3', 'acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.926s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.970s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.783s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.725s', 'busy': False}}
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] ws msg op=136 cmd=0
+2026-03-30 22:14:38 [DEBUG] __main__ — [tun] → 1 pkts  raw=58B  packed=59B
+2026-03-30 22:14:38 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc3', 'acc5'] | p1=['acc3', 'acc5'] | p2=['acc3', 'acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.884s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.928s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.741s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.683s', 'busy': False}}
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] ws msg op=64 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] msg op=64 attaches=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] skip own fileId=3056693927
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] ws msg op=87 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] jpeg-wrap raw=176 jpeg=822
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc2] ws msg op=136 cmd=0
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] upload ok fileId=3054815619 size=176
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc3] ws msg op=19 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc3] ws msg op=292 cmd=0
+2026-03-30 22:14:38 [INFO] __main__ — Авторизован [client:acc3], chatId=0
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc4] ws msg op=136 cmd=0
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc3] ws msg op=48 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc3] ws msg op=87 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc3] jpeg-wrap raw=59 jpeg=705
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc2] ws msg op=64 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc2] msg op=64 attaches=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc2] skip own fileId=3057214192
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc4] ws msg op=64 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc4] msg op=64 attaches=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc4] skip own fileId=3047862776
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc4] ws msg op=87 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc4] jpeg-wrap raw=1819 jpeg=2465
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc3] upload ok fileId=3056792767 size=59
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc4] upload ok fileId=3053663466 size=1819
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] ws msg op=136 cmd=0
+2026-03-30 22:14:38 [DEBUG] __main__ — [tun] → 1 pkts  raw=58B  packed=59B
+2026-03-30 22:14:38 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.864s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.723s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.951s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.957s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.478s', 'busy': False}}
+2026-03-30 22:14:38 [DEBUG] __main__ — [tun] → 1 pkts  raw=58B  packed=59B
+2026-03-30 22:14:38 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.853s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.712s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.940s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.946s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.467s', 'busy': False}}
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] ws msg op=64 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] msg op=64 attaches=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] skip own fileId=3054815619
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] ws msg op=87 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] jpeg-wrap raw=486 jpeg=1132
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] upload ok fileId=3058556994 size=486
+2026-03-30 22:14:38 [DEBUG] __main__ — [tun] → 1 pkts  raw=58B  packed=59B
+2026-03-30 22:14:38 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.989s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.669s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.897s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.903s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.424s', 'busy': False}}
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc4] ws msg op=136 cmd=0
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc3] ws msg op=136 cmd=0
+2026-03-30 22:14:38 [DEBUG] __main__ — [tun] → 1 pkts  raw=58B  packed=59B
+2026-03-30 22:14:38 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.967s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.647s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.875s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.881s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.402s', 'busy': False}}
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc4] ws msg op=64 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc4] msg op=64 attaches=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc4] skip own fileId=3053663466
+2026-03-30 22:14:38 [DEBUG] __main__ — [tun] → 1 pkts  raw=58B  packed=59B
+2026-03-30 22:14:38 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.935s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.615s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.843s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.849s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.370s', 'busy': False}}
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc3] ws msg op=64 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc3] msg op=64 attaches=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc3] skip own fileId=3056792767
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc3] ws msg op=87 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc3] jpeg-wrap raw=498 jpeg=1144
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc3] upload ok fileId=3049734308 size=498
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] ws msg op=136 cmd=0
+2026-03-30 22:14:38 [DEBUG] __main__ — [tun] → 1 pkts  raw=70B  packed=71B
+2026-03-30 22:14:38 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.860s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.540s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.977s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.774s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.295s', 'busy': False}}
+2026-03-30 22:14:38 [DEBUG] __main__ — [tun] → 1 pkts  raw=58B  packed=59B
+2026-03-30 22:14:38 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.849s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.529s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.966s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.763s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.284s', 'busy': False}}
+2026-03-30 22:14:38 [DEBUG] __main__ — [tun] → 1 pkts  raw=58B  packed=59B
+2026-03-30 22:14:38 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.838s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.518s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.955s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.752s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.273s', 'busy': False}}
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] ws msg op=64 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] msg op=64 attaches=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] skip own fileId=3058556994
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] ws msg op=87 cmd=1
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] jpeg-wrap raw=228 jpeg=874
+2026-03-30 22:14:38 [DEBUG] __main__ — [tun] → 1 pkts  raw=70B  packed=71B
+2026-03-30 22:14:38 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.796s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.476s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.913s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.710s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.231s', 'busy': False}}
+2026-03-30 22:14:38 [DEBUG] __main__ — [transport:acc1] upload ok fileId=3054863367 size=228
+2026-03-30 22:14:38 [DEBUG] __main__ — [tun] → 1 pkts  raw=508B  packed=498B
+2026-03-30 22:14:38 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.935s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.401s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.837s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.635s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.156s', 'busy': False}}
+2026-03-30 22:14:38 [DEBUG] __main__ — [tun] → 1 pkts  raw=1286B  packed=1287B
+2026-03-30 22:14:38 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.935s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.400s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.837s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.634s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.155s', 'busy': False}}
+2026-03-30 22:14:39 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc5] ws msg op=6 cmd=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc1] ws msg op=136 cmd=0
+2026-03-30 22:14:39 [DEBUG] __main__ — [tun] → 1 pkts  raw=58B  packed=59B
+2026-03-30 22:14:39 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.881s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.346s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.783s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.580s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.101s', 'busy': False}}
+2026-03-30 22:14:39 [DEBUG] __main__ — [tun] → 1 pkts  raw=58B  packed=59B
+2026-03-30 22:14:39 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.870s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.335s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.772s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.569s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.090s', 'busy': False}}
+2026-03-30 22:14:39 [DEBUG] __main__ — [tun] → 1 pkts  raw=58B  packed=59B
+2026-03-30 22:14:39 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.869s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.335s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.772s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.569s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.090s', 'busy': False}}
+2026-03-30 22:14:39 [DEBUG] __main__ — [tun] → 1 pkts  raw=58B  packed=59B
+2026-03-30 22:14:39 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.869s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.334s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.771s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.568s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.090s', 'busy': False}}
+2026-03-30 22:14:39 [DEBUG] __main__ — [tun] → 1 pkts  raw=58B  packed=59B
+2026-03-30 22:14:39 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.869s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.334s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.771s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.568s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.089s', 'busy': False}}
+2026-03-30 22:14:39 [DEBUG] __main__ — [tun] → 1 pkts  raw=66B  packed=67B
+2026-03-30 22:14:39 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.868s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.334s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.770s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.568s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.089s', 'busy': False}}
+2026-03-30 22:14:39 [DEBUG] __main__ — [tun] → 1 pkts  raw=66B  packed=67B
+2026-03-30 22:14:39 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.868s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.333s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.770s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.567s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.088s', 'busy': False}}
+2026-03-30 22:14:39 [DEBUG] __main__ — [tun] → 1 pkts  raw=66B  packed=67B
+2026-03-30 22:14:39 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.867s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.333s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.770s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.567s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.088s', 'busy': False}}
+2026-03-30 22:14:39 [DEBUG] __main__ — [tun] → 1 pkts  raw=66B  packed=67B
+2026-03-30 22:14:39 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.867s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.332s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.769s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.566s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.087s', 'busy': False}}
+2026-03-30 22:14:39 [DEBUG] __main__ — [tun] → 1 pkts  raw=66B  packed=67B
+2026-03-30 22:14:39 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.867s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.332s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.769s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.566s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.087s', 'busy': False}}
+2026-03-30 22:14:39 [DEBUG] __main__ — [tun] → 1 pkts  raw=58B  packed=59B
+2026-03-30 22:14:39 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.866s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.332s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.768s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.566s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.087s', 'busy': False}}
+2026-03-30 22:14:39 [DEBUG] __main__ — [tun] → 1 pkts  raw=58B  packed=59B
+2026-03-30 22:14:39 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.866s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.331s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.768s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.565s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.086s', 'busy': False}}
+2026-03-30 22:14:39 [DEBUG] __main__ — [tun] → 1 pkts  raw=66B  packed=67B
+2026-03-30 22:14:39 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.865s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.331s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.768s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.565s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.086s', 'busy': False}}
+2026-03-30 22:14:39 [DEBUG] __main__ — [tun] → 1 pkts  raw=66B  packed=67B
+2026-03-30 22:14:39 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.865s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.330s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.767s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.564s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.086s', 'busy': False}}
+2026-03-30 22:14:39 [DEBUG] __main__ — [tun] → 1 pkts  raw=66B  packed=67B
+2026-03-30 22:14:39 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.865s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.330s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.767s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.564s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.085s', 'busy': False}}
+2026-03-30 22:14:39 [DEBUG] __main__ — [tun] → 1 pkts  raw=66B  packed=67B
+2026-03-30 22:14:39 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.864s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.330s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.767s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.564s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.085s', 'busy': False}}
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc1] ws msg op=64 cmd=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc1] msg op=64 attaches=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc1] skip own fileId=3054863367
+2026-03-30 22:14:39 [DEBUG] __main__ — [tun] → 1 pkts  raw=66B  packed=67B
+2026-03-30 22:14:39 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.853s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.319s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.756s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.553s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.074s', 'busy': False}}
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc5] ws msg op=19 cmd=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc5] ws msg op=292 cmd=0
+2026-03-30 22:14:39 [INFO] __main__ — Авторизован [client:acc5], chatId=0
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] ws msg op=136 cmd=0
+2026-03-30 22:14:39 [DEBUG] __main__ — [tun] → 1 pkts  raw=58B  packed=59B
+2026-03-30 22:14:39 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.842s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.307s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.744s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.541s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.063s', 'busy': False}}
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc5] ws msg op=48 cmd=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc5] ws msg op=87 cmd=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc5] jpeg-wrap raw=236 jpeg=882
+2026-03-30 22:14:39 [DEBUG] __main__ — [tun] → 1 pkts  raw=1286B  packed=1287B
+2026-03-30 22:14:39 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.809s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.274s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.711s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.508s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.029s', 'busy': False}}
+2026-03-30 22:14:39 [DEBUG] __main__ — [tun] → 1 pkts  raw=536B  packed=524B
+2026-03-30 22:14:39 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc5'] | p1=['acc5'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '2.808s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.274s', 'busy': False}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '2.710s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.508s', 'busy': False}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s', 'busy': True}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.029s', 'busy': False}}
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] ws msg op=136 cmd=0
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc5] upload ok fileId=3059068643 size=236
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] ws msg op=128 cmd=0
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] msg op=128 attaches=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] incoming fileId=3044677765 msgId=116319956443163016
+2026-03-30 22:14:39 [DEBUG] __main__ — [tun] → 1 pkts  raw=175B  packed=176B
+2026-03-30 22:14:39 [DEBUG] __main__ — [multi] все аккаунты заняты, ждём 1.964s
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] ws msg op=64 cmd=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] msg op=64 attaches=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] skip own fileId=3049734308
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] ws msg op=87 cmd=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] jpeg-wrap raw=59 jpeg=705
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] ws msg op=88 cmd=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] upload ok fileId=3046096725 size=59
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] recv_file fileId=3044677765 size=66
+2026-03-30 22:14:39 [DEBUG] __main__ — [tun] ← 1 pkts  raw=66B
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] ws msg op=136 cmd=0
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] ws msg op=64 cmd=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] msg op=64 attaches=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] skip own fileId=3046096725
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] ws msg op=87 cmd=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] jpeg-wrap raw=224 jpeg=870
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] upload ok fileId=3055384045 size=224
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc5] ws msg op=136 cmd=0
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] ws msg op=136 cmd=0
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc5] ws msg op=64 cmd=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc5] msg op=64 attaches=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc5] skip own fileId=3059068643
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc5] ws msg op=87 cmd=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] ws msg op=64 cmd=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] msg op=64 attaches=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] skip own fileId=3055384045
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc5] jpeg-wrap raw=248 jpeg=894
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] ws msg op=87 cmd=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] jpeg-wrap raw=468 jpeg=1114
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc5] upload ok fileId=3050161054 size=248
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] upload ok fileId=3042538921 size=468
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] ws msg op=136 cmd=0
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] ws msg op=64 cmd=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] msg op=64 attaches=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] skip own fileId=3042538921
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] ws msg op=87 cmd=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] jpeg-wrap raw=347 jpeg=993
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] upload ok fileId=3051622523 size=347
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] ws msg op=136 cmd=0
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc5] ws msg op=136 cmd=0
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] ws msg op=64 cmd=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] msg op=64 attaches=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc3] skip own fileId=3051622523
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc5] ws msg op=64 cmd=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc5] msg op=64 attaches=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc5] skip own fileId=3050161054
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc5] ws msg op=87 cmd=1
+2026-03-30 22:14:39 [DEBUG] __main__ — [transport:acc5] jpeg-wrap raw=392 jpeg=1038
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] upload ok fileId=3050100809 size=392
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] ws msg op=136 cmd=0
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] ws msg op=136 cmd=0
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] ws msg op=128 cmd=0
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] msg op=128 attaches=1
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] incoming fileId=3053667691 msgId=116319956508237235
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] ws msg op=64 cmd=1
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] msg op=64 attaches=1
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] skip own fileId=3050100809
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] ws msg op=87 cmd=1
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] jpeg-wrap raw=551 jpeg=1197
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] ws msg op=88 cmd=1
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] upload ok fileId=3057847828 size=551
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] recv_file fileId=3053667691 size=66
+2026-03-30 22:14:40 [DEBUG] __main__ — [tun] ← 1 pkts  raw=66B
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] ws msg op=136 cmd=0
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] ws msg op=64 cmd=1
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] msg op=64 attaches=1
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] skip own fileId=3057847828
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] ws msg op=87 cmd=1
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] jpeg-wrap raw=59 jpeg=705
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] upload ok fileId=3053627358 size=59
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] ws msg op=136 cmd=0
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] ws msg op=64 cmd=1
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] msg op=64 attaches=1
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] skip own fileId=3053627358
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] ws msg op=87 cmd=1
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] jpeg-wrap raw=59 jpeg=705
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] upload ok fileId=3049734564 size=59
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] ws msg op=136 cmd=0
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] ws msg op=64 cmd=1
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] msg op=64 attaches=1
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] skip own fileId=3049734564
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] ws msg op=87 cmd=1
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] jpeg-wrap raw=59 jpeg=705
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] upload ok fileId=3049662579 size=59
+2026-03-30 22:14:40 [DEBUG] __main__ — [transport:acc5] ws msg op=136 cmd=0
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] ws msg op=64 cmd=1
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] msg op=64 attaches=1
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] skip own fileId=3049662579
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] ws msg op=87 cmd=1
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] jpeg-wrap raw=59 jpeg=705
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] upload ok fileId=3052894358 size=59
+2026-03-30 22:14:41 [DEBUG] __main__ — [multi] выбор: acc6 (recv_count=0, last_event=send) | ready=['acc6'] | p1=['acc6'] | p2=[] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '0.779s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '0.245s', 'busy': False}, 'acc3': {'recv_count': 1, 'last_event': 'send', 'wait': '1.655s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '0.479s', 'busy': False}, 'acc5': {'recv_count': 1, 'last_event': 'send', 'wait': '2.951s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s', 'busy': True}}
+2026-03-30 22:14:41 [DEBUG] __main__ — [tun] → 78 pkts  raw=13695B  packed=9668B
+2026-03-30 22:14:41 [DEBUG] __main__ — [multi] выбор: acc6 (recv_count=0, last_event=send) | ready=['acc6'] | p1=['acc6'] | p2=[] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '0.778s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '0.244s', 'busy': False}, 'acc3': {'recv_count': 1, 'last_event': 'send', 'wait': '1.654s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '0.478s', 'busy': False}, 'acc5': {'recv_count': 1, 'last_event': 'send', 'wait': '2.950s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s', 'busy': True}}
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc6] ws msg op=87 cmd=1
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc6] jpeg-wrap raw=176 jpeg=822
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc6] upload ok fileId=3055384557 size=176
+2026-03-30 22:14:41 [DEBUG] __main__ — [tun] → 1 pkts  raw=58B  packed=59B
+2026-03-30 22:14:41 [DEBUG] __main__ — [multi] все аккаунты заняты, ждём 0.135s
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc6] ws msg op=136 cmd=0
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc6] ws msg op=64 cmd=1
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc6] msg op=64 attaches=1
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc6] skip own fileId=3055384557
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc6] ws msg op=87 cmd=1
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc6] jpeg-wrap raw=9668 jpeg=10314
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc6] upload ok fileId=3050926767 size=9668
+2026-03-30 22:14:41 [DEBUG] __main__ — [multi] выбор: acc2 (recv_count=0, last_event=send) | ready=['acc2'] | p1=['acc2'] | p2=[] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '0.533s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s', 'busy': True}, 'acc3': {'recv_count': 1, 'last_event': 'send', 'wait': '1.409s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '0.233s', 'busy': False}, 'acc5': {'recv_count': 1, 'last_event': 'send', 'wait': '2.705s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.998s', 'busy': False}}
+2026-03-30 22:14:41 [DEBUG] __main__ — [tun] → 6 pkts  raw=2327B  packed=1861B
+2026-03-30 22:14:41 [DEBUG] __main__ — [multi] выбор: acc2 (recv_count=0, last_event=send) | ready=['acc2'] | p1=['acc2'] | p2=[] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '0.533s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s', 'busy': True}, 'acc3': {'recv_count': 1, 'last_event': 'send', 'wait': '1.409s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '0.233s', 'busy': False}, 'acc5': {'recv_count': 1, 'last_event': 'send', 'wait': '2.705s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.997s', 'busy': False}}
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc2] ws msg op=87 cmd=1
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc2] jpeg-wrap raw=59 jpeg=705
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] ws msg op=136 cmd=0
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc2] upload ok fileId=3055654113 size=59
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] ws msg op=64 cmd=1
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] msg op=64 attaches=1
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] skip own fileId=3052894358
+2026-03-30 22:14:41 [DEBUG] __main__ — [tun] → 1 pkts  raw=66B  packed=67B
+2026-03-30 22:14:41 [DEBUG] __main__ — [multi] все аккаунты заняты, ждём 0.149s
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] ws msg op=87 cmd=1
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] jpeg-wrap raw=59 jpeg=705
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] upload ok fileId=3050643495 size=59
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc6] ws msg op=136 cmd=0
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc6] ws msg op=64 cmd=1
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc6] msg op=64 attaches=1
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc6] skip own fileId=3050926767
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] ws msg op=136 cmd=0
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc2] ws msg op=136 cmd=0
+2026-03-30 22:14:41 [DEBUG] __main__ — [multi] выбор: acc4 (recv_count=0, last_event=send) | ready=['acc4'] | p1=['acc4'] | p2=[] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '0.300s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.833s', 'busy': False}, 'acc3': {'recv_count': 1, 'last_event': 'send', 'wait': '1.175s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s', 'busy': True}, 'acc5': {'recv_count': 1, 'last_event': 'send', 'wait': '2.876s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.764s', 'busy': False}}
+2026-03-30 22:14:41 [DEBUG] __main__ — [tun] → 2 pkts  raw=128B  packed=104B
+2026-03-30 22:14:41 [DEBUG] __main__ — [multi] выбор: acc4 (recv_count=0, last_event=send) | ready=['acc4'] | p1=['acc4'] | p2=[] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '0.299s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.833s', 'busy': False}, 'acc3': {'recv_count': 1, 'last_event': 'send', 'wait': '1.175s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s', 'busy': True}, 'acc5': {'recv_count': 1, 'last_event': 'send', 'wait': '2.876s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.764s', 'busy': False}}
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc2] ws msg op=64 cmd=1
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc2] msg op=64 attaches=1
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc2] skip own fileId=3055654113
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc4] ws msg op=87 cmd=1
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc4] jpeg-wrap raw=67 jpeg=713
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] ws msg op=64 cmd=1
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] msg op=64 attaches=1
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] skip own fileId=3050643495
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc2] ws msg op=87 cmd=1
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc2] jpeg-wrap raw=1861 jpeg=2507
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] ws msg op=87 cmd=1
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] jpeg-wrap raw=59 jpeg=705
+2026-03-30 22:14:41 [DEBUG] __main__ — [tun] → 1 pkts  raw=66B  packed=67B
+2026-03-30 22:14:41 [DEBUG] __main__ — [multi] выбор: acc4 (recv_count=0, last_event=send) | ready=['acc4'] | p1=['acc4'] | p2=[] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '0.248s', 'busy': False}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.782s', 'busy': False}, 'acc3': {'recv_count': 1, 'last_event': 'send', 'wait': '1.124s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s', 'busy': True}, 'acc5': {'recv_count': 1, 'last_event': 'send', 'wait': '2.825s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.713s', 'busy': False}}
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc4] upload ok fileId=3056135882 size=67
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc2] upload ok fileId=3056768977 size=1861
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] upload ok fileId=3055751895 size=59
+2026-03-30 22:14:41 [DEBUG] __main__ — [tun] → 1 pkts  raw=66B  packed=67B
+2026-03-30 22:14:41 [DEBUG] __main__ — [multi] все аккаунты заняты, ждём 0.175s
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] ws msg op=136 cmd=0
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc2] ws msg op=136 cmd=0
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] ws msg op=64 cmd=1
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] msg op=64 attaches=1
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] skip own fileId=3055751895
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] ws msg op=87 cmd=1
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] jpeg-wrap raw=71 jpeg=717
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] upload ok fileId=3042957980 size=71
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc2] ws msg op=64 cmd=1
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc2] msg op=64 attaches=1
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc2] skip own fileId=3056768977
+2026-03-30 22:14:41 [DEBUG] __main__ — [multi] выбор: acc1 (recv_count=0, last_event=send) | ready=['acc1'] | p1=['acc1'] | p2=[] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s', 'busy': True}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.759s', 'busy': False}, 'acc3': {'recv_count': 1, 'last_event': 'send', 'wait': '0.875s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.756s', 'busy': False}, 'acc5': {'recv_count': 1, 'last_event': 'send', 'wait': '2.944s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.464s', 'busy': False}}
+2026-03-30 22:14:41 [DEBUG] __main__ — [tun] → 4 pkts  raw=485B  packed=481B
+2026-03-30 22:14:41 [DEBUG] __main__ — [multi] выбор: acc1 (recv_count=0, last_event=send) | ready=['acc1'] | p1=['acc1'] | p2=[] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s', 'busy': True}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.759s', 'busy': False}, 'acc3': {'recv_count': 1, 'last_event': 'send', 'wait': '0.875s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.755s', 'busy': False}, 'acc5': {'recv_count': 1, 'last_event': 'send', 'wait': '2.944s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.464s', 'busy': False}}
+2026-03-30 22:14:41 [DEBUG] __main__ — [tun] → 1 pkts  raw=335B  packed=313B
+2026-03-30 22:14:41 [DEBUG] __main__ — [multi] выбор: acc1 (recv_count=0, last_event=send) | ready=['acc1'] | p1=['acc1'] | p2=[] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s', 'busy': True}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.754s', 'busy': False}, 'acc3': {'recv_count': 1, 'last_event': 'send', 'wait': '0.870s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.751s', 'busy': False}, 'acc5': {'recv_count': 1, 'last_event': 'send', 'wait': '2.939s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.459s', 'busy': False}}
+2026-03-30 22:14:41 [DEBUG] __main__ — [tun] → 1 pkts  raw=235B  packed=236B
+2026-03-30 22:14:41 [DEBUG] __main__ — [multi] выбор: acc1 (recv_count=0, last_event=send) | ready=['acc1'] | p1=['acc1'] | p2=[] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s', 'busy': True}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.754s', 'busy': False}, 'acc3': {'recv_count': 1, 'last_event': 'send', 'wait': '0.870s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.750s', 'busy': False}, 'acc5': {'recv_count': 1, 'last_event': 'send', 'wait': '2.939s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.459s', 'busy': False}}
+2026-03-30 22:14:41 [DEBUG] __main__ — [tun] → 1 pkts  raw=66B  packed=67B
+2026-03-30 22:14:41 [DEBUG] __main__ — [multi] выбор: acc1 (recv_count=0, last_event=send) | ready=['acc1'] | p1=['acc1'] | p2=[] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s', 'busy': True}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.753s', 'busy': False}, 'acc3': {'recv_count': 1, 'last_event': 'send', 'wait': '0.869s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.750s', 'busy': False}, 'acc5': {'recv_count': 1, 'last_event': 'send', 'wait': '2.938s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.458s', 'busy': False}}
+2026-03-30 22:14:41 [DEBUG] __main__ — [tun] → 1 pkts  raw=66B  packed=67B
+2026-03-30 22:14:41 [DEBUG] __main__ — [multi] выбор: acc1 (recv_count=0, last_event=send) | ready=['acc1'] | p1=['acc1'] | p2=[] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s', 'busy': True}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '2.753s', 'busy': False}, 'acc3': {'recv_count': 1, 'last_event': 'send', 'wait': '0.869s', 'busy': False}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.749s', 'busy': False}, 'acc5': {'recv_count': 1, 'last_event': 'send', 'wait': '2.938s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '2.458s', 'busy': False}}
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc1] ws msg op=87 cmd=1
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc1] jpeg-wrap raw=67 jpeg=713
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc1] upload ok fileId=3055406586 size=67
+2026-03-30 22:14:41 [DEBUG] __main__ — [transport:acc5] ws msg op=136 cmd=0
+2026-03-30 22:14:41 [DEBUG] __main__ — [tun] → 1 pkts  raw=201B  packed=187B
+2026-03-30 22:14:41 [DEBUG] __main__ — [multi] все аккаунты заняты, ждём 0.804s
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc4] ws msg op=136 cmd=0
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] ws msg op=64 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] msg op=64 attaches=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] skip own fileId=3042957980
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc2] ws msg op=136 cmd=0
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] ws msg op=87 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] jpeg-wrap raw=59 jpeg=705
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] upload ok fileId=3046097237 size=59
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc4] ws msg op=64 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc4] msg op=64 attaches=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc4] skip own fileId=3056135882
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc4] ws msg op=87 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc4] jpeg-wrap raw=104 jpeg=750
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] ws msg op=136 cmd=0
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc4] upload ok fileId=3049160817 size=104
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc2] ws msg op=128 cmd=0
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc2] msg op=128 attaches=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc2] incoming fileId=3050134579 msgId=116319956636159128
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] ws msg op=64 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] msg op=64 attaches=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] skip own fileId=3055406586
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc2] ws msg op=88 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] ws msg op=87 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] jpeg-wrap raw=481 jpeg=1127
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] ws msg op=136 cmd=0
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc2] recv_file fileId=3050134579 size=58
+2026-03-30 22:14:42 [DEBUG] __main__ — [tun] ← 1 pkts  raw=58B
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] upload ok fileId=3040593339 size=481
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] ws msg op=64 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] msg op=64 attaches=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] skip own fileId=3046097237
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] ws msg op=87 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] jpeg-wrap raw=59 jpeg=705
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc4] ws msg op=136 cmd=0
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] upload ok fileId=3054863623 size=59
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc4] ws msg op=64 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc4] msg op=64 attaches=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc4] skip own fileId=3049160817
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc4] ws msg op=87 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc4] jpeg-wrap raw=67 jpeg=713
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] ws msg op=136 cmd=0
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc2] ws msg op=136 cmd=0
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc4] upload ok fileId=3055843919 size=67
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] ws msg op=64 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] msg op=64 attaches=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] skip own fileId=3040593339
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] ws msg op=87 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] jpeg-wrap raw=313 jpeg=959
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] ws msg op=136 cmd=0
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] upload ok fileId=3061987202 size=313
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc2] ws msg op=128 cmd=0
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc2] msg op=128 attaches=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc2] incoming fileId=3050282411 msgId=116319956654966504
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] ws msg op=64 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] msg op=64 attaches=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] skip own fileId=3054863623
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc2] ws msg op=88 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] ws msg op=87 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] jpeg-wrap raw=71 jpeg=717
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc2] recv_file fileId=3050282411 size=686
+2026-03-30 22:14:42 [DEBUG] __main__ — [tun] ← 11 pkts  raw=686B
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc4] ws msg op=136 cmd=0
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] ws msg op=136 cmd=0
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] upload ok fileId=3047926496 size=71
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc4] ws msg op=64 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc4] msg op=64 attaches=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc4] skip own fileId=3055843919
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] ws msg op=128 cmd=0
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] msg op=128 attaches=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] incoming fileId=3053211945 msgId=116319956663286766
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] ws msg op=88 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] recv_file fileId=3053211945 size=66
+2026-03-30 22:14:42 [DEBUG] __main__ — [tun] ← 1 pkts  raw=66B
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc2] ws msg op=136 cmd=0
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] ws msg op=136 cmd=0
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] ws msg op=64 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] msg op=64 attaches=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] skip own fileId=3047926496
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] ws msg op=87 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] jpeg-wrap raw=498 jpeg=1144
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] upload ok fileId=3050804178 size=498
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc2] ws msg op=128 cmd=0
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc2] msg op=128 attaches=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc2] incoming fileId=3051946444 msgId=116319956674152575
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc2] ws msg op=88 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc2] recv_file fileId=3051946444 size=66
+2026-03-30 22:14:42 [DEBUG] __main__ — [tun] ← 1 pkts  raw=66B
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] ws msg op=136 cmd=0
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] ws msg op=64 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] msg op=64 attaches=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] skip own fileId=3061987202
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] ws msg op=87 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] jpeg-wrap raw=236 jpeg=882
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] ws msg op=136 cmd=0
+2026-03-30 22:14:42 [DEBUG] __main__ — [multi] выбор: acc3 (recv_count=1, last_event=send) | ready=['acc3'] | p1=['acc3'] | p2=[] | stats={'acc1': {'recv_count': 1, 'last_event': 'recv', 'wait': '2.777s', 'busy': False}, 'acc2': {'recv_count': 3, 'last_event': 'recv', 'wait': '2.929s', 'busy': False}, 'acc3': {'recv_count': 1, 'last_event': 'send', 'wait': '0.000s', 'busy': True}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.519s', 'busy': False}, 'acc5': {'recv_count': 1, 'last_event': 'send', 'wait': '2.887s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '1.588s', 'busy': False}}
+2026-03-30 22:14:42 [DEBUG] __main__ — [tun] → 53 pkts  raw=11416B  packed=8043B
+2026-03-30 22:14:42 [DEBUG] __main__ — [multi] выбор: acc3 (recv_count=1, last_event=send) | ready=['acc3'] | p1=['acc3'] | p2=[] | stats={'acc1': {'recv_count': 1, 'last_event': 'recv', 'wait': '2.777s', 'busy': False}, 'acc2': {'recv_count': 3, 'last_event': 'recv', 'wait': '2.929s', 'busy': False}, 'acc3': {'recv_count': 1, 'last_event': 'send', 'wait': '0.000s', 'busy': True}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.519s', 'busy': False}, 'acc5': {'recv_count': 1, 'last_event': 'send', 'wait': '2.887s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '1.587s', 'busy': False}}
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] upload ok fileId=3055286584 size=236
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc3] ws msg op=87 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc3] jpeg-wrap raw=187 jpeg=833
+2026-03-30 22:14:42 [DEBUG] __main__ — [tun] → 1 pkts  raw=58B  packed=59B
+2026-03-30 22:14:42 [DEBUG] __main__ — [multi] выбор: acc3 (recv_count=1, last_event=send) | ready=['acc3'] | p1=['acc3'] | p2=[] | stats={'acc1': {'recv_count': 1, 'last_event': 'send', 'wait': '2.984s', 'busy': False}, 'acc2': {'recv_count': 3, 'last_event': 'recv', 'wait': '2.899s', 'busy': False}, 'acc3': {'recv_count': 1, 'last_event': 'send', 'wait': '0.000s', 'busy': True}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '2.489s', 'busy': False}, 'acc5': {'recv_count': 1, 'last_event': 'send', 'wait': '2.857s', 'busy': False}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '1.558s', 'busy': False}}
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] ws msg op=64 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] msg op=64 attaches=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] skip own fileId=3050804178
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] ws msg op=87 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] jpeg-wrap raw=1287 jpeg=1933
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc3] upload ok fileId=3041183585 size=187
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] upload ok fileId=3058284149 size=1287
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc2] ws msg op=136 cmd=0
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] ws msg op=136 cmd=0
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] ws msg op=64 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] msg op=64 attaches=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] skip own fileId=3055286584
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc3] ws msg op=136 cmd=0
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] ws msg op=87 cmd=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] jpeg-wrap raw=67 jpeg=713
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc5] ws msg op=136 cmd=0
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc2] ws msg op=128 cmd=0
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc2] msg op=128 attaches=1
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc2] incoming fileId=3050748148 msgId=116319956693683787
+2026-03-30 22:14:42 [DEBUG] __main__ — [transport:acc1] upload ok fileId=3057363969 size=67
+2026-03-30 22:14:43 [DEBUG] __main__ — [transport:acc2] ws msg op=88 cmd=1
+2026-03-30 22:14:43 [DEBUG] __main__ — [transport:acc2] recv_file fileId=3050748148 size=66
+2026-03-30 22:14:43 [DEBUG] __main__ — [tun] ← 1 pkts  raw=66B
+2026-03-30 22:14:43 [DEBUG] __main__ — [transport:acc3] ws msg op=64 cmd=1
+2026-03-30 22:14:43 [DEBUG] __main__ — [transport:acc3] msg op=64 attaches=1
+2026-03-30 22:14:43 [DEBUG] __main__ — [transport:acc3] skip own fileId=3041183585
+2026-03-30 22:14:43 [DEBUG] __main__ — [transport:acc5] ws msg op=64 cmd=1
+2026-03-30 22:14:43 [DEBUG] __main__ — [transport:acc5] msg op=64 attaches=1
+2026-03-30 22:14:43 [DEBUG] __main__ — [transport:acc5] skip own fileId=3058284149
+2026-03-30 22:14:43 [DEBUG] __main__ — [transport:acc3] ws msg op=87 cmd=1
+2026-03-30 22:14:43 [DEBUG] __main__ — [transport:acc3] jpeg-wrap raw=8043 jpeg=8689
+2026-03-30 22:14:43 [DEBUG] __main__ — [tun] → 1 pkts  raw=58B  packed=59B
+2026-03-30 22:14:43 [DEBUG] __main__ — [multi] все аккаунты заняты, ждём 1.356s
+2026-03-30 22:14:43 [DEBUG] __main__ — [transport:acc5] ws msg op=87 cmd=1
+2026-03-30 22:14:43 [DEBUG] __main__ — [transport:acc5] jpeg-wrap raw=59 jpeg=705
+2026-03-30 22:14:43 [DEBUG] __main__ — [transport:acc5] upload ok fileId=3055041084 size=59
+2026-03-30 22:14:43 [DEBUG] __main__ — [transport:acc3] upload ok fileId=3050192433 size=8043
+2026-03-30 22:14:43 [DEBUG] __main__ — [transport:acc1] ws msg op=136 cmd=0
+2026-03-30 22:14:43 [ERROR] asyncio — Fatal error on SSL transport
+protocol: <asyncio.sslproto.SSLProtocol object at 0x79d0c6d9b400>
+transport: <_SelectorSocketTransport closing fd=23>
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 924, in write
+    n = self._sock.send(data)
+OSError: [Errno 9] Bad file descriptor
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/sslproto.py", line 690, in _process_write_backlog
+    self._transport.write(chunk)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 930, in write
+    self._fatal_error(exc, 'Fatal write error on socket transport')
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 725, in _fatal_error
+    self._force_close(exc)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 737, in _force_close
+    self._loop.call_soon(self._call_connection_lost, exc)
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 753, in call_soon
+    self._check_closed()
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 515, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+2026-03-30 22:14:43 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x79d0c6d1f880>, 100444.342970278)])']
+connector: <__main__.BoundTCPConnector object at 0x79d0c6d3a560>
+2026-03-30 22:14:43 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x79d0c6d1f940>, 100444.638168228)])', 'deque([(<aiohttp.client_proto.ResponseHandler object at 0x79d0c6d88580>, 100445.97537804)])']
+connector: <__main__.BoundTCPConnector object at 0x79d0c6d38700>
+2026-03-30 22:14:43 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x79d0c6d886a0>, 100445.274162607)])']
+connector: <__main__.BoundTCPConnector object at 0x79d0c6d39540>
+2026-03-30 22:14:43 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x79d0c6d88640>, 100442.225834646)])', 'deque([(<aiohttp.client_proto.ResponseHandler object at 0x79d0c6d1fc40>, 100446.016116505)])']
+connector: <__main__.BoundTCPConnector object at 0x79d0c6d38f40>
+2026-03-30 22:14:43 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x79d0c6d8b700>, 100445.532320578)])', 'deque([(<aiohttp.client_proto.ResponseHandler object at 0x79d0c6d892a0>, 100445.960824659)])']
+connector: <__main__.BoundTCPConnector object at 0x79d0c76ff940>
+2026-03-30 22:14:43 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x79d0c6d8ae60>, 100443.170070388)])', 'deque([(<aiohttp.client_proto.ResponseHandler object at 0x79d0c6d8aaa0>, 100446.015384504)])']
+connector: <__main__.BoundTCPConnector object at 0x79d0c6d39d50>
+2026-03-30 22:14:43 [ERROR] asyncio — Fatal error on SSL transport
+protocol: <asyncio.sslproto.SSLProtocol object at 0x79d0c6d9a1d0>
+transport: <_SelectorSocketTransport closing fd=21>
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 924, in write
+    n = self._sock.send(data)
+OSError: [Errno 9] Bad file descriptor
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/sslproto.py", line 690, in _process_write_backlog
+    self._transport.write(chunk)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 930, in write
+    self._fatal_error(exc, 'Fatal write error on socket transport')
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 725, in _fatal_error
+    self._force_close(exc)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 737, in _force_close
+    self._loop.call_soon(self._call_connection_lost, exc)
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 753, in call_soon
+    self._check_closed()
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 515, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed

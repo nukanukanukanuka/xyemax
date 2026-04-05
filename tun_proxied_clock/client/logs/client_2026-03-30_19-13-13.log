@@ -1,0 +1,299 @@
+2026-03-30 19:13:13 [DEBUG] __main__ — [tun] защита DNS 127.0.0.53 через 192.168.5.1 dev wlp0s20f3
+2026-03-30 19:13:13 [DEBUG] __main__ — [tun] защита DNS 8.8.8.8 через 192.168.5.1 dev wlp0s20f3
+2026-03-30 19:13:13 [DEBUG] __main__ — [tun] защита DNS 1.1.1.1 через 192.168.5.1 dev wlp0s20f3
+2026-03-30 19:13:13 [DEBUG] __main__ — [tun] защита CDN подсети 155.212.204.0/24 через 192.168.5.1 dev wlp0s20f3
+2026-03-30 19:13:13 [DEBUG] __main__ — [tun] защита CDN подсети 155.212.0.0/16 через 192.168.5.1 dev wlp0s20f3
+2026-03-30 19:13:13 [DEBUG] __main__ — [tun] защита WS хоста ws-api.oneme.ru (155.212.204.133) через 192.168.5.1 dev wlp0s20f3
+2026-03-30 19:13:13 [DEBUG] __main__ — [tun] защита WS хоста ws-api.oneme.ru (155.212.204.70) через 192.168.5.1 dev wlp0s20f3
+2026-03-30 19:13:14 [DEBUG] __main__ — [tun] защита WS хоста fu.oneme.ru (155.212.204.141) через 192.168.5.1 dev wlp0s20f3
+2026-03-30 19:13:14 [DEBUG] __main__ — [tun] защита WS хоста fu.oneme.ru (155.212.204.66) через 192.168.5.1 dev wlp0s20f3
+2026-03-30 19:13:14 [DEBUG] __main__ — [tun] защита WS хоста telegram.mooner.pro (172.67.137.250) через 192.168.5.1 dev wlp0s20f3
+2026-03-30 19:13:14 [DEBUG] __main__ — [tun] защита WS хоста telegram.mooner.pro (104.21.73.28) через 192.168.5.1 dev wlp0s20f3
+2026-03-30 19:13:14 [DEBUG] __main__ — [tun] ip link set tun0 up mtu 1400: OK
+2026-03-30 19:13:14 [DEBUG] __main__ — [tun] ip addr add 10.0.1.1/30 dev tun0: OK
+2026-03-30 19:13:14 [DEBUG] __main__ — [tun] ip route add 127.0.0.53 via 192.168.5.1 dev wlp0s20f3: OK
+2026-03-30 19:13:14 [DEBUG] __main__ — [tun] ip route add 8.8.8.8 via 192.168.5.1 dev wlp0s20f3: OK
+2026-03-30 19:13:14 [DEBUG] __main__ — [tun] ip route add 1.1.1.1 via 192.168.5.1 dev wlp0s20f3: OK
+2026-03-30 19:13:14 [DEBUG] __main__ — [tun] ip route add 155.212.204.0/24 via 192.168.5.1 dev wlp0s20f3: OK
+2026-03-30 19:13:14 [DEBUG] __main__ — [tun] ip route add 155.212.0.0/16 via 192.168.5.1 dev wlp0s20f3: OK
+2026-03-30 19:13:14 [DEBUG] __main__ — [tun] ip route add 155.212.204.133 via 192.168.5.1 dev wlp0s20f3: OK
+2026-03-30 19:13:14 [DEBUG] __main__ — [tun] ip route add 155.212.204.70 via 192.168.5.1 dev wlp0s20f3: OK
+2026-03-30 19:13:14 [DEBUG] __main__ — [tun] ip route add 155.212.204.141 via 192.168.5.1 dev wlp0s20f3: OK
+2026-03-30 19:13:14 [DEBUG] __main__ — [tun] ip route add 155.212.204.66 via 192.168.5.1 dev wlp0s20f3: OK
+2026-03-30 19:13:14 [DEBUG] __main__ — [tun] ip route add 172.67.137.250 via 192.168.5.1 dev wlp0s20f3: OK
+2026-03-30 19:13:14 [DEBUG] __main__ — [tun] ip route add 104.21.73.28 via 192.168.5.1 dev wlp0s20f3: OK
+2026-03-30 19:13:14 [DEBUG] __main__ — [tun] ip route add 0.0.0.0/1 dev tun0: OK
+2026-03-30 19:13:14 [DEBUG] __main__ — [tun] ip route add 128.0.0.0/1 dev tun0: OK
+2026-03-30 19:13:14 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-03-30 19:13:14 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-03-30 19:13:14 [DEBUG] __main__ — [transport:acc6] ws msg op=6 cmd=1
+2026-03-30 19:13:14 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-03-30 19:13:14 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-03-30 19:13:14 [DEBUG] __main__ — [transport:acc4] ws msg op=6 cmd=1
+2026-03-30 19:13:14 [DEBUG] __main__ — [transport:acc5] ws msg op=6 cmd=1
+2026-03-30 19:13:14 [DEBUG] __main__ — [transport:acc6] ws msg op=19 cmd=1
+2026-03-30 19:13:14 [DEBUG] __main__ — [transport:acc6] ws msg op=292 cmd=0
+2026-03-30 19:13:14 [INFO] __main__ — Авторизован [client:acc6], chatId=0
+2026-03-30 19:13:14 [DEBUG] __main__ — [transport:acc6] ws msg op=48 cmd=1
+2026-03-30 19:13:14 [DEBUG] __main__ — [transport:acc5] ws msg op=19 cmd=1
+2026-03-30 19:13:14 [DEBUG] __main__ — [transport:acc5] ws msg op=292 cmd=0
+2026-03-30 19:13:14 [DEBUG] __main__ — [transport:acc4] ws msg op=19 cmd=1
+2026-03-30 19:13:14 [INFO] __main__ — Авторизован [client:acc5], chatId=0
+2026-03-30 19:13:14 [INFO] __main__ — Авторизован [client:acc4], chatId=0
+2026-03-30 19:13:14 [DEBUG] __main__ — [transport:acc4] ws msg op=292 cmd=0
+2026-03-30 19:13:14 [DEBUG] __main__ — [transport:acc4] ws msg op=48 cmd=1
+2026-03-30 19:13:14 [DEBUG] __main__ — [transport:acc5] ws msg op=48 cmd=1
+2026-03-30 19:13:14 [DEBUG] __main__ — [transport:acc3] ws msg op=6 cmd=1
+2026-03-30 19:13:14 [DEBUG] __main__ — [transport:acc3] ws msg op=19 cmd=1
+2026-03-30 19:13:14 [DEBUG] __main__ — [transport:acc3] ws msg op=292 cmd=0
+2026-03-30 19:13:14 [INFO] __main__ — Авторизован [client:acc3], chatId=0
+2026-03-30 19:13:14 [DEBUG] __main__ — [transport:acc3] ws msg op=48 cmd=1
+2026-03-30 19:13:15 [DEBUG] __main__ — [tun] → 1 pkts  raw=54B  packed=48B
+2026-03-30 19:13:15 [DEBUG] __main__ — [multi] выбор: acc2 (recv_count=0, last_event=recv) | ready=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | p1=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | p2=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | stats={'acc1': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s'}, 'acc2': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s'}, 'acc3': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s'}, 'acc4': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s'}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s'}, 'acc6': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s'}}
+2026-03-30 19:13:15 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-03-30 19:13:15 [DEBUG] __main__ — [transport:acc2] ws msg op=6 cmd=1
+2026-03-30 19:13:15 [DEBUG] __main__ — [transport:acc2] ws msg op=19 cmd=1
+2026-03-30 19:13:15 [DEBUG] __main__ — [transport:acc2] ws msg op=292 cmd=0
+2026-03-30 19:13:15 [INFO] __main__ — Авторизован [client:acc2], chatId=0
+2026-03-30 19:13:15 [DEBUG] __main__ — [transport:acc2] ws msg op=48 cmd=1
+2026-03-30 19:13:15 [DEBUG] __main__ — [transport:acc2] ws msg op=87 cmd=1
+2026-03-30 19:13:15 [DEBUG] __main__ — [transport:acc2] jpeg-wrap raw=48 jpeg=694
+2026-03-30 19:13:15 [DEBUG] __main__ — [transport:acc2] upload ok fileId=3048790655 size=48
+2026-03-30 19:13:15 [DEBUG] __main__ — [transport:acc2] ws msg op=136 cmd=0
+2026-03-30 19:13:15 [DEBUG] __main__ — [transport:acc2] ws msg op=64 cmd=1
+2026-03-30 19:13:15 [DEBUG] __main__ — [transport:acc2] msg op=64 attaches=1
+2026-03-30 19:13:15 [DEBUG] __main__ — [transport:acc2] skip own fileId=3048790655
+2026-03-30 19:13:16 [DEBUG] __main__ — [tun] → 1 pkts  raw=58B  packed=59B
+2026-03-30 19:13:16 [DEBUG] __main__ — [multi] выбор: acc4 (recv_count=0, last_event=recv) | ready=['acc1', 'acc3', 'acc4', 'acc5', 'acc6'] | p1=['acc1', 'acc3', 'acc4', 'acc5', 'acc6'] | p2=['acc1', 'acc3', 'acc4', 'acc5', 'acc6'] | stats={'acc1': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s'}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '0.465s'}, 'acc3': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s'}, 'acc4': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s'}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s'}, 'acc6': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s'}}
+2026-03-30 19:13:16 [DEBUG] __main__ — [transport:acc4] ws msg op=87 cmd=1
+2026-03-30 19:13:16 [DEBUG] __main__ — [transport:acc4] jpeg-wrap raw=59 jpeg=705
+2026-03-30 19:13:16 [DEBUG] __main__ — [transport:acc4] upload ok fileId=3052909797 size=59
+2026-03-30 19:13:16 [DEBUG] __main__ — [transport:acc4] ws msg op=136 cmd=0
+2026-03-30 19:13:16 [DEBUG] __main__ — [transport:acc4] ws msg op=64 cmd=1
+2026-03-30 19:13:16 [DEBUG] __main__ — [transport:acc4] msg op=64 attaches=1
+2026-03-30 19:13:16 [DEBUG] __main__ — [transport:acc4] skip own fileId=3052909797
+2026-03-30 19:13:18 [DEBUG] __main__ — [tun] → 1 pkts  raw=54B  packed=48B
+2026-03-30 19:13:18 [DEBUG] __main__ — [multi] выбор: acc6 (recv_count=0, last_event=recv) | ready=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | p1=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | p2=['acc1', 'acc3', 'acc5', 'acc6'] | stats={'acc1': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s'}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc3': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s'}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s'}, 'acc6': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s'}}
+2026-03-30 19:13:18 [DEBUG] __main__ — [transport:acc6] ws msg op=87 cmd=1
+2026-03-30 19:13:18 [DEBUG] __main__ — [transport:acc6] jpeg-wrap raw=48 jpeg=694
+2026-03-30 19:13:19 [DEBUG] __main__ — [transport:acc6] upload ok fileId=3048837491 size=48
+2026-03-30 19:13:19 [DEBUG] __main__ — [transport:acc6] ws msg op=136 cmd=0
+2026-03-30 19:13:19 [DEBUG] __main__ — [transport:acc6] ws msg op=64 cmd=1
+2026-03-30 19:13:19 [DEBUG] __main__ — [transport:acc6] msg op=64 attaches=1
+2026-03-30 19:13:19 [DEBUG] __main__ — [transport:acc6] skip own fileId=3048837491
+2026-03-30 19:13:20 [INFO] __main__ — [net] HTTP трафик скрипта привязан к интерфейсу: wlp0s20f3
+2026-03-30 19:13:20 [DEBUG] __main__ — [transport:acc1] ws msg op=6 cmd=1
+2026-03-30 19:13:20 [DEBUG] __main__ — [transport:acc1] ws msg op=19 cmd=1
+2026-03-30 19:13:20 [DEBUG] __main__ — [transport:acc1] ws msg op=292 cmd=0
+2026-03-30 19:13:20 [INFO] __main__ — Авторизован [client:acc1], chatId=0
+2026-03-30 19:13:20 [DEBUG] __main__ — [transport:acc1] ws msg op=48 cmd=1
+2026-03-30 19:13:21 [DEBUG] __main__ — [tun] → 16 pkts  raw=784B  packed=424B
+2026-03-30 19:13:21 [DEBUG] __main__ — [multi] выбор: acc3 (recv_count=0, last_event=recv) | ready=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | p1=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | p2=['acc1', 'acc3', 'acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s'}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc3': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s'}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s'}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}}
+2026-03-30 19:13:21 [DEBUG] __main__ — [transport:acc3] ws msg op=87 cmd=1
+2026-03-30 19:13:21 [DEBUG] __main__ — [transport:acc3] jpeg-wrap raw=424 jpeg=1070
+2026-03-30 19:13:21 [DEBUG] __main__ — [transport:acc3] upload ok fileId=3049814456 size=424
+2026-03-30 19:13:21 [DEBUG] __main__ — [transport:acc3] ws msg op=136 cmd=0
+2026-03-30 19:13:21 [DEBUG] __main__ — [transport:acc3] ws msg op=64 cmd=1
+2026-03-30 19:13:21 [DEBUG] __main__ — [transport:acc3] msg op=64 attaches=1
+2026-03-30 19:13:21 [DEBUG] __main__ — [transport:acc3] skip own fileId=3049814456
+2026-03-30 19:13:22 [DEBUG] __main__ — [tun] → 6 pkts  raw=316B  packed=233B
+2026-03-30 19:13:22 [DEBUG] __main__ — [multi] выбор: acc1 (recv_count=0, last_event=recv) | ready=['acc1', 'acc2', 'acc4', 'acc5', 'acc6'] | p1=['acc1', 'acc2', 'acc4', 'acc5', 'acc6'] | p2=['acc1', 'acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s'}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '0.567s'}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s'}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}}
+2026-03-30 19:13:22 [DEBUG] __main__ — [transport:acc1] ws msg op=87 cmd=1
+2026-03-30 19:13:22 [DEBUG] __main__ — [transport:acc1] jpeg-wrap raw=233 jpeg=879
+2026-03-30 19:13:22 [DEBUG] __main__ — [transport:acc1] upload ok fileId=3042723509 size=233
+2026-03-30 19:13:22 [DEBUG] __main__ — [transport:acc1] ws msg op=136 cmd=0
+2026-03-30 19:13:22 [DEBUG] __main__ — [transport:acc1] ws msg op=64 cmd=1
+2026-03-30 19:13:22 [DEBUG] __main__ — [transport:acc1] msg op=64 attaches=1
+2026-03-30 19:13:22 [DEBUG] __main__ — [transport:acc1] skip own fileId=3042723509
+2026-03-30 19:13:23 [DEBUG] __main__ — [tun] → 3 pkts  raw=190B  packed=138B
+2026-03-30 19:13:23 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | p1=['acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '0.559s'}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s'}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}}
+2026-03-30 19:13:23 [DEBUG] __main__ — [transport:acc5] ws msg op=87 cmd=1
+2026-03-30 19:13:23 [DEBUG] __main__ — [transport:acc5] jpeg-wrap raw=138 jpeg=784
+2026-03-30 19:13:24 [DEBUG] __main__ — [tun] → 10 pkts  raw=532B  packed=351B
+2026-03-30 19:13:24 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=recv) | ready=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | p1=['acc1', 'acc2', 'acc3', 'acc4', 'acc5', 'acc6'] | p2=['acc5'] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc5': {'recv_count': 0, 'last_event': 'recv', 'wait': '0.000s'}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}}
+2026-03-30 19:13:24 [DEBUG] __main__ — [transport:acc5] upload ok fileId=3049814712 size=138
+2026-03-30 19:13:24 [DEBUG] __main__ — [transport:acc5] ws msg op=136 cmd=0
+2026-03-30 19:13:24 [DEBUG] __main__ — [transport:acc5] ws msg op=64 cmd=1
+2026-03-30 19:13:24 [DEBUG] __main__ — [transport:acc5] msg op=64 attaches=1
+2026-03-30 19:13:24 [DEBUG] __main__ — [transport:acc5] skip own fileId=3049814712
+2026-03-30 19:13:24 [DEBUG] __main__ — [transport:acc5] ws msg op=87 cmd=1
+2026-03-30 19:13:24 [DEBUG] __main__ — [transport:acc5] jpeg-wrap raw=351 jpeg=997
+2026-03-30 19:13:24 [DEBUG] __main__ — [transport:acc5] upload ok fileId=3044728532 size=351
+2026-03-30 19:13:24 [DEBUG] __main__ — [transport:acc5] ws msg op=136 cmd=0
+2026-03-30 19:13:24 [DEBUG] __main__ — [transport:acc5] ws msg op=64 cmd=1
+2026-03-30 19:13:24 [DEBUG] __main__ — [transport:acc5] msg op=64 attaches=1
+2026-03-30 19:13:24 [DEBUG] __main__ — [transport:acc5] skip own fileId=3044728532
+2026-03-30 19:13:25 [DEBUG] __main__ — [tun] → 3 pkts  raw=190B  packed=138B
+2026-03-30 19:13:25 [DEBUG] __main__ — [multi] выбор: acc2 (recv_count=0, last_event=send) | ready=['acc1', 'acc2', 'acc3', 'acc4', 'acc6'] | p1=['acc1', 'acc2', 'acc3', 'acc4', 'acc6'] | p2=[] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc5': {'recv_count': 0, 'last_event': 'send', 'wait': '0.804s'}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}}
+2026-03-30 19:13:25 [DEBUG] __main__ — [transport:acc2] ws msg op=87 cmd=1
+2026-03-30 19:13:25 [DEBUG] __main__ — [transport:acc2] jpeg-wrap raw=138 jpeg=784
+2026-03-30 19:13:25 [DEBUG] __main__ — [transport:acc2] upload ok fileId=3051828157 size=138
+2026-03-30 19:13:25 [DEBUG] __main__ — [transport:acc2] ws msg op=136 cmd=0
+2026-03-30 19:13:25 [DEBUG] __main__ — [transport:acc2] ws msg op=64 cmd=1
+2026-03-30 19:13:25 [DEBUG] __main__ — [transport:acc2] msg op=64 attaches=1
+2026-03-30 19:13:25 [DEBUG] __main__ — [transport:acc2] skip own fileId=3051828157
+2026-03-30 19:13:26 [DEBUG] __main__ — [tun] → 7 pkts  raw=386B  packed=253B
+2026-03-30 19:13:26 [DEBUG] __main__ — [multi] выбор: acc4 (recv_count=0, last_event=send) | ready=['acc1', 'acc3', 'acc4', 'acc5', 'acc6'] | p1=['acc1', 'acc3', 'acc4', 'acc5', 'acc6'] | p2=[] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '0.560s'}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc5': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}}
+2026-03-30 19:13:26 [DEBUG] __main__ — [transport:acc4] ws msg op=87 cmd=1
+2026-03-30 19:13:26 [DEBUG] __main__ — [transport:acc4] jpeg-wrap raw=253 jpeg=899
+2026-03-30 19:13:26 [DEBUG] __main__ — [transport:acc4] upload ok fileId=3039788475 size=253
+2026-03-30 19:13:26 [DEBUG] __main__ — [transport:acc4] ws msg op=136 cmd=0
+2026-03-30 19:13:26 [DEBUG] __main__ — [transport:acc4] ws msg op=64 cmd=1
+2026-03-30 19:13:26 [DEBUG] __main__ — [transport:acc4] msg op=64 attaches=1
+2026-03-30 19:13:26 [DEBUG] __main__ — [transport:acc4] skip own fileId=3039788475
+2026-03-30 19:13:27 [DEBUG] __main__ — [tun] → 8 pkts  raw=428B  packed=323B
+2026-03-30 19:13:27 [DEBUG] __main__ — [multi] выбор: acc5 (recv_count=0, last_event=send) | ready=['acc1', 'acc2', 'acc3', 'acc5', 'acc6'] | p1=['acc1', 'acc2', 'acc3', 'acc5', 'acc6'] | p2=[] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '0.521s'}, 'acc5': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}}
+2026-03-30 19:13:27 [DEBUG] __main__ — [transport:acc5] ws msg op=87 cmd=1
+2026-03-30 19:13:27 [DEBUG] __main__ — [transport:acc5] jpeg-wrap raw=323 jpeg=969
+2026-03-30 19:13:27 [DEBUG] __main__ — [transport:acc5] upload ok fileId=3055324874 size=323
+2026-03-30 19:13:27 [DEBUG] __main__ — [transport:acc5] ws msg op=136 cmd=0
+2026-03-30 19:13:27 [DEBUG] __main__ — [transport:acc5] ws msg op=64 cmd=1
+2026-03-30 19:13:27 [DEBUG] __main__ — [transport:acc5] msg op=64 attaches=1
+2026-03-30 19:13:27 [DEBUG] __main__ — [transport:acc5] skip own fileId=3055324874
+2026-03-30 19:13:28 [DEBUG] __main__ — [tun] → 13 pkts  raw=738B  packed=464B
+2026-03-30 19:13:28 [DEBUG] __main__ — [multi] выбор: acc6 (recv_count=0, last_event=send) | ready=['acc1', 'acc2', 'acc3', 'acc4', 'acc6'] | p1=['acc1', 'acc2', 'acc3', 'acc4', 'acc6'] | p2=[] | stats={'acc1': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc2': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc3': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc4': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}, 'acc5': {'recv_count': 0, 'last_event': 'send', 'wait': '0.551s'}, 'acc6': {'recv_count': 0, 'last_event': 'send', 'wait': '0.000s'}}
+2026-03-30 19:13:28 [DEBUG] __main__ — [transport:acc6] ws msg op=87 cmd=1
+2026-03-30 19:13:28 [DEBUG] __main__ — [transport:acc6] jpeg-wrap raw=464 jpeg=1110
+2026-03-30 19:13:28 [DEBUG] __main__ — [transport:acc6] upload ok fileId=3049814968 size=464
+2026-03-30 19:13:28 [DEBUG] __main__ — [transport:acc6] ws msg op=136 cmd=0
+2026-03-30 19:13:28 [DEBUG] __main__ — [transport:acc6] ws msg op=64 cmd=1
+2026-03-30 19:13:28 [DEBUG] __main__ — [transport:acc6] msg op=64 attaches=1
+2026-03-30 19:13:28 [DEBUG] __main__ — [transport:acc6] skip own fileId=3049814968
+2026-03-30 19:13:29 [ERROR] asyncio — Fatal error on SSL transport
+protocol: <asyncio.sslproto.SSLProtocol object at 0x751d2414c4f0>
+transport: <_SelectorSocketTransport closing fd=15>
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 924, in write
+    n = self._sock.send(data)
+OSError: [Errno 9] Bad file descriptor
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/sslproto.py", line 690, in _process_write_backlog
+    self._transport.write(chunk)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 930, in write
+    self._fatal_error(exc, 'Fatal write error on socket transport')
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 725, in _fatal_error
+    self._force_close(exc)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 737, in _force_close
+    self._loop.call_soon(self._call_connection_lost, exc)
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 753, in call_soon
+    self._check_closed()
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 515, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+2026-03-30 19:13:29 [ERROR] asyncio — Fatal error on SSL transport
+protocol: <asyncio.sslproto.SSLProtocol object at 0x751d2414cd30>
+transport: <_SelectorSocketTransport closing fd=16>
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 924, in write
+    n = self._sock.send(data)
+OSError: [Errno 9] Bad file descriptor
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/sslproto.py", line 690, in _process_write_backlog
+    self._transport.write(chunk)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 930, in write
+    self._fatal_error(exc, 'Fatal write error on socket transport')
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 725, in _fatal_error
+    self._force_close(exc)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 737, in _force_close
+    self._loop.call_soon(self._call_connection_lost, exc)
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 753, in call_soon
+    self._check_closed()
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 515, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+2026-03-30 19:13:29 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x751d25b85a80>, 89565.143225055)])']
+connector: <__main__.BoundTCPConnector object at 0x751d264f48e0>
+2026-03-30 19:13:29 [ERROR] asyncio — Fatal error on SSL transport
+protocol: <asyncio.sslproto.SSLProtocol object at 0x751d2414d8d0>
+transport: <_SelectorSocketTransport closing fd=17>
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 924, in write
+    n = self._sock.send(data)
+OSError: [Errno 9] Bad file descriptor
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/sslproto.py", line 690, in _process_write_backlog
+    self._transport.write(chunk)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 930, in write
+    self._fatal_error(exc, 'Fatal write error on socket transport')
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 725, in _fatal_error
+    self._force_close(exc)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 737, in _force_close
+    self._loop.call_soon(self._call_connection_lost, exc)
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 753, in call_soon
+    self._check_closed()
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 515, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+2026-03-30 19:13:29 [ERROR] asyncio — Fatal error on SSL transport
+protocol: <asyncio.sslproto.SSLProtocol object at 0x751d2414d300>
+transport: <_SelectorSocketTransport closing fd=18>
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 924, in write
+    n = self._sock.send(data)
+OSError: [Errno 9] Bad file descriptor
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/sslproto.py", line 690, in _process_write_backlog
+    self._transport.write(chunk)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 930, in write
+    self._fatal_error(exc, 'Fatal write error on socket transport')
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 725, in _fatal_error
+    self._force_close(exc)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 737, in _force_close
+    self._loop.call_soon(self._call_connection_lost, exc)
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 753, in call_soon
+    self._check_closed()
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 515, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+2026-03-30 19:13:29 [ERROR] asyncio — Fatal error on SSL transport
+protocol: <asyncio.sslproto.SSLProtocol object at 0x751d2414dea0>
+transport: <_SelectorSocketTransport closing fd=19>
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 924, in write
+    n = self._sock.send(data)
+OSError: [Errno 9] Bad file descriptor
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/sslproto.py", line 690, in _process_write_backlog
+    self._transport.write(chunk)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 930, in write
+    self._fatal_error(exc, 'Fatal write error on socket transport')
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 725, in _fatal_error
+    self._force_close(exc)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 737, in _force_close
+    self._loop.call_soon(self._call_connection_lost, exc)
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 753, in call_soon
+    self._check_closed()
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 515, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+2026-03-30 19:13:29 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x751d25b85660>, 89564.123989143)])']
+connector: <__main__.BoundTCPConnector object at 0x751d25b34af0>
+2026-03-30 19:13:29 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x751d25b17f40>, 89571.289401122)])']
+connector: <__main__.BoundTCPConnector object at 0x751d25b36110>
+2026-03-30 19:13:29 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x751d25b84b80>, 89569.219959897)])']
+connector: <__main__.BoundTCPConnector object at 0x751d25b350f0>
+2026-03-30 19:13:29 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x751d25b846a0>, 89570.256686455)])']
+connector: <__main__.BoundTCPConnector object at 0x751d25b35900>
+2026-03-30 19:13:29 [ERROR] asyncio — Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x751d241375e0>, 89568.218492742)])']
+connector: <__main__.BoundTCPConnector object at 0x751d25b342b0>
