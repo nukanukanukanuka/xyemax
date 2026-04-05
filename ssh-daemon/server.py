@@ -50,8 +50,9 @@ log.info("Лог файл: %s", log_file)
 class TUNDevice:
     """TUN интерфейс на стороне сервера."""
 
-    def __init__(self, name: str):
+    def __init__(self, name: str, external_if: str):
         self.name = name
+        self.external_if = external_if
         self.fd = None
         self.loop = None
 
@@ -90,14 +91,14 @@ class TUNDevice:
             # Добавляем маршрут для интернет трафика через внешний интерфейс
             # Исключаем 198.18.0.0/15 (наши туннели) и 0.0.0.0/32 (broadcast)
             subprocess.run(
-                ["ip", "route", "add", "0.0.0.0/1", "dev", self._config.get("external_if", "ens6")],
+                ["ip", "route", "add", "0.0.0.0/1", "dev", self.external_if],
                 check=False, capture_output=True
             )
             subprocess.run(
-                ["ip", "route", "add", "128.0.0.0/1", "dev", self._config.get("external_if", "ens6")],
+                ["ip", "route", "add", "128.0.0.0/1", "dev", self.external_if],
                 check=False, capture_output=True
             )
-            log.info("TUN %s настроен: 198.18.0.2 peer 198.18.0.1, маршруты добавлены", self.name)
+            log.info("TUN %s настроен: 198.18.0.2 peer 198.18.0.1, маршруты через %s добавлены", self.name, self.external_if)
         except subprocess.CalledProcessError as e:
             log.warning("Не удалось настроить интерфейс %s: %s", self.name, e)
 
@@ -106,14 +107,13 @@ class TUNDevice:
     def close(self) -> None:
         """Закрывает и удаляет TUN."""
         # Удаляем маршруты для интернет трафика
-        ext_if = self._config.get("external_if")
-        if ext_if:
+        if self.external_if:
             subprocess.run(
-                ["ip", "route", "del", "0.0.0.0/1", "dev", ext_if],
+                ["ip", "route", "del", "0.0.0.0/1", "dev", self.external_if],
                 check=False, capture_output=True
             )
             subprocess.run(
-                ["ip", "route", "del", "128.0.0.0/1", "dev", ext_if],
+                ["ip", "route", "del", "128.0.0.0/1", "dev", self.external_if],
                 check=False, capture_output=True
             )
         if self.fd is not None:
@@ -270,7 +270,7 @@ class TunnelServer(asyncssh.SSHServer):
         log.info("TUN запрос от клиента: unit=%s, device=%s", unit, tun_name)
 
         # Создаём TUN устройство
-        tun = TUNDevice(tun_name)
+        tun = TUNDevice(tun_name, self._external_if)
         try:
             tun.open()
         except RuntimeError as e:
