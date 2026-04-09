@@ -759,9 +759,9 @@ class RateLimiter:
 class SpeedManager:
     """Управляет ограничением скорости для пользователей.
     speed_mode:
-      0 - без ограничений
-      1 - скорость сервера делится на общее количество подключённых устройств
-      2 - фиксированные значения из max_download_speed / max_upload_speed
+      -1 - скорость сервера делится на общее количество подключённых устройств
+      -2 - без ограничений
+      -3 - фиксированные значения из max_download_speed / max_upload_speed
     """
 
     def __init__(self, config: dict, user_store):
@@ -777,14 +777,14 @@ class SpeedManager:
         return self._config.get("speed_rate", {})
 
     def get_limits(self, username: str) -> tuple:
-        """Возвращает (max_download_mbit, max_upload_mbit, mode) или (None, None, 0)."""
+        """Возвращает (max_download_mbit, max_upload_mbit, mode) или (None, None, -2)."""
         rate = self._get_speed_rate(username)
         if not rate:
-            return None, None, 0
-        mode = rate.get("speed_mode", 0)
-        if mode == 0:
-            return None, None, 0
-        elif mode == 1:
+            return None, None, -2
+        mode = int(rate.get("speed_mode", -2))
+        if mode == -2:
+            return None, None, -2
+        elif mode == -1:
             # Делим скорость сервера на общее количество подключённых устройств
             speed = self._config.get("server_speed", {})
             srv_dl = speed.get("download")
@@ -794,11 +794,11 @@ class SpeedManager:
             dl = round(srv_dl / n, 2) if srv_dl else None
             ul = round(srv_ul / n, 2) if srv_ul else None
             return dl, ul, mode
-        elif mode == 2:
+        elif mode == -3:
             dl = rate.get("max_download_speed")
             ul = rate.get("max_upload_speed")
             return dl, ul, mode
-        return None, None, 0
+        return None, None, -2
 
 
 class DeviceTracker:
@@ -1326,7 +1326,7 @@ DEFAULT_SETTINGS = {
     "stealth":      0,
     "debug":        False,
     "max_connected_devices": -1,   # -1 = безлимит, N = максимум устройств на аккаунт
-    "speed_rate":   {"speed_mode": 0, "max_download_speed": None, "max_upload_speed": None},
+    "speed_rate":   {"speed_mode": -2, "max_download_speed": None, "max_upload_speed": None},
     "server_speed": {},
 }
 
