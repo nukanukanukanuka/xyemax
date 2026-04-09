@@ -17,6 +17,7 @@ import os
 import struct
 import subprocess
 import sys
+import uuid as _uuid
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -32,6 +33,13 @@ IFF_TUN    = 0x0001
 IFF_NO_PI  = 0x1000
 TUNSETIFF  = 0x400454ca
 
+# ─── Сессия сервера ───────────────────────────────────────────────────────────
+
+SESSION_UUID = str(_uuid.uuid4())
+SESSION_START = datetime.now()
+SESSION_START_ISO = SESSION_START.astimezone(timezone.utc).isoformat()
+SESSION_DIR = SESSION_START.strftime("%Y%m%d_%H%M%S")
+
 # ─── Логирование ──────────────────────────────────────────────────────────────
 
 log = logging.getLogger(__name__)
@@ -42,15 +50,81 @@ _ch.setLevel(logging.INFO)
 _ch.setFormatter(logging.Formatter("%(asctime)s [%(levelname)s] %(message)s"))
 log.addHandler(_ch)
 
-Path("logs").mkdir(exist_ok=True)
-_log_file = f"logs/server_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
+_log_dir = Path("logs")
+_log_dir.mkdir(parents=True, exist_ok=True)
+_log_file = str(_log_dir / f"{SESSION_DIR}.log")
 _fh = logging.FileHandler(_log_file, mode="w", encoding="utf-8")
 _fh.setLevel(logging.DEBUG)
 _fh.setFormatter(logging.Formatter("%(asctime)s [%(levelname)s] %(message)s"))
 log.addHandler(_fh)
 
 log.info("=== Запуск сервера ===")
+log.info("Session UUID: %s", SESSION_UUID)
 log.info("Лог файл: %s", _log_file)
+
+
+# ─── Статистика ──────────────────────────────────────────────────────────────
+
+STATISTICS_FILE = "statistics.json"
+
+
+class Statistics:
+    """Собирает статистику текущей сессии и сохраняет в statistics.json."""
+
+    def __init__(self):
+        self._connected_devices: list[dict] = []
+        self._bandwidth_download = 0.0  # МБ
+        self._bandwidth_upload = 0.0    # МБ
+        self._lock = asyncio.Lock()
+
+    def record_device(self, username: str, client_ip: str,
+                      bw_upload: float, bw_download: float,
+                      connected_devices: int, speed_rate: dict | None) -> None:
+        """Вызывается при каждой выдаче IP клиенту."""
+        self._connected_devices.append({
+            "username": username,
+            "ip": client_ip,
+            "bandwidth_upload": round(bw_upload, 3),
+            "bandwidth_download": round(bw_download, 3),
+            "connected_devices": connected_devices,
+            "speed_rate": speed_rate,
+        })
+
+    def add_traffic(self, download_bytes: int, upload_bytes: int) -> None:
+        """Добавляет трафик. download = TUN->SSH (к клиенту), upload = SSH->TUN (от клиента)."""
+        self._bandwidth_download += download_bytes / (1024 * 1024)
+        self._bandwidth_upload += upload_bytes / (1024 * 1024)
+
+    def _build_entry(self) -> dict:
+        return {
+            "started_at": SESSION_START_ISO,
+            "updated_at": datetime.now(timezone.utc).isoformat(),
+            "data": {
+                "bandwidth_download": round(self._bandwidth_download, 3),
+                "bandwidth_upload": round(self._bandwidth_upload, 3),
+                "connected_devices": self._connected_devices,
+            }
+        }
+
+    async def save(self) -> None:
+        """Сохраняет статистику в файл."""
+        async with self._lock:
+            try:
+                p = Path(STATISTICS_FILE)
+                if p.exists():
+                    data = json.loads(p.read_text())
+                else:
+                    data = {}
+                data[SESSION_UUID] = self._build_entry()
+                p.write_text(json.dumps(data, indent=2))
+            except Exception as e:
+                log.error("Ошибка сохранения статистики: %s", e)
+
+    async def save_loop(self) -> None:
+        """Сохраняет статистику каждые 60 секунд."""
+        while True:
+            await asyncio.sleep(60)
+            await self.save()
 
 
 import struct
@@ -327,6 +401,21 @@ class VPNSession(asyncssh.SSHServerSession):
 
         self._client_ip = ip
         self._server.add_client_ip(username, ip)  # трекинг per-username
+        # Статистика: новое подключение
+        stats = self._server._config.get("statistics")
+        if stats:
+            device_tracker = self._server._config.get("device_tracker")
+            dev_count = device_tracker.count(username) if device_tracker else 0
+            speed_mgr = self._server._config.get("speed_manager")
+            speed_rate = speed_mgr._get_speed_rate(username) if speed_mgr else None
+            stats.record_device(
+                username=username,
+                client_ip=ip,
+                bw_upload=float(user.get("bandwidth_spent", 0)),
+                bw_download=float(user.get("bandwidth_spent", 0)),
+                connected_devices=dev_count,
+                speed_rate=speed_rate,
+            )
         subprocess.run(["ip", "route", "replace", f"{ip}/32", "dev", TUN_DEV],
                        check=False, capture_output=True)
 
@@ -360,12 +449,13 @@ class TunnelSession(asyncssh.SSHServerSession):
     """
 
     def __init__(self, pool: IPPool, user_store, username: str,
-                 tun_router: TunRouter, speed_manager=None):
+                 tun_router: TunRouter, speed_manager=None, statistics=None):
         self._pool = pool
         self._user_store = user_store
         self._username = username
         self._tun_router = tun_router
         self._speed_manager = speed_manager
+        self._statistics = statistics
         self._chan = None
         self._bw_task = None
         self._client_ip = None
@@ -551,11 +641,16 @@ class TunnelSession(asyncssh.SSHServerSession):
         """Каждую минуту сохраняет трафик и отключает при превышении лимита."""
         while True:
             await asyncio.sleep(60)
-            total = self._bytes_in + self._bytes_out
+            bytes_in = self._bytes_in
+            bytes_out = self._bytes_out
+            total = bytes_in + bytes_out
             if total == 0:
                 continue
             self._bytes_in = 0
             self._bytes_out = 0
+            # Статистика: upload = от клиента (bytes_in), download = к клиенту (bytes_out)
+            if self._statistics:
+                self._statistics.add_traffic(download_bytes=bytes_out, upload_bytes=bytes_in)
             exceeded = self._user_store.add_bandwidth(self._username, total)
             self._user_store.save_bandwidth(self._username)
             if exceeded:
@@ -572,8 +667,12 @@ class TunnelSession(asyncssh.SSHServerSession):
         # Снимаем регистрацию callback
         self._user_store.unregister_reload_callback(self._on_users_reloaded)
         # Сохраняем накопленный трафик при отключении
-        remaining = self._bytes_in + self._bytes_out
+        bytes_in = self._bytes_in
+        bytes_out = self._bytes_out
+        remaining = bytes_in + bytes_out
         if remaining > 0:
+            if self._statistics:
+                self._statistics.add_traffic(download_bytes=bytes_out, upload_bytes=bytes_in)
             self._user_store.add_bandwidth(self._username, remaining)
             self._user_store.save_bandwidth(self._username)
         log.info("Tunnel сессия завершена для %s", self._client_ip)
@@ -807,6 +906,7 @@ class _SessionDispatcher(asyncssh.SSHServerSession):
                 username,
                 self._server._config["tun_router"],
                 self._server._config.get("speed_manager"),
+                self._server._config.get("statistics"),
             )
         else:
             log.warning("Неизвестная команда: %r", cmd)
@@ -1162,8 +1262,11 @@ async def run_server(config: dict) -> None:
     config["speed_manager"] = speed_manager
     config["device_tracker"] = device_tracker
     config["tun_router"] = tun_router
+    statistics = Statistics()
+    config["statistics"] = statistics
     asyncio.create_task(user_store.reload_loop())
     asyncio.create_task(settings_reload_loop(config))
+    asyncio.create_task(statistics.save_loop())
 
     # Speedtest при старте если данные устарели
     if should_run_speedtest():
