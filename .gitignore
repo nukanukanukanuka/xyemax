@@ -1,2 +1,4 @@
 client/logs
 server/logs
+.idea
+client/known_hosts

@@ -1,0 +1,18 @@
+[Unit]
+Description=STrans VPN Server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/var/www/api/ssh-daemon/server
+ExecStart=/usr/bin/python3.12 /var/www/api/ssh-daemon/server/server.py
+Restart=on-failure
+RestartSec=5
+LimitNOFILE=65536
+
+# Cleanup при аварийном завершении — удаляем TUN и iptables
+ExecStopPost=-/sbin/ip link delete strans-tun0
+
+[Install]
+WantedBy=multi-user.target
