@@ -39,6 +39,7 @@ SESSION_UUID = str(_uuid.uuid4())
 SESSION_START = datetime.now()
 SESSION_START_ISO = SESSION_START.astimezone(timezone.utc).isoformat()
 SESSION_DIR = SESSION_START.strftime("%Y%m%d_%H%M%S")
+SESSION_KEY = f"{SESSION_DIR}_{SESSION_UUID}"
 
 # ─── Логирование ──────────────────────────────────────────────────────────────
 
@@ -116,7 +117,7 @@ class Statistics:
                     data = json.loads(p.read_text())
                 else:
                     data = {}
-                data[SESSION_UUID] = self._build_entry()
+                data[SESSION_KEY] = self._build_entry()
                 p.write_text(json.dumps(data, indent=2))
             except Exception as e:
                 log.error("Ошибка сохранения статистики: %s", e)
