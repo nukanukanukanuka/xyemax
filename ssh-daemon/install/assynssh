@@ -1,0 +1,100 @@
+# ============================================================
+# Патч asyncssh для имитации OpenSSH 8.2p1 Ubuntu-4ubuntu0.13
+# ============================================================
+
+# 1. Бэкапы
+cp /usr/local/lib/python3.12/dist-packages/asyncssh/rsa.py \
+   /usr/local/lib/python3.12/dist-packages/asyncssh/rsa.py.bak
+cp /usr/local/lib/python3.12/dist-packages/asyncssh/connection.py \
+   /usr/local/lib/python3.12/dist-packages/asyncssh/connection.py.bak
+
+# 2. rsa.py — убираем ssh-rsa-sha*@ssh.com, меняем порядок rsa-sha2-512/256
+python3.12 - << 'EOF'
+path = '/usr/local/lib/python3.12/dist-packages/asyncssh/rsa.py'
+with open(path, 'r') as f:
+    content = f.read()
+
+old = """    sig_algorithms = (b'rsa-sha2-256', b'rsa-sha2-512',
+                      b'ssh-rsa-sha224@ssh.com', b'ssh-rsa-sha256@ssh.com',
+                      b'ssh-rsa-sha384@ssh.com', b'ssh-rsa-sha512@ssh.com',
+                      b'ssh-rsa')"""
+new = """    sig_algorithms = (b'rsa-sha2-512', b'rsa-sha2-256',
+                      b'ssh-rsa')"""
+
+if old in content:
+    content = content.replace(old, new)
+    with open(path, 'w') as f:
+        f.write(content)
+    print("OK: rsa.py")
+else:
+    print("NOT FOUND: rsa.py")
+EOF
+
+# 3. connection.py — убираем ext-info-s из KEXINIT
+python3.12 - << 'EOF'
+path = '/usr/local/lib/python3.12/dist-packages/asyncssh/connection.py'
+with open(path, 'r') as f:
+    content = f.read()
+
+old = "            return [b'ext-info-s', b'kex-strict-s-v00@openssh.com']"
+new = "            return [b'kex-strict-s-v00@openssh.com']"
+
+if old in content:
+    content = content.replace(old, new)
+    with open(path, 'w') as f:
+        f.write(content)
+    print("OK: connection.py ext-info-s")
+else:
+    print("NOT FOUND: connection.py ext-info-s")
+EOF
+
+# 4. connection.py — меняем формат запроса пароля на стандартный OpenSSH
+# OpenSSH показывает: user@host's password:
+# asyncssh показывает: (user@host) Password:
+python3.12 - << 'EOF'
+import re
+path = '/usr/local/lib/python3.12/dist-packages/asyncssh/connection.py'
+with open(path, 'r') as f:
+    content = f.read()
+
+# Найти и показать текущий формат промпта
+matches = [(m.start(), m.group()) for m in re.finditer(r'[Pp]assword.*prompt|prompt.*[Pp]assword|keyboard.interactive', content)]
+for pos, m in matches[:5]:
+    print(f"pos {pos}:", repr(content[pos:pos+200]))
+EOF
+
+# 5. Проверка HASSH
+python3.12 - << 'EOF'
+import socket, hashlib, struct
+
+s = socket.socket()
+s.connect(('217.154.79.223', 22))
+s.recv(256)
+s.send(b'SSH-2.0-OpenSSH_8.2p1\r\n')
+data = s.recv(65536)
+s.close()
+
+pkt_len = struct.unpack('>I', data[:4])[0]
+padding = data[4]
+payload = data[5:5+pkt_len-padding-1]
+
+if payload[0] == 20:
+    pos = 1 + 16
+    algs = []
+    for _ in range(10):
+        slen = struct.unpack('>I', payload[pos:pos+4])[0]
+        algs.append(payload[pos+4:pos+4+slen].decode())
+        pos += 4 + slen
+    s2 = f"{algs[0]};{algs[2]};{algs[4]};{algs[6]}"
+    result = hashlib.md5(s2.encode()).hexdigest()
+    expected = "779664e66160bf75999f091fce5edb5a"
+    print(f"hasshServer: {result}")
+    print(f"Ожидается:   {expected}")
+    print(f"Совпадает:   {'✅' if result == expected else '❌'}")
+EOF
+
+# 6. Проверка banner
+nc 217.154.79.223 22
+
+# 7. Проверка алгоритмов
+ssh-audit 217.154.79.223

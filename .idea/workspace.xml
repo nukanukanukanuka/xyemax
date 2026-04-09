@@ -5,11 +5,354 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="89c49e48-d491-47be-8f3e-4c1cedbd3465" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/client.conf" beforeDir="false" afterPath="$PROJECT_DIR$/tun_proxied_clock/client/client.conf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/server/server.conf" beforeDir="false" afterPath="$PROJECT_DIR$/tun_proxied_clock/server/server.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/mcp/mcp.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/files/client/client.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/files/client/logs/client_2026-03-23_20-03-11.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/files/client/logs/client_2026-03-23_20-03-15.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/files/client/logs/client_2026-03-23_20-07-51.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/files/client/logs/client_2026-03-23_20-15-12.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/files/client/logs/client_2026-03-23_20-15-57.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/files/client/logs/client_2026-03-23_20-22-40.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/files/client/logs/client_2026-03-23_20-30-38.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/files/client/logs/client_2026-03-23_20-44-30.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/files/client/logs/client_2026-03-23_21-23-07.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/files/client/logs/client_2026-03-23_21-29-35.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/files/client/logs/client_2026-03-23_21-30-40.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/files/client/logs/client_2026-03-23_21-31-05.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/files/client/logs/client_2026-03-23_21-31-22.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/files/client/logs/client_2026-03-23_21-32-11.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/files/client/logs/client_2026-03-23_21-52-01.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/files/client/logs/client_2026-03-23_21-55-16.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/files/client/logs/client_2026-03-23_21-58-27.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/files/client/logs/client_2026-03-23_22-00-49.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/files/client/logs/client_2026-03-23_22-08-33.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/files/client/logs/client_2026-03-23_22-25-48.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/files/client/logs/client_2026-03-23_22-30-31.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/files/client/logs/client_2026-03-23_22-39-04.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/files/client/logs/client_2026-03-23_22-40-33.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/files/client/session.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/files/server/server.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/files/server/server.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/client/client.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/client/client.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/client/logs/client_2026-03-24_14-30-04.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/client/logs/client_2026-03-24_14-42-10.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/client/logs/client_2026-03-24_14-49-01.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/client/logs/client_2026-03-24_14-50-31.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/client/logs/client_2026-03-24_14-51-57.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/client/logs/client_2026-03-24_15-00-08.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/client/logs/client_2026-03-24_15-00-18.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/client/logs/client_2026-03-24_15-01-46.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/client/logs/client_2026-03-24_15-15-03.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/client/logs/client_2026-03-24_19-28-57.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/client/logs/client_2026-03-24_19-35-08.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/client/logs/client_2026-03-24_19-59-06.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/client/logs/client_2026-03-24_20-01-45.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/client/mitm_ca.crt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/client/mitm_ca.key" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/server/logs/server_2026-03-24_14-29-55.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/server/logs/server_2026-03-24_14-42-07.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/server/logs/server_2026-03-24_14-48-55.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/server/logs/server_2026-03-24_14-50-29.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/server/logs/server_2026-03-24_14-51-54.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/server/logs/server_2026-03-24_15-00-15.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/server/logs/server_2026-03-24_15-01-41.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/server/logs/server_2026-03-24_15-15-01.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/server/logs/server_2026-03-24_19-28-54.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/server/logs/server_2026-03-24_19-35-03.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/server/logs/server_2026-03-24_19-59-02.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/server/logs/server_2026-03-24_20-01-43.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/server/server.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/server/server.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/http-stable/server/sessions.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/install/key_settings_iptable" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/install/rules.v4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/interfaces/interfaces.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/interfaces/tun_manager.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/messages/client22.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/messages/server.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/messages/server22.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/messages/session.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/client/client.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/client/client.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/client/logs/client_2026-03-23_22-55-27.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/client/logs/client_2026-03-23_22-57-26.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/client/logs/client_2026-03-23_23-14-38.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/client/logs/client_2026-03-23_23-18-45.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/client/logs/client_2026-03-23_23-22-02.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/client/logs/client_2026-03-23_23-30-04.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/client/logs/client_2026-03-23_23-37-12.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/client/logs/client_2026-03-23_23-41-38.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/client/logs/client_2026-03-23_23-51-09.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/client/logs/client_2026-03-23_23-56-54.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/client/logs/client_2026-03-24_00-03-14.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/client/logs/client_2026-03-24_00-11-35.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/client/logs/client_2026-03-24_00-17-52.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/client/logs/client_2026-03-24_00-21-02.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/client/logs/client_2026-03-24_00-31-56.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/client/logs/client_2026-03-24_00-39-41.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/client/logs/client_2026-03-24_00-44-23.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/client/logs/client_2026-03-24_00-55-37.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/client/logs/client_2026-03-24_12-12-38.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/client/logs/client_2026-03-24_12-16-53.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/client/logs/client_2026-03-24_12-27-24.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/client/logs/client_2026-03-24_12-27-57.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/server/logs/server_2026-03-23_22-55-55.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/server/logs/server_2026-03-23_22-57-29.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/server/logs/server_2026-03-23_23-14-31.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/server/logs/server_2026-03-23_23-18-36.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/server/logs/server_2026-03-23_23-21-59.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/server/logs/server_2026-03-23_23-30-00.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/server/logs/server_2026-03-23_23-37-07.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/server/logs/server_2026-03-23_23-41-34.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/server/logs/server_2026-03-23_23-51-05.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/server/logs/server_2026-03-23_23-56-51.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/server/logs/server_2026-03-24_00-03-12.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/server/logs/server_2026-03-24_00-11-32.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/server/logs/server_2026-03-24_00-17-49.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/server/logs/server_2026-03-24_00-20-59.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/server/logs/server_2026-03-24_00-31-53.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/server/logs/server_2026-03-24_00-39-39.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/server/logs/server_2026-03-24_00-44-20.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/server/logs/server_2026-03-24_00-55-34.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/server/logs/server_2026-03-24_12-12-27.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/server/logs/server_2026-03-24_12-16-57.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/server/logs/server_2026-03-24_12-27-20.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/server/server.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/server/server.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/self-stable/server/sessions.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/client.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/client.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_01-00-40.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_01-04-55.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_01-11-55.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_01-19-07.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_01-21-26.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_01-32-40.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_05-01-44.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_05-08-42.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_05-16-04.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_05-20-42.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_05-26-32.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_05-33-57.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_05-41-49.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_05-55-50.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_05-58-22.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_06-18-33.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_11-02-44.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_11-07-49.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_11-12-45.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_11-20-06.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_11-26-07.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_11-34-07.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_11-40-29.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_11-45-40.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_11-47-16.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_11-55-50.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_11-57-50.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/client/logs/client_2026-03-24_12-01-03.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_01-00-35.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_01-04-53.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_01-11-53.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_01-19-04.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_01-21-24.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_01-32-36.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_05-01-40.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_05-08-39.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_05-16-01.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_05-20-37.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_05-26-27.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_05-33-51.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_05-41-46.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_05-55-47.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_05-58-19.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_06-18-30.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_11-02-39.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_11-07-45.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_11-12-42.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_11-20-04.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_11-26-03.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_11-34-04.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_11-40-26.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_11-45-38.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_11-47-20.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_11-55-46.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_11-57-47.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/logs/server_2026-03-24_12-01-00.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/server.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/server.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/shybrid-failed/server/sessions.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tun/client/client.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tun/client/client.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tun/client/logs/client_2026-03-24_20-59-39.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tun/client/logs/client_2026-03-24_21-02-00.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tun/client/logs/client_2026-03-24_21-06-25.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tun/client/logs/client_2026-03-24_21-09-54.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tun/client/logs/client_2026-03-24_21-11-57.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tun/client/logs/client_2026-03-24_21-15-52.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tun/client/logs/client_2026-03-24_21-19-33.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tun/client/logs/client_2026-03-24_21-22-59.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tun/server/server.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tun/server/server.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tun/server/sessions.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tuni/client/client.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tuni/client/client.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tuni/client/logs/client_2026-03-25_19-06-54.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tuni/client/logs/client_2026-03-25_19-17-11.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tuni/server/server.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tuni/server/server.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tuni/server/sessions.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tunimi/client/client.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tunimi/client/client.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tunimi/client/logs/client_2026-03-25_19-06-54.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tunimi/client/logs/client_2026-03-25_19-17-11.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tunimi/client/logs/client_2026-03-25_19-38-33.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tunimi/client/logs/client_2026-03-25_19-42-56.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tunimi/client/logs/client_2026-03-25_19-46-48.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tunimi/client/logs/client_2026-03-25_19-53-21.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tunimi/server/server.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tunimi/server/server.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/history/tunimi/server/sessions.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/max/img.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/max/phone_auth.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/max/phone_auth.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/max/qr_approve.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/max/scan_qr.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_server.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server_2026-03-23_19-54-50.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server_2026-03-23_20-15-52.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server_2026-03-23_20-22-31.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server_2026-03-23_20-44-24.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server_2026-03-23_21-51-55.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server_2026-03-23_22-25-43.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server_2026-03-23_22-40-26.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server_2026-03-27_21-04-04.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server_2026-03-27_21-08-08.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssh-daemon/client.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssh-daemon/host_key" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssh-daemon/install.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssh-daemon/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssh-daemon/server.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssh-daemon/ssh-tunnel.service" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssh-daemon/users.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/stunnel-gost.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/telega/telega_auth.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/telega/telega_session_+2347020025533.session" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/client.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/client.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-29_23-32-01.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-29_23-35-14.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-29_23-38-47.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-29_23-44-42.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_00-25-23.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_00-26-52.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_18-09-35.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_18-12-33.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_18-20-14.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_18-21-23.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_18-25-49.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_18-28-29.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_18-39-46.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_18-40-49.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_18-42-50.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_18-46-36.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_18-54-37.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_18-57-13.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_19-09-09.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_19-12-53.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_19-13-13.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_19-13-58.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_19-28-47.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_19-29-01.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_19-31-34.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_19-35-34.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_19-36-36.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_19-41-54.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_20-17-25.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_20-30-45.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_20-38-59.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_20-53-43.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_22-08-31.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_22-08-49.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_22-14-36.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_22-18-52.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_22-26-24.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_22-36-25.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_22-55-11.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-30_23-09-21.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-31_00-30-19.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-31_00-33-10.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-31_00-39-27.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-31_00-59-03.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-31_01-37-12.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-31_01-39-41.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-31_01-40-23.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-31_02-01-42.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-31_02-03-22.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-31_02-19-06.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-31_02-21-24.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-31_03-18-45.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-31_03-19-35.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-31_13-15-59.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-31_13-21-27.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-31_13-37-18.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-31_15-41-00.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-31_16-11-30.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-31_16-11-38.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-31_23-19-07.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-31_23-19-28.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-03-31_23-20-40.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-01_15-50-50.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-01_15-51-51.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-01_20-16-16.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-01_20-17-13.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-01_20-50-10.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-01_20-52-02.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-01_21-13-02.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-01_22-03-23.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-01_23-35-52.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-01_23-42-29.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-01_23-59-56.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-02_00-04-47.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-02_00-12-24.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-02_01-49-16.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-02_02-13-09.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-02_02-37-05.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-02_02-42-20.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-02_02-42-33.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-02_02-44-48.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-02_02-45-19.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-02_20-40-12.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-02_21-23-49.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-02_21-24-46.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-02_21-25-29.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-02_22-58-08.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-02_23-07-48.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-02_23-54-18.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-03_00-01-32.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-03_00-22-15.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-03_00-22-32.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-04_22-10-01.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-04_22-29-15.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-04_22-30-07.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-04_22-32-58.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-04_23-47-08.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/client/logs/client_2026-04-04_23-52-15.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/server/server.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/server/server.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tun_proxied_clock/server/sessions.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vk/dqwd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vk/smsfastdoc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vk/test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vk/test_password.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vk/test_phone.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vk/test_sign.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vk/vk_auth.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vk/vk_sms_debug.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/yandex/decrypt_yandex_credentials.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/yandex/yandex_mobileproxy_resolver.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/yandex/yandex_phone_auth_auto.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,26 +388,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/var/www/html2/xyemax.test/telega&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "ssh-daemon",
+    "last_opened_file_path": "/var/www/html2/xyemax.test/telega",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/telega" />

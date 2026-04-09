@@ -1,0 +1,15 @@
+# IP форвардинг
+sysctl -w net.ipv4.ip_forward=1
+echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
+
+# MASQUERADE
+iptables -t nat -A POSTROUTING -s 198.18.0.0/15 -o ens6 -j MASQUERADE
+
+# FORWARD
+iptables -I FORWARD -s 198.18.0.0/15 -j ACCEPT
+iptables -I FORWARD -d 198.18.0.0/15 -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+# Сохранить правила
+apt install iptables-persistent -y
+netfilter-persistent save
+

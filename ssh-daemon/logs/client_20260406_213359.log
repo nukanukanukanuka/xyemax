@@ -1,0 +1,14 @@
+2026-04-06 21:33:59,788 [INFO] === Запуск клиента ===
+2026-04-06 21:33:59,788 [INFO] Лог файл: logs/client_20260406_213359.log
+2026-04-06 21:33:59,789 [INFO] Подключаюсь к 217.154.79.223:2222 как 'alice'
+2026-04-06 21:34:00,134 [INFO] SSH соединение установлено
+2026-04-06 21:34:00,241 [INFO] PUSH_REPLY: client_ip=198.19.0.2 server_ip=198.19.0.1 mtu=1280
+2026-04-06 21:34:00,301 [INFO] TUN туннель открыт (unit=62093)
+2026-04-06 21:34:00,327 [INFO] Интерфейс strans-tun0:
+99: strans-tun0: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1280 qdisc fq_codel state UNKNOWN group default qlen 500
+    link/none 
+    inet 198.19.0.2 peer 198.19.0.1/32 scope global strans-tun0
+       valid_lft forever preferred_lft forever
+2026-04-06 21:34:00,327 [INFO] Туннель активен. Ctrl+C для остановки.
+2026-04-07 00:55:26,981 [INFO] Останавливаю туннель...
+2026-04-07 00:55:26,985 [INFO] Остановлено

@@ -1,0 +1,23 @@
+2026-04-07 01:36:40,405 [INFO] === Запуск клиента ===
+2026-04-07 01:36:40,405 [INFO] Лог файл: logs/client_20260407_013640.log
+2026-04-07 01:36:40,406 [INFO] Подключаюсь к 217.154.79.223:2222 как 'alice'
+2026-04-07 01:36:40,693 [INFO] SSH соединение установлено
+2026-04-07 01:36:40,785 [INFO] PUSH_REPLY: client_ip=198.19.0.2 server_ip=198.19.0.1 mtu=1280
+2026-04-07 01:36:40,795 [INFO] Интерфейс strans-tun0:
+115: strans-tun0: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1280 qdisc fq_codel state UP group default qlen 500
+    link/none 
+    inet 198.19.0.2 peer 198.19.0.1/32 scope global strans-tun0
+       valid_lft forever preferred_lft forever
+2026-04-07 01:36:40,880 [INFO] SSH tunnel канал открыт
+2026-04-07 01:36:40,885 [INFO] Весь трафик через strans-tun0
+2026-04-07 01:36:40,886 [INFO] Туннель активен. Ctrl+C для остановки.
+2026-04-07 01:36:40,886 [INFO] Форвардинг запущен
+2026-04-07 01:36:40,887 [DEBUG] SSH->TUN: EOF
+2026-04-07 01:36:40,939 [DEBUG] TUN->SSH OSError: Channel not open for sending
+2026-04-07 01:36:40,939 [INFO] Форвардинг завершён
+2026-04-07 01:36:54,843 [INFO] Останавливаю туннель...
+2026-04-07 01:36:54,846 [DEBUG] Восстановлен: default via 192.168.5.1 dev wlp0s20f3
+2026-04-07 01:36:54,848 [DEBUG] Восстановлен: default via 192.168.5.1 dev wlp0s20f3
+2026-04-07 01:36:54,848 [INFO] Маршруты восстановлены
+2026-04-07 01:36:54,862 [INFO] Интерфейс strans-tun0 удалён
+2026-04-07 01:36:54,862 [INFO] Остановлено
