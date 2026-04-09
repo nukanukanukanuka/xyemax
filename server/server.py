@@ -759,8 +759,8 @@ class RateLimiter:
 class SpeedManager:
     """Управляет ограничением скорости для пользователей.
     speed_mode:
-      -1 - скорость сервера делится на общее количество подключённых устройств
-      -2 - без ограничений
+      -1 - без ограничений
+      -2 - скорость сервера делится на общее количество подключённых устройств
       -3 - фиксированные значения из max_download_speed / max_upload_speed
     """
 
@@ -777,14 +777,14 @@ class SpeedManager:
         return self._config.get("speed_rate", {})
 
     def get_limits(self, username: str) -> tuple:
-        """Возвращает (max_download_mbit, max_upload_mbit, mode) или (None, None, -2)."""
+        """Возвращает (max_download_mbit, max_upload_mbit, mode) или (None, None, -1)."""
         rate = self._get_speed_rate(username)
         if not rate:
-            return None, None, -2
-        mode = int(rate.get("speed_mode", -2))
-        if mode == -2:
-            return None, None, -2
-        elif mode == -1:
+            return None, None, -1
+        mode = int(rate.get("speed_mode", -1))
+        if mode == -1:
+            return None, None, -1
+        elif mode == -2:
             # Делим скорость сервера на общее количество подключённых устройств
             speed = self._config.get("server_speed", {})
             srv_dl = speed.get("download")
@@ -798,7 +798,7 @@ class SpeedManager:
             dl = rate.get("max_download_speed")
             ul = rate.get("max_upload_speed")
             return dl, ul, mode
-        return None, None, -2
+        return None, None, -1
 
 
 class DeviceTracker:
@@ -1326,7 +1326,7 @@ DEFAULT_SETTINGS = {
     "stealth":      0,
     "debug":        False,
     "max_connected_devices": -1,   # -1 = безлимит, N = максимум устройств на аккаунт
-    "speed_rate":   {"speed_mode": -2, "max_download_speed": None, "max_upload_speed": None},
+    "speed_rate":   {"speed_mode": -1, "max_download_speed": None, "max_upload_speed": None},
     "server_speed": {},
 }
 
