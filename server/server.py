@@ -77,13 +77,14 @@ class Statistics:
         self._bandwidth_upload = 0.0    # МБ
         self._lock = asyncio.Lock()
 
-    def record_device(self, username: str, client_ip: str,
+    def record_device(self, user_id: str, real_ip: str, local_ip: str,
                       bw_upload: float, bw_download: float,
                       connected_devices: int, speed_rate: dict | None) -> None:
         """Вызывается при каждой выдаче IP клиенту."""
         self._connected_devices.append({
-            "username": username,
-            "ip": client_ip,
+            "id": user_id,
+            "ip": real_ip,
+            "ip_local": local_ip,
             "bandwidth_upload": round(bw_upload, 3),
             "bandwidth_download": round(bw_download, 3),
             "connected_devices": connected_devices,
@@ -393,7 +394,7 @@ class VPNSession(asyncssh.SSHServerSession):
 
         # Проверяем лимит трафика
         bw_limit = user.get("bandwidth_reserved", -1)
-        bw_spent = user.get("bandwidth_spent", 0)
+        bw_spent = user.get("bandwidth_download_spent", 0) + user.get("bandwidth_upload_spent", 0)
         if bw_limit != -1 and bw_spent >= bw_limit:
             log.warning("NO_BANDWIDTH_LEFT для %s (%s/%s МБ)", username, bw_spent, bw_limit)
             self._chan.write((json.dumps({"error": "NO_BANDWIDTH_LEFT"}) + "\n").encode())
@@ -409,11 +410,15 @@ class VPNSession(asyncssh.SSHServerSession):
             dev_count = device_tracker.count(username) if device_tracker else 0
             speed_mgr = self._server._config.get("speed_manager")
             speed_rate = speed_mgr._get_speed_rate(username) if speed_mgr else None
+            # Реальный IP клиента
+            peer = self._server._conn.get_extra_info("peername")
+            real_ip = peer[0] if peer else ""
             stats.record_device(
-                username=username,
-                client_ip=ip,
-                bw_upload=float(user.get("bandwidth_spent", 0)),
-                bw_download=float(user.get("bandwidth_spent", 0)),
+                user_id=user.get("id", ""),
+                real_ip=real_ip,
+                local_ip=ip,
+                bw_upload=float(user.get("bandwidth_upload_spent", 0)),
+                bw_download=float(user.get("bandwidth_download_spent", 0)),
                 connected_devices=dev_count,
                 speed_rate=speed_rate,
             )
@@ -528,7 +533,7 @@ class TunnelSession(asyncssh.SSHServerSession):
         self._update_speed_limits()
         user = self._user_store._users.get(self._username, {})
         bw_limit = user.get("bandwidth_reserved", -1)
-        bw_spent = user.get("bandwidth_spent", 0)
+        bw_spent = user.get("bandwidth_download_spent", 0) + user.get("bandwidth_upload_spent", 0)
         if bw_limit != -1 and bw_spent >= bw_limit:
             log.warning("После reload: %s превысил лимит трафика, отключаю", self._username)
             try:
@@ -652,7 +657,9 @@ class TunnelSession(asyncssh.SSHServerSession):
             # Статистика: upload = от клиента (bytes_in), download = к клиенту (bytes_out)
             if self._statistics:
                 self._statistics.add_traffic(download_bytes=bytes_out, upload_bytes=bytes_in)
-            exceeded = self._user_store.add_bandwidth(self._username, total)
+            exceeded = self._user_store.add_bandwidth(self._username,
+                                                       download_bytes=bytes_out,
+                                                       upload_bytes=bytes_in)
             self._user_store.save_bandwidth(self._username)
             if exceeded:
                 log.warning("Пользователь %s превысил лимит трафика, отключаю", self._username)
@@ -674,7 +681,9 @@ class TunnelSession(asyncssh.SSHServerSession):
         if remaining > 0:
             if self._statistics:
                 self._statistics.add_traffic(download_bytes=bytes_out, upload_bytes=bytes_in)
-            self._user_store.add_bandwidth(self._username, remaining)
+            self._user_store.add_bandwidth(self._username,
+                                            download_bytes=bytes_out,
+                                            upload_bytes=bytes_in)
             self._user_store.save_bandwidth(self._username)
         log.info("Tunnel сессия завершена для %s", self._client_ip)
 
@@ -994,8 +1003,8 @@ except ImportError:
 
 def _parse_users(data: list) -> dict:
     """Парсит список пользователей из JSON.
-    Формат: {"ssh_creds": "login:$2b$hash", "ip_pool": "198.19.0.2",
-             "bandwidth_reserved": 10240, "bandwidth_spent": 0}
+    Формат: {"id": "uuid", "ssh_creds": "login:$2b$hash", "ip_pool": "198.19.0.2",
+             "bandwidth_reserved": 10240, "bandwidth_download_spent": 0, "bandwidth_upload_spent": 0}
     """
     users = {}
     for entry in data:
@@ -1007,12 +1016,14 @@ def _parse_users(data: list) -> dict:
         if username:
             bw = entry.get("bandwidth_reserved", -1)
             users[username] = {
-                "bcrypt":             bcrypt_hash,
-                "ip_pool":            entry.get("ip_pool", ""),
-                "bandwidth_reserved": int(bw),  # -1 = безлимит
-                "bandwidth_spent":    float(entry.get("bandwidth_spent", 0)),
-                "speed_rate":         entry.get("speed_rate"),  # None = использовать global
-                "max_connected_devices": int(entry.get("max_connected_devices", -1)),  # -1 = использовать global
+                "id":                     entry.get("id", ""),
+                "bcrypt":                 bcrypt_hash,
+                "ip_pool":                entry.get("ip_pool", ""),
+                "bandwidth_reserved":     int(bw),  # -1 = безлимит
+                "bandwidth_download_spent": float(entry.get("bandwidth_download_spent", 0)),
+                "bandwidth_upload_spent":   float(entry.get("bandwidth_upload_spent", 0)),
+                "speed_rate":             entry.get("speed_rate"),  # None = использовать global
+                "max_connected_devices":  int(entry.get("max_connected_devices", -1)),
             }
     return users
 
@@ -1092,7 +1103,7 @@ class UserStore:
             log.error("Ошибка bcrypt: %s", e)
             return False
 
-    def add_bandwidth(self, username: str, bytes_count: int) -> bool:
+    def add_bandwidth(self, username: str, download_bytes: int, upload_bytes: int) -> bool:
         """Добавляет трафик пользователю. Возвращает True если лимит превышен."""
         users = self._users
         if username not in users:
@@ -1101,20 +1112,26 @@ class UserStore:
         bw_limit = user.get("bandwidth_reserved", -1)
         if bw_limit == -1:
             return False  # безлимит
-        mb = bytes_count / (1024 * 1024)
-        user["bandwidth_spent"] = user.get("bandwidth_spent", 0) + mb
-        return user["bandwidth_spent"] >= bw_limit
+        dl_mb = download_bytes / (1024 * 1024)
+        ul_mb = upload_bytes / (1024 * 1024)
+        user["bandwidth_download_spent"] = user.get("bandwidth_download_spent", 0) + dl_mb
+        user["bandwidth_upload_spent"] = user.get("bandwidth_upload_spent", 0) + ul_mb
+        total_spent = user["bandwidth_download_spent"] + user["bandwidth_upload_spent"]
+        return total_spent >= bw_limit
 
     def save_bandwidth(self, username: str) -> None:
-        """Сохраняет bandwidth_spent в users.json."""
+        """Сохраняет bandwidth_download_spent и bandwidth_upload_spent в users.json."""
         try:
             p = Path(USERS_FILE)
             data = json.loads(p.read_text())
-            spent = self._users.get(username, {}).get("bandwidth_spent", 0)
+            user = self._users.get(username, {})
+            dl_spent = user.get("bandwidth_download_spent", 0)
+            ul_spent = user.get("bandwidth_upload_spent", 0)
             for entry in data:
                 creds = entry.get("ssh_creds", "")
                 if ":" in creds and creds.split(":", 1)[0].strip() == username:
-                    entry["bandwidth_spent"] = round(spent, 3)
+                    entry["bandwidth_download_spent"] = round(dl_spent, 3)
+                    entry["bandwidth_upload_spent"] = round(ul_spent, 3)
                     break
             p.write_text(json.dumps(data, indent=2))
         except Exception as e:
