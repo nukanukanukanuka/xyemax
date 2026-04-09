@@ -52,7 +52,7 @@ log.addHandler(_ch)
 
 _log_dir = Path("logs")
 _log_dir.mkdir(parents=True, exist_ok=True)
-_log_file = str(_log_dir / f"{SESSION_DIR}.log")
+_log_file = str(_log_dir / f"{SESSION_DIR}_{SESSION_UUID}.log")
 _fh = logging.FileHandler(_log_file, mode="w", encoding="utf-8")
 _fh.setLevel(logging.DEBUG)
 _fh.setFormatter(logging.Formatter("%(asctime)s [%(levelname)s] %(message)s"))
@@ -121,7 +121,8 @@ class Statistics:
                 log.error("Ошибка сохранения статистики: %s", e)
 
     async def save_loop(self) -> None:
-        """Сохраняет статистику каждые 60 секунд."""
+        """Сохраняет статистику каждые 60 секунд. Первый save — сразу при старте."""
+        await self.save()
         while True:
             await asyncio.sleep(60)
             await self.save()
