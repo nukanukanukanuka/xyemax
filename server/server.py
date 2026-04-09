@@ -1109,13 +1109,13 @@ class UserStore:
         if username not in users:
             return False
         user = users[username]
-        bw_limit = user.get("bandwidth_reserved", -1)
-        if bw_limit == -1:
-            return False  # безлимит
         dl_mb = download_bytes / (1024 * 1024)
         ul_mb = upload_bytes / (1024 * 1024)
         user["bandwidth_download_spent"] = user.get("bandwidth_download_spent", 0) + dl_mb
         user["bandwidth_upload_spent"] = user.get("bandwidth_upload_spent", 0) + ul_mb
+        bw_limit = user.get("bandwidth_reserved", -1)
+        if bw_limit == -1:
+            return False  # безлимит — не отключаем
         total_spent = user["bandwidth_download_spent"] + user["bandwidth_upload_spent"]
         return total_spent >= bw_limit
 
