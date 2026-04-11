@@ -70,7 +70,11 @@ function readJson(string $path): array
 
 function writeJson(string $path, mixed $data): void
 {
-    file_put_contents($path, json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+    $json = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+    $result = @file_put_contents($path, $json);
+    if ($result === false) {
+        err("Cannot write to {$path} — check file/directory permissions", 500);
+    }
 }
 
 function restartService(): string
