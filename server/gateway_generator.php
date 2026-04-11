@@ -143,8 +143,9 @@ UNIT;
  * Expected $settings keys:
  *   private_key          - local (this main server) WG private key
  *   peer_public_key      - remote (exit server) WG public key
- *   endpoint             - remote "host:port"
- *   local_address        - local tunnel IP with mask, e.g. 10.200.0.2/30
+ *   endpoint             - (optional) remote "host:port" — omit if peer connects to us
+ *   listen_port          - (optional) local listen port — needed when peer connects to us
+ *   local_address        - local tunnel IP with mask, e.g. 10.200.0.1/30
  *   allowed_ips          - (optional) default "0.0.0.0/0"
  *   persistent_keepalive - (optional) default 25
  */
@@ -156,24 +157,34 @@ function gw_build_wireguard_conf(int $slot, array $settings): string
     $pub     = trim((string)($settings['peer_public_key']      ?? ''));
     $ep      = trim((string)($settings['endpoint']             ?? ''));
     $local   = trim((string)($settings['local_address']        ?? ''));
+    $listen  = trim((string)($settings['listen_port']          ?? ''));
     $allowed = trim((string)($settings['allowed_ips']          ?? '0.0.0.0/0'));
     $keep    = (int)    ($settings['persistent_keepalive']     ?? 25);
 
-    foreach (['private_key' => $priv, 'peer_public_key' => $pub, 'endpoint' => $ep, 'local_address' => $local] as $k => $v) {
+    foreach (['private_key' => $priv, 'peer_public_key' => $pub, 'local_address' => $local] as $k => $v) {
         if ($v === '') throw new RuntimeException("wireguard: missing $k");
+    }
+
+    $ifaceExtra = '';
+    if ($listen !== '') {
+        $ifaceExtra = "\nListenPort = {$listen}";
+    }
+
+    $peerEndpoint = '';
+    if ($ep !== '') {
+        $peerEndpoint = "\nEndpoint            = {$ep}";
     }
 
     return <<<CONF
 [Interface]
 PrivateKey = {$priv}
-Address    = {$local}
+Address    = {$local}{$ifaceExtra}
 Table      = off
 PostUp     = ip route replace default dev %i table {$table}
 PostDown   = ip route del default dev %i table {$table} 2>/dev/null || true
 
 [Peer]
-PublicKey           = {$pub}
-Endpoint            = {$ep}
+PublicKey           = {$pub}{$peerEndpoint}
 AllowedIPs          = {$allowed}
 PersistentKeepalive = {$keep}
 CONF;
