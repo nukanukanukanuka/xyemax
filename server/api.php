@@ -26,6 +26,7 @@ define('LOGS_DIR',        SERVER_DIR . '/logs');
 define('SERVICE_NAME',    'strans-server');
 
 require_once __DIR__ . '/gateway_generator.php';
+require_once __DIR__ . '/proxy_generator.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -388,14 +389,113 @@ if ($action === 'statistics') {
     ok($filtered);
 }
 
+// ─── proxies ─────────────────────────────────────────────────────────────────
+
+if ($action === 'proxies') {
+    $m = method();
+
+    $settings = file_exists(SETTINGS_FILE) ? readJson(SETTINGS_FILE) : [];
+    if (!is_array($settings)) $settings = [];
+    $proxies = (isset($settings['proxies']) && is_array($settings['proxies']))
+        ? $settings['proxies'] : [];
+
+    // GET — return proxies from settings.json
+    if ($m === 'GET') {
+        ok($proxies);
+    }
+
+    // POST — install a new proxy
+    if ($m === 'POST') {
+        $b = body();
+        $id     = trim((string)($b['id']     ?? ''));
+        $name   = trim((string)($b['name']   ?? ''));
+        $type   = trim((string)($b['type']   ?? ''));
+        $host   = trim((string)($b['host']   ?? ''));
+        $active = (int)($b['active'] ?? 1) ? 1 : 0;
+        $pxSet  = isset($b['settings']) && is_array($b['settings']) ? $b['settings'] : [];
+
+        if ($id === '')                                          err('Missing id');
+        if ($type !== 'wireguard')                               err('Invalid type (only wireguard)');
+
+        foreach ($proxies as $p) {
+            if (($p['id'] ?? '') === $id) err("Proxy $id already exists", 409);
+        }
+
+        try {
+            $res = px_install($type, $host, $pxSet);
+        } catch (Throwable $e) {
+            err('Install failed: ' . $e->getMessage(), 500);
+        }
+
+        $entry = [
+            'id'     => $id,
+            'name'   => $name !== '' ? $name : ('px-' . $res['slot']),
+            'tun'    => $res['tun'],
+            'type'   => $type,
+            'active' => $active,
+        ];
+        $proxies[] = $entry;
+        $settings['proxies'] = $proxies;
+        writeJson(SETTINGS_FILE, $settings);
+
+        ok([
+            'message' => 'Proxy installed',
+            'proxy'   => $entry,
+            'slot'    => $res['slot'],
+            'output'  => $res['output'] ?? '',
+        ]);
+    }
+
+    // DELETE — remove a proxy by id
+    if ($m === 'DELETE') {
+        $id = trim((string)($_GET['id'] ?? ''));
+        if ($id === '') err('Missing ?id parameter');
+
+        $entry = null;
+        $keep  = [];
+        foreach ($proxies as $p) {
+            if (($p['id'] ?? '') === $id) {
+                $entry = $p;
+            } else {
+                $keep[] = $p;
+            }
+        }
+        if ($entry === null) err("Proxy $id not found", 404);
+
+        $type = (string)($entry['type'] ?? '');
+        $tun  = (string)($entry['tun']  ?? '');
+        $slot = px_slot_from_tun($tun);
+        if ($slot < 0 || $type === '') {
+            err('Proxy record missing tun/type', 500);
+        }
+
+        try {
+            $out = px_uninstall($type, $slot);
+        } catch (Throwable $e) {
+            err('Uninstall failed: ' . $e->getMessage(), 500);
+        }
+
+        $settings['proxies'] = $keep;
+        writeJson(SETTINGS_FILE, $settings);
+
+        ok([
+            'message' => 'Proxy removed',
+            'proxy'   => $entry,
+            'output'  => $out,
+        ]);
+    }
+
+    err('Method not allowed', 405);
+}
+
 // ─── ping ────────────────────────────────────────────────────────────────────
 
 if ($action === 'ping') {
     if (method() !== 'GET') err('Use GET', 405);
 
     $tun = trim($_GET['tun'] ?? '');
-    if ($tun === '' || !preg_match('/^strans-outtun\d+$/', $tun)) {
-        err('Invalid or missing ?tun parameter (e.g. strans-outtun0)');
+    if ($tun === '' || !preg_match('/^strans-(out|in)tun\d+$/', $tun)) {
+        err('Invalid or missing ?tun parameter (e.g. strans-outtun0 or strans-intun0)');
     }
 
     $ip = trim((string)shell_exec(
