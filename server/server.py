@@ -14,6 +14,7 @@ import ipaddress
 import json
 import logging
 import os
+import re
 import struct
 import subprocess
 import sys
@@ -336,16 +337,119 @@ class TunRouter:
 
 
 
+# ─── Gateway routing ──────────────────────────────────────────────────────────
+
+def _active_gateways(config: dict) -> list:
+    """Возвращает только валидные gateways с active=1."""
+    gws = config.get("gateways") or []
+    result = []
+    for g in gws:
+        if not isinstance(g, dict):
+            continue
+        if int(g.get("active", 0) or 0) != 1:
+            continue
+        gid  = str(g.get("id", "") or "").strip()
+        tun  = str(g.get("tun", "") or "").strip()
+        name = str(g.get("name", "") or "").strip()
+        if not gid or not tun:
+            continue
+        result.append({"id": gid, "name": name, "tun": tun})
+    return result
+
+
+def _find_gateway(gateways: list, gateway_id: str) -> dict | None:
+    if not gateway_id:
+        return None
+    for g in gateways:
+        if g["id"] == gateway_id:
+            return g
+    return None
+
+
+def _tun_table_id(tun: str) -> int:
+    """strans-outtun0..99 -> routing table 100..199."""
+    m = re.search(r'(\d+)$', tun or '')
+    n = int(m.group(1)) if m else 0
+    return 100 + (n % 100)
+
+
+def _apply_gateway_routing(client_ip: str, tun: str) -> None:
+    """Направляет исходящий трафик client_ip через интерфейс tun.
+
+    Требует root / CAP_NET_ADMIN. Использует source-based policy routing:
+      - отдельная таблица на каждый tun с default route dev <tun>
+      - `ip rule from <client_ip>/32 table <N>`
+      - MASQUERADE на POSTROUTING для исходящих через этот tun
+    """
+    try:
+        table = _tun_table_id(tun)
+        subprocess.run(
+            ["ip", "route", "replace", "default", "dev", tun, "table", str(table)],
+            check=False, capture_output=True,
+        )
+        # Добавляем rule только если ещё нет (idempotent)
+        r = subprocess.run(
+            ["ip", "rule", "show", "from", f"{client_ip}/32"],
+            capture_output=True, text=True, check=False,
+        )
+        if f"lookup {table}" not in (r.stdout or ""):
+            subprocess.run(
+                ["ip", "rule", "add", "from", f"{client_ip}/32", "table", str(table)],
+                check=False, capture_output=True,
+            )
+        # NAT для исходящих пакетов через этот tun (idempotent: -C + -I)
+        check = subprocess.run(
+            ["iptables", "-t", "nat", "-C", "POSTROUTING",
+             "-s", f"{client_ip}/32", "-o", tun, "-j", "MASQUERADE"],
+            capture_output=True, check=False,
+        )
+        if check.returncode != 0:
+            subprocess.run(
+                ["iptables", "-t", "nat", "-I", "POSTROUTING",
+                 "-s", f"{client_ip}/32", "-o", tun, "-j", "MASQUERADE"],
+                check=False, capture_output=True,
+            )
+        log.info("Gateway routing: %s -> %s (table %d)", client_ip, tun, table)
+    except Exception as e:
+        log.error("Gateway routing apply failed для %s via %s: %s", client_ip, tun, e)
+
+
+def _remove_gateway_routing(client_ip: str, tun: str) -> None:
+    try:
+        table = _tun_table_id(tun)
+        subprocess.run(
+            ["ip", "rule", "del", "from", f"{client_ip}/32", "table", str(table)],
+            check=False, capture_output=True,
+        )
+        subprocess.run(
+            ["iptables", "-t", "nat", "-D", "POSTROUTING",
+             "-s", f"{client_ip}/32", "-o", tun, "-j", "MASQUERADE"],
+            check=False, capture_output=True,
+        )
+        log.info("Gateway routing removed: %s -> %s", client_ip, tun)
+    except Exception as e:
+        log.debug("Gateway routing remove error: %s", e)
+
+
 # ─── SSH сессия ───────────────────────────────────────────────────────────────
 
 class VPNSession(asyncssh.SSHServerSession):
-    """Обрабатывает exec 'get_ip' — выдаёт IP клиенту."""
+    """Обрабатывает exec 'get_ip' — выдаёт IP клиенту.
+
+    Если у пользователя в users.json нет sticky gateway_id, перед выдачей IP
+    сервер шлёт клиенту JSON {"action": "select_gateway", "gateways": [...]}
+    и ждёт ответа {"gateway_id": "<uuid>"} по тому же channel.
+    """
 
     def __init__(self, pool: IPPool, server: 'VPNServer'):
         self._pool = pool
         self._server = server
         self._chan = None
         self._client_ip = None
+        self._username = None
+        self._gateway = None            # выбранный gateway dict
+        self._await_gateway = False     # ждём ответ клиента на select_gateway
+        self._buf = b""                 # буфер для partial line reads
 
     def connection_made(self, chan):
         self._chan = chan
@@ -370,22 +474,106 @@ class VPNSession(asyncssh.SSHServerSession):
     def _do_session_started(self) -> None:
         log.debug("VPNSession.session_started")
         username = self._chan.get_extra_info("username")
+        self._username = username
 
         # Проверяем лимит устройств
+        # per-user имеет приоритет, если не указан — берём из settings, -1 = безлимит
         user_store = self._server._config["user_store"]
         user = user_store._users.get(username, {})
-        max_devices = int(user.get("max_connected_devices", -1))
-        settings_max = int(self._server._config.get("max_connected_devices", -1))
-        # Берём per-user лимит, а если нет — глобальный из settings
-        effective_max = max_devices if max_devices != -1 else settings_max
-        if effective_max != -1:
+        max_devices = int(user.get("max_connected_devices", 0))
+        if max_devices == 0:
+            # Не указан для пользователя — берём глобальный
+            max_devices = int(self._server._config.get("max_connected_devices", -1))
+        if max_devices != -1:
             current_count = self._server._config["device_tracker"].count(username)
-            if current_count >= effective_max:
+            if current_count >= max_devices:
                 log.warning("MAX_CONNECTED_DEVICES_REACHED для %s (%d/%d)",
-                            username, current_count, effective_max)
+                            username, current_count, max_devices)
                 self._chan.write((json.dumps({"error": "MAX_CONNECTED_DEVICES_REACHED"}) + "\n").encode())
                 self._chan.exit(0)
                 return
+
+        # ─── Gateway selection ───────────────────────────────────────────────
+        # Если у пользователя уже есть sticky gateway_id И он есть среди
+        # активных — используем его без запроса. Иначе просим клиента выбрать.
+        active_gws = _active_gateways(self._server._config)
+        sticky_id = (user.get("gateway_id") or "").strip()
+        chosen = _find_gateway(active_gws, sticky_id) if sticky_id else None
+
+        if chosen is None and active_gws:
+            # Просим клиента выбрать gateway — дальше ждём ответа в data_received
+            payload = {
+                "action":   "select_gateway",
+                "gateways": [{"id": g["id"], "name": g["name"]} for g in active_gws],
+            }
+            log.info("SELECT_GATEWAY -> %s (%d вариантов)", username, len(active_gws))
+            self._chan.write((json.dumps(payload) + "\n").encode())
+            self._await_gateway = True
+            return
+
+        # Либо sticky валидный, либо gateways вообще не настроены
+        self._gateway = chosen
+        self._finalize_get_ip(user)
+
+    def data_received(self, data, datatype):
+        """Приём ответа на select_gateway от клиента."""
+        if not self._await_gateway:
+            return
+        self._buf += data
+        if b"\n" not in self._buf:
+            return
+
+        line, _, rest = self._buf.partition(b"\n")
+        self._buf = rest
+        self._await_gateway = False
+
+        try:
+            reply = json.loads(line.decode("utf-8", errors="replace"))
+            gw_id  = str(reply.get("gateway_id", "") or "").strip()
+            sticky = bool(reply.get("sticky", False))
+        except Exception as e:
+            log.warning("Неверный ответ select_gateway от %s: %s", self._username, e)
+            try:
+                self._chan.write((json.dumps({"error": f"INVALID_GATEWAY_REPLY: {e}"}) + "\n").encode())
+                self._chan.exit(1)
+            except Exception:
+                pass
+            return
+
+        active_gws = _active_gateways(self._server._config)
+        chosen = _find_gateway(active_gws, gw_id)
+        if chosen is None:
+            log.warning("GATEWAY_NOT_FOUND id=%r для %s", gw_id, self._username)
+            try:
+                self._chan.write((json.dumps({"error": "GATEWAY_NOT_FOUND"}) + "\n").encode())
+                self._chan.exit(1)
+            except Exception:
+                pass
+            return
+
+        user_store = self._server._config["user_store"]
+        # Sticky: сохраняем в users.json только если клиент явно попросил
+        if sticky:
+            user_store.save_gateway_id(self._username, chosen["id"])
+        else:
+            log.info("Gateway: %s выбрал %s (sticky=false, не сохраняю)",
+                     self._username, chosen["name"])
+        user = user_store._users.get(self._username, {})
+
+        self._gateway = chosen
+        try:
+            self._finalize_get_ip(user)
+        except Exception as e:
+            log.error("VPNSession._finalize_get_ip EXCEPTION: %s", e, exc_info=True)
+            try:
+                self._chan.write((json.dumps({"error": f"INTERNAL_ERROR: {e}"}) + "\n").encode())
+                self._chan.exit(1)
+            except Exception:
+                pass
+
+    def _finalize_get_ip(self, user: dict) -> None:
+        """Выделяет IP, применяет routing через выбранный gateway и шлёт PUSH_REPLY."""
+        username = self._username
 
         ip = self._pool.allocate(username)
         if ip is None:
@@ -426,6 +614,11 @@ class VPNSession(asyncssh.SSHServerSession):
         subprocess.run(["ip", "route", "replace", f"{ip}/32", "dev", TUN_DEV],
                        check=False, capture_output=True)
 
+        # Выходная маршрутизация через выбранный gateway (если есть)
+        if self._gateway:
+            _apply_gateway_routing(ip, self._gateway["tun"])
+            self._server.track_gateway_route(ip, self._gateway["tun"])
+
         stealth_level = int(self._server._config.get("stealth", 0))
         stealth_level = max(0, min(9, stealth_level))
         mtu, chunk_min, chunk_max, delay_min, delay_max = STEALTH_LEVELS[stealth_level]
@@ -439,8 +632,14 @@ class VPNSession(asyncssh.SSHServerSession):
             "chunk_max":   chunk_max,
             "delay_min":   delay_min,
             "delay_max":   delay_max,
+            "gateway":     ({
+                "id":   self._gateway["id"],
+                "name": self._gateway["name"],
+                "tun":  self._gateway["tun"],
+            } if self._gateway else None),
         })
-        log.info("PUSH_REPLY -> %s (%s)", username, ip)
+        log.info("PUSH_REPLY -> %s (%s%s)", username, ip,
+                 f" via {self._gateway['name']}" if self._gateway else "")
         self._chan.write((payload + "\n").encode())
         self._chan.exit(0)
 
@@ -834,11 +1033,16 @@ class VPNServer(asyncssh.SSHServer):
         self._speed_manager: SpeedManager = config["speed_manager"]
         self._client_ips: set[str] = set()  # все IP этого SSH-соединения
         self._username: str | None = None
+        self._gateway_routes: dict[str, str] = {}  # client_ip -> tun для cleanup
 
     def add_client_ip(self, username: str, ip: str) -> None:
         """Регистрирует выданный IP для этого соединения."""
         self._client_ips.add(ip)
         self._config["device_tracker"].add(username, ip)
+
+    def track_gateway_route(self, client_ip: str, tun: str) -> None:
+        """Запоминает связку client_ip -> tun для очистки routing правил при disconnect."""
+        self._gateway_routes[client_ip] = tun
 
     def connection_made(self, conn):
         self._conn = conn
@@ -859,10 +1063,14 @@ class VPNServer(asyncssh.SSHServer):
             for ip in self._client_ips:
                 subprocess.run(["ip", "route", "del", f"{ip}/32", "dev", TUN_DEV],
                                check=False, capture_output=True)
+                tun = self._gateway_routes.pop(ip, None)
+                if tun:
+                    _remove_gateway_routing(ip, tun)
                 self._pool.release(ip)
                 tracker.remove(self._username, ip)
                 log.info("Клиент отключён, IP %s освобождён", ip)
         self._client_ips.clear()
+        self._gateway_routes.clear()
 
     def begin_auth(self, username: str) -> bool:
         return True
@@ -1024,7 +1232,8 @@ def _parse_users(data: list) -> dict:
                 "bandwidth_download_spent": float(entry.get("bandwidth_download_spent", 0)),
                 "bandwidth_upload_spent":   float(entry.get("bandwidth_upload_spent", 0)),
                 "speed_rate":             entry.get("speed_rate"),  # None = использовать global
-                "max_connected_devices":  int(entry.get("max_connected_devices", -1)),
+                "max_connected_devices":  int(entry.get("max_connected_devices", 0)),  # 0 = не указан, -1 = безлимит
+                "gateway_id":             str(entry.get("gateway_id", "") or ""),  # sticky выбор outbound gateway
             }
     return users
 
@@ -1119,6 +1328,23 @@ class UserStore:
             return False  # безлимит — не отключаем
         total_spent = user["bandwidth_download_spent"] + user["bandwidth_upload_spent"]
         return total_spent >= bw_limit
+
+    def save_gateway_id(self, username: str, gateway_id: str) -> None:
+        """Сохраняет gateway_id в users.json для sticky-выбора outbound gateway."""
+        try:
+            p = Path(USERS_FILE)
+            data = json.loads(p.read_text())
+            for entry in data:
+                creds = entry.get("ssh_creds", "")
+                if ":" in creds and creds.split(":", 1)[0].strip() == username:
+                    entry["gateway_id"] = gateway_id
+                    break
+            p.write_text(json.dumps(data, indent=2))
+            if username in self._users:
+                self._users[username]["gateway_id"] = gateway_id
+            log.info("Gateway: сохранён gateway_id=%s для %s", gateway_id, username)
+        except Exception as e:
+            log.error("Ошибка сохранения gateway_id: %s", e)
 
     def save_bandwidth(self, username: str) -> None:
         """Сохраняет bandwidth_download_spent и bandwidth_upload_spent в users.json."""
@@ -1231,7 +1457,7 @@ def should_run_speedtest() -> bool:
 
 async def settings_reload_loop(config: dict) -> None:
     """Перечитывает settings.json каждые 60 сек, обновляет config in-place (кроме host/port)."""
-    RELOAD_KEYS = ("stealth", "max_connected_devices", "speed_rate", "server_speed", "debug")
+    RELOAD_KEYS = ("stealth", "max_connected_devices", "speed_rate", "server_speed", "debug", "gateways")
     while True:
         await asyncio.sleep(60)
         try:
@@ -1329,6 +1555,11 @@ DEFAULT_SETTINGS = {
     "max_connected_devices": -1,   # -1 = безлимит, N = максимум устройств на аккаунт
     "speed_rate":   {"speed_mode": -1, "max_download_speed": None, "max_upload_speed": None},
     "server_speed": {},
+    # Gateways / network interfaces used for outbound traffic routing.
+    # Each entry: {"id": "<uuid>", "name": "<label>", "tun": "strans-outtun0..99", "active": 0|1}
+    # Users choose a gateway on first connect (get_ip) and the choice is stored
+    # per-user in users.json under "gateway_id" (sticky).
+    "gateways":     [],
 }
 
 # Таблица параметров stealth по уровням
@@ -1383,6 +1614,7 @@ def main():
         "max_connected_devices": settings.get("max_connected_devices", -1),
         "speed_rate":   settings.get("speed_rate", {}),
         "server_speed": settings.get("server_speed", {}),
+        "gateways":     settings.get("gateways", []),
     }
     try:
         asyncio.run(run_server(config))
