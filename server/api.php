@@ -8,9 +8,12 @@
  *   POST   ?action=restart                       — restart strans-server service
  *   GET    ?action=users                         — get users.json
  *   POST   ?action=users                         — add new user (JSON body = user object)
- *   PATCH  ?action=users&id=<login>              — update user by login id (merge keys)
+ *   PATCH  ?action=users&id=<uuid>               — update user by id field (merge keys)
  *   GET    ?action=settings                      — get settings.json
  *   PATCH  ?action=settings                      — update settings.json (merge keys); restarts if host/port changed
+ *   GET    ?action=gateways                      — list gateways from settings.json
+ *   POST   ?action=gateways                      — install a gateway (body: {id,name,type,host,active,settings})
+ *   DELETE ?action=gateways&id=<uuid>            — stop/remove a gateway and clean systemd
  *   GET    ?action=logs[&date=20260409][&files[]=20260409_125524] — get logs for a date
  *   GET    ?action=statistics[&date=2026-04-09]  — get statistics entries for a date
  */
@@ -21,6 +24,8 @@ define('SETTINGS_FILE',   SERVER_DIR . '/settings.json');
 define('STATISTICS_FILE', SERVER_DIR . '/statistics.json');
 define('LOGS_DIR',        SERVER_DIR . '/logs');
 define('SERVICE_NAME',    'strans-server');
+
+require_once __DIR__ . '/gateway_generator.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -115,7 +120,7 @@ if ($action === 'users') {
         ok(['message' => 'User added', 'user' => $user]);
     }
 
-    // PATCH — update existing user by id (login extracted from ssh_creds)
+    // PATCH — update existing user by id field (UUID)
     if ($m === 'PATCH') {
         $id = trim($_GET['id'] ?? '');
         if ($id === '') err('Missing ?id parameter');
@@ -131,9 +136,7 @@ if ($action === 'users') {
         $found = false;
         foreach ($users as &$entry) {
             if (!is_array($entry)) continue;
-            $creds = $entry['ssh_creds'] ?? '';
-            $login = strstr($creds, ':', true) ?: '';
-            if (trim($login) === $id) {
+            if (($entry['id'] ?? '') === $id) {
                 // Merge: existing keys updated, new keys added
                 foreach ($patch as $k => $v) {
                     $entry[$k] = $v;
@@ -202,6 +205,105 @@ if ($action === 'settings') {
     err('Method not allowed', 405);
 }
 
+// ─── gateways ─────────────────────────────────────────────────────────────────
+
+if ($action === 'gateways') {
+    $m = method();
+
+    $settings = file_exists(SETTINGS_FILE) ? readJson(SETTINGS_FILE) : [];
+    if (!is_array($settings)) $settings = [];
+    $gateways = (isset($settings['gateways']) && is_array($settings['gateways']))
+        ? $settings['gateways'] : [];
+
+    // GET — return gateways from settings.json
+    if ($m === 'GET') {
+        ok($gateways);
+    }
+
+    // POST — install a new gateway
+    if ($m === 'POST') {
+        $b = body();
+        $id     = trim((string)($b['id']     ?? ''));
+        $name   = trim((string)($b['name']   ?? ''));
+        $type   = trim((string)($b['type']   ?? ''));
+        $host   = trim((string)($b['host']   ?? ''));
+        $active = (int)($b['active'] ?? 1) ? 1 : 0;
+        $gwSet  = isset($b['settings']) && is_array($b['settings']) ? $b['settings'] : [];
+
+        if ($id === '')                                              err('Missing id');
+        if (!in_array($type, ['tun2socks', 'wireguard'], true))     err('Invalid type');
+
+        foreach ($gateways as $g) {
+            if (($g['id'] ?? '') === $id) err("Gateway $id already exists", 409);
+        }
+
+        try {
+            $res = gw_install($type, $host, $gwSet);
+        } catch (Throwable $e) {
+            err('Install failed: ' . $e->getMessage(), 500);
+        }
+
+        $entry = [
+            'id'     => $id,
+            'name'   => $name !== '' ? $name : ('gw-' . $res['slot']),
+            'tun'    => $res['tun'],
+            'type'   => $type,
+            'active' => $active,
+        ];
+        $gateways[] = $entry;
+        $settings['gateways'] = $gateways;
+        writeJson(SETTINGS_FILE, $settings);
+
+        ok([
+            'message' => 'Gateway installed',
+            'gateway' => $entry,
+            'slot'    => $res['slot'],
+            'output'  => $res['output'] ?? '',
+        ]);
+    }
+
+    // DELETE — remove a gateway by id
+    if ($m === 'DELETE') {
+        $id = trim((string)($_GET['id'] ?? ''));
+        if ($id === '') err('Missing ?id parameter');
+
+        $entry = null;
+        $keep  = [];
+        foreach ($gateways as $g) {
+            if (($g['id'] ?? '') === $id) {
+                $entry = $g;
+            } else {
+                $keep[] = $g;
+            }
+        }
+        if ($entry === null) err("Gateway $id not found", 404);
+
+        $type = (string)($entry['type'] ?? '');
+        $tun  = (string)($entry['tun']  ?? '');
+        $slot = gw_slot_from_tun($tun);
+        if ($slot < 0 || $type === '') {
+            err('Gateway record missing tun/type', 500);
+        }
+
+        try {
+            $out = gw_uninstall($type, $slot);
+        } catch (Throwable $e) {
+            err('Uninstall failed: ' . $e->getMessage(), 500);
+        }
+
+        $settings['gateways'] = $keep;
+        writeJson(SETTINGS_FILE, $settings);
+
+        ok([
+            'message' => 'Gateway removed',
+            'gateway' => $entry,
+            'output'  => $out,
+        ]);
+    }
+
+    err('Method not allowed', 405);
+}
+
 // ─── logs ─────────────────────────────────────────────────────────────────────
 
 if ($action === 'logs') {
@@ -218,6 +320,7 @@ if ($action === 'logs') {
     }
 
     // Optional: specific filenames (without .log extension) passed as files[]
+    // Log files are named YYYYMMDD_HHMMSS_UUID.log
     $requestedFiles = $_GET['files'] ?? [];
     if (!is_array($requestedFiles)) $requestedFiles = [$requestedFiles];
     $requestedFiles = array_filter(array_map('trim', $requestedFiles));
