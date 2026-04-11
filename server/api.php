@@ -388,6 +388,23 @@ if ($action === 'statistics') {
     ok($filtered);
 }
 
+// ─── ping ────────────────────────────────────────────────────────────────────
+
+if ($action === 'ping') {
+    if (method() !== 'GET') err('Use GET', 405);
+
+    $tun = trim($_GET['tun'] ?? '');
+    if ($tun === '' || !preg_match('/^strans-outtun\d+$/', $tun)) {
+        err('Invalid or missing ?tun parameter (e.g. strans-outtun0)');
+    }
+
+    $ip = trim((string)shell_exec(
+        'curl -s --max-time 10 --interface ' . escapeshellarg($tun) . ' https://api.ipify.org 2>&1'
+    ));
+
+    ok(['tun' => $tun, 'ip' => $ip]);
+}
+
 // ─── Unknown action ───────────────────────────────────────────────────────────
 
 err("Unknown action: '{$action}'", 404);
