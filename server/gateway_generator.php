@@ -83,6 +83,31 @@ function gw_sh(string $cmd): string
     return trim((string)shell_exec($cmd . ' 2>&1'));
 }
 
+/**
+ * Write content to a root-owned path via sudo tee.
+ */
+function gw_write_file(string $path, string $content, string $mode = '0644'): void
+{
+    $proc = proc_open(
+        'sudo tee ' . escapeshellarg($path),
+        [0 => ['pipe', 'r'], 1 => ['pipe', 'w'], 2 => ['pipe', 'w']],
+        $pipes
+    );
+    if (!is_resource($proc)) {
+        throw new RuntimeException("Cannot run sudo tee for $path");
+    }
+    fwrite($pipes[0], $content);
+    fclose($pipes[0]);
+    fclose($pipes[1]);
+    $err = stream_get_contents($pipes[2]);
+    fclose($pipes[2]);
+    $code = proc_close($proc);
+    if ($code !== 0) {
+        throw new RuntimeException("sudo tee $path failed (code $code): $err");
+    }
+    gw_sh('sudo chmod ' . escapeshellarg($mode) . ' ' . escapeshellarg($path));
+}
+
 // ─── tun2socks ────────────────────────────────────────────────────────────────
 
 function gw_build_tun2socks_unit(int $slot, string $proxyUrl): string
@@ -174,9 +199,7 @@ function gw_install(string $type, string $host, array $settings = []): array
         }
         $unit = gw_build_tun2socks_unit($slot, $host);
         $path = gw_tun2socks_unit_path($slot);
-        if (file_put_contents($path, $unit) === false) {
-            throw new RuntimeException("Cannot write $path");
-        }
+        gw_write_file($path, $unit);
         $svc = gw_tun2socks_service_name($slot);
         gw_sh('sudo systemctl daemon-reload');
         $out = gw_sh('sudo systemctl enable --now ' . escapeshellarg($svc));
@@ -190,10 +213,7 @@ function gw_install(string $type, string $host, array $settings = []): array
         }
         $conf = gw_build_wireguard_conf($slot, $settings);
         $path = gw_wg_conf_path($slot);
-        if (file_put_contents($path, $conf) === false) {
-            throw new RuntimeException("Cannot write $path");
-        }
-        @chmod($path, 0600);
+        gw_write_file($path, $conf, '0600');
 
         $svc = gw_wg_service_name($slot);
         gw_sh('sudo systemctl daemon-reload');
@@ -219,14 +239,14 @@ function gw_uninstall(string $type, int $slot): array
         $out['stop']    = gw_sh('sudo systemctl stop '    . escapeshellarg($svc));
         $out['disable'] = gw_sh('sudo systemctl disable ' . escapeshellarg($svc));
         $path = gw_tun2socks_unit_path($slot);
-        if (file_exists($path)) @unlink($path);
+        gw_sh('sudo rm -f ' . escapeshellarg($path));
         $out['reload'] = gw_sh('sudo systemctl daemon-reload');
     } elseif ($type === 'wireguard') {
         $svc = gw_wg_service_name($slot);
         $out['stop']    = gw_sh('sudo systemctl stop '    . escapeshellarg($svc));
         $out['disable'] = gw_sh('sudo systemctl disable ' . escapeshellarg($svc));
         $path = gw_wg_conf_path($slot);
-        if (file_exists($path)) @unlink($path);
+        gw_sh('sudo rm -f ' . escapeshellarg($path));
         $out['reload'] = gw_sh('sudo systemctl daemon-reload');
     } else {
         throw new RuntimeException("Unknown gateway type: $type");
