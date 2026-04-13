@@ -67,31 +67,17 @@ log.info("Лог файл: %s", _log_file)
 
 # ─── Статистика ──────────────────────────────────────────────────────────────
 
-STATISTICS_FILE = "statistics.json"
+SERVER_STATISTICS_FILE = "server_statistics.json"
+USER_STATISTICS_FILE   = "user_statistics.json"
 
 
 class Statistics:
-    """Собирает статистику текущей сессии и сохраняет в statistics.json."""
+    """Сессионная статистика сервера. Сохраняется в server_statistics.json."""
 
     def __init__(self):
-        self._connected_devices: list[dict] = []
         self._bandwidth_download = 0.0  # МБ
         self._bandwidth_upload = 0.0    # МБ
         self._lock = asyncio.Lock()
-
-    def record_device(self, user_id: str, real_ip: str, local_ip: str,
-                      bw_upload: float, bw_download: float,
-                      connected_devices: int, speed_rate: dict | None) -> None:
-        """Вызывается при каждой выдаче IP клиенту."""
-        self._connected_devices.append({
-            "id": user_id,
-            "ip": real_ip,
-            "ip_local": local_ip,
-            "bandwidth_upload": round(bw_upload, 3),
-            "bandwidth_download": round(bw_download, 3),
-            "connected_devices": connected_devices,
-            "speed_rate": speed_rate,
-        })
 
     def add_traffic(self, download_bytes: int, upload_bytes: int) -> None:
         """Добавляет трафик. download = TUN->SSH (к клиенту), upload = SSH->TUN (от клиента)."""
@@ -105,7 +91,6 @@ class Statistics:
             "data": {
                 "bandwidth_download": round(self._bandwidth_download, 3),
                 "bandwidth_upload": round(self._bandwidth_upload, 3),
-                "connected_devices": self._connected_devices,
             }
         }
 
@@ -113,7 +98,7 @@ class Statistics:
         """Сохраняет статистику в файл."""
         async with self._lock:
             try:
-                p = Path(STATISTICS_FILE)
+                p = Path(SERVER_STATISTICS_FILE)
                 if p.exists():
                     data = json.loads(p.read_text())
                 else:
@@ -121,13 +106,134 @@ class Statistics:
                 data[SESSION_KEY] = self._build_entry()
                 p.write_text(json.dumps(data, indent=2))
             except Exception as e:
-                log.error("Ошибка сохранения статистики: %s", e)
+                log.error("Ошибка сохранения server_statistics: %s", e)
 
     async def save_loop(self) -> None:
         """Сохраняет статистику каждые 60 секунд. Первый save — сразу при старте."""
         await self.save()
         while True:
             await asyncio.sleep(60)
+            await self.save()
+
+
+class UserStatistics:
+    """Per-account статистика в user_statistics.json.
+
+    Структура:
+    {
+        "<user_id>": {
+            "bandwidth_download_spent": 0.0,
+            "bandwidth_upload_spent":   0.0,
+            "connected_devices": [
+                {"ip": "1.2.3.4", "ip_local": "198.19.0.2",
+                 "connected_at": "ISO", "speed_rate": {...}}
+            ]
+        }
+    }
+    """
+
+    def __init__(self):
+        self._data: dict[str, dict] = {}
+        self._lock = asyncio.Lock()
+        self._dirty = False
+        self.load()
+
+    def load(self) -> None:
+        p = Path(USER_STATISTICS_FILE)
+        if not p.exists():
+            self._data = {}
+            return
+        try:
+            raw = json.loads(p.read_text())
+            if isinstance(raw, dict):
+                self._data = raw
+            else:
+                self._data = {}
+        except Exception as e:
+            log.error("Ошибка загрузки user_statistics: %s", e)
+            self._data = {}
+        # На старте чистим connected_devices — процесс перезапущен, активных соединений нет
+        for uid, entry in self._data.items():
+            entry["connected_devices"] = []
+
+    def _ensure(self, user_id: str) -> dict:
+        if not user_id:
+            return {}
+        entry = self._data.get(user_id)
+        if entry is None:
+            entry = {
+                "bandwidth_download_spent": 0.0,
+                "bandwidth_upload_spent":   0.0,
+                "connected_devices":        [],
+            }
+            self._data[user_id] = entry
+        entry.setdefault("connected_devices", [])
+        entry.setdefault("bandwidth_download_spent", 0.0)
+        entry.setdefault("bandwidth_upload_spent", 0.0)
+        return entry
+
+    def get_spent(self, user_id: str) -> tuple[float, float]:
+        entry = self._data.get(user_id) or {}
+        return (
+            float(entry.get("bandwidth_download_spent", 0) or 0),
+            float(entry.get("bandwidth_upload_spent", 0) or 0),
+        )
+
+    def add_bandwidth(self, user_id: str, download_bytes: int, upload_bytes: int) -> None:
+        if not user_id:
+            return
+        entry = self._ensure(user_id)
+        entry["bandwidth_download_spent"] = float(entry.get("bandwidth_download_spent", 0)) + download_bytes / (1024 * 1024)
+        entry["bandwidth_upload_spent"]   = float(entry.get("bandwidth_upload_spent",   0)) + upload_bytes   / (1024 * 1024)
+        self._dirty = True
+
+    def add_device(self, user_id: str, *, real_ip: str, local_ip: str,
+                   speed_rate: dict | None) -> None:
+        if not user_id:
+            return
+        entry = self._ensure(user_id)
+        devices = entry["connected_devices"]
+        # Уже есть запись для этого local_ip? — обновим
+        now_iso = datetime.now(timezone.utc).isoformat()
+        for d in devices:
+            if d.get("ip_local") == local_ip:
+                d["ip"] = real_ip
+                d["connected_at"] = now_iso
+                d["speed_rate"] = speed_rate
+                self._dirty = True
+                return
+        devices.append({
+            "ip":           real_ip,
+            "ip_local":     local_ip,
+            "connected_at": now_iso,
+            "speed_rate":   speed_rate,
+        })
+        self._dirty = True
+
+    def remove_device(self, user_id: str, local_ip: str) -> None:
+        if not user_id:
+            return
+        entry = self._data.get(user_id)
+        if not entry:
+            return
+        devices = entry.get("connected_devices", [])
+        entry["connected_devices"] = [d for d in devices if d.get("ip_local") != local_ip]
+        self._dirty = True
+
+    async def save(self) -> None:
+        async with self._lock:
+            if not self._dirty:
+                return
+            try:
+                Path(USER_STATISTICS_FILE).write_text(
+                    json.dumps(self._data, indent=2))
+                self._dirty = False
+            except Exception as e:
+                log.error("Ошибка сохранения user_statistics: %s", e)
+
+    async def save_loop(self) -> None:
+        while True:
+            await asyncio.sleep(10)
             await self.save()
 
 
@@ -592,23 +698,17 @@ class VPNSession(asyncssh.SSHServerSession):
 
         self._client_ip = ip
         self._server.add_client_ip(username, ip)  # трекинг per-username
-        # Статистика: новое подключение
-        stats = self._server._config.get("statistics")
-        if stats:
-            device_tracker = self._server._config.get("device_tracker")
-            dev_count = device_tracker.count(username) if device_tracker else 0
+        # Per-user статистика: регистрируем устройство
+        user_stats = self._server._config.get("user_statistics")
+        if user_stats:
             speed_mgr = self._server._config.get("speed_manager")
             speed_rate = speed_mgr._get_speed_rate(username) if speed_mgr else None
-            # Реальный IP клиента
             peer = self._server._conn.get_extra_info("peername")
             real_ip = peer[0] if peer else ""
-            stats.record_device(
-                user_id=user.get("id", ""),
+            user_stats.add_device(
+                user.get("id", ""),
                 real_ip=real_ip,
                 local_ip=ip,
-                bw_upload=float(user.get("bandwidth_upload_spent", 0)),
-                bw_download=float(user.get("bandwidth_download_spent", 0)),
-                connected_devices=dev_count,
                 speed_rate=speed_rate,
             )
         subprocess.run(["ip", "route", "replace", f"{ip}/32", "dev", TUN_DEV],
@@ -1060,6 +1160,11 @@ class VPNServer(asyncssh.SSHServer):
     def connection_lost(self, exc):
         if self._username:
             tracker = self._config["device_tracker"]
+            user_stats = self._config.get("user_statistics")
+            user_store = self._config.get("user_store")
+            user_id = ""
+            if user_store:
+                user_id = (user_store._users.get(self._username, {}) or {}).get("id", "")
             for ip in self._client_ips:
                 subprocess.run(["ip", "route", "del", f"{ip}/32", "dev", TUN_DEV],
                                check=False, capture_output=True)
@@ -1068,6 +1173,8 @@ class VPNServer(asyncssh.SSHServer):
                     _remove_gateway_routing(ip, tun)
                 self._pool.release(ip)
                 tracker.remove(self._username, ip)
+                if user_stats and user_id:
+                    user_stats.remove_device(user_id, ip)
                 log.info("Клиент отключён, IP %s освобождён", ip)
         self._client_ips.clear()
         self._gateway_routes.clear()
@@ -1210,10 +1317,11 @@ except ImportError:
     log.warning("bcrypt не установлен: pip install bcrypt")
 
 
-def _parse_users(data: list) -> dict:
+def _parse_users(data: list, user_stats: 'UserStatistics | None' = None) -> dict:
     """Парсит список пользователей из JSON.
     Формат: {"id": "uuid", "ssh_creds": "login:$2b$hash", "ip_pool": "198.19.0.2",
-             "bandwidth_reserved": 10240, "bandwidth_download_spent": 0, "bandwidth_upload_spent": 0}
+             "bandwidth_reserved": 10240}
+    Потраченный bandwidth читается из user_statistics (не из users.json).
     """
     users = {}
     for entry in data:
@@ -1222,19 +1330,22 @@ def _parse_users(data: list) -> dict:
             continue
         username, bcrypt_hash = creds.split(":", 1)
         username = username.strip()
-        if username:
-            bw = entry.get("bandwidth_reserved", -1)
-            users[username] = {
-                "id":                     entry.get("id", ""),
-                "bcrypt":                 bcrypt_hash,
-                "ip_pool":                entry.get("ip_pool", ""),
-                "bandwidth_reserved":     int(bw),  # -1 = безлимит
-                "bandwidth_download_spent": float(entry.get("bandwidth_download_spent", 0)),
-                "bandwidth_upload_spent":   float(entry.get("bandwidth_upload_spent", 0)),
-                "speed_rate":             entry.get("speed_rate"),  # None = использовать global
-                "max_connected_devices":  int(entry.get("max_connected_devices", 0)),  # 0 = не указан, -1 = безлимит
-                "gateway_id":             str(entry.get("gateway_id", "") or ""),  # sticky выбор outbound gateway
-            }
+        if not username:
+            continue
+        uid = entry.get("id", "")
+        bw  = entry.get("bandwidth_reserved", -1)
+        dl_spent, ul_spent = (user_stats.get_spent(uid) if user_stats else (0.0, 0.0))
+        users[username] = {
+            "id":                       uid,
+            "bcrypt":                   bcrypt_hash,
+            "ip_pool":                  entry.get("ip_pool", ""),
+            "bandwidth_reserved":       int(bw),  # -1 = безлимит
+            "bandwidth_download_spent": dl_spent,
+            "bandwidth_upload_spent":   ul_spent,
+            "speed_rate":               entry.get("speed_rate"),  # None = использовать global
+            "max_connected_devices":    int(entry.get("max_connected_devices", 0)),  # 0 = не указан, -1 = безлимит
+            "gateway_id":               str(entry.get("gateway_id", "") or ""),  # sticky выбор outbound gateway
+        }
     return users
 
 
@@ -1243,8 +1354,9 @@ class UserStore:
     Формат users.json: [{"ssh_creds": "login:$2b$12$hash..."}]
     """
 
-    def __init__(self):
+    def __init__(self, user_stats: 'UserStatistics | None' = None):
         self._users: dict[str, dict] = {}  # username -> {bcrypt}
+        self._user_stats = user_stats
         self._lock = asyncio.Lock()
         self._reload_callbacks: list = []  # список функций вызываемых после reload
         self.load()
@@ -1257,7 +1369,7 @@ class UserStore:
             return
         try:
             data = json.loads(p.read_text())
-            self._users = _parse_users(data)
+            self._users = _parse_users(data, self._user_stats)
             log.info("Загружено %d пользователей из %s", len(self._users), USERS_FILE)
         except Exception as e:
             log.error("Ошибка загрузки пользователей: %s", e)
@@ -1282,7 +1394,7 @@ class UserStore:
                 if not p.exists():
                     continue
                 data = json.loads(p.read_text())
-                users = _parse_users(data)
+                users = _parse_users(data, self._user_stats)
                 async with self._lock:
                     self._users = users
                 log.debug("Пользователи перезагружены: %d записей", len(users))
@@ -1314,7 +1426,9 @@ class UserStore:
             return False
 
     def add_bandwidth(self, username: str, download_bytes: int, upload_bytes: int) -> bool:
-        """Добавляет трафик пользователю. Возвращает True если лимит превышен."""
+        """Добавляет трафик пользователю. Возвращает True если лимит превышен.
+        Сохраняет в user_statistics (файл — через UserStatistics.save_loop).
+        """
         users = self._users
         if username not in users:
             return False
@@ -1322,7 +1436,9 @@ class UserStore:
         dl_mb = download_bytes / (1024 * 1024)
         ul_mb = upload_bytes / (1024 * 1024)
         user["bandwidth_download_spent"] = user.get("bandwidth_download_spent", 0) + dl_mb
-        user["bandwidth_upload_spent"] = user.get("bandwidth_upload_spent", 0) + ul_mb
+        user["bandwidth_upload_spent"]   = user.get("bandwidth_upload_spent",   0) + ul_mb
+        if self._user_stats:
+            self._user_stats.add_bandwidth(user.get("id", ""), download_bytes, upload_bytes)
         bw_limit = user.get("bandwidth_reserved", -1)
         if bw_limit == -1:
             return False  # безлимит — не отключаем
@@ -1347,22 +1463,8 @@ class UserStore:
             log.error("Ошибка сохранения gateway_id: %s", e)
 
     def save_bandwidth(self, username: str) -> None:
-        """Сохраняет bandwidth_download_spent и bandwidth_upload_spent в users.json."""
-        try:
-            p = Path(USERS_FILE)
-            data = json.loads(p.read_text())
-            user = self._users.get(username, {})
-            dl_spent = user.get("bandwidth_download_spent", 0)
-            ul_spent = user.get("bandwidth_upload_spent", 0)
-            for entry in data:
-                creds = entry.get("ssh_creds", "")
-                if ":" in creds and creds.split(":", 1)[0].strip() == username:
-                    entry["bandwidth_download_spent"] = round(dl_spent, 3)
-                    entry["bandwidth_upload_spent"] = round(ul_spent, 3)
-                    break
-            p.write_text(json.dumps(data, indent=2))
-        except Exception as e:
-            log.error("Ошибка сохранения bandwidth: %s", e)
+        """No-op: bandwidth теперь сохраняется в user_statistics.json (через UserStatistics)."""
+        return
 
 
 
@@ -1495,7 +1597,8 @@ async def run_server(config: dict) -> None:
     log.info("Внешний интерфейс: %s", ext_if)
     setup_server_tun(ext_if)
 
-    user_store = UserStore()
+    user_statistics = UserStatistics()
+    user_store = UserStore(user_statistics)
     pool = IPPool(user_store)
     rate_limiter = RateLimiter()
     speed_manager = SpeedManager(config, user_store)
@@ -1504,6 +1607,7 @@ async def run_server(config: dict) -> None:
     tun_router.start()
 
     config["user_store"] = user_store
+    config["user_statistics"] = user_statistics
     config["speed_manager"] = speed_manager
     config["device_tracker"] = device_tracker
     config["tun_router"] = tun_router
@@ -1512,6 +1616,7 @@ async def run_server(config: dict) -> None:
     asyncio.create_task(user_store.reload_loop())
     asyncio.create_task(settings_reload_loop(config))
     asyncio.create_task(statistics.save_loop())
+    asyncio.create_task(user_statistics.save_loop())
 
     # Speedtest при старте если данные устарели
     if should_run_speedtest():

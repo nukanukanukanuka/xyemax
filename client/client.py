@@ -95,15 +95,25 @@ def destroy_tun(name: str, fd: int) -> None:
 # ─── Маршруты (policy-based routing) ─────────────────────────────────────────
 #
 # Вместо удаления дефолтных маршрутов WiFi из main table используем:
-#   1. ip rule add — правило: весь трафик -> таблица VPN
-#   2. ip route add default dev tun0 table VPN — дефолт через TUN в отдельной таблице
-#   3. ip rule add to server_ip lookup main — трафик к серверу идёт по main (WiFi)
+#   1. ip rule add to server_ip lookup main  — трафик к серверу идёт по main (WiFi)
+#   2. ip rule add to <local>  lookup main   — локальные подсети обходят VPN
+#   3. ip rule add lookup VPN_TABLE           — весь остальной трафик -> TUN
+#   4. ip route add default dev tun0 table VPN — дефолт через TUN в отдельной таблице
 #
 # NetworkManager не трогается, WiFi маршруты остаются на месте.
 
 VPN_TABLE  = 100
 VPN_PRIO   = 100   # приоритет правила VPN (ниже = важнее)
 SRV_PRIO   = 50    # приоритет правила для серверного IP (выше VPN)
+LOCAL_PRIO = 80    # приоритет правил для локальных подсетей (между SRV и VPN)
+
+LOCAL_SUBNETS = [
+    "10.0.0.0/8",
+    "172.16.0.0/12",
+    "192.168.0.0/16",
+    "169.254.0.0/16",
+    "127.0.0.0/8",
+]
 
 
 def _run(cmd: list[str], **kw) -> subprocess.CompletedProcess:
@@ -121,12 +131,69 @@ def get_default_gateway() -> dict | None:
     return None
 
 
+def _save_resolv_conf() -> str | None:
+    """Сохраняет текущий /etc/resolv.conf и возвращает содержимое."""
+    try:
+        return Path("/etc/resolv.conf").read_text()
+    except OSError:
+        return None
+
+
+def _set_dns(servers: list[str]) -> None:
+    """Перезаписывает /etc/resolv.conf на указанные DNS серверы."""
+    content = "# set by strans-client (VPN)\n"
+    for s in servers:
+        content += f"nameserver {s}\n"
+    try:
+        Path("/etc/resolv.conf").write_text(content)
+        log.info("DNS установлен: %s", ", ".join(servers))
+    except OSError as e:
+        log.warning("Не удалось обновить /etc/resolv.conf: %s", e)
+
+
+def _restore_resolv_conf(original: str | None) -> None:
+    """Восстанавливает оригинальный /etc/resolv.conf."""
+    if original is None:
+        return
+    try:
+        Path("/etc/resolv.conf").write_text(original)
+        log.info("DNS восстановлен")
+    except OSError as e:
+        log.warning("Не удалось восстановить /etc/resolv.conf: %s", e)
+
+
+def _disable_ipv6() -> None:
+    """Отключает IPv6 на всех интерфейсах через sysctl."""
+    _run(["sysctl", "-w", "net.ipv6.conf.all.disable_ipv6=1"])
+    _run(["sysctl", "-w", "net.ipv6.conf.default.disable_ipv6=1"])
+    log.info("IPv6 отключён")
+
+
+def _enable_ipv6() -> None:
+    """Включает IPv6 обратно."""
+    _run(["sysctl", "-w", "net.ipv6.conf.all.disable_ipv6=0"])
+    _run(["sysctl", "-w", "net.ipv6.conf.default.disable_ipv6=0"])
+    log.info("IPv6 включён")
+
+
+# DNS серверы для VPN (публичные, без логов)
+VPN_DNS = ["1.1.1.1", "8.8.8.8"]
+
+# Оригинальный resolv.conf — сохраняется при setup, восстанавливается при teardown
+_original_resolv: str | None = None
+
+
 def setup_full_tunnel(server_host: str, tun_iface: str) -> bool:
     """Настраивает policy routing: весь трафик через TUN, серверный — через WiFi."""
+    global _original_resolv
+
     gw = get_default_gateway()
     if not gw:
         log.error("Нет дефолтного маршрута — не могу настроить full tunnel")
         return False
+
+    # 0. Отключаем IPv6 — предотвращает утечку реального IP через IPv6
+    _disable_ipv6()
 
     # 1. Маршрут к серверу через реальный шлюз (приоритет выше чем VPN)
     _run(["ip", "rule", "del", "prio", str(SRV_PRIO)])  # очистка предыдущего
@@ -139,21 +206,44 @@ def setup_full_tunnel(server_host: str, tun_iface: str) -> bool:
     _run(["ip", "route", "add", "default", "dev", tun_iface, "table", str(VPN_TABLE)])
     log.info("Route: default dev %s (table %d)", tun_iface, VPN_TABLE)
 
-    # 3. Правило: весь трафик -> таблица VPN
+    # 3. Локальные подсети — обходят VPN, идут через main table
+    for i, subnet in enumerate(LOCAL_SUBNETS):
+        prio = LOCAL_PRIO + i
+        _run(["ip", "rule", "del", "prio", str(prio)])
+        _run(["ip", "rule", "add", "to", subnet, "lookup", "main", "prio", str(prio)])
+    log.info("Rule: локальные подсети (%d шт.) -> main table (prio %d+)",
+             len(LOCAL_SUBNETS), LOCAL_PRIO)
+
+    # 4. Правило: весь остальной трафик -> таблица VPN
     _run(["ip", "rule", "del", "prio", str(VPN_PRIO)])  # очистка предыдущего
     _run(["ip", "rule", "add", "lookup", str(VPN_TABLE), "prio", str(VPN_PRIO)])
     log.info("Rule: весь трафик -> table %d (prio %d)", VPN_TABLE, VPN_PRIO)
+
+    # 4. DNS — переключаем на публичные серверы (через туннель)
+    _original_resolv = _save_resolv_conf()
+    _set_dns(VPN_DNS)
 
     return True
 
 
 def teardown_full_tunnel(server_host: str) -> None:
     """Убирает policy routing правила и VPN таблицу."""
+    global _original_resolv
+
     _run(["ip", "rule", "del", "prio", str(VPN_PRIO)])
     _run(["ip", "rule", "del", "prio", str(SRV_PRIO)])
+    for i in range(len(LOCAL_SUBNETS)):
+        _run(["ip", "rule", "del", "prio", str(LOCAL_PRIO + i)])
     _run(["ip", "route", "flush", "table", str(VPN_TABLE)])
-    # Удаляем маршрут к серверу если он остался в main table
     _run(["ip", "route", "del", f"{server_host}/32"])
+
+    # Восстанавливаем DNS
+    _restore_resolv_conf(_original_resolv)
+    _original_resolv = None
+
+    # Включаем IPv6 обратно
+    _enable_ipv6()
+
     log.info("Policy routing очищен")
 
 
@@ -375,19 +465,123 @@ async def connect_once(cfg, stop: asyncio.Future,
 
     log.info("SSH соединение установлено")
 
-    # ── Шаг 1: PULL — получаем IP ─────────────────────────────────────────────
+    # ── Шаг 1: PULL — получаем IP (с поддержкой select_gateway) ──────────────
+    # Интерактивный exec: первая JSON-строка от сервера — либо PUSH_REPLY,
+    # либо {"action":"select_gateway","gateways":[{"id","name"}]}. Во втором
+    # случае клиент отвечает {"gateway_id":"<uuid>"}\n и читает PUSH_REPLY.
     try:
-        result = await conn.run("get_ip", check=True, encoding=None)
-        raw = result.stdout.decode().strip() if result.stdout else ""
-        if not raw:
-            log.error("Сервер вернул пустой ответ на get_ip")
-            conn.close()
-            return False, True
-        push = json.loads(raw)
+        proc = await conn.create_process("get_ip", encoding=None)
     except Exception as e:
         log.error("Ошибка get_ip: %s", e)
         conn.close()
         return False, True
+
+    async def _read_json_line():
+        raw = await asyncio.wait_for(proc.stdout.readline(), timeout=30)
+        if not raw:
+            return None
+        return json.loads(raw.decode().strip())
+
+    try:
+        msg = await _read_json_line()
+        if msg is None:
+            log.error("Сервер вернул пустой ответ на get_ip")
+            proc.close()
+            conn.close()
+            return False, True
+
+        if msg.get("action") == "select_gateway":
+            gateways = msg.get("gateways") or []
+            if not gateways:
+                log.error("Сервер прислал select_gateway с пустым списком")
+                proc.close()
+                conn.close()
+                return False, False
+
+            pref = (getattr(cfg, "gateway", None) or "").strip()
+            chosen = None
+            sticky = False
+
+            if pref:
+                # --gateway: автоматический выбор по id + sticky
+                for g in gateways:
+                    if g.get("id") == pref:
+                        chosen = g
+                        break
+                if chosen is None:
+                    log.error("--gateway %s не найден среди предложенных сервером", pref)
+                    proc.close()
+                    conn.close()
+                    return False, False
+                sticky = True
+                log.info("--gateway=%s -> %s, sticky=true", pref, chosen.get("name"))
+            else:
+                # Интерактивный выбор через терминал
+                print("\n── Сервер предлагает выбор gateway ──", flush=True)
+                for i, g in enumerate(gateways, 1):
+                    print(f"  {i}. {g.get('name')}  {g.get('id')}", flush=True)
+                print("(введите UUID или номер; чтобы запомнить выбор, "
+                      "перезапустите клиент с --gateway <id>)", flush=True)
+
+                loop = asyncio.get_running_loop()
+                try:
+                    raw = await asyncio.wait_for(
+                        loop.run_in_executor(None, input, "gateway> "),
+                        timeout=120,
+                    )
+                except (EOFError, asyncio.TimeoutError):
+                    log.error("Таймаут/EOF при выборе gateway")
+                    proc.close()
+                    conn.close()
+                    return False, False
+
+                raw = (raw or "").strip()
+                if raw.isdigit():
+                    idx = int(raw) - 1
+                    if 0 <= idx < len(gateways):
+                        chosen = gateways[idx]
+                else:
+                    for g in gateways:
+                        if g.get("id") == raw:
+                            chosen = g
+                            break
+
+                if chosen is None:
+                    log.error("Неверный выбор gateway: %r", raw)
+                    proc.close()
+                    conn.close()
+                    return False, False
+                log.info("Выбран gateway: %s (%s), sticky=false",
+                         chosen.get("name"), chosen["id"])
+
+            reply = (json.dumps({"gateway_id": chosen["id"], "sticky": sticky}) + "\n").encode()
+            proc.stdin.write(reply)
+            try:
+                await proc.stdin.drain()
+            except Exception:
+                pass
+
+            msg = await _read_json_line()
+            if msg is None:
+                log.error("Сервер не ответил после выбора gateway")
+                proc.close()
+                conn.close()
+                return False, True
+
+        push = msg
+    except Exception as e:
+        log.error("Ошибка get_ip: %s", e)
+        try:
+            proc.close()
+        except Exception:
+            pass
+        conn.close()
+        return False, True
+
+    try:
+        proc.close()
+    except Exception:
+        pass
 
     if "error" in push:
         err = push["error"]
@@ -413,7 +607,12 @@ async def connect_once(cfg, stop: asyncio.Future,
     cfg.chunk_max   = chunk_max
     cfg.delay_min   = delay_min
     cfg.delay_max   = delay_max
-    log.info("PUSH_REPLY: client_ip=%s server_ip=%s mtu=%d stealth=%d", client_ip, server_ip, mtu, stealth)
+    gw_info = push.get("gateway")
+    if gw_info:
+        log.info("PUSH_REPLY: client_ip=%s server_ip=%s mtu=%d stealth=%d gateway=%s (tun=%s)",
+                 client_ip, server_ip, mtu, stealth, gw_info.get("name"), gw_info.get("tun"))
+    else:
+        log.info("PUSH_REPLY: client_ip=%s server_ip=%s mtu=%d stealth=%d", client_ip, server_ip, mtu, stealth)
 
     # ── Шаг 2: TUN — создаём только если нет или IP изменился ────────────────
     # MTU приходит от сервера в зависимости от уровня stealth
@@ -542,6 +741,11 @@ def parse_args():
     p.add_argument("--user",     required=True)
     p.add_argument("--password", required=True)
     p.add_argument("--mode",     choices=["tun-only", "full"], default="tun-only")
+    p.add_argument("--gateway",  default=None,
+                   metavar="UUID",
+                   help="UUID outbound gateway. При указании клиент шлёт sticky=true, "
+                        "и сервер сохраняет выбор в users.json — следующие коннекты "
+                        "не будут запрашивать выбор.")
     p.add_argument("--debug",    action="store_true")
     return p.parse_args()
 

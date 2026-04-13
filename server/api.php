@@ -15,13 +15,15 @@
  *   POST   ?action=gateways                      — install a gateway (body: {id,name,type,host,active,settings})
  *   DELETE ?action=gateways&id=<uuid>            — stop/remove a gateway and clean systemd
  *   GET    ?action=logs[&date=20260409][&files[]=20260409_125524] — get logs for a date
- *   GET    ?action=statistics[&date=2026-04-09]  — get statistics entries for a date
+ *   GET    ?action=statistics[&date=2026-04-09]       — get server statistics entries for a date
+ *   GET    ?action=user_statistics[&user_id=<uuid>]   — get per-user statistics (all or one user)
  */
 
 define('SERVER_DIR', __DIR__);
 define('USERS_FILE',      SERVER_DIR . '/users.json');
 define('SETTINGS_FILE',   SERVER_DIR . '/settings.json');
-define('STATISTICS_FILE', SERVER_DIR . '/statistics.json');
+define('STATISTICS_FILE',      SERVER_DIR . '/server_statistics.json');
+define('USER_STATISTICS_FILE', SERVER_DIR . '/user_statistics.json');
 define('LOGS_DIR',        SERVER_DIR . '/logs');
 define('SERVICE_NAME',    'strans-server');
 
@@ -387,6 +389,22 @@ if ($action === 'statistics') {
     }
 
     ok($filtered);
+}
+
+// ─── user_statistics ─────────────────────────────────────────────────────────
+
+if ($action === 'user_statistics') {
+    if (method() !== 'GET') err('Use GET', 405);
+
+    if (!file_exists(USER_STATISTICS_FILE)) ok(new stdClass());
+    $all = readJson(USER_STATISTICS_FILE);
+    if (!is_array($all)) ok(new stdClass());
+
+    $userId = trim($_GET['user_id'] ?? '');
+    if ($userId !== '') {
+        ok($all[$userId] ?? new stdClass());
+    }
+    ok($all);
 }
 
 // ─── proxies ─────────────────────────────────────────────────────────────────
