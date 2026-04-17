@@ -9,6 +9,7 @@
  *   GET    ?action=users                         — get users.json
  *   POST   ?action=users                         — add new user (JSON body = user object)
  *   PATCH  ?action=users&id=<uuid>               — update user by id field (merge keys)
+ *   PUT    ?action=users                         — full sync: replace list by id, preserve ip_pool/gateway_id
  *   GET    ?action=settings                      — get settings.json
  *   PATCH  ?action=settings                      — update settings.json (merge keys); restarts if host/port changed
  *   GET    ?action=gateways                      — list gateways from settings.json
@@ -158,6 +159,39 @@ if ($action === 'users') {
 
         writeJson(USERS_FILE, $users);
         ok(['message' => "User '{$id}' updated"]);
+    }
+
+    // PUT — full sync by id. Replaces users.json with incoming list.
+    // For entries with matching id, server-managed fields (ip_pool, gateway_id)
+    // are preserved from the existing file when absent in incoming payload.
+    if ($m === 'PUT') {
+        $incoming = body();
+        if (!is_array($incoming)) err('Body must be a JSON array of users');
+
+        $existing = file_exists(USERS_FILE) ? readJson(USERS_FILE) : [];
+        if (!is_array($existing)) $existing = [];
+
+        $existingById = [];
+        foreach ($existing as $e) {
+            if (is_array($e) && isset($e['id'])) {
+                $existingById[$e['id']] = $e;
+            }
+        }
+
+        $result = [];
+        foreach ($incoming as $u) {
+            if (!is_array($u) || !isset($u['id'])) continue;
+            $prev = $existingById[$u['id']] ?? [];
+            foreach (['ip_pool', 'gateway_id'] as $k) {
+                if (!array_key_exists($k, $u) && array_key_exists($k, $prev)) {
+                    $u[$k] = $prev[$k];
+                }
+            }
+            $result[] = $u;
+        }
+
+        writeJson(USERS_FILE, $result);
+        ok(['message' => 'Users synced', 'count' => count($result)]);
     }
 
     err('Method not allowed', 405);
@@ -521,6 +555,12 @@ if ($action === 'ping') {
     ));
 
     ok(['tun' => $tun, 'ip' => $ip]);
+}
+
+// ─── health ──────────────────────────────────────────────────────────────────
+
+if ($action === 'health') {
+    ok(['service' => 'api.php']);
 }
 
 // ─── Unknown action ───────────────────────────────────────────────────────────
