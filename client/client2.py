@@ -62,6 +62,54 @@ IFF_TUN   = 0x0001
 IFF_NO_PI = 0x1000
 TUNSETIFF = 0x400454ca
 
+# ─── TURN transport (опционально) ─────────────────────────────────────────
+_TURN_AVAILABLE = False
+TurnPeer = None
+TurnUdpClient = None
+TurnTlsClient = None
+TurnError = Exception
+
+_TURN_PATHS = (
+    Path("/var/www/html2/yovpn/yovpn-control/storage/app/server/ssh"),
+    Path("/var/www/html2/yovpn-client/linux"),
+)
+for _p in (None, *_TURN_PATHS):
+    if _p is not None and not _p.is_dir():
+        continue
+    inserted = False
+    if _p is not None:
+        sys.path.insert(0, str(_p))
+        inserted = True
+    try:
+        from turn_transport import TurnPeer, TurnError, TurnUdpClient, TurnTlsClient  # type: ignore
+        _TURN_AVAILABLE = True
+        break
+    except Exception:
+        pass
+    finally:
+        if inserted:
+            try:
+                sys.path.remove(str(_p))
+            except ValueError:
+                pass
+if _TURN_AVAILABLE:
+    del _p, inserted
+    del _TURN_PATHS
+else:
+    try:
+        del _p, inserted
+    except Exception:
+        pass
+
+
+def _normalize_transport(value: str | None) -> str:
+    transport = str(value or "ssh").strip().lower().replace("_", "-")
+    if transport == "udp":
+        transport = "turn-udp"
+    if transport not in {"ssh", "turn-udp", "turn-tls"}:
+        return "ssh"
+    return transport
+
 
 # ─── TUN устройство ───────────────────────────────────────────────────────────
 
@@ -694,9 +742,35 @@ async def _run_mimic_preamble(master: "SSHMaster") -> None:
 
 # ─── Форвардинг ───────────────────────────────────────────────────────────────
 
-async def forward_packets(fd: int, stdin, stdout) -> None:
-    """TUN ↔ subprocess pipes: целые IP-пакеты в обе стороны."""
+async def forward_packets(
+    fd: int,
+    stdin,
+    stdout,
+    *,
+    turn_client=None,
+    turn_peer=None,
+) -> None:
+    """TUN ↔ subprocess pipes, опционально с TURN."""
     loop = asyncio.get_event_loop()
+
+    async def _drain_to_tun(chunk: bytes) -> None:
+        if not chunk:
+            return
+        buf = chunk
+        while len(buf) >= 20:
+            pkt_len = (buf[2] << 8) | buf[3]
+            if pkt_len < 20 or pkt_len > 65535:
+                log.debug("TURN->TUN: invalid packet len=%d, dropping buffer", pkt_len)
+                return
+            if len(buf) < pkt_len:
+                return
+            pkt = buf[:pkt_len]
+            buf = buf[pkt_len:]
+            try:
+                await loop.run_in_executor(None, os.write, fd, pkt)
+            except (OSError, BrokenPipeError, ConnectionResetError) as e:
+                log.debug("TUN write: %s", e)
+                return
 
     async def tun_to_ssh():
         pkt_count = 0
@@ -762,8 +836,29 @@ async def forward_packets(fd: int, stdin, stdout) -> None:
                 log.debug("SSH->TUN: %s", e)
                 break
 
+    async def turn_to_tun():
+        if turn_client is None or turn_peer is None:
+            return
+        while True:
+            try:
+                _peer, payload = await asyncio.wait_for(turn_client.recv(), timeout=0.5)
+            except asyncio.TimeoutError:
+                continue
+            except asyncio.CancelledError:
+                return
+            except Exception as e:
+                log.debug("TURN->TUN: %s", e)
+                return
+            if not payload:
+                continue
+            await _drain_to_tun(payload)
+
     log.info("Форвардинг запущен")
-    await asyncio.gather(tun_to_ssh(), ssh_to_tun(), return_exceptions=True)
+    if _TURN_AVAILABLE and turn_client is not None and turn_peer is not None:
+        log.info("TURN transport активен (upload через SSH, download через TURN)")
+        await asyncio.gather(tun_to_ssh(), ssh_to_tun(), turn_to_tun(), return_exceptions=True)
+    else:
+        await asyncio.gather(tun_to_ssh(), ssh_to_tun(), return_exceptions=True)
     log.info("Форвардинг завершён")
 
 
@@ -801,7 +896,10 @@ async def _exchange_get_ip(master: SSHMaster, cfg) -> dict | None:
     """get_ip exec → (optional select_country) → (optional select_gateway) → PUSH_REPLY."""
     split_cc = (getattr(cfg, "split_tunneling", None) or "").strip().upper()
     gateway_mode = (getattr(cfg, "gateway_mode", None) or "").strip()
+    transport = _normalize_transport(getattr(cfg, "transport", None))
     get_ip_cmd = f"get_ip {gateway_mode}" if gateway_mode else "get_ip"
+    if transport != "ssh":
+        get_ip_cmd += f" transport:{transport}"
     if split_cc:
         get_ip_cmd += f" split:{split_cc}"
     proc = await master.exec(get_ip_cmd)
@@ -929,6 +1027,51 @@ async def _exchange_get_ip(master: SSHMaster, cfg) -> dict | None:
         await _terminate_proc(proc, "get_ip")
 
 
+async def _prepare_turn_transport(cfg, push: dict):
+    transport = _normalize_transport(getattr(cfg, "transport", None))
+    if transport == "ssh":
+        return None, None
+    if not _TURN_AVAILABLE:
+        log.error("TURN недоступен: отсутствует turn_transport")
+        return None, None
+    turn_info = push.get("turn")
+    if not isinstance(turn_info, dict):
+        log.error("TURN transport запросен, но сервер не вернул turn-offer")
+        return None, None
+    srv_relay = turn_info.get("server_relayed") or {}
+    peer_ip = str(srv_relay.get("ip", "") or "").strip()
+    peer_port = int(srv_relay.get("port", 0) or 0)
+    host = str(turn_info.get("host", "") or "").strip()
+    port = int(turn_info.get("port", 0) or 0)
+    realm = str(turn_info.get("realm", "") or "").strip()
+    client_creds = turn_info.get("client") or {}
+    username = str(client_creds.get("username", "") or "").strip()
+    credential = str(client_creds.get("credential", "") or "").strip()
+    if not host or not port or not peer_ip or not peer_port or not username or not credential:
+        log.error("TURN offer неполный: host=%s:%s relay=%s:%s",
+                  host, port, peer_ip, peer_port)
+        return None, None
+    turn_cls = TurnTlsClient if transport == "turn-tls" else TurnUdpClient
+    if turn_cls is None:
+        log.error("TURN transport недоступен для %s", transport)
+        return None, None
+    try:
+        turn_client = turn_cls(host, port, username, credential, realm)
+        await turn_client.open()
+        turn_peer = TurnPeer(peer_ip, peer_port)
+        await turn_client.create_permission(turn_peer)
+        log.info("TURN transport настроен (%s): %s:%d -> relay=%s:%d",
+                 transport, host, port, peer_ip, peer_port)
+        return turn_client, turn_peer
+    except Exception as e:
+        log.error("Ошибка инициализации TURN: %s", e)
+        try:
+            turn_client.close()
+        except Exception:
+            pass
+        return None, None
+
+
 async def connect_once(cfg, stop: asyncio.Future, tun_state: dict):
     """Возвращает (connected_ok, should_reconnect)."""
     log.info("Подключаюсь к %s:%d как '%s'", cfg.host, cfg.port, cfg.user)
@@ -944,6 +1087,8 @@ async def connect_once(cfg, stop: asyncio.Future, tun_state: dict):
         return False, True
 
     log.info("SSH ControlMaster установлен (socket=%s)", sock_path)
+    transport = "ssh"
+    turn_client = None
 
     try:
         # ── Шаг 0: mimic preamble ─────────────────────────────────────────────
@@ -979,7 +1124,7 @@ async def connect_once(cfg, stop: asyncio.Future, tun_state: dict):
             log.info("PUSH_REPLY: client_ip=%s server_ip=%s mtu=%d gateway=%s (tun=%s)",
                      client_ip, server_ip, mtu,
                      gw_info.get("real_ip") or f"[{gw_info.get('country_code') or '?'}]",
-                     gw_info.get("tun"))
+                    gw_info.get("tun"))
         else:
             log.info("PUSH_REPLY: client_ip=%s server_ip=%s mtu=%d",
                      client_ip, server_ip, mtu)
@@ -987,6 +1132,16 @@ async def connect_once(cfg, stop: asyncio.Future, tun_state: dict):
             log.info("Split gateway: %s (tun=%s) cc=%s",
                      split_info.get("real_ip") or f"[{split_info.get('country_code') or '?'}]",
                      split_info.get("tun"), split_info.get("split_cc"))
+
+        transport = _normalize_transport(getattr(cfg, "transport", None))
+        log.info("Запрошен транспорт: %s", transport.replace("-", "_"))
+        turn_client = None
+        turn_peer = None
+        if transport != "ssh":
+            turn_client, turn_peer = await _prepare_turn_transport(cfg, push)
+            if turn_client is None:
+                log.warning("Не удалось поднять TURN, возвращаюсь к ssh transport")
+                transport = "ssh"
 
         # ── Шаг 2: TUN ────────────────────────────────────────────────────────
         if tun_state["fd"] is None or tun_state["client_ip"] != client_ip:
@@ -1005,7 +1160,10 @@ async def connect_once(cfg, stop: asyncio.Future, tun_state: dict):
             log.info("Переиспользую существующий TUN %s (%s)", IFACE, client_ip)
 
         # ── Шаг 3: tunnel slave-канал ────────────────────────────────────────
-        tunnel_proc = await master.exec(f"tunnel {client_ip}")
+        tunnel_cmd = f"tunnel {client_ip}"
+        if transport != "ssh" and turn_client is not None and turn_peer is not None:
+            tunnel_cmd += f" turn:{turn_peer.ip}:{turn_peer.port}"
+        tunnel_proc = await master.exec(tunnel_cmd)
         log.info("SSH tunnel канал открыт")
 
         # ── Шаг 4: маршруты ──────────────────────────────────────────────────
@@ -1039,8 +1197,13 @@ async def connect_once(cfg, stop: asyncio.Future, tun_state: dict):
                     return
 
         stderr_task = asyncio.create_task(_drain_stderr(tunnel_proc, "tunnel"))
-        fwd_task = asyncio.create_task(
-            forward_packets(fd, tunnel_proc.stdin, tunnel_proc.stdout))
+        fwd_task = asyncio.create_task(forward_packets(
+            fd,
+            tunnel_proc.stdin,
+            tunnel_proc.stdout,
+            turn_client=turn_client if transport != "ssh" else None,
+            turn_peer=turn_peer if transport != "ssh" else None,
+        ))
         wait_task = asyncio.create_task(tunnel_proc.wait())
 
         done, _pending = await asyncio.wait(
@@ -1058,6 +1221,11 @@ async def connect_once(cfg, stop: asyncio.Future, tun_state: dict):
         log.warning("Туннель оборвался, будет реконнект")
         return True, True
     finally:
+        if transport != "ssh" and turn_client is not None:
+            try:
+                turn_client.close()
+            except Exception:
+                pass
         await master.stop()
 
 
@@ -1149,6 +1317,8 @@ def parse_args():
     p.add_argument("--gateway-country", default=None, dest="gateway_country",
                    metavar="CC",
                    help="Код страны для --gateway-mode country.")
+    p.add_argument("--transport", default="ssh", choices=["ssh", "turn-udp", "turn-tls", "turn_udp", "udp"],
+                   help="Транспорт для подключения: ssh | turn-udp | turn-tls")
     p.add_argument("--split-tunneling", default=None, dest="split_tunneling",
                    metavar="CC",
                    help="Split tunneling: трафик для указанной страны идёт "
