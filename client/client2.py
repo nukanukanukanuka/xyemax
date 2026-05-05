@@ -84,6 +84,7 @@ def create_tun(name: str, client_ip: str, server_ip: str, mtu: int) -> int:
                    check=True, capture_output=True)
     subprocess.run(["ip", "link", "set", "dev", name, "mtu", str(mtu),
                     "txqueuelen", "2000", "up"], check=True, capture_output=True)
+    _set_nm_managed(name, managed=False)
     r = subprocess.run(["ip", "addr", "show", name], capture_output=True, text=True)
     log.info("Интерфейс %s:\n%s", name, r.stdout.strip())
     return fd
@@ -109,11 +110,25 @@ LOCAL_SUBNETS = [
     "169.254.0.0/16", "127.0.0.0/8",
 ]
 VPN_DNS = ["1.1.1.1", "8.8.8.8"]
-_original_resolv: str | None = None
+_original_resolv: dict | None = None
+_original_ipv6: dict[str, str] | None = None
 
 
 def _run(cmd, **kw):
     return subprocess.run(cmd, check=False, capture_output=True, text=True, **kw)
+
+
+def _set_nm_managed(iface: str, managed: bool) -> None:
+    if not shutil.which("nmcli"):
+        return
+    value = "yes" if managed else "no"
+    r = _run(["nmcli", "device", "set", iface, "managed", value])
+    if r.returncode == 0:
+        log.info("NetworkManager: %s managed=%s", iface, value)
+    else:
+        msg = (r.stderr or r.stdout or "").strip()
+        log.debug("NetworkManager: не удалось выставить managed=%s для %s: %s",
+                  value, iface, msg)
 
 
 def get_default_gateway() -> dict | None:
@@ -127,18 +142,30 @@ def get_default_gateway() -> dict | None:
 
 
 def _save_resolv_conf():
+    path = Path("/etc/resolv.conf")
     try:
-        return Path("/etc/resolv.conf").read_text()
+        st = os.lstat(path)
+        return {
+            "content": path.read_text(),
+            "is_symlink": path.is_symlink(),
+            "target": os.readlink(path) if path.is_symlink() else None,
+            "mode": stat.S_IMODE(st.st_mode),
+            "uid": st.st_uid,
+            "gid": st.st_gid,
+        }
     except OSError:
         return None
 
 
 def _set_dns(servers):
+    path = Path("/etc/resolv.conf")
     content = "# set by strans-client (VPN)\n"
     for s in servers:
         content += f"nameserver {s}\n"
     try:
-        Path("/etc/resolv.conf").write_text(content)
+        if path.is_symlink():
+            path.unlink()
+        path.write_text(content)
         log.info("DNS установлен: %s", ", ".join(servers))
     except OSError as e:
         log.warning("Не удалось обновить /etc/resolv.conf: %s", e)
@@ -147,23 +174,62 @@ def _set_dns(servers):
 def _restore_resolv_conf(original):
     if original is None:
         return
+    path = Path("/etc/resolv.conf")
     try:
-        Path("/etc/resolv.conf").write_text(original)
+        if original.get("is_symlink"):
+            target = original.get("target")
+            if target and (not path.is_symlink() or os.readlink(path) != target):
+                try:
+                    path.unlink()
+                except FileNotFoundError:
+                    pass
+                path.symlink_to(target)
+                try:
+                    os.lchown(path, original.get("uid", -1), original.get("gid", -1))
+                except OSError:
+                    pass
+            log.info("DNS symlink восстановлен")
+            return
+        path.write_text(original.get("content") or "")
+        os.chown(path, original.get("uid", -1), original.get("gid", -1))
+        os.chmod(path, original.get("mode", 0o644))
         log.info("DNS восстановлен")
     except OSError as e:
         log.warning("Не удалось восстановить /etc/resolv.conf: %s", e)
 
 
+def _sysctl_get(key: str) -> str | None:
+    r = _run(["sysctl", "-n", key])
+    if r.returncode != 0:
+        return None
+    return r.stdout.strip()
+
+
 def _disable_ipv6():
+    global _original_ipv6
+    if _original_ipv6 is None:
+        _original_ipv6 = {
+            "net.ipv6.conf.all.disable_ipv6":
+                _sysctl_get("net.ipv6.conf.all.disable_ipv6") or "0",
+            "net.ipv6.conf.default.disable_ipv6":
+                _sysctl_get("net.ipv6.conf.default.disable_ipv6") or "0",
+        }
     _run(["sysctl", "-w", "net.ipv6.conf.all.disable_ipv6=1"])
     _run(["sysctl", "-w", "net.ipv6.conf.default.disable_ipv6=1"])
     log.info("IPv6 отключён")
 
 
 def _enable_ipv6():
-    _run(["sysctl", "-w", "net.ipv6.conf.all.disable_ipv6=0"])
-    _run(["sysctl", "-w", "net.ipv6.conf.default.disable_ipv6=0"])
-    log.info("IPv6 включён")
+    global _original_ipv6
+    if _original_ipv6 is None:
+        _original_ipv6 = {
+            "net.ipv6.conf.all.disable_ipv6": "0",
+            "net.ipv6.conf.default.disable_ipv6": "0",
+        }
+    for key, value in _original_ipv6.items():
+        _run(["sysctl", "-w", f"{key}={value}"])
+    _original_ipv6 = None
+    log.info("IPv6 восстановлен")
 
 
 def setup_full_tunnel(server_host: str, tun_iface: str) -> bool:
